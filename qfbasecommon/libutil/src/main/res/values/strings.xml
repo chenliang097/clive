@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pl_libutil_network_not_connected">网络已断开，请重新尝试。</string>
+    <string name="pl_libutil_toolbar_null_tip_text">请在activity布局中顶部增加@layout/common_toolbar_layout</string>
+    <string name="just">Just now</string>
+    <string name="today">Today</string>
+    <string name="minutesago">%1$s minutes ago</string>
+    <string name="yearago">More than one year ago</string>
+    <string name="dayago">%1$s day ago</string>
+    <string name="daysago">%1$s days ago</string>
+    <string name="yearago_format">%1$s years ago</string>
+    <string name="monthago_format">%1$s months ago</string>
+    <string name="hourago_format">%1$s hours ago</string>
+</resources>

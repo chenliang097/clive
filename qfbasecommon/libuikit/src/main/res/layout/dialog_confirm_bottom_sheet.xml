@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/container_tv_content0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20pt"
+            android:paddingTop="28pt"
+            android:paddingEnd="20pt"
+            android:paddingBottom="28pt">
+
+            <TextView
+                android:id="@+id/tv_content0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:fontFamily="@font/boboo_regular"
+                android:gravity="center"
+                android:textColor="#222222"
+                android:textSize="30pt"
+                tools:text="拍照" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:background="#E6EAED" />
+
+        <LinearLayout
+            android:id="@+id/container_tv_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20pt"
+            android:paddingTop="28pt"
+            android:paddingEnd="20pt"
+            android:paddingBottom="28pt"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_content2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:fontFamily="@font/boboo_regular"
+                android:gravity="center"
+                android:textColor="#222222"
+                android:textSize="30pt"
+                tools:text="拉黑" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:background="#E6EAED" />
+
+        <LinearLayout
+            android:id="@+id/container_tv_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20pt"
+            android:paddingTop="28pt"
+            android:paddingEnd="20pt"
+            android:paddingBottom="28pt"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_content3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:fontFamily="@font/boboo_regular"
+                android:gravity="center"
+                android:textColor="#222222"
+                android:textSize="30pt"
+                tools:text="举报" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1pt"
+            android:background="#E6EAED" />
+
+        <LinearLayout
+            android:id="@+id/container_tv_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20pt"
+            android:paddingTop="28pt"
+            android:paddingEnd="20pt"
+            android:paddingBottom="28pt">
+
+            <TextView
+                android:id="@+id/tv_content1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:fontFamily="@font/boboo_regular"
+                android:gravity="center"
+                android:textColor="#222222"
+                android:textSize="30pt"
+                tools:text="相册" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10pt"
+            android:background="#E6EAED" />
+
+        <LinearLayout
+            android:id="@+id/container_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="140pt">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:fontFamily="@font/boboo_regular"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:paddingTop="35pt"
+                android:textColor="#222222"
+                android:textSize="30pt"
+                tools:text="取消" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

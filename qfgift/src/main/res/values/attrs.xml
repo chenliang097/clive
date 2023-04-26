@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--房间显示礼物-->
+    <declare-styleable name="pl_libgift_MagicTextView">
+        <attr name="pl_libgift_innerShadowColor" format="color" />
+        <attr name="pl_libgift_innerShadowRadius" format="float" />
+        <attr name="pl_libgift_innerShadowDx" format="float" />
+        <attr name="pl_libgift_innerShadowDy" format="float" />
+
+        <attr name="pl_libgift_outerShadowColor" format="color" />
+        <attr name="pl_libgift_outerShadowRadius" format="float" />
+        <attr name="pl_libgift_outerShadowDx" format="float" />
+        <attr name="pl_libgift_outerShadowDy" format="float" />
+
+        <attr name="pl_libgift_typeface" format="string" />
+
+        <attr name="pl_libgift_foreground" format="reference|color" />
+
+        <attr name="pl_libgift_strokeWidth" format="float" />
+        <attr name="pl_libgift_strokeMiter" format="float" />
+        <attr name="pl_libgift_strokeColor" format="color" />
+        <attr name="pl_libgift_strokeJoinStyle">
+            <enum name="miter" value="0" />
+            <enum name="bevel" value="1" />
+            <enum name="round" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="widget_GiftSidebarLaneLayout" tools:ignore="ResourceName">
+        <attr name="wgl_side_num" format="integer" />
+    </declare-styleable>
+</resources>

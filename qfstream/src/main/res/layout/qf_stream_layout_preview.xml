@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <RelativeLayout
+        android:id="@+id/streamPreviewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/streamPreviewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:id="@+id/streamPreviewCloseImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/qf_stream_icon_close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/stream_preview_title"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/streamPreviewTitle"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/streamPreviewEditLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/live_edit_title_bg"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/streamPreviewImgCoverLayout"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp">
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/streamPreviewImgCover"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/rt_default_avatar"
+                        android:scaleType="centerCrop"
+                        app:riv_corner_radius="@dimen/dp_10"
+                        app:riv_mutate_background="true" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/rt_img_plus" />
+
+                    <TextView
+                        android:id="@+id/streamPreviewChangeCoverTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:text="@string/stream_preview_change_cover"
+                        android:background="@drawable/rt_bg_stream_preview_change_cover"/>
+                </RelativeLayout>
+
+
+                <EditText
+                    android:id="@+id/streamPreviewEditTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/streamPreviewImgCoverLayout"
+                    android:background="@drawable/transparent"
+                    android:hint="@string/stream_prepare_edit_title"
+                    android:maxLength="10"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/streamPreviewImgCoverLayout"
+                    android:layout_below="@id/streamPreviewEditTitle"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/streamPreviewLocationTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="@string/stream_unknown_location"/>
+
+                    <TextView
+                        android:id="@+id/streamPreviewKeijianTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="@string/stream_preview_kejian"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="200dp">
+
+            <TextView
+                android:id="@+id/streamPreviewTurnCameraTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:drawableTop="@drawable/rt_stream_icon_turn_camera_stream"
+                android:text="@string/stream_preview_return"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/streamPreviewBeautyTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:drawableTop="@drawable/rt_icon_stream_beauty"
+                android:text="@string/stream_preview_beauty"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/streamPreviewShareTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:drawableTop="@drawable/rt_icon_stream_share"
+                android:text="@string/stream_preview_share"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/streamPreviewBtnStart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="90dp"
+            android:background="@drawable/rt_common_btn"
+            android:gravity="center"
+            android:text="@string/stream_prepare_live_start"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

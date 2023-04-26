@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_empty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:ignore="ResourceName">
+
+    <ImageView
+        android:id="@+id/empty_im"
+        android:layout_width="320pt"
+        android:layout_height="320pt"
+        android:src="@drawable/icon_empty_callback" />
+
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12pt"
+        android:fontFamily="@font/boboo_regular"
+        android:text="@string/no_datas"
+        android:textColor="#999999"
+        android:textSize="24pt" />
+
+
+        <TextView
+            android:id="@+id/empty_btn"
+            android:layout_marginTop="32pt"
+            android:minWidth="258pt"
+            android:layout_width="wrap_content"
+            android:layout_height="88pt"
+            android:layout_gravity="center"
+            android:layout_marginStart="30pt"
+            android:layout_marginEnd="30pt"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="32pt"
+            tools:text="去获取"
+            android:background="@drawable/common_bg_button_gradient_pt"
+            tools:visibility="visible"
+            android:visibility="gone"
+            />
+
+
+</LinearLayout>

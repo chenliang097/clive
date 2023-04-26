@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+apply from: '../utils.gradle'
+
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    resourcePrefix "pl_libpay_"
+    defaultConfig {
+
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDir("src/main/java")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        lintConfig file("lint.xml")
+        abortOnError false
+        warning 'InvalidPackage'
+        disable 'InvalidPackage'
+    }
+
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    implementation fileTree(dir: '../libs', include: ['*.jar'])
+
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation(rootProject.ext.dependencies["com.alibaba:arouter-api"]) {
+        exclude module: 'support-v4'
+    }
+    annotationProcessor rootProject.ext.dependencies["com.alibaba:arouter-compiler"]
+    //支付宝支付
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+    implementation rootProject.ext.dependencies["weixin"]
+    implementation project(path: ':qfrouter')
+    implementation project(':qfbasebiz:basebizwrapper')
+    implementation project(path: ':qfdatabus')
+    api 'com.alipay.sdk:alipaysdk-android:+@aar'
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="440pt"
+        android:layout_alignParentBottom="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="378pt"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/im"
+            android:layout_width="120pt"
+            android:layout_height="120pt"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/im"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="100pt"
+            android:layout_marginTop="12pt"
+            android:layout_marginEnd="100pt"
+            android:autoSizeMaxTextSize="30pt"
+            android:autoSizeMinTextSize="13pt"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/boboo_regular"
+            android:maxLines="1"
+            android:textColor="#222222"
+            android:textSize="30pt"
+            tools:ignore="UnusedAttribute"
+            tools:text="没撒乐凯没撒乐凯大街考虑大街考虑" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="100pt"
+            android:layout_marginTop="18pt"
+            android:layout_marginEnd="100pt"
+            android:autoSizeMaxTextSize="24pt"
+            android:autoSizeMinTextSize="13pt"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/boboo_regular"
+            android:maxLines="1"
+            android:textColor="#666666"
+            android:textSize="24pt"
+            tools:ignore="UnusedAttribute"
+            tools:text="关注主播不迷路" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="wrap_content"
+            android:layout_height="90pt"
+            android:layout_below="@id/content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34pt"
+            android:minWidth="360pt">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/btn_im"
+                    android:layout_width="34pt"
+                    android:layout_height="34pt"
+                    android:layout_alignBottom="@id/btn_tv"
+                    android:layout_marginEnd="12pt"
+                    android:layout_marginBottom="3pt"
+                    android:layout_toStartOf="@id/btn_tv"
+                    android:src="@drawable/icon_message_fan" />
+
+                <TextView
+                    android:id="@+id/btn_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/boboo_medium"
+                    android:textColor="@color/white"
+                    android:textSize="32pt"
+                    tools:text="关注" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

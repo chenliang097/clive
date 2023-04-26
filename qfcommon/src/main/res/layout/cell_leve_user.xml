@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/im_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="42pt"
+        tools:layout_width="66pt" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="33pt"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:autoSizeMaxTextSize="18pt"
+        android:autoSizeMinTextSize="13pt"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/boboo_medium"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18pt"
+        tools:ignore="UnusedAttribute"
+        tools:layout_marginStart="30pt"
+        tools:text="100" />
+
+</RelativeLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="pl_libgift_banner_item_tag" type="id"></item>
+    <item name="pl_libgift_gift_observer" type="id"></item>
+    <item name="pl_libgift_svga_request" type="id"></item>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="118pt"
+    android:layout_marginTop="24pt"
+    android:layout_marginStart="15pt"
+    android:layout_marginEnd="15pt"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="10pt"
+            android:paddingEnd="10pt">
+
+            <ImageView
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:src="@drawable/icon_rt_coin" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5pt"
+                android:autoSizeMaxTextSize="28pt"
+                android:autoSizeMinTextSize="13pt"
+                android:fontFamily="@font/boboo_medium"
+                android:maxLines="2"
+                android:text="100"
+                android:textColor="#666666"
+                android:textSize="32pt"
+                app:autoSizeTextType="uniform"
+                tools:ignore="UnusedAttribute" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="3pt"
+            android:textColor="#666666"
+            android:textSize="24pt"
+            android:text="10元"
+            tools:text="10元" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

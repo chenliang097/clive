@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/pushStreamLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etUserId"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/qf_stream_bg_edit"
+            android:gravity="center_vertical"
+            android:hint="输入userID"
+            android:inputType="text"
+            android:maxLength="40"
+            android:paddingVertical="5dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/color_222222"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etUserName"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/qf_stream_bg_edit"
+            android:gravity="center_vertical"
+            android:hint="输入userName"
+            android:inputType="text"
+            android:maxLength="40"
+            android:paddingVertical="5dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/color_222222"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/pushStreamBtn"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="推流"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/pullLiveBtn"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/pushStreamLayout"
+        android:text="拉流"/>
+
+    <Button
+        android:id="@+id/payBtn"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/pullLiveBtn"
+        android:text="支付"/>
+
+    <Button
+        android:id="@+id/identificationBtn"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/payBtn"
+        android:text="身份验证"/>
+
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <RelativeLayout
+        android:id="@+id/rl_vip_person_in_vehicle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+        <RelativeLayout
+            android:id="@+id/rl_user_info_vehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:layoutDirection="locale">
+            <LinearLayout
+                android:id="@+id/enterBannerSvipLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tv_user_name_vehicle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_38"
+                    android:paddingTop="@dimen/dp_2"
+                    android:shadowColor="#949393"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="1"
+                    android:textSize="12sp"
+                    tools:text="漫天花絮 大驾光临！" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/enterBannerCarLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:id="@+id/enterBannerCarImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dp_2"/>
+
+                <TextView
+                    android:id="@+id/enterBannerCarTxtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_marginBottom="@dimen/dp_2"
+                    android:shadowColor="#949393"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="1"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="漫天花絮 大驾光临！" />
+            </LinearLayout>
+        </RelativeLayout>
+        <!--com.haiwaizj.libgift.animator.CanvasTextureView
+            android:id="@+id/chatImgCar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_60"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/rl_user_info_vehicle" /-->
+        <ImageView
+            android:id="@+id/image_show_svip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_120"
+            android:layout_below="@id/rl_user_info_vehicle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_9"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+</merge>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_host_tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/streamHostExitLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:layout_marginTop="30dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/streamHostExitAvatar1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_host_avatar"
+            android:padding="2dp"
+            android:src="@drawable/icon_default_live_common"
+            app:riv_oval="true" />
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/streamHostExitAvatar2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="-10dp"
+            android:layout_toEndOf="@+id/streamHostExitAvatar1"
+            android:background="@drawable/bg_host_avatar"
+            android:padding="2dp"
+            android:src="@drawable/icon_default_live_common"
+            app:riv_oval="true"/>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/streamHostExitAvatar3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="-10dp"
+            android:layout_toEndOf="@+id/streamHostExitAvatar2"
+            android:background="@drawable/bg_host_avatar"
+            android:padding="2dp"
+            android:src="@drawable/icon_default_live_common"
+            app:riv_oval="true" />
+        <TextView
+            android:id="@+id/streamHostExitNumTxt"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="-10dp"
+            android:layout_toEndOf="@+id/streamHostExitAvatar3"
+            android:background="@drawable/bg_host_avatar"
+            android:gravity="center"
+            android:text="888"
+            android:textColor="@color/c_stream_999999"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/streamHostExitTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="70dp"
+        android:gravity="center_horizontal"
+        android:text="@string/stream_close_living_content"
+        android:textColor="@color/c_stream_common_666666"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/streamSettingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/streamHostExitCloseTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="7dp"
+            android:background="@drawable/common_bg_button_white"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/stream_close_end"
+            android:textColor="@color/c_common_appcolor"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/streamHostExitContineTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/rt_common_btn"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/stream_close_continue"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_70"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_title_back"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginStart="@dimen/dp_12"-->
+<!--            android:layout_marginLeft="@dimen/dp_12"-->
+<!--            android:background="@drawable/icon_common_topnavigation_lefttarrowback" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_view_title"-->
+<!--            style="@style/Font203"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:text="Title" />-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/viewTitleSubTitleLayout"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginStart="@dimen/dp_5"-->
+<!--            android:layout_toEndOf="@id/tv_view_title"-->
+<!--            android:visibility="gone">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/viewTitleSubTitleTxt"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:textColor="@color/c_4bbb28"-->
+<!--                android:textSize="@dimen/dp_11" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/viewTitleSubTitleImg"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:src="@drawable/chat_online_circle" />-->
+<!--        </LinearLayout>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_view_title_right"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginEnd="@dimen/dp_12"-->
+<!--            android:layout_marginRight="@dimen/dp_12"-->
+<!--            android:textColor="@color/text_nick_name"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:visibility="gone" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_view_title_right_left"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginEnd="@dimen/dp_50"-->
+<!--            android:visibility="gone" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_view_title_right"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginEnd="@dimen/dp_12"-->
+<!--            android:layout_marginRight="@dimen/dp_12"-->
+<!--            android:visibility="gone" />-->
+
+<!--    </RelativeLayout>-->
+
+
+</RelativeLayout>

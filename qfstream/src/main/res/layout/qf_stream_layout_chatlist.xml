@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--聊天-->
+    <com.rongtuoyouxuan.chatlive.base.view.layout.FadingRecyclerView
+        android:id="@+id/room_message_list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_196"
+        android:background="@color/transparent"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+    <!--新消息提醒-->
+    <RelativeLayout
+        android:id="@+id/rl_new_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_12"
+        android:background="@drawable/room_new_chat_bg"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_new_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_6"
+            android:text="@string/new_message"
+            android:textColor="@color/c_common_appcolor" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_new_chat"
+            android:layout_toRightOf="@+id/tv_new_chat"
+            android:paddingEnd="@dimen/dp_7"
+            android:paddingRight="@dimen/dp_7" />
+
+    </RelativeLayout>
+</merge>

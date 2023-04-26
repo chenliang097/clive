@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingDefaultResource">
+
+        <TextView
+            android:id="@+id/tvPosition"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivHeader"
+            app:layout_constraintEnd_toStartOf="@+id/ivHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivHeader"
+            tools:text="111" />
+
+        <ImageView
+            android:id="@+id/ivHeader"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/icon_default_avatar"
+            app:layout_constraintBottom_toTopOf="@+id/space"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginStart="16dp" />
+
+        <ImageView
+            android:id="@+id/ivHeaderFrame"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivHeader"
+            app:layout_constraintEnd_toEndOf="@+id/ivHeader"
+            app:layout_constraintStart_toStartOf="@+id/ivHeader"
+            app:layout_constraintTop_toTopOf="@+id/ivHeader"
+            app:layout_goneMarginStart="16dp" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/ivDiamond"
+            app:layout_constraintEnd_toStartOf="@+id/ivFollow"
+            app:layout_constraintStart_toEndOf="@+id/ivHeader"
+            app:layout_constraintTop_toTopOf="@+id/ivHeader"
+            tools:text="123123123123123123123132123123123123123123" />
+
+        <ImageView
+            android:id="@+id/ivDiamond"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="10dp"
+            android:paddingTop="2dp"
+            android:src="@drawable/qf_stream_icon_diamond"
+            app:layout_constraintBottom_toBottomOf="@+id/ivHeader"
+            app:layout_constraintStart_toEndOf="@+id/ivHeader"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <TextView
+            android:id="@+id/tvDiamond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:includeFontPadding="false"
+            android:text="0"
+            android:textColor="@color/c_FFD54D"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivDiamond"
+            app:layout_constraintStart_toEndOf="@+id/ivDiamond"
+            app:layout_constraintTop_toTopOf="@+id/ivDiamond" />
+
+        <ImageView
+            android:id="@+id/ivFollow"
+            android:layout_width="36dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:src="@drawable/icon_main_cm_focus"
+            app:layout_constraintBottom_toBottomOf="@+id/ivHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivHeader" />
+
+        <android.widget.Space
+            android:id="@+id/space"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivHeader" />
+
+        <View
+            android:id="@+id/spaceClick"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivHeader"
+            app:layout_constraintEnd_toStartOf="@+id/ivFollow"
+            app:layout_constraintStart_toStartOf="@+id/ivHeader"
+            app:layout_constraintTop_toTopOf="@+id/ivHeader" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

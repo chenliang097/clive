@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ViewStub
+        android:id="@+id/layout_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:layout="@layout/profession_uikit_layout_error" />
+
+    <ViewStub
+        android:id="@+id/layout_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/profession_uikit_layout_empty" />
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/profession_lib_layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</merge>

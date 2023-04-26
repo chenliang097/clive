@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.StreamActivity"
+    android:clipChildren="false">
+
+    <View
+        android:id="@+id/view_measured"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/iv_type_flag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:id="@+id/stream_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/streamLinkLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="84dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/streamLinkLayoutTop"
+                android:layout_width="115dp"
+                android:layout_height="151dp" />
+
+            <FrameLayout
+                android:id="@+id/streamLinkLayoutBottom"
+                android:layout_width="115dp"
+                android:layout_height="151dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_controllerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rongtuoyouxuan.chatlive.stream.view.layout.InteractionLayout
+            android:id="@+id/rl_interaction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
+            android:id="@+id/ll_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.rongtuoyouxuan.chatlive.live.view.layout.LiveExtraWidgetLayout
+            android:id="@+id/streamAdslayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/fl_network_error"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_69"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_6"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#1F1F1F"
+                android:textSize="14sp" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <com.rongtuoyouxuan.chatlive.stream.view.layout.ClearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <com.rongtuoyouxuan.qfcommon.player.GiftLargerAnimPlayView
+        android:id="@+id/giftPlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.rongtuoyouxuan.libgift.widget.GiftSidebarLinearLayout
+        android:id="@+id/giftSide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" />
+
+    <com.rongtuoyouxuan.chatlive.stream.view.layout.BottomToolsView
+        android:id="@+id/ll_room_bottom_tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"/>
+
+    <com.rongtuoyouxuan.chatlive.base.view.widget.LiveBottomStarView
+        android:id="@+id/liveBottomStarView"
+        android:layout_width="80dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:clipChildren="false" />
+
+</RelativeLayout>

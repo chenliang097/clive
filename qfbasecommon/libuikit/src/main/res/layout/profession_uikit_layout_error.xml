@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_error"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:ignore="ResourceName">
+
+    <ImageView
+        android:layout_width="320pt"
+        android:layout_height="320pt"
+        android:src="@drawable/icon_error_callback" />
+
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12pt"
+        android:fontFamily="@font/boboo_regular"
+        android:text="@string/no_datas"
+        android:textColor="#999999"
+        android:textSize="24pt" />
+
+    <TextView
+        android:id="@+id/retry_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="88pt"
+        android:gravity="center"
+        android:paddingStart="65pt"
+        android:paddingEnd="65pt"
+        android:layout_marginTop="32pt"
+        android:fontFamily="@font/boboo_medium"
+        android:textColor="#FFFFFF"
+        android:textSize="32pt"
+        android:background="@drawable/common_bg_button_gradient_pt"
+        />
+
+
+</LinearLayout>

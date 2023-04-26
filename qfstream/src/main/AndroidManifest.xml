@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rongtuoyouxuan.chatlive.stream">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application>
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.live.view.activity.LiveRoomActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.live.view.activity.LiveEndActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.activity.StreamEndActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.dialog.GifListDialog"
+            android:screenOrientation="behind"
+            android:theme="@style/commenDialogStyle"/>
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.BuyGoldDialog"
+            android:launchMode="singleTask"
+            android:theme="@style/commenDialogStyle" />
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.PayTypeDialog"
+            android:launchMode="singleTask"
+            android:theme="@style/commenDialogStyle" />
+
+        <service android:name="com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService"/>
+
+    </application>
+
+</manifest>

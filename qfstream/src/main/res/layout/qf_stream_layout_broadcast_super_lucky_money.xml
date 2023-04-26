@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:gravity="center">
+
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="@dimen/dp_342"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerHorizontal="true">-->
+
+    <TextView
+        android:id="@+id/tx_blast_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp_3"
+        android:ellipsize="marquee"
+        android:maxWidth="@dimen/dp_202"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        tools:text="xfh发了一个超大福袋，快来试试你的运气吧" />
+
+    <!--    </RelativeLayout>-->
+
+</LinearLayout>

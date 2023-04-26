@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ViewStub
+        android:id="@+id/layout_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:layout="@layout/pl_libutil_layout_error_center" />
+
+    <ViewStub
+        android:id="@+id/layout_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/pl_libutil_layout_empty_text_center" />
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/pl_libutil_layout_loading_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</merge>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/qf_stream_bg_fans_light"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/fangLightTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="18dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"
+        android:maxLength="3"
+        android:textColor="@color/white"
+        android:textSize="9sp"/>
+</LinearLayout>

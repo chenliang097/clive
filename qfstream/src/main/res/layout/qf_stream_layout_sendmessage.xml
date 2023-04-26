@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.dreamtobe.kpswitch.widget.KPSwitchRootLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <com.rongtuoyouxuan.chatlive.live.view.layout.LiveCommonInteractionLayout
+        android:id="@+id/internal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="55dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:id="@+id/ll_msg_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!--聊天输入框-->
+        <LinearLayout
+            android:id="@+id/frame_message_edit"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:paddingStart="10dp"
+            android:paddingTop="4dp">
+
+            <RelativeLayout
+                android:id="@+id/rlMessageLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/qf_stream_bg_edit"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_master_room_chat_fly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/qf_stream_icon_input_gif"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/room_message_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/stream_input_hit"
+                    android:textColorHint="@color/c_20_black"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:padding="5dp"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/bottomInputGiftImg"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="7dp"
+                    android:src="@drawable/qf_stream_icon_input_gif"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/bottomInputTextNumTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="7dp"
+                    android:text="0/40"
+                    android:textColor="@color/c_stream_999999"
+                    android:textSize="13sp"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/room_message_sent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="21dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/c_20_black"
+                android:text="@string/stream_bottom_stream_send"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <cn.dreamtobe.kpswitch.widget.KPSwitchPanelLinearLayout
+        android:id="@+id/panelView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <com.rongtuoyouxuan.qfcommon.widget.GifPannelView
+            android:id="@+id/gitPannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </cn.dreamtobe.kpswitch.widget.KPSwitchPanelLinearLayout>
+
+</cn.dreamtobe.kpswitch.widget.KPSwitchRootLinearLayout>

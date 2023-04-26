@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="pl_libgift_BottomDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/pl_libgift_AnimBottom</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="pl_libgift_AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/pl_libgift_push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/pl_libgift_push_bottom_out</item>
+    </style>
+
+    <style name="pl_libgift_TransparentDialog" parent="pl_libgift_XXDialog">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="pl_libgift_XXDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="listPreferredItemPaddingLeft">0dip</item>
+        <item name="listPreferredItemPaddingRight">0dip</item>
+    </style>
+
+
+    <style name="pl_libgift_Dialog_Anim_Bottom" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/pl_libgift_push_bottom_in</item>
+        <item name="@android:windowExitAnimation">@anim/pl_libgift_push_bottom_out</item>
+    </style>
+</resources>

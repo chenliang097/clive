@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/viewTop"
+            android:layout_width="0dp"
+            android:layout_height="32.5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/corner_circle_white_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewTop" />
+
+        <ImageView
+            android:id="@+id/userCardRightTxt"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewTop"
+            tools:src="@drawable/icon_dialog_user_card_manager" />
+
+        <TextView
+            android:id="@+id/userCardNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="40dp"
+            android:ellipsize="end"
+            android:maxWidth="300dp"
+            android:maxLines="1"
+            android:textColor="@color/c_stream_user_card_name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewTop"
+            tools:text="1231231312313123123123131231312312312313123131231231231312313123" />
+
+        <ImageView
+            android:id="@+id/userCardGenderImg"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/userCardNameTxt"
+            app:layout_constraintStart_toEndOf="@+id/userCardNameTxt"
+            app:layout_constraintTop_toTopOf="@+id/userCardNameTxt"
+            tools:src="@drawable/qf_stream_gender_female" />
+
+        <TextView
+            android:id="@+id/userCardIdTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="5dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/c_stream_999999"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/viewLine"
+            app:layout_constraintEnd_toStartOf="@+id/viewLine"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/viewLine"
+            tools:text="ID；1231413" />
+
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/c_stream_999999"
+            app:layout_constraintEnd_toStartOf="@+id/ivUserCardLocationTxt"
+            app:layout_constraintStart_toEndOf="@+id/userCardIdTxt"
+            app:layout_constraintTop_toBottomOf="@+id/userCardNameTxt" />
+
+        <ImageView
+            android:id="@+id/ivUserCardLocationTxt"
+            android:layout_width="21dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/viewLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/viewLine"
+            app:layout_constraintTop_toTopOf="@+id/viewLine"
+            tools:src="@drawable/flag_afghanistan" />
+
+        <TextView
+            android:id="@+id/userCardSignTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/c_stream_user_card_sign"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLine"
+            tools:text="1" />
+
+
+        <com.rongtuoyouxuan.qfcommon.widget.level.UserCardLevelLayout
+            android:id="@+id/userCardUserLevelImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/userCardHostLevelImg"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userCardSignTxt" />
+
+        <com.rongtuoyouxuan.qfcommon.widget.level.UserCardLevelLayout
+            android:id="@+id/userCardHostLevelImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/userCardUserLevelImg"
+            app:layout_constraintTop_toBottomOf="@+id/userCardSignTxt"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/userCardFansTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="25dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/c_stream_user_card_sign"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/userCardFollowTxt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userCardUserLevelImg" />
+
+        <TextView
+            android:id="@+id/userCardFollowTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/c_stream_user_card_sign"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/userCardSendTxt"
+            app:layout_constraintStart_toEndOf="@+id/userCardFansTxt"
+            app:layout_constraintTop_toTopOf="@+id/userCardFansTxt" />
+
+        <TextView
+            android:id="@+id/userCardSendTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/c_stream_user_card_sign"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/userCardFollowTxt"
+            app:layout_constraintTop_toTopOf="@+id/userCardFansTxt" />
+
+        <TextView
+            android:id="@+id/userCardFansTxtTip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/stream_user_card_fans"
+            android:textColor="@color/c_stream_user_card_fans"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/userCardFansTxt"
+            app:layout_constraintStart_toStartOf="@+id/userCardFansTxt"
+            app:layout_constraintTop_toBottomOf="@+id/userCardFansTxt" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/stream_user_card_follow"
+            android:textColor="@color/c_stream_user_card_fans"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/userCardFollowTxt"
+            app:layout_constraintStart_toStartOf="@+id/userCardFollowTxt"
+            app:layout_constraintTop_toBottomOf="@+id/userCardFollowTxt" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/gift_side_send"
+            android:textColor="@color/c_stream_user_card_fans"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/userCardSendTxt"
+            app:layout_constraintStart_toStartOf="@+id/userCardSendTxt"
+            app:layout_constraintTop_toBottomOf="@+id/userCardSendTxt" />
+
+        <android.widget.Space
+            android:id="@+id/space2"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userCardFansTxtTip" />
+
+        <View
+            android:id="@+id/viewLayout"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/c_stream_user_card_line1"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/space2" />
+
+        <LinearLayout
+            android:id="@+id/rlLayout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLayout">
+
+            <TextView
+                android:id="@+id/userCardATBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text=" @Ta"
+                android:textColor="@color/c_666666"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/userCardATView"
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:background="@color/c_stream_user_card_line2" />
+
+            <Button
+                android:id="@+id/userCardAddFollowBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:includeFontPadding="false"
+                android:text="@string/stream_user_card_add_folow"
+                android:textAllCaps="false"
+                android:textColor="@color/c_chat_8000ff"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/userCardPersonView"
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:background="@color/c_stream_user_card_line2" />
+
+            <Button
+                android:id="@+id/userCardPersonBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/stream_user_card_person"
+                android:textAllCaps="false"
+                android:textColor="@color/c_666666"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewBoard"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/c_stream_user_card_line1"
+            app:layout_constraintTop_toBottomOf="@+id/rlLayout" />
+
+        <LinearLayout
+            android:id="@+id/llLightBoard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rlLayout"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@drawable/icon_user_card_light_board" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:includeFontPadding="false"
+                android:paddingTop="6dp"
+                android:text="@string/live_dialog_usercard_ligth_board"
+                android:textColor="@color/color_222222"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.rongtuoyouxuan.qfcommon.widget.CustomAvatarView
+        android:id="@+id/userCardAvatar"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center_horizontal" />
+
+</FrameLayout>

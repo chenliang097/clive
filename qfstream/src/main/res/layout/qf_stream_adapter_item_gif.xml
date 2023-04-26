@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="horizontal">
+
+    <com.rongtuoyouxuan.libuikit.widget.ClickTextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:lineSpacingExtra="6dp"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingEnd="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_5"
+        android:textColor="@color/white"
+        android:textDirection="locale" />
+
+    <ImageView
+        android:id="@+id/gifImg"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom"
+        android:layout_below="@id/textView"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="4dp"
+        android:scaleType="centerCrop"/>
+</RelativeLayout>

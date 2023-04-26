@@ -1,0 +1,120 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+
+            res.srcDirs = ['src/main/res']
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        lintConfig file("lint.xml")
+        abortOnError false
+        warning 'InvalidPackage'
+        disable 'InvalidPackage'
+    }
+
+    compileOptions {
+        targetCompatibility rootProject.ext.target_compatibility
+        sourceCompatibility  rootProject.ext.source_compatibility
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    buildFeatures {
+        dataBinding = true
+        // compose  true
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs' ,'../qfcommon/libs'
+        }
+    }
+}
+dependencies {
+    implementation fileTree(include: '*.jar', dir: '../libs')
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+    implementation rootProject.ext.dependencies["eventbus"]
+    implementation(rootProject.ext.dependencies["com.alibaba:arouter-api"]) {
+        exclude module: 'support-v4'
+    }
+    annotationProcessor (rootProject.ext.dependencies["com.alibaba:arouter-compiler"]){
+        exclude module: 'support-v4'
+    }
+
+    kapt(rootProject.ext.dependencies["com.alibaba:arouter-compiler"]) {
+        exclude module: 'support-v4'
+    }
+    implementation rootProject.ext.dependencies["support-v4"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["smartrefreshlayout"]
+    implementation(rootProject.ext.dependencies["barlibrary"]) {
+        exclude module: 'appcompat-v7'
+    }
+    implementation rootProject.ext.dependencies["roundedimageview"]
+    implementation(rootProject.ext.dependencies["com.alibaba:arouter-api"]) {
+        exclude module: 'support-v4'
+    }
+    annotationProcessor (rootProject.ext.dependencies["com.alibaba:arouter-compiler"]){
+        exclude module: 'support-v4'
+    }
+
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+
+    implementation (rootProject.ext.dependencies["rxpermissions"]) {
+        exclude module: 'support-fragment'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["glide"]
+    implementation rootProject.ext.dependencies["glide-transformations"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["exoplayer"]
+    implementation rootProject.ext.dependencies["exoplayer-ui"]
+    implementation rootProject.ext.dependencies["anko"]
+    implementation project(':qfgift')
+    implementation project(':qfcommon')
+    implementation project(':qfbasecommon:qfbasestream')
+    implementation project(':qfbasecommon:qfpushstreamer')
+
+    implementation rootProject.ext.dependencies["switchbutton"]
+}
+

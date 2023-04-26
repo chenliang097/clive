@@ -1,0 +1,251 @@
+apply plugin: ConfigPlugin
+
+class ConfigPlugin implements Plugin<Project> {
+    def static FLAVOR_FILE_NAME_FOR_JENKINS = "auto_generate_flavor.config"
+
+    @Override
+    void apply(Project project) {
+        def configPlugin = project.extensions.create('configPlugin', Config)
+        configPlugin.init(project)
+        project.task("generateFlavorConfig") {
+            doLast {
+                generateFlavorConfigFile(project)
+            }
+        }
+    }
+
+    private List generateFlavorConfigFile(Project project) {
+
+        //生成flavor相关信息，提供给jenkins使用
+        def flavorFileCatalog = new File(project.getBuildDir().absolutePath)
+        if (!flavorFileCatalog.exists()) {
+            flavorFileCatalog.mkdirs()
+        }
+        def flavorFilePath = flavorFileCatalog.absolutePath + File.separator + FLAVOR_FILE_NAME_FOR_JENKINS
+        println("flavor config path: $flavorFilePath")
+        def flavorFile = new File(flavorFilePath)
+        if (flavorFile.exists()) flavorFile.delete()
+        project.android.applicationVariants.all { variant ->
+            def buildType = variant.buildType.name
+            if (buildType == "debug") return
+            def productFlavor = variant.productFlavors.find { flavor -> flavor.dimension == Config.PRODUCT_FLAVOR_DIMENSION }
+            def channelFlavor = variant.productFlavors.find { flavor -> flavor.dimension == Config.CHANNEL_FLAVOR_DIMENSION }
+            def productName = productFlavor.manifestPlaceholders.get(Config.KEY_PRODUCT_NAME)
+            def productShortName = productFlavor.manifestPlaceholders.get(Config.KEY_PRODUCT_SHORT_NAME)
+            def variantName = "${productFlavor.name}${channelFlavor.name}"
+            def channel = channelFlavor.name
+            def appId = Config.appIds.get(productName)
+            def versionNameTemp = Config.versionNames.get(productName)
+            def versionName = (versionNameTemp == null || versionNameTemp.isEmpty()) ? Config.versionName + Config.versionCode : versionNameTemp
+            def data = "$variantName,$productName,$productShortName,$channel,$appId,${versionName},${Config.versionCode}"
+            flavorFile.withWriterAppend('utf-8') { writer ->
+                writer.writeLine data
+            }
+            println("writer data: $data")
+        }
+    }
+}
+
+class Config {
+        def configItem = [
+            "SCHEMA",
+            //api
+            "BASE_URL_PREFIX",
+            "BASE_URL_PREFIX_DEBUG",
+            "BASE_URL_API_BOBOO",
+            "H5_APP_SERVICE",
+            "H5_APP_PRIVACY",
+            "DOMAIN",
+            //googlePay
+            "BASE_64_ENCODED_PUBLIC_KEY",
+            "ZEGO_APP_ID",
+            "ADJUST_ID",
+            "BASE_URL_RTMP_STREAM_BOBOO",
+    ]
+
+    Project project
+    String projectDir
+    static String versionName
+    static String versionCode
+    def static defaultConfig = "rtlive_config.properties"
+    def static KEY_APPLICATION_ID = "APPLICATION_ID"
+    def static KEY_VERSION_NAME = "VERSION_NAME"
+    def static KEY_PRODUCT_NAME = "PRODUCT_NAME"
+    def static KEY_PRODUCT_SHORT_NAME = "PRODUCT_SHORT_NAME"
+    def static GRADLE_BUILD_CONFIG_FILE_NAME = "gradleconfig.properties"
+
+    def static PRODUCT_FLAVOR_DIMENSION = "product"
+    def static CHANNEL_FLAVOR_DIMENSION = "channel"
+
+    static Map<String, String> versionNames = new HashMap<>()
+    static Map<String, String> appIds = new HashMap<>()
+
+    def init(Project project) {
+        this.project = project
+        this.projectDir = project.getProjectDir()
+        getDefaultVersionConfig(projectDir)
+    }
+
+    def getDefaultVersionConfig(String filePath) {
+        def versionFile = new File(filePath + File.separator + Config.GRADLE_BUILD_CONFIG_FILE_NAME)
+        if (versionFile.exists()) {
+            Properties versionProps = new Properties()
+            def is = new FileInputStream(versionFile)
+            versionProps.load(is)
+            versionName = versionProps['build.version'].toString()
+            versionCode = versionProps['build.versioncode'].toInteger()
+            println('Current version code is ' + versionCode.toString())
+            is.close()
+        } else {
+            throw new GradleException("Could not find gradleconfig.properties!")
+        }
+    }
+
+    def configFlavor(List<String> channel, List<String> product) {
+        updateFlavor(channel, product)
+        updateSource(product)
+    }
+
+    private def updateFlavor(List<String> channel, List<String> product) {
+        def android = project.android
+        //渠道信息设置
+        channel.each { channelName ->
+            println channelName
+            def flavor = android.productFlavors.create(channelName)
+            flavor.dimension = CHANNEL_FLAVOR_DIMENSION
+            if (channelName.endsWith("qa")) {
+                flavor.addManifestPlaceholders([UMENG_CHANNEL_VALUE: channelName, NETWORKCONFIG: "@xml/network_security_config"])
+            } else {
+                flavor.addManifestPlaceholders([UMENG_CHANNEL_VALUE: channelName, NETWORKCONFIG: "@xml/network_security_config_debug"])
+            }
+
+            println "channel ${channelName} use security config"
+            flavor.addManifestPlaceholders([SZ_VALID_VALUE: "invalid"])
+        }
+
+        //产口信息设置
+        product.each { productName ->
+            println productName
+            def flavor = android.productFlavors.create(productName)
+            flavor.dimension = PRODUCT_FLAVOR_DIMENSION
+            updateAndroidManifestMetaData(flavor.getName(), flavor)
+            flavor.addManifestPlaceholders([PRODUCT_NAME: productName])
+        }
+    }
+
+    private def updateSource(List<String> product) {
+        def android = project.android
+
+        def subProjectDir = []
+        project.rootProject.getAllprojects().each { p ->
+            if (p == project.rootProject || "app" == p.name) {
+                return
+            }
+            subProjectDir.add(p.name)
+        }
+
+        product.each { productName ->
+            def source = android.sourceSets.maybeCreate(productName)
+            def subProjectResDir = []
+            def subProjectJavaDir = []
+            def subProjectAssetsDir = []
+            subProjectDir.forEach {
+                def src = "../$it/src/$productName/res"
+                def srcpk = "../$it/src/$productName/pk"
+                def srclive = "../$it/src/$productName/live"
+                def srcparty = "../$it/src/$productName/party"
+                def java = "../$it/src/$productName/java"
+                def assets = "../$it/src/$productName/assets"
+                if (project.file(src).exists()) {
+                    subProjectResDir.add(src)
+                    subProjectResDir.add(srcpk)
+                    subProjectResDir.add(srclive)
+                    subProjectResDir.add(srcparty)
+                }
+                if (project.file(java).exists()) {
+                    subProjectJavaDir.add(java)
+                }
+                if (project.file(assets).exists()) {
+                    subProjectAssetsDir.add(assets)
+                }
+            }
+            source.getRes().srcDirs(*subProjectResDir)
+            source.getJava().srcDirs(*subProjectJavaDir)
+            source.getAssets().srcDirs(*subProjectAssetsDir)
+        }
+    }
+
+    def updateAndroidManifestMetaData(String channelName, def flavor) {
+        def configFile = new File(projectDir + File.separator + "${channelName}_config.properties")
+
+        if (!configFile.exists()) {
+            throw new GradleException("没有找到${channelName}包相关配置，请参考${defaultConfig}配置")
+        }
+        println("load $channelName config file: $configFile")
+        Properties configProps = new Properties()
+        configProps.load(new FileInputStream(configFile))
+
+        //设置包名
+        def applicationId = getAppConfigValue(configProps, KEY_APPLICATION_ID)
+        flavor.applicationId = applicationId
+        appIds.put(channelName, applicationId)
+
+        //设置产品简称
+        flavor.addManifestPlaceholders([PRODUCT_SHORT_NAME: getAppConfigValue(configProps, "PRODUCT_SHORT_NAME")])
+
+        //版本号，如果没有设置使用默认的
+        def version = configProps[KEY_VERSION_NAME].toString()
+        if (version != null && !version.empty) {
+            flavor.versionName = version + versionCode
+            versionNames.put(channelName, flavor.versionName)
+        }
+
+        //生成资源文件
+        def mp = flavor.manifestPlaceholders
+        configItem.forEach { item ->
+            mp[item] = getAppConfigValue(configProps, item)
+        }
+
+        setSign(channelName, flavor)
+    }
+
+    //设置签名
+    private void setSign(String channelName, def flavor) {
+        def android = project.android
+        def signConfigFile = new File(projectDir + File.separator + "${channelName}_signing.properties")
+        if (!signConfigFile.exists()) {
+            println("$channelName 没有配置签名文件！")
+            return
+        }
+        Properties signConfigProps = new Properties()
+        signConfigProps.load(new FileInputStream(signConfigFile))
+        def keystorePath = signConfigProps["STORE_FILE"].toString()
+        if (keystorePath != null && !keystorePath.empty) {
+            def signingConfig = android.signingConfigs.create(channelName)
+            def keystoreFile = new File(keystorePath)
+            println("load $channelName sign config file: $keystoreFile")
+            signingConfig.setStoreFile(keystoreFile)
+            signingConfig.setStorePassword(getAppConfigValue(signConfigProps, "STORE_PASSWORD"))
+            signingConfig.setKeyAlias(getAppConfigValue(signConfigProps, "KEY_ALIAS"))
+            signingConfig.setKeyPassword(getAppConfigValue(signConfigProps, "KEY_PASSWORD"))
+            flavor.setSigningConfig(signingConfig)
+        } else {
+            println("$channelName 没有配置签名文件路径！")
+        }
+    }
+
+    public String getVersionNameByVariant(def variant) {
+        def productFlavor = variant.productFlavors.find { flavor -> flavor.dimension == PRODUCT_FLAVOR_DIMENSION }
+        return versionNames[productFlavor.name]
+    }
+
+    static def getAppConfigValue(Properties configProps, String key, boolean isRequired = true) {
+        def value = configProps[key].toString()
+        if (value == null || value.empty && isRequired) {
+            throw new GradleException("not found config ${key}")
+        }
+        println("${key}: $value")
+        return value
+    }
+}
+

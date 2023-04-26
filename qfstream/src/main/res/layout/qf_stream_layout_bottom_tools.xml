@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:gravity="center_vertical"
+    tools:parentTag="android.widget.LinearLayout">
+    <!--底部操作-->
+
+    <LinearLayout
+        android:id="@+id/liveBottomStartLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="8dp">
+
+        <!--聊天-->
+        <ImageView
+            android:id="@+id/liveBottomMessageImg"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/qf_stream_bottom_message" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/liveBottomEndLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="end">
+
+        <ImageView
+            android:id="@+id/streamCloseBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/rt_stream_icon_stream_close" />
+
+        <ImageView
+            android:id="@+id/streamSettingBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/rt_stream_icon_stream_setting" />
+
+    </LinearLayout>
+</merge>

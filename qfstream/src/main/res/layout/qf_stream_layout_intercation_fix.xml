@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/fix_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/streamHostInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp">
+
+                <com.rongtuoyouxuan.chatlive.stream.view.layout.StreamHostView
+                    android:id="@+id/rl_master_room_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/shape_room_top_info_master"
+                    android:minWidth="100dp" />
+            </FrameLayout>
+
+            <include
+                layout="@layout/item_layout_online"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/streamHostInfoLayout"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
+                android:id="@+id/hostGoodsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:background="@drawable/shape_room_top_info_master"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/rt_stream_icon_goods" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="4dp"
+                    android:text="@string/stream_host_goods_raning"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hostPersonLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/hostGoodsLayout"
+                android:background="@drawable/shape_room_top_info_master"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/rt_stream_icon_person" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="4dp"
+                    android:text="@string/stream_host_persion_raning"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
+            android:id="@+id/bcLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="locale" />
+    </RelativeLayout>
+</merge>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+    <color name="colorProgressGradientEnd" >#1ae8ff</color>
+    <color name="colorProgressGradientStart">#f75acb</color>
+    <declare-styleable name="CoolIndicator"><attr format="boolean" name="wrapShiftDrawable"/><attr format="reference" name="shiftDuration"/><attr format="reference" name="shiftInterpolator"/></declare-styleable>
+</resources>

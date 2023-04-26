@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.rongtuoyouxuan.chatlive.stream.view.layout.FixInteractionLayout
+        android:id="@+id/lc_fixinteraction"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.rongtuoyouxuan.chatlive.stream.view.layout.StreamSendMessageLayout
+        android:id="@+id/room_message_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</merge>

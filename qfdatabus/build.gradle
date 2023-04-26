@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+    }
+
+    lintOptions {
+        lintConfig file("lint.xml")
+        abortOnError false
+        warning 'InvalidPackage'
+        disable 'InvalidPackage'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':qfbasebiz:basebizwrapper')
+    implementation project(':qfrouter')
+    implementation project(':qfres')
+    implementation rootProject.ext.dependencies["gson"]
+
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+    implementation rootProject.ext.dependencies["glide"]
+//    api rootProject.ext.dependencies["room"]
+//    annotationProcessor rootProject.ext.dependencies["room-compile"]
+//    kapt rootProject.ext.dependencies["room-compile"]
+
+}

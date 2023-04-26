@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- base font style start-->
+    <style name="BaseFont0">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="BaseFont0.Shadow">
+        <item name="android:shadowColor">#80FFFFFF</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+    </style>
+
+    <style name="BaseFont0.Bold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="BaseFont0.Bold.Shadow" parent="BaseFont0.Shadow"/>
+
+
+    <style name="BaseFont1">
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="BaseFont1.Bold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="BaseFont2">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BaseFont2.Shadow">
+        <item name="android:shadowColor">#80FFFFFF</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+    </style>
+
+    <style name="BaseFont2.Bold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="BaseFont2.Bold.Shadow" parent="BaseFont2.Shadow"/>
+
+    <style name="BaseFont3">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BaseFont3.Bold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="BaseFont3.Shadow">
+        <item name="android:shadowColor">#80FFFFFF</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+    </style>
+
+    <style name="BaseFont3.Bold.Shadow" parent="BaseFont3.Shadow"/>
+
+    <style name="BaseFont4">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BaseFont4.Bold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="BaseFont5">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="BaseFont5.Bold">
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="BaseFont5.Shadow">
+        <item name="android:shadowColor">#80FFFFFF</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+    </style>
+
+    <style name="BaseFont5.Bold.Shadow" parent="BaseFont5.Shadow"/>
+
+    <!-- base font style end-->
+    <style name="Font001" parent="BaseFont0.Bold.Shadow">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <!-- font1 style-->
+    <style name="Font101" parent="BaseFont1.Bold">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font102" parent="BaseFont1.Bold">
+        <item name="android:textColor">#B07917</item>
+    </style>
+
+    <style name="Font103" parent="BaseFont1.Bold">
+        <item name="android:textColor">#5BE2B2</item>
+    </style>
+
+    <style name="Font104" parent="BaseFont1.Bold">
+        <item name="android:textColor">#1D212C</item>
+    </style>
+
+    <style name="Font105" parent="BaseFont1">
+        <item name="android:textColor">#FEE2A9</item>
+    </style>
+
+    <!-- font2 style-->
+    <style name="Font201" parent="BaseFont2.Bold">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font202" parent="BaseFont2.Bold">
+        <item name="android:textColor">#CCFFFFFF</item>
+    </style>
+
+    <style name="Font203" parent="BaseFont2.Bold">
+        <item name="android:textColor">#1D212C</item>
+    </style>
+
+    <style name="Font204" parent="BaseFont2.Bold.Shadow">
+        <item name="android:textColor">#0B0C2F</item>
+    </style>
+
+    <style name="Font205" parent="BaseFont2.Bold">
+        <item name="android:textColor">#5BE2B2</item>
+    </style>
+
+    <style name="Font206" parent="BaseFont2.Bold">
+        <item name="android:textColor">#A6B0BD</item>
+    </style>
+
+    <style name="Font207" parent="BaseFont2">
+        <item name="android:textColor">#A6B0BD</item>
+    </style>
+
+    <style name="Font208" parent="BaseFont2">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font209" parent="BaseFont2">
+        <item name="android:textColor">#1D212C</item>
+    </style>
+
+    <style name="Font210" parent="BaseFont2">
+        <item name="android:textColor">#43BC39</item>
+    </style>
+
+    <style name="Font211" parent="BaseFont2">
+        <item name="android:textColor">#F5383F</item>
+    </style>
+
+    <style name="Font212" parent="BaseFont2">
+        <item name="android:textColor">#CC0B0C2F</item>
+    </style>
+
+    <style name="Font213" parent="BaseFont2">
+        <item name="android:textColor">#80FFFFFF</item>
+    </style>
+
+    <style name="Font214" parent="BaseFont2">
+        <item name="android:textColor">#800B0C2F</item>
+    </style>
+
+    <!-- font3 style-->
+    <style name="Font301" parent="BaseFont3.Bold">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font302" parent="BaseFont3.Bold">
+        <item name="android:textColor">#80FFFFFF</item>
+    </style>
+
+    <style name="Font303" parent="BaseFont3.Bold">
+        <item name="android:textColor">#1D212C</item>
+    </style>
+
+    <style name="Font304" parent="BaseFont3.Bold">
+        <item name="android:textColor">#CCFFFFFF</item>
+    </style>
+
+    <style name="Font305" parent="BaseFont3.Bold.Shadow">
+        <item name="android:textColor">#0B0C2F</item>
+    </style>
+
+    <style name="Font306" parent="BaseFont3.Bold">
+        <item name="android:textColor">#A6B0BD</item>
+    </style>
+
+    <style name="Font307" parent="BaseFont3">
+        <item name="android:textColor">#A6B0BD</item>
+    </style>
+
+    <style name="Font308" parent="BaseFont3">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font309" parent="BaseFont3">
+        <item name="android:textColor">#80A6B0BD</item>
+    </style>
+
+    <style name="Font310" parent="BaseFont3">
+        <item name="android:textColor">#CCFFFFFF</item>
+    </style>
+
+    <style name="Font311" parent="BaseFont3">
+        <item name="android:textColor">#5BE2B2</item>
+    </style>
+
+    <style name="Font312" parent="BaseFont3.Bold">
+        <item name="android:textColor">#5BE2B2</item>
+    </style>
+
+    <style name="Font313" parent="BaseFont3">
+        <item name="android:textColor">#1D212C</item>
+    </style>
+
+    <style name="Font314" parent="BaseFont3.Bold.Shadow">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font315" parent="BaseFont3.Bold">
+        <item name="android:textColor">#F5383F</item>
+    </style>
+
+    <!-- font4 style-->
+    <style name="Font401" parent="BaseFont4.Bold">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font402" parent="BaseFont4.Bold">
+        <item name="android:textColor">#CCFFFFFF</item>
+    </style>
+
+    <style name="Font403" parent="BaseFont4.Bold">
+        <item name="android:textColor">#A6B0BD</item>
+    </style>
+
+    <style name="Font404" parent="BaseFont4.Bold">
+        <item name="android:textColor">#80A6B0BD</item>
+    </style>
+
+    <style name="Font405" parent="BaseFont4.Bold">
+        <item name="android:textColor">#1D212C</item>
+    </style>
+
+    <style name="Font406" parent="BaseFont4.Bold">
+        <item name="android:textColor">#800B0C2F</item>
+    </style>
+
+    <style name="Font407" parent="BaseFont4.Bold">
+        <item name="android:textColor">#43BC39</item>
+    </style>
+
+    <style name="Font408" parent="BaseFont4">
+        <item name="android:textColor">#5BE2B2</item>
+    </style>
+
+    <style name="Font409" parent="BaseFont4">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font410" parent="BaseFont4">
+        <item name="android:textColor">#80FFFFFF</item>
+    </style>
+
+    <style name="Font411" parent="BaseFont4">
+        <item name="android:textColor">#CCFFFFFF</item>
+    </style>
+
+    <style name="Font412" parent="BaseFont4">
+        <item name="android:textColor">#A6B0BD</item>
+    </style>
+
+    <!-- font5 style-->
+    <style name="Font501" parent="BaseFont5.Bold">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font502" parent="BaseFont5.Bold">
+        <item name="android:textColor">#800B0C2F</item>
+    </style>
+
+    <style name="Font503" parent="BaseFont5.Bold">
+        <item name="android:textColor">#CC1D212C</item>
+    </style>
+
+    <style name="Font504" parent="BaseFont5">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Font505" parent="BaseFont5">
+        <item name="android:textColor">#CCFFFFFF</item>
+    </style>
+
+    <style name="Font506" parent="BaseFont5">
+        <item name="android:textColor">#80FFFFFF</item>
+    </style>
+
+    <style name="Font507" parent="BaseFont5">
+        <item name="android:textColor">#80A6B0BD</item>
+    </style>
+
+    <style name="Font508" parent="BaseFont5.Bold.Shadow">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+</resources>

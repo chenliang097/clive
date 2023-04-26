@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="333pt"
+    android:layout_height="130pt"
+    >
+
+    <View
+        android:id="@+id/viewBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="110pt"
+        android:layout_height="110pt"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16pt"/>
+
+    <TextView
+        android:id="@+id/tvLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16pt"
+        android:layout_marginTop="22pt"
+        android:layout_toEndOf="@id/ivImage"
+        android:textColor="@color/white"
+        android:fontFamily="@font/boboo_medium"
+        android:textSize="36pt"
+        tools:text="Lv.30" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLevel"
+        android:layout_alignStart="@id/tvLevel"
+        android:layout_marginTop="4pt"
+        android:textColor="@color/c_80_white"
+        android:textSize="24pt"
+        tools:text="主播等级" />
+
+</RelativeLayout>

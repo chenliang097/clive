@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/broadcastGiftBg"
+        android:layout_width="@dimen/dp_342"
+        android:layout_height="@dimen/dp_27"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/gift_broadcast_lucky_common_bg">
+
+        <ImageView
+            android:id="@+id/im_lucky_horn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_18"
+            android:src="@drawable/gift_broadcast_lucky_common_remind" />
+
+        <TextView
+            android:id="@+id/tx_lucky_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_3"
+            android:layout_toEndOf="@id/im_lucky_horn"
+            android:ellipsize="marquee"
+            android:maxWidth="@dimen/dp_202"
+            android:singleLine="true"
+            android:textColor="#f3f78b"
+            android:textSize="11sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_22"/>
+
+    </RelativeLayout>
+</RelativeLayout>

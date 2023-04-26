@@ -1,0 +1,256 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/bottomMenuHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.rongtuoyouxuan.chatlive.stream.view.beauty.widget.TransparentImageButton
+                    android:id="@+id/compareButton"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@mipmap/compare" />
+
+                <com.rongtuoyouxuan.chatlive.stream.view.beauty.widget.SeekBarWithNumber
+                    android:id="@+id/seekBar"
+                    android:layout_width="241dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16.5dp"
+                    android:layout_centerHorizontal="true"
+                    android:max="100"
+                    android:progressDrawable="@drawable/seek_bar"
+                    android:thumb="@drawable/seek_thumb"
+                    app:textBackground="@mipmap/icon_indicator"
+                    app:textColor="@color/white"
+                    app:textOrientation="top"
+                    app:textSize="11sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bottomLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/popup_window_bg_color_08">
+
+                <RadioGroup
+                    android:id="@+id/bottomMenuTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@+id/menuList"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.6">
+
+                    <RadioButton
+                        android:id="@+id/beautifyTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="22dp"
+                        android:background="@drawable/btn_title_bg_selector"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="基础美颜"
+                        android:textColor="@drawable/btn_title_text_selector" />
+
+                    <RadioButton
+                        android:id="@+id/beautifyBodyTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="32dp"
+                        android:background="@drawable/btn_title_bg_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="高级美颜"
+                        android:textColor="@drawable/btn_title_text_selector" />
+
+                    <RadioButton
+                        android:id="@+id/beautifyMakeupTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="32dp"
+                        android:background="@drawable/btn_title_bg_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="美妆"
+                        android:textColor="@drawable/btn_title_text_selector" />
+
+                    <RadioButton
+                        android:id="@+id/beautifyStyleTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="32dp"
+                        android:background="@drawable/btn_title_bg_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="风格妆"
+                        android:textColor="@drawable/btn_title_text_selector" />
+
+                    <RadioButton
+                        android:id="@+id/beautifyAKeyTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="32dp"
+                        android:background="@drawable/btn_title_bg_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="一键美颜"
+                        android:textColor="@drawable/btn_title_text_selector" />
+
+                </RadioGroup>
+
+                <!--分割线-->
+                <View
+                    android:id="@+id/separatorLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:alpha="0.4"
+                    android:background="#c0c0c0"
+                    app:layout_constraintBottom_toBottomOf="@+id/bottomMenuTab"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bottomMenuTab" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/menuList"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_max="156dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/separatorLine" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </HorizontalScrollView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomSecondLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/popup_window_bg_color_08"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/returnSecond"
+                android:src="@drawable/icon_return"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="14dp"
+                android:background="#ffffff"
+                android:alpha="0.4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <RadioGroup
+                android:id="@+id/bottomSecondMenuTab"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="34dp"
+                app:layout_constraintBottom_toTopOf="@id/secondMenuList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6">
+
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/backgroundSecondMenuListTab"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="match_parent"-->
+                <!--                        android:button="@null"-->
+                <!--                        android:checked="true"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:paddingStart="0dp"-->
+                <!--                        android:paddingEnd="0dp"-->
+                <!--                        tools:text="马赛克形状"-->
+                <!--                        android:textSize="13dp"-->
+                <!--                        android:textColor="@drawable/btn_title_text_selector" />-->
+
+            </RadioGroup>
+
+            <!--分割线-->
+            <View
+                android:id="@+id/separatorLineSecond"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:alpha="0.4"
+                android:background="#c0c0c0"
+                app:layout_constraintBottom_toBottomOf="@+id/bottomSecondMenuTab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bottomSecondMenuTab" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/secondMenuList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_max="157dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/separatorLineSecond" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</FrameLayout>

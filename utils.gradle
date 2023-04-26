@@ -1,0 +1,38 @@
+/**
+ *
+ * 工具类 gradle
+ */
+
+/**
+ * 保存到本地
+ *
+ * @param key
+ * @param value
+ * @return
+ */
+ext.saveToLocal = { key, value ->
+    File localFile = project.rootProject.file('local.properties')
+    if (!localFile.exists()) return
+    // 保存进local.properties，防止编译的时候找不到
+    Properties properties = new Properties()
+    properties.load(localFile.newDataInputStream())
+    properties.setProperty(key, value);
+    properties.save(localFile.newDataOutputStream(), "update-" + key + "[" + value + "]")
+}
+
+/**
+ *
+ * 从本地读取数据
+ *
+ * @param key
+ * @param defaultName
+ * @return
+ */
+ext.getFromLocal = { key, defaultName ->
+    File localFile = project.rootProject.file('local.properties')
+    if (!localFile.exists()) return ""
+    // 保存进local.properties，防止编译的时候找不到
+    Properties properties = new Properties()
+    properties.load(localFile.newDataInputStream())
+    return properties.get(key, defaultName)
+}

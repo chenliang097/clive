@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="308pt"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="end"
+    android:background="#CC000000">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95pt"
+        android:fontFamily="@font/boboo_medium"
+        android:gravity="center"
+        android:text="@string/live_room_recommend"
+        android:textColor="#FFFFFF"
+        android:textSize="28pt" />
+
+    <com.rongtuoyouxuan.qfcommon.widget.CustomSmartRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_marginTop="10pt">
+
+        <com.rongtuoyouxuan.libuikit.layout.refreshheader.CustomRefreshHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recy"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
+
+        <com.scwang.smart.refresh.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:srlAccentColor="@color/white"
+            />
+
+    </com.rongtuoyouxuan.qfcommon.widget.CustomSmartRefreshLayout>
+
+</RelativeLayout>

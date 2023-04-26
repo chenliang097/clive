@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item>
+        <bitmap
+            android:gravity="fill"
+            android:src="@drawable/commen_default" />
+    </item>
+
+    <item android:top="@dimen/dp_120">
+
+        <bitmap
+            android:gravity="top"
+            android:src="@drawable/commen_default" />
+x
+    </item>
+
+</layer-list>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="280pt"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="14pt">
+
+    <LinearLayout
+        android:id="@+id/sh"
+        android:layout_width="283pt"
+        android:layout_height="283pt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14pt"
+        android:padding="2pt">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60pt"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/shape_000000_black_10_other" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="12pt"
+                android:paddingEnd="12pt"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="12pt"
+                android:ellipsize="end"
+                android:fontFamily="@font/boboo_regular"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="24pt"
+                tools:text="一二三四五六七八九..." />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

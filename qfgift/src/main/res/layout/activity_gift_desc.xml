@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/shape_ffffff_20_c_top"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textColor="@color/color_222222"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="幸运礼物玩法" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop="60dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/color_222222"
+                android:textSize="13sp"
+                tools:text="幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法幸运礼物玩法" />
+        </FrameLayout>
+    </ScrollView>
+</FrameLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="88pt"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_close"
+            android:layout_width="80pt"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_left_icon"
+                android:layout_width="44pt"
+                android:layout_height="44pt"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24pt" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_title_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#222222"
+            android:textSize="36pt"
+            android:fontFamily="@font/boboo_medium"
+            />
+
+        <ImageView
+            android:id="@+id/iv_rightIco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="21pt"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/boboo_medium"
+            android:textSize="28pt"
+            android:layout_marginEnd="24pt"
+            android:visibility="gone"
+           />
+
+    </RelativeLayout>
+
+</LinearLayout>

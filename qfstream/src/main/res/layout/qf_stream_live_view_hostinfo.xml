@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_room_master_headimg"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        app:riv_oval="true"
+        android:src="@drawable/rt_default_avatar"/>
+
+    <LinearLayout
+        android:id="@+id/hostInfoInfoNameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_toEndOf="@+id/iv_room_master_headimg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_master_room_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxWidth="60dp"
+            android:minWidth="28dp"
+            android:singleLine="true"
+            android:text="Channel"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/hostDiamondLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/hostCurrentDiamondTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="@string/stream_host_click_zan_num"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/hostInfoInfoNameLayout">
+        <TextView
+            android:id="@+id/hostInfoFollowImg"
+            android:layout_width="44dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/btn_follow_live"
+            android:gravity="center"
+            android:text="@string/stream_follow"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</merge>

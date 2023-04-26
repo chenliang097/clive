@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_gradient_ea6bec_fff7ff_ffffff_top_12"
+    tools:ignore="MissingDefaultResource">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_dialog_light_board_xin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivHeader"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon_default_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivHeader"
+        app:layout_constraintTop_toTopOf="@+id/ivHeader"
+        tools:text="加入123131313131231313131312313131313的粉丝团" />
+
+    <View
+        android:id="@+id/viewBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/shape_80_ffffff_12"
+        app:layout_constraintBottom_toBottomOf="@+id/space2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/space3" />
+
+    <Space
+        android:id="@+id/space3"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivHeader" />
+
+    <TextView
+        android:id="@+id/tvEquity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/live_dialog_usercard_ligth_board_equity"
+        android:textColor="@color/color_222222"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/space3" />
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="9dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/icon_dialog_light_board_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEquity"
+        app:layout_constraintEnd_toStartOf="@+id/tvEquity"
+        app:layout_constraintTop_toTopOf="@+id/tvEquity" />
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="9dp"
+        android:layout_marginStart="10dp"
+        android:rotation="180"
+        android:src="@drawable/icon_dialog_light_board_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEquity"
+        app:layout_constraintStart_toEndOf="@+id/tvEquity"
+        app:layout_constraintTop_toTopOf="@+id/tvEquity" />
+
+    <Space
+        android:id="@+id/space1"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEquity" />
+
+    <ImageView
+        android:id="@+id/ivEquity1"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_dialog_light_board_equity_1"
+        app:layout_constraintEnd_toStartOf="@+id/ivEquity2"
+        app:layout_constraintStart_toStartOf="@+id/viewBg"
+        app:layout_constraintTop_toBottomOf="@+id/space1" />
+
+    <TextView
+        android:id="@+id/tvEquity1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/live_dialog_usercard_ligth_board_equity_1"
+        android:textColor="@color/color_222222"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvEquity2"
+        app:layout_constraintStart_toStartOf="@+id/viewBg"
+        app:layout_constraintTop_toBottomOf="@+id/ivEquity1" />
+
+    <ImageView
+        android:id="@+id/ivEquity2"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_dialog_light_board_equity_2"
+        app:layout_constraintEnd_toStartOf="@+id/ivEquity3"
+        app:layout_constraintStart_toEndOf="@+id/ivEquity1"
+        app:layout_constraintTop_toBottomOf="@+id/space1" />
+
+    <TextView
+        android:id="@+id/tvEquity2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/live_dialog_usercard_ligth_board_equity_2"
+        android:textColor="@color/color_222222"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvEquity3"
+        app:layout_constraintStart_toEndOf="@+id/tvEquity1"
+        app:layout_constraintTop_toBottomOf="@+id/ivEquity2" />
+
+    <ImageView
+        android:id="@+id/ivEquity3"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_dialog_light_board_equity_3"
+        app:layout_constraintEnd_toEndOf="@+id/viewBg"
+        app:layout_constraintStart_toEndOf="@+id/ivEquity2"
+        app:layout_constraintTop_toBottomOf="@+id/space1" />
+
+    <TextView
+        android:id="@+id/tvEquity3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/live_dialog_usercard_ligth_board_equity_3"
+        android:textColor="@color/color_222222"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/viewBg"
+        app:layout_constraintStart_toEndOf="@+id/tvEquity2"
+        app:layout_constraintTop_toBottomOf="@+id/ivEquity3" />
+
+    <Space
+        android:id="@+id/space2"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEquity1" />
+
+    <TextView
+        android:id="@+id/tvLightPay"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/shape_gradient_ff40af_7627ff_22"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBg" />
+
+    <TextView
+        android:id="@+id/tvOpenGroup"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_solid_white_stroke_8000ff_22"
+        android:gravity="center"
+        android:text="@string/live_dialog_usercard_ligth_board_open"
+        android:textColor="@color/c_8000FF"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/space5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBg"
+        tools:visibility="visible" />
+
+    <Space
+        android:id="@+id/space5"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvGoon"
+        app:layout_constraintStart_toEndOf="@+id/tvOpenGroup"
+        app:layout_constraintTop_toBottomOf="@+id/viewBg" />
+
+    <TextView
+        android:id="@+id/tvGoon"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/shape_gradient_ff40af_7627ff_22"
+        android:gravity="center"
+        android:text="@string/live_dialog_usercard_ligth_board_goon"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/space5"
+        app:layout_constraintTop_toBottomOf="@+id/viewBg"
+        tools:visibility="visible" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLightPay" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

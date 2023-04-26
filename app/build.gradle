@@ -1,0 +1,370 @@
+apply plugin: 'com.android.application'
+apply from: "config.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../utils.gradle'
+
+def isDebug() {
+    def res = false
+    getGradle().getStartParameter().taskRequests.forEach { request ->
+
+        request.args.forEach { name ->
+            if (name.toLowerCase().contains("assemble") && name.toLowerCase().contains("debug")) {
+                println("isDebug = true; " + request.toString())
+                res = true
+            }
+        }
+    }
+    return res
+}
+
+def getVersionName() {
+    def versionName = getVersion()
+    return versionName
+}
+
+def getVersion() {
+//    if (isDebug()) {
+//        return "9.9.9"
+//    }
+    def versionFile = file('gradleconfig.properties')
+
+    if (versionFile.exists()) {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def version = versionProps['build.version'].toString()
+        println('Current version is ' + version.toString())
+        return version
+    } else {
+        throw new GradleException("Could not find gradleconfig.properties!")
+    }
+}
+
+def getVersionCode() {
+    def versionFile = file('gradleconfig.properties')
+
+    if (versionFile.exists()) {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['build.versioncode'].toInteger()
+        println('Current version code is ' + versionCode.toString())
+        return versionCode
+    } else {
+        throw new GradleException("Could not find gradleconfig.properties!")
+    }
+}
+
+def getIsMinify() {
+    def configFile = file('gradleconfig.properties')
+
+    if (configFile.exists()) {
+        Properties configProps = new Properties()
+        configProps.load(new FileInputStream(configFile))
+        def IsMinify = configProps['build.minifyEnabled'].toInteger()
+        println('Current MinifyEnable is ' + IsMinify.toString())
+        return IsMinify
+    } else {
+        throw new GradleException("Could not find gradleconfig.properties!")
+    }
+}
+
+
+List<String> getMultiChannelName(String Sep) {
+    // 全渠道,,channels.properties只在全渠道打包机上才有，开发工程不配置
+    def key = 'build.umengchannelid'
+    List<String> channels = getMultiChannelNameByFile('channels.properties', Sep, key)
+    if (channels != null && channels.size() > 0) {
+        return channels
+    }
+    // 开发渠道
+    return getMultiChannelNameByFile('gradleconfig.properties', Sep, key)
+}
+
+List<String> getMultiProductName(String Sep) {
+    def key = 'build.product'
+    // 开发渠道
+    return getMultiChannelNameByFile('gradleconfig.properties', Sep, key)
+}
+
+List<String> getMultiChannelNameByFile(String fileName, String Sep, String key) {
+    def configFile = file(fileName)
+
+    List<String> resString = new ArrayList<String>()
+    if (configFile.exists()) {
+        Properties configProps = new Properties()
+        configProps.load(new FileInputStream(configFile))
+        String ChannelsName = configProps[key].toString()
+        println('Current Mutilchannle is ' + ChannelsName.toString())
+
+        int Res = ChannelsName.indexOf(Sep)
+        while (Res > 0) {
+            String elem = ChannelsName.substring(0, Res)
+            println 'elem:' + elem
+            println 'res:' + Res
+            resString.add(elem)
+            Res++
+            if (Res <= ChannelsName.length()) {
+                ChannelsName = ChannelsName.substring(Res)
+                Res = ChannelsName.indexOf(Sep)
+            }
+        }
+        if (ChannelsName.length() > 0) {
+            resString.add(ChannelsName)
+        }
+        return resString
+    } else {
+        println("Could not find channel config file：" + fileName)
+        return resString
+    }
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    def currentVersionCode = getVersionCode()
+    def currentVersionName = getVersionName()
+    def currentIsMinify = getIsMinify() != 0
+
+    def currentArray = getMultiChannelName(',')
+    def productNameArray = getMultiProductName(',')
+
+    println(currentArray)
+    println(productNameArray)
+
+    lintOptions {
+        lintConfig file("lint.xml")
+        abortOnError false
+        checkReleaseBuilds false
+        warning 'InvalidPackage'
+        disable 'InvalidPackage'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/CERT.SF'
+        exclude 'META-INF/CERT.RSA'
+        exclude 'META-INF/MANIFEST.MF'
+        exclude 'META-INF/INDEX.LIST'
+    }
+
+    compileOptions {
+        targetCompatibility rootProject.ext.target_compatibility
+        sourceCompatibility rootProject.ext.source_compatibility
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        multiDexEnabled true
+        versionCode currentVersionCode
+        versionName currentVersionName
+        flavorDimensions "versionCode"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                abiFilters "armeabi-v7a", 'arm64-v8a'
+            }
+        }
+        packagingOptions {
+            pickFirst 'lib/armeabi-v7a/libZegoExpressEngine.so'
+            pickFirst 'lib/arm64-v8a/libZegoExpressEngine.so'
+        }
+
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    flavorDimensions(configPlugin.PRODUCT_FLAVOR_DIMENSION, configPlugin.CHANNEL_FLAVOR_DIMENSION)
+    configPlugin.configFlavor(currentArray, productNameArray)
+    println "length" + productFlavors.size()
+
+//    signingConfigs {
+//        release {
+//            v1SigningEnabled true
+//            v2SigningEnabled true
+//            keyAlias "qf_dzPoker_AALive"
+//            keyPassword "aalive2022"
+//            storeFile file(project.file("keystore/keyStorePath_AALIVE"))
+//            storePassword "aalive2022"
+//        }
+//    }
+    signingConfigs {
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+            keyAlias "rtyx"
+            keyPassword "rtyx123123"
+            storeFile file(project.file("keystore/rtyx.jks"))
+            storePassword "rtyx123123"
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            debuggable true
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            debuggable false
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            minifyEnabled currentIsMinify
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def fileName = outputFileName
+                    if (android.defaultConfig.versionName != null) {
+                        def versionName = configPlugin.getVersionNameByVariant(variant)
+                        versionName = versionName == null ? android.defaultConfig.versionName : versionName
+                        fileName = fileName.replace("app-", "")
+                        fileName = fileName.replace(".apk", "-${versionName}.apk")
+                    }
+                    outputFileName = fileName
+                }
+            }
+        }
+    }
+
+    productFlavors {
+        rtlive {
+            resValue("string", "PORT_NUMBER", "8081")
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.mergeAssetsProvider.configure {
+            doLast {
+                delete(fileTree(dir: outputDir,
+                        includes: ['model/ai_bgseg_green.bundle',
+                                   'model/ai_hairseg.bundle',
+                                   'model/ai_hand_processor.bundle',
+                                   'model/ai_human_processor_gpu.bundle',
+                                   'model/ai_human_processor.bundle',
+                                   'model/ai_human_processor_mb_fast.bundle',
+                                   'graphics/controller_cpp.bundle',
+                                   'graphics/fuzzytoonfilter.bundle',
+                                   'graphics/tongue.bundle',
+                                   'graphics/fxaa.bundle']))
+            }
+        }
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    buildFeatures {
+        dataBinding = true
+        // compose  true
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs' ,'../qfcommon/libs'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: '../libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies["multidex"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["smartrefreshlayout"]
+    implementation rootProject.ext.dependencies["gms-services"]
+//    implementation rootProject.ext.dependencies["firebase-iid"]
+
+    implementation(rootProject.ext.dependencies["com.alibaba:arouter-api"]) {
+        exclude module: 'support-v4'
+    }
+    implementation 'com.google.android.material:material:1.4.+'
+    annotationProcessor(rootProject.ext.dependencies["com.alibaba:arouter-compiler"]) {
+        exclude module: 'support-v4'
+    }
+
+    kapt(rootProject.ext.dependencies["com.alibaba:arouter-compiler"]) {
+        exclude module: 'support-v4'
+    }
+    implementation project(':qflive')
+    implementation project(':qfrouter')
+    implementation project(':qfdatabus')
+    implementation project(':qfcommon')
+    implementation project(':qfstream')
+    implementation project(':libpay')
+
+    debugImplementation rootProject.ext.dependencies["debug-db"]
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("bundle")) {
+        def renameTaskName = "rename${task.name.capitalize()}Aab"
+        def flavor = task.name.substring("bundle".length()).uncapitalize()
+        def path = "${buildDir}/outputs/bundle/${flavor}/"
+        println "update aab path : $path"
+        def copyAabTask = tasks.create(renameTaskName, Copy) {
+            println "copy task name: $renameTaskName"
+            def versionName = android.defaultConfig.versionName
+            from(path)
+            include "**/*.aab"
+            destinationDir file(path)
+            rename { String fileName ->
+                fileName.replace('app-', "").replace('.aab', "-${versionName}.aab")
+            }
+        }
+
+        copyAabTask.doLast("deleteOldAabFile", {
+            println "delete task name deleteOldAabFile"
+            FileTree tree = fileTree(dir: path)
+            tree.each { File file ->
+                if (file.name.startsWith("app-")) {
+                    delete file
+                }
+            }
+        })
+
+        task.finalizedBy(renameTaskName)
+    }
+}

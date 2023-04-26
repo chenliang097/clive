@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_room_master_headimg"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        app:riv_oval="true"
+        android:src="@drawable/rt_default_avatar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_master_room_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_toEndOf="@id/iv_room_master_headimg"
+        android:minWidth="45dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_master_room_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxWidth="@dimen/dp_85"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            tools:text="直播" />
+
+        <LinearLayout
+            android:id="@+id/hostDiamondLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/hostCurrentDiamondTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:text="@string/stream_host_click_zan_num"
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
+    </LinearLayout>
+</merge>

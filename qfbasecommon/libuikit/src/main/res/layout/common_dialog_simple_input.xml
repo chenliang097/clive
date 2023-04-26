@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pl_libres_common_dialog_white_bg">
+
+    <TextView
+        android:id="@+id/common_dialog_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/qf_libutils_color_title"
+        android:textSize="16dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/reportRadioBtnLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="举报"
+        tools:visibility="visible" />
+
+    <RadioGroup
+        android:id="@+id/reportRadioBtnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/common_dialog_tv_title"
+        app:layout_constraintTop_toTopOf="@+id/common_dialog_et_input">
+        <RadioButton
+            android:id="@+id/reportRadioBtnOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@null"
+            android:button="@drawable/qf_res_report_radio_btn_selector"
+            android:checked="true"
+            android:lines="1"
+            android:paddingStart="5dp"
+            android:text="@string/report_type_one"
+            android:textColor="@color/c_stream_common_666666"
+            android:textSize="14sp"/>
+        <RadioButton
+            android:id="@+id/reportRadioBtnTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:button="@drawable/qf_res_report_radio_btn_selector"
+            android:lines="1"
+            android:paddingStart="5dp"
+            android:text="@string/report_type_two"
+            android:textColor="@color/c_stream_common_666666"
+            android:textSize="14sp"/>
+        <RadioButton
+            android:id="@+id/reportRadioBtnThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:button="@drawable/qf_res_report_radio_btn_selector"
+            android:lines="1"
+            android:paddingStart="5dp"
+            android:text="@string/report_type_three"
+            android:textColor="@color/c_stream_common_666666"
+            android:textSize="14sp"/>
+        <RadioButton
+            android:id="@+id/reportRadioBtnFour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:button="@drawable/qf_res_report_radio_btn_selector"
+            android:lines="1"
+            android:paddingStart="5dp"
+            android:text="@string/report_type_four"
+            android:textColor="@color/c_stream_common_666666"
+            android:textSize="14sp"/>
+        <RadioButton
+            android:id="@+id/reportRadioBtnFive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:button="@drawable/qf_res_report_radio_btn_selector"
+            android:lines="1"
+            android:paddingStart="5dp"
+            android:text="@string/report_type_five"
+            android:textColor="@color/c_stream_common_666666"
+            android:textSize="14sp"/>
+        <RadioButton
+            android:id="@+id/reportRadioBtnSix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:button="@drawable/qf_res_report_radio_btn_selector"
+            android:lines="1"
+            android:paddingStart="5dp"
+            android:text="@string/report_type_six"
+            android:textColor="@color/c_stream_common_666666"
+            android:textSize="14sp"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/common_dialog_et_input"
+        android:layout_width="280dp"
+        android:layout_height="90dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/common_dialog_input_comment_bg"
+        android:gravity="start"
+        android:hint="@string/common_dialog_input_content_hint"
+        android:inputType="textMultiLine"
+        android:maxLength="300"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="#666666"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportRadioBtnLayout" />
+
+    <TextView
+        android:id="@+id/common_dialog_tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="300"
+        android:textColor="@color/c_chat_999999"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/common_dialog_et_input"
+        app:layout_constraintEnd_toEndOf="@+id/common_dialog_et_input"
+        tools:text="(10/30)" />
+
+    <View
+        android:id="@+id/divider_1"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="#E6EAED"
+        app:layout_constraintBottom_toTopOf="@+id/common_dialog_et_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/common_dialog_et_input" />
+
+    <TextView
+        android:id="@+id/common_dialog_tv_cancel"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="0.5dp"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/common_dialog_tv_confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_1"
+        tools:text="取消" />
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="0dp"
+        android:background="#E6EAED"
+        app:layout_constraintBottom_toBottomOf="@+id/common_dialog_tv_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/common_dialog_tv_confirm"
+        app:layout_constraintStart_toEndOf="@+id/common_dialog_tv_cancel"
+        app:layout_constraintTop_toTopOf="@+id/common_dialog_tv_cancel" />
+
+    <TextView
+        android:id="@+id/common_dialog_tv_confirm"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginTop="0.5dp"
+        android:gravity="center"
+        android:textColor="#8000FF"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/common_dialog_tv_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/divider_1"
+        tools:text="提交" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
