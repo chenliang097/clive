@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/rt_c_161722">
+
+    <include
+        android:id="@+id/visibleRangeTitle"
+        layout="@layout/rt_libstream_select_common_title"/>
+
+    <TextView
+        android:id="@+id/visibleRangeFansNumTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="12dp"
+        android:layout_below="@id/visibleRangeTitle"
+        android:text="@string/rt_stream_visible_range_txt"
+        android:textColor="@color/c_40_white"
+        android:textSize="12sp"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/visibleRangeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_below="@id/visibleRangeFansNumTxt">
+
+        <com.rongtuoyouxuan.libuikit.layout.refreshheader.WaterDropHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/visibleRangeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/visibleRangeNoDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/visibleRangeNoDataTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/no_datas"
+            android:textColor="@color/c_8c8c8c"
+            android:textSize="@dimen/dp_14" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/visibleRangeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rt_common_btn"
+        android:gravity="center"
+        android:text="@string/login_btn_ok"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+</RelativeLayout>

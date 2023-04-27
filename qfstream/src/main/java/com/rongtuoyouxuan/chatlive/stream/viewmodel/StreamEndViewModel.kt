@@ -12,8 +12,8 @@ class StreamEndViewModel(application: Application):AndroidViewModel(application)
 
     var liveEndLiveData:MutableLiveData<StreamEndBean> = MutableLiveData<StreamEndBean>()
 
-    fun streamEndLive(streamId:String){
-        StreamBiz.streamEndlive(null, streamId, object :RequestListener<StreamEndBean>{
+    fun getStreamStatiscData(streamId:String, t:Int){
+        StreamBiz.getStreamStatiscData(null, streamId, t, object :RequestListener<StreamEndBean>{
             override fun onSuccess(reqId: String?, result: StreamEndBean?) {
                 liveEndLiveData.value = result
             }

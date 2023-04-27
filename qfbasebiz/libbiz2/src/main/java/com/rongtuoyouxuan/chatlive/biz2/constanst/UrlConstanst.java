@@ -10,6 +10,8 @@ public class UrlConstanst {
 
     public static String ZEGO_URL = "https://aieffects-api.zego.im?Action=DescribeEffectsLicense";
 
+    public static String BASE_URL_FANS_API_BOBOO_COM = "http://open.rongtuolive.com/userProxy/v1/user/fansList";
+
     //H5地址
     public static String BASE_URL_H5_BOBOO_COM = "http://open.rongtuolive.com";
 

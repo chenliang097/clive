@@ -35,6 +35,9 @@ import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libuikit.TransferLoadingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartPushStreamRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartStreamInfoBean
+import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.qfzego.KeyCenter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yalantis.ucrop.UCrop
@@ -72,6 +75,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
     private var longitude:Double? = 0.00;
     private var addPhotoPath:String? = "";
     private var curIndex: Int = 0
+    private var startStreamInfoBean:StartStreamInfoBean? = null
 
     private var handler = object :Handler(Looper.getMainLooper()){
         override fun handleMessage(msg: Message) {
@@ -94,7 +98,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
         controllerViewModel = ViewModelUtils.get(mContext as FragmentActivity, StreamControllerViewModel::class.java)
         mStreamViewModel = ViewModelUtils.get(mContext, StreamViewModel::class.java)
         initListener(mContext as LifecycleOwner)
-
+        mStreamViewModel.getStreamRoomInfo(DataBus.instance().USER_ID, DataBus.instance().USER_NAME)
     }
 
     private fun initView() {
@@ -124,6 +128,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
         streamPreviewCloseImg?.setOnClickListener(this)
         streamPreviewChangeCoverTxt?.setOnClickListener(this)
         streamPreviewLocationTxt?.setOnClickListener(this)
+        streamPreviewKeijianTxt?.setOnClickListener(this)
         mStreamViewModel.startStreamEvent.observe(context) {
             streamPreviewBtnStart?.isEnabled = true
             visibility = GONE
@@ -147,7 +152,12 @@ class StreamPreviewLayout @JvmOverloads constructor(
         controllerViewModel.uploadLiveData.observe(context) { t ->
             TransferLoadingUtil.dismissDialogLoading(getContext())
             setPhoto(t?.data?.url)
-        } }
+        }
+
+        mStreamViewModel.startPushStreamInfoLiveData.observe(context){
+            startStreamInfoBean = it
+        }
+    }
 
     fun setParams(w: Int, h: Int) {
         val layoutParams = streamPreviewLayout!!.layoutParams
@@ -189,6 +199,9 @@ class StreamPreviewLayout @JvmOverloads constructor(
             }
             R.id.streamPreviewLocationTxt ->{
                 showLocationPermissonDialog()
+            }
+            R.id.streamPreviewKeijianTxt ->{
+                Router.toStartLiveVisibleRangeDialog(startStreamInfoBean?.data?.stream_id)
             }
         }
     }
@@ -232,26 +245,28 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     }
 
-    private fun playCountAnimation(){
-
-    }
-
     fun startLive(livingType: Int?) {
         if (popupWindow != null && popupWindow!!.isShowing) {
             mTips = 0
             viewbutton = null
             popupWindow!!.dismiss()
         }
-        var isDefaultTitle = true
         var title = titleEdit?.text.toString();
         if(TextUtils.isEmpty(title)){
-            title = context.resources.getString(R.string.stream_start_title, DataBus.instance().userInfo.value?.user_info?.nickname.toString())
-        }else{
-            isDefaultTitle = false
+            title = DataBus.instance().USER_NAME
         }
-        mStreamViewModel.startRequestPullUrl(
-            USER_ID, USER_NAME
-        )
+        if(startStreamInfoBean != null && !TextUtils.isEmpty(startStreamInfoBean?.data?.token)
+            && !TextUtils.isEmpty(startStreamInfoBean?.data?.stream_id)
+            && !TextUtils.isEmpty(startStreamInfoBean?.data?.room_id_str)){
+            var request = StartPushStreamRequest(addPhotoPath, title, streamPreviewLocationTxt.text.toString(), longitude, latitude)
+            mStreamViewModel.uploadAnchorInfo(startStreamInfoBean!!, request)
+        }else {
+            mStreamViewModel.startRequestPullUrl(
+                title, addPhotoPath, longitude, latitude,
+                streamPreviewLocationTxt.text.toString(),
+                USER_ID, USER_NAME
+            )
+        }
     }
 
     private fun showLocationPermissonDialog() {

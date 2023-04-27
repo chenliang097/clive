@@ -32,6 +32,7 @@ public class DataBus {
 
     private static final int MAX_LOG_RETRY = 3;
     public final String USER_ID = "13652";
+    public final String USER_NAME = "你猜我猜不猜";
     private static volatile DataBus sDataBus;
     private static Context context;
     private final String TAG = DataBus.class.getSimpleName();

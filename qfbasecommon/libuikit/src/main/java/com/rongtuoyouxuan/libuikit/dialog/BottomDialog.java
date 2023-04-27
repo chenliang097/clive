@@ -103,6 +103,7 @@ public class BottomDialog extends Dialog {
         public Builder setPositiveButton(String positiveButtonText, OnClickListener listener, int color) {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
+            this.colorOne = color;
             return this;
         }
 

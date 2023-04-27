@@ -221,9 +221,6 @@
     <string name="live_dialog_usercard_ligth_board_equity_2">粉丝互动</string>
     <string name="live_dialog_usercard_ligth_board_equity_3">开播通知</string>
     <string name="live_dialog_usercard_ligth_board_title">加入%s的粉丝团</string>
-    <string name="stream_link_mic_apply">申请</string>
-    <string name="stream_link_mic_invite">邀请</string>
-    <string name="stream_link_mic_manager">管理</string>
     <string name="stream_link_mic_audience_tip">主播</string>
     <string name="stream_link_mic_audience_tip1">%1$s%2$s邀请您连麦互动</string>
     <string name="stream_link_mic_audience_tip_refuse">拒绝(%1$ds)</string>
@@ -522,5 +519,15 @@
     <string name="rt_stream_location_dialog_ins">显示位置，更多同城/附近的人能看到你</string>
     <string name="rt_stream_show_loacation">显示位置</string>
     <string name="rt_stream_hide_loacation">隐藏位置</string>
+    <string name="rt_stream_visible_range_title">直播可见范围</string>
+    <string name="rt_stream_visible_range_public">公开：所有人可见</string>
+    <string name="rt_stream_visible_range_see">只给谁看</string>
+    <string name="rt_stream_visible_range_see_no">不给谁看</string>
+    <string name="rt_stream_visible_range_txt">%1$d个粉丝</string>
+    <string name="rt_stream_anchor_center_right">去开播</string>
+    <string name="anchor_center_d">今日</string>
+    <string name="anchor_center_w">近七日</string>
+    <string name="anchor_center_m">近30日</string>
+    <string name="rt_stream_visible_range_tip">请先选择</string>
 
 </resources>

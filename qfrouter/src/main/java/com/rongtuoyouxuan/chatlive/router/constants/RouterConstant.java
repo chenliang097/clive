@@ -101,4 +101,19 @@ public interface RouterConstant {
      */
     String PATH_USER_IDENTIFICATION = "/boboo_qfcommon/identification";
 
+    /**
+     * 开播可见范围
+     */
+    String PATH_START_LIVE_VISIBLE_RANGE = "/boboo_stream/live/visible/range";
+
+    /**
+     * 开播可见范围列表（粉丝列表）
+     */
+    String PATH_START_LIVE_VISIBLE_RANGE_list = "/boboo_stream/live/visible/range/list";
+
+    /**
+     * 主播中心
+     */
+    String PATH_ANHOR_CENTER = "/boboo_stream/anchor/center";
+
 }

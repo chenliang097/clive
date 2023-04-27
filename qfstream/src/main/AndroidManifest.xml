@@ -43,6 +43,23 @@
             android:launchMode="singleTask"
             android:theme="@style/commenDialogStyle" />
 
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.dialog.StartLiveVisibleRangeDialog"
+            android:launchMode="singleTask"
+            android:theme="@style/commenDialogStyle" />
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.LiveRoomVisibleRangeListActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.activity.AnchorCenterActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <service android:name="com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService"/>
 
     </application>

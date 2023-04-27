@@ -229,4 +229,25 @@ public class Router {
                 .navigation();
     }
 
+    //直播可见范围弹框
+    public static void toStartLiveVisibleRangeDialog(String sceneId) {
+        ARouter.getInstance().build(RouterConstant.PATH_START_LIVE_VISIBLE_RANGE)
+                .withString("sceneId", sceneId)
+                .navigation();
+    }
+
+    //直播可见范围列表
+    public static void toLiveRoomVisibleRangeListActivity(String type, String sceneId) {
+        ARouter.getInstance().build(RouterConstant.PATH_START_LIVE_VISIBLE_RANGE_list)
+                .withString("type", type)
+                .withString("sceneId", sceneId)
+                .navigation();
+    }
+
+    //主播中心
+    public static void toAnchorCenterActivity() {
+        ARouter.getInstance().build(RouterConstant.PATH_ANHOR_CENTER)
+                .navigation();
+    }
+
 }

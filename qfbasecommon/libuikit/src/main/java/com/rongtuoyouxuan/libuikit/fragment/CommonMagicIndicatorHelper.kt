@@ -96,7 +96,7 @@ class CommonMagicIndicatorHelper private constructor(
         override fun createIPagerTitleView(context: Context, fragmentInfo: CommonFragmentInfo): IPagerTitleView {
             val simplePagerTitleView: SimplePagerTitleView = CkSimplePagerTitleView(context)
             simplePagerTitleView.text = fragmentInfo.title
-            simplePagerTitleView.normalColor = context.resources.getColor(R.color.color_magic_indicator_title_select)
+            simplePagerTitleView.normalColor = context.resources.getColor(R.color.color_magic_indicator_title_normal)
             simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16f)
             simplePagerTitleView.setPadding(15,0,15,10)
             simplePagerTitleView.selectedColor = context.resources.getColor(R.color.color_magic_indicator_title_select)

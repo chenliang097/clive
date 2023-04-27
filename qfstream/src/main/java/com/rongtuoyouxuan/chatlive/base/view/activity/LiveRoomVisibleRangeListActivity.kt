@@ -1,0 +1,176 @@
+package com.rongtuoyouxuan.chatlive.base.view.activity
+
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
+import com.rongtuoyouxuan.chatlive.base.view.adapter.LiveRoomVisibleRangeAdapter
+import com.rongtuoyouxuan.chatlive.base.view.adapter.LiveRoomVisibleRangeAdapter.OnSelectContactsListener
+import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveRoomVisibleRangeListViewModel
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean.FansItemBean
+import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.stream.R
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.libuikit.LanguageActivity
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import kotlinx.android.synthetic.main.rt_libstream_select_common_title.*
+import kotlinx.android.synthetic.main.rt_stream_select_contacts_activity.*
+
+@Route(path = RouterConstant.PATH_START_LIVE_VISIBLE_RANGE_list)
+class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListener {
+    private var imgBack: ImageView? = null
+    private var txtTitle: TextView? = null
+    private var mSmartRefreshLayout: SmartRefreshLayout? = null
+    private var mRecyclerView: RecyclerView? = null
+    private var noDataLayout: LinearLayout? = null
+    private val noDataImg: ImageView? = null
+    private var noDataTxt: TextView? = null
+    private var mViewModel: LiveRoomVisibleRangeListViewModel? = null
+    private var mSelectContactsAdapter: LiveRoomVisibleRangeAdapter? = null
+    private var pageNo = 1
+    private val mAllDataLists: MutableList<FansItemBean> = ArrayList()
+    private var mSelectList: MutableList<String> = ArrayList() //已选择的列表
+    private var anchorId //主播id
+            : String? = null
+    private var anchorImageUrl //主播封面
+            : String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.rt_stream_select_contacts_activity)
+        anchorId = intent.getStringExtra("anchorId")
+        anchorImageUrl = intent.getStringExtra("imageUrl")
+        initView()
+        initListener()
+        initObserver()
+    }
+
+    private fun initView() {
+        imgBack = findViewById(R.id.iv_top_back)
+        txtTitle = findViewById(R.id.tv_top_title)
+        mSmartRefreshLayout = findViewById(R.id.visibleRangeRefreshLayout)
+        mRecyclerView = findViewById(R.id.visibleRangeRecyclerView)
+        mRecyclerView?.layoutManager = LinearLayoutManager(this)
+        noDataLayout = findViewById(R.id.visibleRangeNoDataLayout)
+        noDataTxt = findViewById(R.id.visibleRangeNoDataTxt)
+        when(intent.getStringExtra("type")){
+            "1"->tv_top_title.text = resources.getString(R.string.rt_stream_visible_range_see)
+            "2"->tv_top_title.text = resources.getString(R.string.rt_stream_visible_range_see_no)
+        }
+    }
+
+    private fun initListener() {
+        mSelectContactsAdapter = LiveRoomVisibleRangeAdapter(R.layout.rt_stream_select_contacts_item)
+        mRecyclerView!!.adapter = mSelectContactsAdapter
+        imgBack?.setOnClickListener(this)
+        visibleRangeBtn.setOnClickListener(this)
+        mSmartRefreshLayout!!.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
+            override fun onLoadMore(refreshLayout: RefreshLayout) {
+                ++pageNo
+                mViewModel!!.getFansList(DataBus.instance().USER_ID, 0, pageNo)
+            }
+
+            override fun onRefresh(refreshLayout: RefreshLayout) {
+                pageNo = 1
+                mSelectList = ArrayList()
+                mViewModel!!.getFansList(DataBus.instance().USER_ID, 0, pageNo)
+            }
+        })
+        mSelectContactsAdapter?.setOnSelectContactsListener(object : OnSelectContactsListener {
+            override fun onItemCheck(position: Int, item: FansItemBean?, isAdd: Boolean) {
+                if(isAdd){
+                    item?.id?.let { mSelectList.add(it) }
+                }else{
+                    mSelectList.forEach { s ->
+                        if(s == item?.id){
+                            mSelectList.remove(s)
+                        }
+                    }
+                }
+            }
+        })
+        mSelectContactsAdapter?.setOnItemClickListener { adapter, view, position ->
+            val list: MutableList<FansItemBean> = ArrayList()
+            val item = adapter.data[position] as FansItemBean
+            list.add(item)
+        }
+    }
+
+    private fun initObserver() {
+        mViewModel = ViewModelUtils.get(this, LiveRoomVisibleRangeListViewModel::class.java)
+        mViewModel?.getFansList(DataBus.instance().USER_ID, 0, pageNo)
+        mViewModel?.fansListLiveData?.observe(this) { liveRoomVisibleRangeListBean ->
+            if (1 == pageNo) {
+                mSmartRefreshLayout!!.finishRefresh()
+            } else {
+                mSmartRefreshLayout!!.finishLoadMore()
+            }
+            if (liveRoomVisibleRangeListBean != null) {
+                val lists: List<FansItemBean> = liveRoomVisibleRangeListBean.data!!.fans_list
+                mAllDataLists.addAll(lists)
+                if (mAllDataLists.size > 0) {
+                    visibleRangeFansNumTxt.text = resources.getString(R.string.rt_stream_visible_range_txt, liveRoomVisibleRangeListBean.data!!.total)
+                    noDataLayout!!.visibility = View.GONE
+                    mSmartRefreshLayout!!.visibility = View.VISIBLE
+                    mSelectContactsAdapter!!.setList(lists)
+                    mSelectContactsAdapter!!.init(lists)
+                } else {
+                    changeUIStatus(1)
+                }
+            }
+        }
+
+        mViewModel?.setUserAllowRangLiveData?.observe(this){
+            if(it.errCode == 0){
+                LaToastUtil.showShort(resources.getString(R.string.login_btn_ok))
+                finish()
+            }else{
+                LaToastUtil.showShort(it?.errMsg)
+
+            }
+
+        }
+    }
+
+    //无数据状态处理
+    private fun changeUIStatus(type: Int) {
+        noDataLayout!!.visibility = View.VISIBLE
+        mSmartRefreshLayout!!.visibility = View.GONE
+        if (1 == type) { //关注没有数据
+            noDataTxt!!.setText(R.string.no_datas)
+        } else { //搜索没有数据
+            noDataTxt!!.setText(R.string.no_datas)
+        }
+    }
+
+    override fun onClick(view: View) {
+        val id = view.id
+        when (id) {
+            R.id.iv_top_back->finish()
+            R.id.visibleRangeBtn->{
+                if(mSelectList.size > 0) {
+                    intent.getStringExtra("type")?.toInt()?.let {
+                        mViewModel?.setUserAllowRange(
+                            it, DataBus.instance().USER_ID,
+                            intent.getStringExtra("sceneId")!!, mSelectList
+                        )
+                    }
+                }else{
+                    LaToastUtil.showShort(resources.getString(R.string.rt_stream_visible_range_tip))
+                }
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+}

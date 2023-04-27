@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/itemAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        app:riv_mutate_background="true"
+        android:layout_marginBottom="16dp"
+        app:riv_oval="true"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/icon_default_avatar"/>
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/itemAvatar"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxLength="32"
+        android:textSize="16sp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"/>
+    <CheckBox
+        android:id="@+id/itemCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:background="@color/transparent"
+        android:layout_marginEnd="12dp"
+        android:gravity="center"
+        android:button="@drawable/checkbox_selecter"/>
+</RelativeLayout>

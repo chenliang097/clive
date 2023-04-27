@@ -21,5 +21,6 @@ public class PayInfoBean extends BaseModel {
         public String prepay_id = "";
         public String sign = "";
         public String timestamp = "";
+        public String order_str = "";
     }
 }

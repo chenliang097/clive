@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_circle_top"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/rt_stream_visible_range_title"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/c_5_white"/>
+
+        <RelativeLayout
+            android:id="@+id/startLiveVisiblePublicLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:drawableStart="@drawable/rt_icon_stream_public"
+                android:drawablePadding="12dp"
+                android:text="@string/rt_stream_visible_range_public"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+            <ImageView
+                android:id="@+id/startLiveVisiblePublicImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/rt_icon_stream_tick"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/startLiveVisibleSeeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:drawableStart="@drawable/rt_icon_stream_see"
+                android:drawablePadding="12dp"
+                android:text="@string/rt_stream_visible_range_see"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+            <ImageView
+                android:id="@+id/startLiveVisibleSeeImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/rt_icon_stream_arrow_right"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/startLiveVisibleSeeNoLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="40dp"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:drawableStart="@drawable/rt_icon_stream_see_no"
+                android:drawablePadding="12dp"
+                android:text="@string/rt_stream_visible_range_see_no"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+            <ImageView
+                android:id="@+id/startLiveVisibleSeeNoImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/rt_icon_stream_arrow_right"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

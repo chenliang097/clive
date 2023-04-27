@@ -6,15 +6,13 @@ import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.PushStreamHeartBeatRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.StreamStartRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.user.PayInfoBean
-import com.rongtuoyouxuan.chatlive.biz2.model.user.PayInfoRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamStartInfoRequest
 import retrofit2.Call
 import retrofit2.http.*
 
 interface StreamServer {
     @POST("/medium/v1/push/getRoomInfoByUserId")
-    fun startlive(@Body streamStartRequest: StreamStartRequest): Call<StartStreamBean?>?
+    fun startlive(@Body streamStartRequest: StreamStartInfoRequest): Call<StartStreamInfoBean?>?
 
     @GET("/chatroom/users")
     fun getOnlineList(
@@ -25,8 +23,8 @@ interface StreamServer {
     @GET("/audience/see/live")
     fun getRoomInfo(@Query("live_id") liveId: String?): Call<LiveRoomBean?>?
 
-    @POST("/anchor/end/live")
-    fun streamEndLive(@Body request: StreamEndRequest): Call<StreamEndBean?>?
+    @GET("/userProxy/v1/user/getStatistics")
+    fun getStreamStatiscData(@Query("user_id") userId: String?, @Query("t") t: Int): Call<StreamEndBean?>?
 
     //主播点赞
     @POST("/anchor/like/live")
@@ -105,9 +103,6 @@ interface StreamServer {
         @Query("next_key") nextKey: String,
     ): Call<LiveAudienceRankData>
 
-    @POST("/order/v1/pay")
-    fun getPayInfo(@Body payInfoRequest: PayInfoRequest): Call<PayInfoBean?>?
-
     @POST("/medium/v1/pull/userAction")
     fun enterRoom(@Body request: EnterRoomRequestBean): Call<EnterRoomBean>
 
@@ -128,6 +123,12 @@ interface StreamServer {
 
     @POST("/userProxy/v1/user/faceIdentification")
     fun getTencentFaceData(@Body request: LiveZanReq): Call<BaseModel>
+
+    @POST("/medium/v1/push/updateSceneBaseInfo")
+    fun uploadAnchorInfo(@Body request: StartPushStreamRequest): Call<BaseModel>
+
+    @POST("/userProxy/v1/user/setAllowRule")
+    fun setUserAllowRange(@Body request: LiveRoomVisibleRangeRequest): Call<BaseModel>
 
 
 }

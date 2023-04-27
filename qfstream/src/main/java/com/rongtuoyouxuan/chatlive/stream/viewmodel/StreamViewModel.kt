@@ -12,6 +12,7 @@ import com.rongtuoyouxuan.chatlive.arch.LiveEvent
 import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
 import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveBaseViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamStartInfoRequest
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.log.PLog
@@ -46,11 +47,12 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     @JvmField
     var showToast = LiveEvent<Int>()
     @JvmField
-    var startStreamModel = LiveEvent<StartStreamBean>() //开播数据
+    var startStreamModel = LiveEvent<StartStreamInfoBean>() //开播数据
     var isPreviewVisible = MutableLiveData<Boolean>()
     var closeActivityLiveData = MutableLiveData<Boolean>()
     var pushStreamStatusLiveData = MutableLiveData<Int>()
     var pushStreamHeartBeatLiveData = MutableLiveData<StreamHeartBeatBean>()
+    var startPushStreamInfoLiveData = LiveEvent<StartStreamInfoBean>() //开播数据
 
 
     var setCover = LiveEvent<Void>()
@@ -187,46 +189,55 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         mStreamApi!!.setEncodingSize(width, height)
     }
 
-    fun startRequestPullUrl(classify_id: Int?, title: String?, pic: String?, longitude:Double?, latitude:Double?, isDefaultTitle:Boolean) {
-        PLog.d(TAG, "startRequestPullUrl")
-        streamType = StreamPreviewLayout.TYPE_LIVE
-        StreamBiz.startlive(null, classify_id, title, pic, longitude, latitude, object : RequestListener<StartStreamBean?> {
+    fun getStreamRoomInfo(userId: String?, userName: String?) {
+        StreamBiz.startlive(null, userId, userName, object : RequestListener<StartStreamInfoBean?> {
             override fun onFailure(reqId: String, errCode: String, msg: String) {
-                showReconnectEvent.value = msg
             }
 
-            override fun onSuccess(reqId: String?, result: StartStreamBean?) {
-                startStreamModel.value = result
-                startStreamEvent.postCall()
-//                publishUrl = result?.data?.cdnSdk?.push_url
-//                streamId = result?.data?.live?.id.toString()
-//                streamToken = result?.data?.stream_sdk?.token
-////                    streamToken = KeyCenter.getInstance()._token
-//                anchorId = result?.data?.live?.anchor_id.toString()
-//                result?.data?.cdnSdk?.push_url?.let { result?.data?.live?.id.toString().let { it1 ->
-//                    startStreaming(it, it1, streamToken)
-//                } }
+            override fun onSuccess(reqId: String?, result: StartStreamInfoBean?) {
+                startPushStreamInfoLiveData.value = result
             }
         })
     }
 
-    fun startRequestPullUrl(userId: String?, userName: String?) {
+    fun startRequestPullUrl(title: String?, coverImg: String?, longitude:Double?, latitude:Double?, location: String?, userId: String?, userName: String?) {
         PLog.d(TAG, "startRequestPullUrl")
         streamType = StreamPreviewLayout.TYPE_LIVE
-        StreamBiz.startlive(null, userId, userName, object : RequestListener<StartStreamBean?> {
+        var request = StartPushStreamRequest(coverImg, title, location, longitude, latitude)
+        StreamBiz.startlive(null, userId, userName, object : RequestListener<StartStreamInfoBean?> {
             override fun onFailure(reqId: String, errCode: String, msg: String) {
                 showReconnectEvent.value = msg
             }
 
-            override fun onSuccess(reqId: String?, result: StartStreamBean?) {
-                startStreamModel.value = result
+            override fun onSuccess(reqId: String?, result: StartStreamInfoBean?) {
+                if (result != null) {
+                    uploadAnchorInfo(result, request)
+                }
+            }
+        })
+    }
+
+    fun uploadAnchorInfo(startStreamBean: StartStreamInfoBean, request:StartPushStreamRequest) {
+        PLog.d(TAG, "startRequestPullUrl")
+        streamType = StreamPreviewLayout.TYPE_LIVE
+        var startPushStreamRequest = request
+        startPushStreamRequest.anchor_id_str = startStreamBean.data.anchor_id.toString()
+        startPushStreamRequest.scene_id_str = startStreamBean.data.scene_id_str
+        startPushStreamRequest.room_id_str = startStreamBean.data.room_id_str
+        StreamBiz.uploadAnchorInfo(startPushStreamRequest, object : RequestListener<BaseModel> {
+            override fun onFailure(reqId: String, errCode: String, msg: String) {
+                showReconnectEvent.value = msg
+            }
+
+            override fun onSuccess(reqId: String?, result: BaseModel?) {
+                startStreamModel.value = startStreamBean
                 startStreamEvent.postCall()
 //                publishUrl = result?.data?.push_url
-                streamId = result?.data?.stream_id
-                streamToken = result?.data?.token
+                streamId = startStreamBean?.data?.stream_id
+                streamToken = startStreamBean?.data?.token
 //                    streamToken = KeyCenter.getInstance()._token
-                anchorId = result?.data?.anchor_id.toString()
-                result?.data?.room_id_str?.let { startStreaming(streamId, streamToken, it) }
+                anchorId = startStreamBean?.data?.anchor_id.toString()
+                startStreamBean?.data?.room_id_str?.let { startStreaming(streamId, streamToken, it) }
             }
         })
     }

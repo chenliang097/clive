@@ -8,12 +8,11 @@ import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.PushStreamHeartBeatRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.StreamStartRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamStartInfoRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.net2.NetWorks
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import newNetworks
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 
@@ -22,7 +21,7 @@ object StreamBiz {
     fun startlive(
         lifecycleOwner: LifecycleOwner?,
         classify_id: Int?, title: String?, pic: String?, longitude: Double?, latitude: Double?,
-        listener: RequestListener<StartStreamBean?>?,
+        listener: RequestListener<StartStreamInfoBean?>?,
     ) {
 //        object : NetWorks<StartStreamBean?>(lifecycleOwner, listener) {
 //            override fun getBaseUrl(): String {
@@ -43,16 +42,16 @@ object StreamBiz {
     fun startlive(
         lifecycleOwner: LifecycleOwner?,
         userId: String?, userName: String?,
-        listener: RequestListener<StartStreamBean?>?,
+        listener: RequestListener<StartStreamInfoBean?>?,
     ) {
-        object : NetWorks<StartStreamBean?>(lifecycleOwner, listener) {
+        object : NetWorks<StartStreamInfoBean?>(lifecycleOwner, listener) {
             override fun getBaseUrl(): String {
                 return UrlConstanst.BASE_URL_LIVE_API_BOBOO_COM
             }
 
-            override fun createCall(retrofit: Retrofit): Call<StartStreamBean?>? {
+            override fun createCall(retrofit: Retrofit): Call<StartStreamInfoBean?>? {
                 return retrofit.create(StreamServer::class.java)
-                    .startlive(StreamStartRequest(userId, userName))
+                    .startlive(StreamStartInfoRequest(userId, userName))
             }
 
             override fun getReqId(): String {
@@ -61,9 +60,10 @@ object StreamBiz {
         }.start()
     }
 
-    fun streamEndlive(
+    fun getStreamStatiscData(
         lifecycleOwner: LifecycleOwner?,
-        liveId: String,
+        userId: String,
+        t:Int,
         listener: RequestListener<StreamEndBean>,
     ) {
         object : NetWorks<StreamEndBean>(lifecycleOwner, listener) {
@@ -73,7 +73,7 @@ object StreamBiz {
 
             override fun createCall(retrofit: Retrofit): Call<StreamEndBean?>? {
                 return retrofit.create(StreamServer::class.java)
-                    .streamEndLive(StreamEndRequest(liveId))
+                    .getStreamStatiscData(userId, t)
             }
 
             override fun getReqId(): String {
@@ -471,6 +471,27 @@ object StreamBiz {
         newNetworks(null, listener, "") {
             it.create(StreamServer::class.java)
                 .liveZan(LiveZanReq(anchor_id_str, userId, roomId, sceneId))
+        }
+    }
+
+    //上传主播信息
+    fun uploadAnchorInfo(
+        request:StartPushStreamRequest,
+        listener: RequestListener<BaseModel>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .uploadAnchorInfo(request)
+        }
+    }
+
+    fun setUserAllowRange(
+        request:LiveRoomVisibleRangeRequest,
+        listener: RequestListener<BaseModel>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .setUserAllowRange(request)
         }
     }
 

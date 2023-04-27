@@ -11,6 +11,8 @@ import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamEndViewModel
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libuikit.SimpleActivity
 import com.bumptech.glide.Glide
+import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.router.Router
 import kotlinx.android.synthetic.main.qf_stream_activity_end.*
 
 @Route(path = RouterConstant.PATH_ACTIVITY_STREAM_END)
@@ -18,7 +20,6 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
 
     private var mStreamEndViewModel:StreamEndViewModel? = null
     private var streamId:String? = ""
-    private var streamType:String? = ""
 
     override fun getLayoutResId(): Int {
         return R.layout.qf_stream_activity_end
@@ -31,13 +32,12 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         streamId = intent.getStringExtra("streamId");
-        streamType = intent.getStringExtra("streamType")
         initObserver()
     }
 
     private fun initObserver(){
         streamId?.let {
-            mStreamEndViewModel?.streamEndLive(it)
+            mStreamEndViewModel?.getStreamStatiscData(DataBus.instance().USER_ID, 1)
         }
         mStreamEndViewModel?.liveEndLiveData?.observe(this) {
             updateData(it)
@@ -45,18 +45,13 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
     }
 
     private fun updateData(streamEndBean: StreamEndBean){
-        streamEndBean.data?.prev_live?.living_time?.toLong()
-            ?.let { streamEndTimeTxt?.text = getString(R.string.stream_end_time, secondToTime(it)) }
-        streamEndHotTxt?.text = streamEndBean.data?.anchor?.nickname
-        streamEndFansIncreaseNumTxt?.text = streamEndBean.data?.now_live?.audience_num.toString()
-        streamEndSeePerNumTxt?.text = streamEndBean.data?.now_live?.increment_fans.toString()
-        streamEndSeeFansNumTxt?.text = streamEndBean.data?.now_live?.diamond_total.toString()
-        streamEndZanNumTxt?.text = streamEndBean.data?.now_live?.send_gift_people.toString()
-        streamEndGiftNumTxt?.text = streamEndBean.data?.prev_live?.audience_num.toString()
-        streamEndCoinTxt?.text = streamEndBean.data?.prev_live?.increment_fans.toString()
-
-        var cover = streamEndBean?.data?.now_live?.pic!!
-        Glide.with(this).load(cover).into(coverBg)
+        streamEndHotTxt.text = "" + streamEndBean.data?.hot_degree
+        streamEndFansIncreaseNumTxt.text = "" + streamEndBean.data?.fans_count
+        streamEndSeePerNumTxt.text = "" + streamEndBean.data?.view_count
+        streamEndSeeFansNumTxt.text = "" + streamEndBean.data?.fans_count
+        streamEndZanNumTxt.text = "" + streamEndBean.data?.like_count
+        streamEndGiftNumTxt.text = "" + streamEndBean.data?.gift_income
+        streamEndHotTxt.text = "" + "0"
     }
 
     fun secondToTime(second: Long): String? {
@@ -81,7 +76,7 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
             finish()
         }
         streamEndAnchorCenterTxt?.setOnClickListener {
-            LaToastUtil.showShort("主播中心")
+            Router.toAnchorCenterActivity()
         }
     }
 
