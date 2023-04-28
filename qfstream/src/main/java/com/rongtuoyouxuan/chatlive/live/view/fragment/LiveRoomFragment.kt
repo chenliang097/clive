@@ -326,21 +326,21 @@ class LiveRoomFragment : SimpleFragment() {
         }
 
         LiveRoomHelper.openUserCardVM.observe(this) {
-            if (anchorId?.isNotEmpty() == true) {
-                XPopup.Builder(mContext)
-                    .enableDrag(false)
-                    .asCustom(
-                        (mContext as LiveRoomActivity)?.let { it1 ->
-                            UserCardDialog(
-                                it1,
-                                anchorId?.toLongOrNull() ?: 0L,
-                                it,
-                                liveId = streamId
-                            )
-                        }
-                    )
-                    .show()
-            }
+//            if (anchorId?.isNotEmpty() == true) {
+//                XPopup.Builder(mContext)
+//                    .enableDrag(false)
+//                    .asCustom(
+//                        (mContext as LiveRoomActivity)?.let { it1 ->
+//                            UserCardDialog(
+//                                it1,
+//                                anchorId?.toLongOrNull() ?: 0L,
+//                                it,
+//                                liveId = streamId
+//                            )
+//                        }
+//                    )
+//                    .show()
+//            }
         }
 
         UserCardHelper.managerVM.observe(this) {

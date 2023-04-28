@@ -157,8 +157,7 @@ public class SDKManager {
 
         videoCaptureFromCamera2 = new VideoCaptureFromCamera2(expressEngine, zegoEffects, context);
         videoCaptureFromCamera2.setView(previewView);
-        startCamera();
-//        videoCaptureFromCamera2.startCapture();
+        videoCaptureFromCamera2.startCapture();
         zegoEffects.setEventHandler(new ZegoEffectsEventHandler() {
             @Override
             public void onError(ZegoEffects handle, int errorCode, String desc) {

@@ -262,6 +262,8 @@
     <color name="rt_c_80_C52C37">#80C52C37</color>
     <color name="rt_c_3478F6">#3478F6</color>
     <color name="rt_c_80_666666">#cc666666</color>
+    <color name="rt_c_5_333333">#0D333333</color>
+    <color name="rt_c_F1F1F1">#F1F1F1</color>
     <!--custom seek_bar color -->
     <color name="seek_bar_background">#FFFFFF</color>
     <color name="seek_bar_progress">#F53455</color>

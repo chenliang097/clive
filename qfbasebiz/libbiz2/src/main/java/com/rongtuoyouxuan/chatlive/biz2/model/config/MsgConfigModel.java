@@ -2,7 +2,7 @@ package com.rongtuoyouxuan.chatlive.biz2.model.config;
 
 import android.text.TextUtils;
 
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.BaseRoomMessage;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage;
 import com.rongtuoyouxuan.chatlive.gson.GsonSafetyUtils;
 import com.rongtuoyouxuan.chatlive.net2.BaseModel;
 import com.google.gson.annotations.SerializedName;

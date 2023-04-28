@@ -23,7 +23,6 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.AdsBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomInfoExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.ShareLiveRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomRequetFollow
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomUserInfo
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
 import com.rongtuoyouxuan.chatlive.databus.DataBus
@@ -38,6 +37,9 @@ import com.rongtuoyouxuan.libsocket.WebSocketManager
 import com.rongtuoyouxuan.libsocket.base.ChatSendCallback
 import com.rongtuoyouxuan.libsocket.base.EventCallback
 import com.rongtuoyouxuan.libsocket.base.IMSocketBase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveStreamInfo) {
     @JvmField
@@ -59,7 +61,6 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
 
     @JvmField
     var isShowChatView = LiveEvent<Boolean>()
-    var requterfollow = LiveEvent<RoomRequetFollow>() //进入房间，没关注，发送弹幕关注状态
     var showGiftDialog = LiveEvent<Int>() //弹出购买礼物dialog
     var bannedLiveData = LiveEvent<Boolean>() //禁言
     @JvmField
@@ -346,16 +347,18 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         WebSocketManager._getInstance().initIM("", true, "", "")
         IMSocketBase.instance().login(object : EventCallback {
             override fun Success() {
-                LaToastUtil.showShort("socket成功---")
-                IMSocketBase.instance().sendMessageBySocket("", GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
-                    override fun sendSuccess(msg: String?) {
+                LaToastUtil.showShort("socket成功-------")
+                GlobalScope.launch(Dispatchers.Main) {
+                    IMSocketBase.instance().sendMessageBySocket("2020", GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
+                        override fun sendSuccess(msg: String?) {
 
-                    }
+                        }
 
-                    override fun sendFail(code: Int, desc: String?) {
-                    }
+                        override fun sendFail(code: Int, desc: String?) {
+                        }
 
-                })
+                    })
+                }
             }
 
             override fun Error(code: String?, desc: String?) {

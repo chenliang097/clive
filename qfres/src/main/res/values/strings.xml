@@ -94,8 +94,6 @@
     <string name="stream_permisson_content3">允许访问麦克风权限</string>
     <string name="stream_permisson_btn_allow">允许</string>
     <string name="stream_permisson_btn_refuse">拒绝</string>
-    <string name="stream_user_card_fans">粉丝</string>
-    <string name="stream_user_card_follow">关注</string>
     <string name="stream_user_card_coin">BO币</string>
     <string name="stream_user_card_send">送出</string>
     <string name="stream_user_card_at">/@Ta</string>
@@ -491,7 +489,6 @@
     <string name="stream_end_zan">点赞次数</string>
     <string name="stream_end_gift">礼物收益</string>
     <string name="stream_end_coin">预估佣金</string>
-    <string name="stream_follow">关注</string>
     <string name="live_more_live">更多直播</string>
     <string name="bill_finish">已完成</string>
     <string name="rt_pay_pay_suc">支付成功!</string>
@@ -529,5 +526,13 @@
     <string name="anchor_center_w">近七日</string>
     <string name="anchor_center_m">近30日</string>
     <string name="rt_stream_visible_range_tip">请先选择</string>
+    <string name="stream_unknown_location1">未知</string>
+    <string name="stream_user_card_fans">%1$d粉丝</string>
+    <string name="stream_user_card_follow">%1$d关注</string>
+    <string name="stream_user_card_enter_window">进入橱窗</string>
+    <string name="stream_user_card_male">男</string>
+    <string name="stream_user_card_female">女</string>
+    <string name="stream_follow">关注</string>
+    <string name="stream_follow_cancel">取消关注</string>
 
 </resources>

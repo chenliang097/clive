@@ -9,8 +9,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.CollectionUtils;
+import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz;
 import com.rongtuoyouxuan.chatlive.biz2.user.UserBiz;
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UploadFileResponse;
+import com.rongtuoyouxuan.chatlive.databus.DataBus;
+import com.rongtuoyouxuan.chatlive.net2.BaseModel;
 import com.rongtuoyouxuan.chatlive.net2.RequestListener;
 import com.rongtuoyouxuan.qfcommon.permission.RxPermissionProxy;
 
@@ -29,6 +32,10 @@ import okhttp3.RequestBody;
 public class CommonViewModel extends AndroidViewModel {
     public MutableLiveData<List<String>> uploadSuccessData = new MutableLiveData<>();
     public MutableLiveData<List<String>> uploadFailData = new MutableLiveData<>();
+
+    public MutableLiveData<BaseModel> addFollowLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<BaseModel> cancelFollowLiveData = new MutableLiveData<>();
 
 
     private volatile Map<Integer, UploadFileResponse.DataBean> uploadSuccessMap = new HashMap<>();
@@ -118,5 +125,49 @@ public class CommonViewModel extends AndroidViewModel {
                 uploadFailData.setValue(failedList);
             }
         }
+    }
+
+    public void addFollow(String followId, String roomId, String sceneId){
+        StreamBiz.INSTANCE.liveFollows(followId, DataBus.instance().USER_ID, roomId, sceneId, 1, null, new RequestListener<BaseModel>() {
+            @Override
+            public void onSuccess(String reqId, BaseModel result) {
+                addFollowLiveData.setValue(result);
+            }
+
+            @Override
+            public void onFailure(String reqId, String errCode, String msg) {
+                try {
+                    BaseModel baseModel = new BaseModel();
+                    baseModel.errCode = Integer.parseInt(errCode);
+                    baseModel.errMsg = msg;
+                    addFollowLiveData.setValue(baseModel);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    public void cancelFollow(String followId, String roomId, String sceneId){
+        StreamBiz.INSTANCE.liveFollows(followId, DataBus.instance().USER_ID, roomId, sceneId, 0, null, new RequestListener<BaseModel>() {
+            @Override
+            public void onSuccess(String reqId, BaseModel result) {
+                cancelFollowLiveData.setValue(result);
+            }
+
+            @Override
+            public void onFailure(String reqId, String errCode, String msg) {
+                try {
+                    BaseModel baseModel = new BaseModel();
+                    baseModel.errCode = Integer.parseInt(errCode);
+                    baseModel.errMsg = msg;
+                    cancelFollowLiveData.setValue(baseModel);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 }

@@ -112,9 +112,9 @@ public class WebSocketImpl {
         @Override
         public void onMessage(WebSocket webSocket, String text) {
             super.onMessage(webSocket, text);
-            if (mWebSocketListener != null) {
-                mWebSocketListener.onMessage(webSocket, text);
-            }
+//            if (mWebSocketListener != null) {
+//                mWebSocketListener.onMessage(webSocket, text);
+//            }
             Log.e(getTAG(), "onMessage: " + text);
         }
 
@@ -124,9 +124,9 @@ public class WebSocketImpl {
             byte[] inBuffer = bytes.toByteArray();
             Long operation = BruteForceCoding.decodeIntBigEndian(inBuffer, 8, 4);
 
-            Log.e(getTAG(), "onMessage: " + bytes.hex() + "--operation:" + operation);
+//            Log.e(getTAG(), "onMessage: " + bytes.hex() + "--operation:" + operation);
             if (3 == operation) {
-                Log.e(getTAG(), "onMessage: " + "heartBeatReceived---");
+                Log.e("heartBeatReceived", "onMessage: " + "heartBeatReceived---");
             } else if (8 == operation) {
                 Log.e(getTAG(), "onMessage: " + "authSuccess---");
                 if (mEventCallback != null) {
@@ -137,9 +137,9 @@ public class WebSocketImpl {
                 byte[] result = BruteForceCoding.tail(inBuffer, inBuffer.length);
                 String resultInfo = new String(result).trim();
                 ULog.e("clll", "onMessage: " + "5---" + resultInfo);
-                if (mWebSocketListener != null) {
-                    mWebSocketListener.onMessage(webSocket, bytes);
-                }
+//                if (mWebSocketListener != null) {
+//                    mWebSocketListener.onMessage(webSocket, bytes, op);
+//                }
             }
             else if (9 == operation) {//自定义消息类型 服务端下发
                 Long packageLength = BruteForceCoding.decodeIntBigEndian(inBuffer, 0, 4);
@@ -154,17 +154,15 @@ public class WebSocketImpl {
                     Long version1 = BruteForceCoding.decodeIntBigEndian(inBuffer, offset + 6, 2);
                     Long operation1 = BruteForceCoding.decodeIntBigEndian(inBuffer, offset + 8, 4);
                     Long sequenceId1 = BruteForceCoding.decodeIntBigEndian(inBuffer, offset + 12, 4);
-                    byte[] result = BruteForceCoding.tail(inBuffer,(int)(offset + headLength1), (int)(offset + packageLength));
+                    byte[] result = BruteForceCoding.tail(inBuffer,(int)(offset + headLength1), (int)(packageLength -(offset + headLength1)));
                     ULog.e("clll", "onMessage: " + "packetLen1:" + packetLen1 + "--headLength1:" + headLength1 + "--version1:" + version1 + "--sequenceId1:" + sequenceId1  + "--operation1:" + operation1);
                     String resultInfo = new String(result).trim();
                     ULog.e("clll", "onMessage: " + "9---" + resultInfo);
+                    if (mWebSocketListener != null) {
+                        mWebSocketListener.onMessage(webSocket, resultInfo, operation1);
+                    }
                 }
 
-
-
-//                if (mWebSocketListener != null) {
-//                    mWebSocketListener.onMessage(webSocket, resultInfo);
-//                }
             }
         }
 
@@ -312,29 +310,29 @@ public class WebSocketImpl {
         }
     }
 
-    public void sendCommonMessage(String msg, ChatSendCallback chatSendCallback) {
+    public void sendCommonMessage(int op, String msg, ChatSendCallback chatSendCallback) {
         WebSocket webSocket;
         this.chatSendCallback = chatSendCallback;
 //        synchronized (WebSocketManager.class) {
             webSocket = mWebSocket;
 //        }
         if (webSocket != null) {
-            sendMessage(webSocket, msg);
+            sendMessage(op, webSocket, msg);
         }
     }
 
-    private static void sendMessage(WebSocket webSocket, String msg) {
+    private static void sendMessage(int op, WebSocket webSocket, String msg) {
         int packLength = msg.length() + 16;
         byte[] message = new byte[16];
-
+        ULog.d("clll", "op:" + op + "--sendMessage:" + msg);
         int offset = BruteForceCoding.encodeIntBigEndian(message, packLength, 0, 4 * BruteForceCoding.BSIZE);
         offset = BruteForceCoding.encodeIntBigEndian(message, 16, offset, 2 * BruteForceCoding.BSIZE);
         offset = BruteForceCoding.encodeIntBigEndian(message, 1, offset, 2 * BruteForceCoding.BSIZE);
-        offset = BruteForceCoding.encodeIntBigEndian(message, 4, offset, 4 * BruteForceCoding.BSIZE);
+        offset = BruteForceCoding.encodeIntBigEndian(message, op, offset, 4 * BruteForceCoding.BSIZE);
         offset = BruteForceCoding.encodeIntBigEndian(message, 1, offset, 4 * BruteForceCoding.BSIZE);
 
         ByteString aa = ByteString.of(BruteForceCoding.add(message, msg.getBytes()));
-        ULog.d("clll", "sendMessage:" + msg);
+
         webSocket.send(aa);
     }
 }

@@ -152,7 +152,7 @@ public class WebSocketManager implements ISocket, IWebSocketListener {
 
     @Override
     public void sendMessageBySocket(String peer, String msg, ChatSendCallback chatSendCallback) {
-        webSocketImpl.sendCommonMessage(msg, chatSendCallback);
+        webSocketImpl.sendCommonMessage(Integer.parseInt(peer), msg, chatSendCallback);
     }
 
     @Override
@@ -173,18 +173,18 @@ public class WebSocketManager implements ISocket, IWebSocketListener {
     }
 
     @Override
-    public void onMessage(WebSocket webSocket, final String text) {
+    public void onMessage(WebSocket webSocket, final String text, long op) {
         IMSocketBase.instance().handler.post(new Runnable() {
             @Override
             public void run() {
                 cancelCheckPong();
-                IMSocketBase.instance().parseMsg(text, false);
+                IMSocketBase.instance().parseMsg(text, false, op);
             }
         });
     }
 
     @Override
-    public void onMessage(WebSocket webSocket, ByteString bytes) {
+    public void onMessage(WebSocket webSocket, ByteString bytes, long op) {
         IMSocketBase.instance().handler.post(new Runnable() {
             @Override
             public void run() {

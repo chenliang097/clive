@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.util.ConvertUtils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
+import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.MessageContent
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GiftMsg
@@ -41,7 +42,7 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
 //    protected var builder: UserCardDialog.Builder? = null
 
 
-    open fun createMsgBackground(textView: TextView, common: BaseMsg) {
+    open fun createMsgBackground(textView: TextView, common: BaseRoomMessage) {
         textView.setBackgroundResource(R.drawable.room_chat_bg_normal)
     }
     open fun createMsgBackgroundWithBlue(textView: TextView, common: BaseMsg) {
@@ -51,57 +52,48 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
     /**
      * 添加角色图标  0-游客 1-普通用户 10-主播 11-管理员 99-超管
      */
-    open fun addRoleDrawableSpan(spanString: SpannableStringBuilder, role: Int, imageHeight: Int) {
-        var res:Int = LiveUserIconHelper.getIdentity(10)
-        var identifyTxt = ""
-        when (role) {
-            0 -> {
-                res = LiveUserIconHelper.getIdentity(0)
-            }
-            else -> {
-                res = LiveUserIconHelper.getIdentity(0)
+    open fun addRoleDrawableSpan(spanString: SpannableStringBuilder, roomManger: Boolean, superManger: Boolean, imageHeight: Int) {
+
+        when (roomManger) {
+            true -> {
+                var res:Int = LiveUserIconHelper.getIdentity(10)
+                addImageSpan(imageHeight, spanString, ConvertUtils.drawable2Bitmap(mContext.getDrawable(res)))
             }
         }
-        addImageSpan(imageHeight, spanString, ConvertUtils.drawable2Bitmap(mContext.getDrawable(res)))
+        when (superManger) {
+            true -> {
+                var res:Int = LiveUserIconHelper.getIdentity(10)
+                addImageSpan(imageHeight, spanString, ConvertUtils.drawable2Bitmap(mContext.getDrawable(res)))
+            }
+        }
     }
 
     /**
      * 给item添加拍好顺序的所有图标(Guard 消息类型特殊)
      */
-    open fun addCommonIcons(textView: TextView, common: BaseMsg, spanString: SpannableStringBuilder, imageHeight: Int) {
-        if(common.body.userType == 10 || common.body.userType == 99) {
-            addRoleDrawableSpan(spanString, common.body.userType, imageHeight)
+    open fun addCommonIcons(textView: TextView, common: BaseRoomMessage, spanString: SpannableStringBuilder, imageHeight: Int) {
+        if(common.isRoomAdmin || common.isSuperAdmin) {
+            addRoleDrawableSpan(spanString, common.isRoomAdmin, common.isSuperAdmin, imageHeight)
         }
     }
 
     /**
      * 添加nickname
      */
-    open fun addNickName(textView: TextView, common:BaseMsg, spanString: SpannableStringBuilder, nameColor: Int, addMaohao: Boolean) {
-        addTextSpan(spanString, textView, common.body.from.nickname + if (addMaohao) ": " else " ", mContext.resources.getColor(R.color.c_stream_msg_nick_name), ClickiTextSpan.SpanClick {
-            if(common.body.userType != 0) {
-                LiveRoomHelper.openUserCardVM.post(common.body.from.userId.toLong())
-            }else if(common.messageType != MessageContent.MSG_LIVE_JOIN.type){
-                LiveRoomHelper.openUserCardVM.post(common.body.from.userId.toLong())
-            }else{
-                ULog.d("clll", "addNickName")
-            }
+    open fun addNickName(textView: TextView, common:BaseRoomMessage, spanString: SpannableStringBuilder, nameColor: Int, addMaohao: Boolean) {
+        addTextSpan(spanString, textView, common.userName + if (addMaohao) ": " else " ", mContext.resources.getColor(R.color.c_stream_msg_nick_name), ClickiTextSpan.SpanClick {
+            LiveRoomHelper.openUserCardVM.post(common.userId.toLong())
+            ULog.d("clll", "addNickName")
         })
     }
 
     /**
      * 添加nickname 礼物
      */
-    open fun addNickName(textView: TextView, common:BaseMsg, spanString: SpannableStringBuilder, addMaohao: Boolean) {
-        addTextSpan(spanString, textView, common.body.from.nickname + if (addMaohao) ": " else " ", mContext.resources.getColor(
+    open fun addNickName(textView: TextView, common:BaseRoomMessage, spanString: SpannableStringBuilder, addMaohao: Boolean) {
+        addTextSpan(spanString, textView, common.userName + if (addMaohao) ": " else " ", mContext.resources.getColor(
             R.color.c_stream_msg_common), ClickiTextSpan.SpanClick {
-            if(common.body.userType != 0 ) {
-                LiveRoomHelper.openUserCardVM.post(common.body.from.userId.toLong())
-            }else if(common.messageType != MessageContent.MSG_LIVE_JOIN.type){
-                LiveRoomHelper.openUserCardVM.post(common.body.from.userId.toLong())
-            }else{
-                ULog.d("clll", "addNickName")
-            }
+            LiveRoomHelper.openUserCardVM.post(common.userId.toLong())
         })
     }
 
@@ -129,9 +121,9 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
     }
 
     //判断是否是自己
-    open fun isSelf(message: BaseMsg): Boolean {
-        if(message.body.from != null){
-            return uid == message.body.from.userId.toLong()
+    open fun isSelf(message: BaseRoomMessage): Boolean {
+        if(message.userId != null){
+            return uid.toString() == message.userId
         }
         return false
     }

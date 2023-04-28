@@ -7,6 +7,8 @@ import retrofit2.Retrofit
 import com.rongtuoyouxuan.chatlive.biz2.ReqId
 import com.rongtuoyouxuan.chatlive.biz2.constanst.UrlConstanst
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveUserData
+import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
+import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import retrofit2.Call
 
@@ -38,13 +40,13 @@ object UserCardBiz {
      * 获取资料卡
      */
     fun getLiveUserCardInfo(
-        uid: Long,
+        userCardInfoRequest: UserCardInfoRequest,
         lifecycleOwner: LifecycleOwner? = null,
-        listener: RequestListener<LiveUserData>
+        listener: RequestListener<UserCardInfoBean>
     ) {
-        object : NetWorks<LiveUserData>(lifecycleOwner, listener) {
-            override fun createCall(retrofit: Retrofit): Call<LiveUserData> {
-                return retrofit.create(UserCardServer::class.java).getLiveUserCardInfo(uid)
+        object : NetWorks<UserCardInfoBean>(lifecycleOwner, listener) {
+            override fun createCall(retrofit: Retrofit): Call<UserCardInfoBean> {
+                return retrofit.create(UserCardServer::class.java).getLiveUserCardInfo(userCardInfoRequest)
             }
 
             override fun getReqId(): String {

@@ -259,7 +259,6 @@ public class ZegoStreamView extends BaseStreamView {
                     ULog.e("clll", "message:" + message + "---license:" + license.getLicense());
                     ZegoLicense.effectsLicense = license.getLicense();
                     SDKManager.sharedInstance().initEvn(mZegoEngine, mPreviewView, mContext);
-                    SDKManager.sharedInstance().enableFaceDetection(true);
                 }
 
             }
@@ -388,7 +387,6 @@ public class ZegoStreamView extends BaseStreamView {
     @Override
     public void stopStreaming() {
         try {
-            SDKManager.sharedInstance().stopCamera();
             mZegoEngine.stopPreview();
             mZegoEngine.stopPublishingStream();
             mZegoEngine.removePublishCdnUrl(publishStreamID, pushUrl, new IZegoPublisherUpdateCdnUrlCallback() {

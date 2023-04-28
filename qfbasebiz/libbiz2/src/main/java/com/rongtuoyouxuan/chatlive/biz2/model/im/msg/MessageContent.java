@@ -14,7 +14,7 @@ import java.util.Arrays;
 public enum MessageContent {
 
     MSG_UNKNOWN(0, MsgActions.ACTION_UNKNOWN),
-    MSG_TEXT(1, MsgActions.ACTION_TEXT),
+    MSG_TEXT(1001, MsgActions.ACTION_TEXT),
     MSG_IMG(2, MsgActions.ACTION_IMG),
     MSG_RICH(3, MsgActions.ACTION_RICH),
     MSG_GIF(4, MsgActions.ACTION_GIF),

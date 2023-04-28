@@ -10,8 +10,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.rongtuoyouxuan.chatlive.arch.LiveCallback;
-import com.rongtuoyouxuan.chatlive.biz2.im.ChatIMBiz;
 import com.rongtuoyouxuan.chatlive.biz2.model.config.MsgConfigModel;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.response.IMTokenModel;
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UserInfo;
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.Message;
@@ -20,7 +20,6 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomGift;
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomMessage;
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomSystemMessage;
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.UserMessage;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.UserMessageModel;
 import com.rongtuoyouxuan.chatlive.gson.GsonSafetyUtils;
 import com.rongtuoyouxuan.chatlive.log.upload.ULog;
 import com.rongtuoyouxuan.chatlive.util.MyLifecycleHandler;
@@ -430,34 +429,17 @@ public class IMSocketBase implements ISocket {
 
     }
 
-    private void dispatch(String rawMsg, String channel, String type, String action, String body, boolean isOffline) {
+    private void dispatch(String rawMsg, String roomId, int channel, boolean isOffline) {
         if (disableReceiveMsg != null && disableReceiveMsg.isDisableReceiveMsg()) {
             return;
         }
-        if (type.equalsIgnoreCase("room")) {
-            //room离线消息抛弃
-            if (isOffline) {
-                return;
-            }
-            //channel="1" 代表全局消息
-            if (!TextUtils.isEmpty(channel) && "1".equalsIgnoreCase(channel)) {
-                switch (action) {
-                    case "templatemsg":
-                        dispatchGlobalTemplateMsg(channel, body);
-                        break;
-                        default:
-                        break;
-                }
-            } else if (!TextUtils.isEmpty(channel) && room(channel).isJoinGroup) {
-                switch (action) {
-                    case "templatemsg":
-                        dispatchTemplateMsg(channel, body);
-                        break;
+        switch (channel) {
+            case 1001:
+                room(roomId).chmsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTTxtMsg.class));
+                break;
 
-                    default:
-                        break;
-                }
-            }
+            default:
+                break;
         }
     }
 
@@ -532,7 +514,7 @@ public class IMSocketBase implements ISocket {
         return tail;
     }
 
-    public void parseMsg(String msg, boolean isOffline) {
+    public void parseMsg(String msg, boolean isOffline, long op) {
         if (TextUtils.isEmpty(msg)) {
             return;
         }
@@ -548,17 +530,16 @@ public class IMSocketBase implements ISocket {
         if (jsonObj == null) {
             return;
         }
-
-        String type = jsonObj.optString("type");
-        String action = jsonObj.optString("action");
-        String channel = jsonObj.optString("channel");
-        String body = jsonObj.optString("body");
-
-        if (TextUtils.isEmpty(type) || TextUtils.isEmpty(action)) {
-            return;
+        try {
+            String roomId = jsonObj.getString("room_id");
+            int operation = (int) op;
+            if (operation > 0) {
+                dispatch(msg, roomId, operation, isOffline);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        dispatch(msg, channel, type, action, body, isOffline);
     }
 
     /**
@@ -566,7 +547,7 @@ public class IMSocketBase implements ISocket {
      */
     public static class Room {
         private boolean isJoinGroup = false;
-        public LiveCallback<RoomMessage> chmsg = new LiveCallback<>();//弹幕
+        public LiveCallback<RTTxtMsg> chmsg = new LiveCallback<>();//弹幕
         public LiveCallback<RoomGift> roomgift = new LiveCallback<>();//送礼物
         public LiveCallback<RoomGift> roomgiftend = new LiveCallback<>();//送礼物结束
         public LiveCallback<String> forbidroom = new LiveCallback<>();//直播间封禁

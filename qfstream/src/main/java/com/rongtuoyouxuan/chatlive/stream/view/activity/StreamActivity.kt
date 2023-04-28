@@ -251,8 +251,6 @@ class StreamActivity : BaseLiveStreamActivity() {
 
         mStreamViewModel?.startStreamModel?.observe(this) { startStreamBean ->
             ll_room_bottom_tools.visibility = View.VISIBLE
-//            mIMViewModel?.enterRoom("enter_room", startStreamBean.data.room_id_str,
-//                startStreamBean.data.scene_id_str, StreamPreviewLayout.USER_ID)
             mIMViewModel?.initIM(this, "enter_room", startStreamBean.data.room_id_str,
                 startStreamBean.data.scene_id_str, StreamPreviewLayout.USER_ID, StreamPreviewLayout.USER_NAME, true)
             mIMViewModel?.systemMsgLiveEvent?.value = "欢迎来到直播间，榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播"
@@ -351,18 +349,18 @@ class StreamActivity : BaseLiveStreamActivity() {
         }
 
         LiveRoomHelper.openUserCardVM.observe(this) {
-            if (anchorId?.isNotEmpty() == true) {
-                XPopup.Builder(this)
-                    .enableDrag(false)
-                    .asCustom(
-                        UserCardDialog(
-                            this@StreamActivity,
-                            anchorId?.toLongOrNull() ?: 0L,
-                            it,
-                        )
-                    )
-                    .show()
-            }
+//            if (anchorId?.isNotEmpty() == true) {
+//                XPopup.Builder(this)
+//                    .enableDrag(false)
+//                    .asCustom(
+//                        UserCardDialog(
+//                            this@StreamActivity,
+//                            anchorId?.toLongOrNull() ?: 0L,
+//                            it,
+//                        )
+//                    )
+//                    .show()
+//            }
         }
 
     }

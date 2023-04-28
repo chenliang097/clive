@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LikeAnchorMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveJoinRoomMsg;
@@ -35,6 +36,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveKickPeopleMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GifMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GiftMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.TxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean;
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel;
@@ -42,6 +44,7 @@ import com.rongtuoyouxuan.chatlive.log.upload.ULog;
 import com.rongtuoyouxuan.chatlive.stream.R;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 import com.rongtuoyouxuan.chatlive.stream.view.adapter.LivePublicChatAreaListAdapter;
+import com.rongtuoyouxuan.libsocket.base.IMSocketBase;
 import com.rongtuoyouxuan.qfcommon.dialog.ShareDialog;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.MessageContent;
 import com.rongtuoyouxuan.libuikit.widget.divider.HorizontalDividerItemDecoration;
@@ -70,93 +73,41 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
      */
     private int layerId;
 
-    private Observer<TxtMsg> textObserver = new Observer<TxtMsg>() {
+    private Observer<RTTxtMsg> textObserver = new Observer<RTTxtMsg>() {
         @Override
-        public void onChanged(@Nullable TxtMsg txtMsg) {
-            ULog.d("clll", "textObserver：" + txtMsg.content);
-            if (TextUtils.isEmpty(txtMsg.fansName)) {
-                txtMsg.fans = 0;
-            } else {
-                txtMsg.fans = 1;
-            }
-            BaseMsg baseMsg = new BaseMsg();
-//            MessageContent messageContent = MessageContent.fromString(MsgActions.ACTION_TEXT);
-            baseMsg.messageType = MessageContent.MSG_TEXT.type;
-            if(imViewModel!= null && imViewModel.getAnchorId().equals(txtMsg.from.userId)){
-                txtMsg.userType = 10;
-            }
-            txtMsg.type = 2;
-            baseMsg.body = txtMsg;
-            addMessageToList(baseMsg);
-        }
-    };
-
-    private Observer<GifMsg> gifObserver = new Observer<GifMsg>() {
-        @Override
-        public void onChanged(@Nullable GifMsg gifMsg) {
-            if (TextUtils.isEmpty(gifMsg.fansName)) {
-                gifMsg.fans = 0;
-            } else {
-                gifMsg.fans = 1;
-            }
-            BaseMsg baseMsg = new BaseMsg();
-//            MessageContent messageContent = MessageContent.fromString(MsgActions.ACTION_GIF);
-            if(imViewModel!= null && imViewModel.getAnchorId().equals(gifMsg.from.userId)){
-                gifMsg.userType = 10;
-            }
-            baseMsg.messageType = MessageContent.MSG_GIF.type;
-            baseMsg.body = gifMsg;
-            addMessageToList(baseMsg);
+        public void onChanged(@Nullable RTTxtMsg txtMsg) {
+            ULog.d("clll", "textObserver：" + txtMsg.getContent());
+            txtMsg.setType(2);
+            addMessageToList(txtMsg);
         }
     };
 
     private Observer<GiftMsg> giftObserver = new Observer<GiftMsg>() {
         @Override
         public void onChanged(@Nullable GiftMsg giftMsg) {
-            if (TextUtils.isEmpty(giftMsg.fansName)) {
-                giftMsg.fans = 0;
-            } else {
-                giftMsg.fans = 1;
-            }
-            BaseMsg baseMsg = new BaseMsg();
-            if(imViewModel!= null && imViewModel.getAnchorId().equals(giftMsg.from.userId)){
-                giftMsg.userType = 10;
-            }
-            baseMsg.messageType = MessageContent.MSG_GIFT.type;
-            baseMsg.body = giftMsg;
-            addMessageToList(baseMsg);
+//            addMessageToList(baseMsg);
         }
     };
 
-    private Observer<LikeAnchorMsg> likeObserver = new Observer<LikeAnchorMsg>() {
-        @Override
-        public void onChanged(@Nullable LikeAnchorMsg likeAnchorMsg) {
-            BaseMsg baseMsg = new BaseMsg();
-            baseMsg.messageType = MessageContent.MSG_LIKE_ANCHOR.type;
-            baseMsg.body = likeAnchorMsg;
-            addMessageToList(baseMsg);
-        }
-    };
+//    private Observer<BannedMsg> bannedObserver = new Observer<BannedMsg>() {
+//        @Override
+//        public void onChanged(@Nullable BannedMsg bannedMsg) {
+//            BaseMsg baseMsg = new BaseMsg();
+//            baseMsg.messageType = MessageContent.MSG_BANNED.type;
+//            baseMsg.body = bannedMsg;
+//            addMessageToList(baseMsg);
+//        }
+//    };
 
-    private Observer<BannedMsg> bannedObserver = new Observer<BannedMsg>() {
-        @Override
-        public void onChanged(@Nullable BannedMsg bannedMsg) {
-            BaseMsg baseMsg = new BaseMsg();
-            baseMsg.messageType = MessageContent.MSG_BANNED.type;
-            baseMsg.body = bannedMsg;
-            addMessageToList(baseMsg);
-        }
-    };
-
-    private Observer<LiveKickPeopleMsg> kickObserver = new Observer<LiveKickPeopleMsg>() {
-        @Override
-        public void onChanged(@Nullable LiveKickPeopleMsg liveKickPeopleMsg) {
-            BaseMsg baseMsg = new BaseMsg();
-            baseMsg.messageType = MessageContent.MSG_LIVE_KICK.type;
-            baseMsg.body = liveKickPeopleMsg;
-            addMessageToList(baseMsg);
-        }
-    };
+//    private Observer<LiveKickPeopleMsg> kickObserver = new Observer<LiveKickPeopleMsg>() {
+//        @Override
+//        public void onChanged(@Nullable LiveKickPeopleMsg liveKickPeopleMsg) {
+//            BaseMsg baseMsg = new BaseMsg();
+//            baseMsg.messageType = MessageContent.MSG_LIVE_KICK.type;
+//            baseMsg.body = liveKickPeopleMsg;
+//            addMessageToList(baseMsg);
+//        }
+//    };
 
     public LivePublicChatAreaListLayout(Context context) {
         this(context, null);
@@ -191,6 +142,7 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
 
     private void registerObserver(String streamId) {
         roomId = streamId;
+        IMSocketBase.instance().room(streamId).chmsg.observe(textObserver);
 //        IMSocketImpl.getInstance().chatRoom(roomId).textCallback.observe(textObserver);
 //        IMSocketImpl.getInstance().chatRoom(roomId).gifCallback.observe(gifObserver);
 //        IMSocketImpl.getInstance().chatRoom(roomId).giftCallback.observe(giftObserver);
@@ -201,6 +153,7 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
     }
 
     private void unregisterObserver(String streamId) {
+        IMSocketBase.instance().room(streamId).chmsg.removeObserver(textObserver);
 //        IMSocketImpl.getInstance().chatRoom(streamId).textCallback.removeObserver(textObserver);
 //        IMSocketImpl.getInstance().chatRoom(streamId).gifCallback.removeObserver(gifObserver);
 //        IMSocketImpl.getInstance().chatRoom(roomId).giftCallback.removeObserver(giftObserver);
@@ -227,14 +180,11 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
             public void onChanged(@Nullable String content) {
                 if (TextUtils.isEmpty(content)) return;
                 ULog.d("clll", "textObserver：" + content);
-                BaseMsg baseMsg = new BaseMsg();
-                TxtMsg txtMsg = new TxtMsg();
-                txtMsg.type = 1;
-                txtMsg.content = content;
+                RTTxtMsg txtMsg = new RTTxtMsg();
+                txtMsg.setType(1);
+                txtMsg.setContent(content);
 //                MessageContent messageContent = MessageContent.fromString(MsgActions.ACTION_TEXT);
-                baseMsg.messageType = MessageContent.MSG_TEXT.type;
-                baseMsg.body = txtMsg;
-                addMessageToList(baseMsg);
+                addMessageToList(txtMsg);
             }
         });
 
@@ -254,7 +204,7 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         imViewModel.joinGroupSuccess.observe((LifecycleOwner) context, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void aVoid) {
-                addMessageToList(getLiveConvention("Connect Success"));
+//                addMessageToList(getLiveConvention("Connect Success"));
 //                imViewModel.sendEnterRoom();
 
             }
@@ -264,7 +214,7 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
             @Override
             public void onChanged(@Nullable String string) {
 
-                addMessageToList(getLiveConvention("Connect fail " + string));
+//                addMessageToList(getLiveConvention("Connect fail " + string));
             }
         });
 
@@ -395,12 +345,12 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
     }
 
     @SuppressLint("StringFormatInvalid")
-    public void addMessageToList(BaseMsg message) {
-        List<BaseMsg> data = danmakuListAdapter.getData();
+    public void addMessageToList(BaseRoomMessage message) {
+        List<BaseRoomMessage> data = danmakuListAdapter.getData();
         data.add(message);
         int size = data.size();
         if (size > 230) {
-            List<BaseMsg> submsg = data.subList(size - 230 + 59, size);
+            List<BaseRoomMessage> submsg = data.subList(size - 230 + 59, size);
             danmakuListAdapter.setNewData(submsg);
         } else {
             danmakuListAdapter.notifyDataSetChanged();
@@ -420,26 +370,15 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
     }
 
     //进入直播间消息
-    public void addLiveJoinConvention(LiveJoinRoomMsg msg) {
-        BaseMsg baseMsg = new BaseMsg();
-        baseMsg.messageType = MessageContent.MSG_LIVE_JOIN.type;
-        if(imViewModel!= null && imViewModel.getAnchorId().equals(msg.from.userId)){
-            msg.userType = 10;
-        }
-        baseMsg.body = msg;
-        addMessageToList(baseMsg);
-    }
-
-    private void addGuideMessage(int type, int res, String content) {
-        BaseMsg baseMsg = new BaseMsg();
-        baseMsg.messageType = MessageContent.MSG_TEXT.type;
-        TxtMsg txtMsg = new TxtMsg();
-        txtMsg.type = type;
-        txtMsg.res = res;
-        txtMsg.content = content;
-        baseMsg.body = txtMsg;
-        addMessageToList(baseMsg);
-    }
+//    public void addLiveJoinConvention(LiveJoinRoomMsg msg) {
+//        BaseMsg baseMsg = new BaseMsg();
+//        baseMsg.messageType = MessageContent.MSG_LIVE_JOIN.type;
+//        if(imViewModel!= null && imViewModel.getAnchorId().equals(msg.from.userId)){
+//            msg.userType = 10;
+//        }
+//        baseMsg.body = msg;
+//        addMessageToList(baseMsg);
+//    }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {

@@ -19,10 +19,10 @@ public interface IWebSocketListener {
     public void onOpen(WebSocket webSocket, Response response);
 
     /** Invoked when a text (type {@code 0x1}) message has been received. */
-    public void onMessage(WebSocket webSocket, String text);
+    public void onMessage(WebSocket webSocket, String text, long op);
 
     /** Invoked when a binary (type {@code 0x2}) message has been received. */
-    public void onMessage(WebSocket webSocket, ByteString bytes);
+    public void onMessage(WebSocket webSocket, ByteString bytes, long op);
 
     /**
      * Invoked when the remote peer has indicated that no more incoming messages will be

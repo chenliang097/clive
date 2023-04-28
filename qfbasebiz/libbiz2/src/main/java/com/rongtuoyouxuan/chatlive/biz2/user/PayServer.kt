@@ -11,7 +11,7 @@ interface PayServer {
     /**
      * 获取订单信息
      */
-    @POST("/order/v1/pay")
+    @POST("/v1/pay/order")
     fun getOrderInfo(@Body request:PayInfoRequest): Call<PayInfoBean>
 
 }
