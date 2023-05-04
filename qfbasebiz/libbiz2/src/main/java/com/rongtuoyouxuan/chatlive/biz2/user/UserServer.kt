@@ -2,6 +2,9 @@ package com.rongtuoyouxuan.chatlive.biz2.user
 
 import com.rongtuoyouxuan.chatlive.biz2.model.login.request.*
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.*
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowListBean
+import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoBean
+import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -49,5 +52,11 @@ interface UserServer {
      */
     @GET("/friends")
     fun getGoodFriendsList(@QueryMap map: Map<String, @JvmSuppressWildcards Any>): Call<ContactListResponse>
+
+    @POST("/userProxy/v1/user/mainPage")
+    fun getPersonalCenterInfo(@Body request: PersonalCenterInfoRequest): Call<PersonalCenterInfoBean>
+
+    @POST("/userProxy/v1/user/followList")
+    fun getFollowlist(@Query("page")page:Int, @Query("size")size:Int, @Query("user_id")user_id:String): Call<FollowListBean>
 
 }

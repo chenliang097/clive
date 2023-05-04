@@ -6,12 +6,12 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean.FansItemBean
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.util.NumUtils
 
 class LiveRoomVisibleRangeAdapter(layoutResId: Int) :
-    BaseQuickAdapter<FansItemBean, BaseViewHolder>(layoutResId) {
+    BaseQuickAdapter<LiveRoomVisibleRangeListBean.FansItemBean, BaseViewHolder>(layoutResId) {
     private var mOnSelectContactsListener: OnSelectContactsListener? = null
 
     //用于存储CheckBox选中状态
@@ -22,13 +22,13 @@ class LiveRoomVisibleRangeAdapter(layoutResId: Int) :
         mCBFlag = HashMap()
     }
 
-    fun init(lists: List<FansItemBean>) {
+    fun init(lists: List<LiveRoomVisibleRangeListBean.FansItemBean>) {
         for (i in lists.indices) {
             mCBFlag?.set(NumUtils.parseInt(lists[i].id), false)
         }
     }
 
-    override fun convert(helper: BaseViewHolder, item: FansItemBean) {
+    override fun convert(helper: BaseViewHolder, item: LiveRoomVisibleRangeListBean.FansItemBean) {
         val position = helper.layoutPosition
         val checkBox = helper.getView<CheckBox>(R.id.itemCheck)
         val avatar = helper.getView<RoundedImageView>(R.id.itemAvatar)
@@ -70,6 +70,6 @@ class LiveRoomVisibleRangeAdapter(layoutResId: Int) :
     }
 
     interface OnSelectContactsListener {
-        fun onItemCheck(position: Int, item: FansItemBean?, isAdd: Boolean)
+        fun onItemCheck(position: Int, item: LiveRoomVisibleRangeListBean.FansItemBean?, isAdd: Boolean)
     }
 }

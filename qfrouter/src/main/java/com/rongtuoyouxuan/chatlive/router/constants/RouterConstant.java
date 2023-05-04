@@ -136,4 +136,14 @@ public interface RouterConstant {
      */
     String PATH_POPULATITY_RANK = "/boboo_stream/populatity/rank";
 
+    /**
+     * 个人主页
+     */
+    String PATH_PERSONAL_CENTER = "/boboo_stream/personal/center";
+
+    /**
+     * 粉丝和关注列表
+     */
+    String PATH_FANS_AND_FOLLOW_LIST = "/boboo_stream/fansandfollow/list";
+
 }

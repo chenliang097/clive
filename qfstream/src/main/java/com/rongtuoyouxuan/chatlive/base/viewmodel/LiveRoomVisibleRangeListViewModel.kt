@@ -3,6 +3,8 @@ package com.rongtuoyouxuan.chatlive.base.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeRequest
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
@@ -15,8 +17,8 @@ class LiveRoomVisibleRangeListViewModel(application: Application) : AndroidViewM
     var fansListLiveData = MutableLiveData<LiveRoomVisibleRangeListBean?>()
     var setUserAllowRangLiveData = MutableLiveData<BaseModel>()
 
-    fun getFansList(userId: String?, status: Int, pageNo: Int) {
-        UserRelationBiz.instance?.getFansList(
+    fun getStartLiveFansList(userId: String?, status: Int, pageNo: Int) {
+        UserRelationBiz.instance?.getStartLiveFansList(
             null,
             userId,
             status,

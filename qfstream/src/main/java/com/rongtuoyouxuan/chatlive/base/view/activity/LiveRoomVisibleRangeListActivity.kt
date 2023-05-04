@@ -75,13 +75,13 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
         mSmartRefreshLayout!!.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 ++pageNo
-                mViewModel!!.getFansList(DataBus.instance().USER_ID, 0, pageNo)
+                mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID, 0, pageNo)
             }
 
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 pageNo = 1
                 mSelectList = ArrayList()
-                mViewModel!!.getFansList(DataBus.instance().USER_ID, 0, pageNo)
+                mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID, 0, pageNo)
             }
         })
         mSelectContactsAdapter?.setOnSelectContactsListener(object : OnSelectContactsListener {
@@ -106,7 +106,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
 
     private fun initObserver() {
         mViewModel = ViewModelUtils.get(this, LiveRoomVisibleRangeListViewModel::class.java)
-        mViewModel?.getFansList(DataBus.instance().USER_ID, 0, pageNo)
+        mViewModel?.getStartLiveFansList(DataBus.instance().USER_ID, 0, pageNo)
         mViewModel?.fansListLiveData?.observe(this) { liveRoomVisibleRangeListBean ->
             if (1 == pageNo) {
                 mSmartRefreshLayout!!.finishRefresh()

@@ -139,7 +139,7 @@ class UserCardDialog(
 
 
         userCardAvatar?.setOnClickListener {
-
+            Router.toPersonalCenterActivity(result.follow_id)
             this.dismiss()
         }
 

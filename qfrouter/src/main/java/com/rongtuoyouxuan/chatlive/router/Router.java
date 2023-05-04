@@ -281,4 +281,18 @@ public class Router {
                 .navigation();
     }
 
+    //个人主页
+    public static void toPersonalCenterActivity(String userId) {
+        ARouter.getInstance().build(RouterConstant.PATH_PERSONAL_CENTER)
+                .withString("userId", userId)
+                .navigation();
+    }
+
+    //粉丝与关注
+    public static void toFansAndFollowListActivity(String userId) {
+        ARouter.getInstance().build(RouterConstant.PATH_FANS_AND_FOLLOW_LIST)
+                .withString("userId", userId)
+                .navigation();
+    }
+
 }

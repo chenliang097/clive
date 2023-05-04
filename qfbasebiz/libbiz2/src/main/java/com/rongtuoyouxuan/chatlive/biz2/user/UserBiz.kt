@@ -2,6 +2,9 @@ package com.rongtuoyouxuan.chatlive.biz2.user
 
 import com.rongtuoyouxuan.chatlive.biz2.model.login.request.*
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.*
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowListBean
+import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoBean
+import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoRequest
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import newNetworkForUser
 import okhttp3.RequestBody
@@ -29,6 +32,24 @@ object UserBiz {
             "",
         ) {
             it.create(UserServer::class.java).uploadFile(request)
+        }
+
+    fun getPersonalCenterInfo(request: PersonalCenterInfoRequest, listener: RequestListener<PersonalCenterInfoBean>) =
+        newNetworkForUser(
+            null,
+            listener,
+            "",
+        ) {
+            it.create(UserServer::class.java).getPersonalCenterInfo(request)
+        }
+
+    fun getFollowList(page:Int,size:Int, userId:String,  listener: RequestListener<FollowListBean>) =
+        newNetworkForUser(
+            null,
+            listener,
+            "",
+        ) {
+            it.create(UserServer::class.java).getFollowlist(page, size, userId)
         }
 
 

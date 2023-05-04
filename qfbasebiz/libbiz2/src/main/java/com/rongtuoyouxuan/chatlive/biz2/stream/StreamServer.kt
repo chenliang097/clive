@@ -9,7 +9,6 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.PushStreamHeartBeatRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamStartInfoRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.user.FansListRequest
 import retrofit2.Call
 import retrofit2.http.*
 

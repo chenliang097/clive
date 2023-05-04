@@ -545,5 +545,15 @@
     <string name="stream_anchor_manager_mute">禁言</string>
     <string name="stream_anchor_manager_set_manager_ins">已设置(%1$d/30)</string>
     <string name="stream_popularity_rank_title">人气榜</string>
-
+    <string name="stream_center_edit">编辑资料</string>
+    <string name="stream_center_ins">您还没有添加个人简介，点击添加</string>
+    <string name="stream_center_fans">粉丝</string>
+    <string name="stream_center_follow">关注</string>
+    <string name="stream_center_like">点赞</string>
+    <string name="stream_center_tab_product">商品橱窗</string>
+    <string name="stream_center_tab_wallet">我的钱包</string>
+    <string name="stream_center_last_see">最近观看</string>
+    <string name="stream_center_no_data">系统维护中，精彩内容即将上线～</string>
+    <string name="stream_center_add_follow">回关</string>
+    <string name="stream_center_followed">互相关注</string>
 </resources>
