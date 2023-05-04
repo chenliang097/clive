@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
+import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
@@ -38,7 +39,7 @@ class FixInteractionLayout @JvmOverloads constructor(
             LaToastUtil.showShort("带货榜")
         }
         hostPersonLayout?.setOnClickListener {
-            LaToastUtil.showShort("人气榜")
+            Router.toPopularityRankActivity(imViewModel?.roomId)
         }
 
     }

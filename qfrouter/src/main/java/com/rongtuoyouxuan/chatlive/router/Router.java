@@ -274,4 +274,11 @@ public class Router {
                 .navigation();
     }
 
+    //人气榜
+    public static void toPopularityRankActivity(String roomId) {
+        ARouter.getInstance().build(RouterConstant.PATH_POPULATITY_RANK)
+                .withString("roomId", roomId)
+                .navigation();
+    }
+
 }

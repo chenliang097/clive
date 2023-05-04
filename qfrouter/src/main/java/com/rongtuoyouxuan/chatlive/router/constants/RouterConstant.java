@@ -131,4 +131,9 @@ public interface RouterConstant {
      */
     String PATH_SET_MANAGER = "/boboo_stream/set/manager";
 
+    /**
+     * 人气榜
+     */
+    String PATH_POPULATITY_RANK = "/boboo_stream/populatity/rank";
+
 }

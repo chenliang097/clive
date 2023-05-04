@@ -75,6 +75,11 @@
             android:launchMode="singleTask"
             android:theme="@style/commenDialogStyle" />
 
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.PopularityRankActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/commenDialogStyle" />
+
         <service android:name="com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService"/>
 
     </application>

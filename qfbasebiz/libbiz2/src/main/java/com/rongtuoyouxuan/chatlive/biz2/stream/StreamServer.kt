@@ -161,5 +161,8 @@ interface StreamServer {
     @POST("/userProxy/v1/user/delShieldWord")
     fun deleteRoomMaskWord(@Body request:SetRoomMaskWordsRequest): Call<BaseModel>
 
+    @GET("/userProxy/v1/user/rankList")
+    fun getPopularityRank(@Query("page") page:Int, @Query("size") size:Int, @Query("user_id") userId:String): Call<PopolarityRankBean>
+
 
 }

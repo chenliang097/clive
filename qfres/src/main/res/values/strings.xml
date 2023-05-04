@@ -544,5 +544,6 @@
     <string name="stream_anchor_manager_black">拉黑</string>
     <string name="stream_anchor_manager_mute">禁言</string>
     <string name="stream_anchor_manager_set_manager_ins">已设置(%1$d/30)</string>
+    <string name="stream_popularity_rank_title">人气榜</string>
 
 </resources>

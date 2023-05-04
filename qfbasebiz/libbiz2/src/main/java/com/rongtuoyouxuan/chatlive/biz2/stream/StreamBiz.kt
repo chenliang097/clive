@@ -607,4 +607,16 @@ object StreamBiz {
         }
     }
 
+    fun getPopularityRank(
+        userId: String,
+        page: Int,
+        size: Int,
+        listener: RequestListener<PopolarityRankBean>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .getPopularityRank(page, size, userId)
+        }
+    }
+
 }
