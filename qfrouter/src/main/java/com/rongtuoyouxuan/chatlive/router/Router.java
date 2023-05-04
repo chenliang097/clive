@@ -250,4 +250,28 @@ public class Router {
                 .navigation();
     }
 
+    //主播管理
+    public static void toAnchorManagerDialog(String roomId,String sceneId) {
+        ARouter.getInstance().build(RouterConstant.PATH_ANCHOE_MANAGER)
+                .withString("roomId", roomId)
+                .withString("sceneId", sceneId)
+                .navigation();
+    }
+
+    //主播管理
+    public static void toSettingManagerActivity(String roomId,String sceneId) {
+        ARouter.getInstance().build(RouterConstant.PATH_SET_MANAGER)
+                .withString("roomId", roomId)
+                .withString("sceneId", sceneId)
+                .navigation();
+    }
+
+    //主播管理 禁言与拉黑
+    public static void toAnchorManngerBlackAndMuteActivity(String roomId,String sceneId) {
+        ARouter.getInstance().build(RouterConstant.PATH_ANHOR_MANANGER_BLACK_MUTE)
+                .withString("roomId", roomId)
+                .withString("sceneId", sceneId)
+                .navigation();
+    }
+
 }

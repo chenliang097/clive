@@ -51,13 +51,18 @@ public class BottomDialog extends Dialog {
         private int colorTwo;
         private int colorThree;
         private int colorOne;
+        private int bgOne;
+
+        private int colorFive;
 
         public Builder(Context context) {
             this.context = context;
+            colorFive = context.getResources().getColor(R.color.qf_libutils_color_333333);
             colorFour = context.getResources().getColor(R.color.qf_libutils_color_333333);
             colorTwo = context.getResources().getColor(R.color.qf_libutils_color_333333);
             colorThree = context.getResources().getColor(R.color.qf_libutils_color_333333);
             colorOne = context.getResources().getColor(R.color.qf_libutils_color_333333);
+            bgOne = R.drawable.bg_page_more_unit;
         }
 
 
@@ -104,6 +109,14 @@ public class BottomDialog extends Dialog {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
             this.colorOne = color;
+            return this;
+        }
+
+        public Builder setPositiveButton(String positiveButtonText, OnClickListener listener, int color, int bg) {
+            this.positiveButtonText = positiveButtonText;
+            this.positiveButtonClickListener = listener;
+            this.colorOne = color;
+            this.bgOne = bg;
             return this;
         }
 
@@ -167,10 +180,18 @@ public class BottomDialog extends Dialog {
             return this;
         }
 
+
         //第五个
         public Builder setPositiveButtonFive(int positiveButtonTextFive, OnClickListener listener) {
             this.positiveButtonTextFive = (String) context.getText(positiveButtonTextFive);
             this.positiveButtonClickListenerFive = listener;
+            return this;
+        }
+
+        public Builder setPositiveButtonFive(String positiveButtonTextFive, OnClickListener listene, int color) {
+            this.positiveButtonTextFive = positiveButtonTextFive;
+            this.positiveButtonClickListenerFive = listene;
+            this.colorFive = color;
             return this;
         }
 
@@ -225,6 +246,8 @@ public class BottomDialog extends Dialog {
             if (positiveButtonText != null) {
                 ((TextView) layout.findViewById(R.id.tv_dialog_album)).setText(positiveButtonText);
                 ((TextView) layout.findViewById(R.id.tv_dialog_album)).setTextColor(colorOne);
+                ((TextView) layout.findViewById(R.id.tv_dialog_album)).setBackgroundResource(bgOne);
+
                 if (positiveButtonClickListener != null) {
                     ((TextView) layout.findViewById(R.id.tv_dialog_album))
                             .setOnClickListener(new View.OnClickListener() {
@@ -251,6 +274,7 @@ public class BottomDialog extends Dialog {
                 }
             } else {
                 // if no confirm button just set the visibility to GONE
+                layout.findViewById(R.id.page_more_line).setVisibility(View.GONE);
                 layout.findViewById(R.id.tv_dialog_zuzhi).setVisibility(View.GONE);
             }
             //第三个
@@ -292,6 +316,7 @@ public class BottomDialog extends Dialog {
             //第五个
             if (positiveButtonTextFive != null) {
                 ((TextView) layout.findViewById(R.id.tv_dialog_five)).setText(positiveButtonTextFive);
+                ((TextView) layout.findViewById(R.id.tv_dialog_five)).setTextColor(colorFive);
                 if (positiveButtonClickListenerFive != null) {
                     ((TextView) layout.findViewById(R.id.tv_dialog_five))
                             .setOnClickListener(new View.OnClickListener() {

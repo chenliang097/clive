@@ -8,12 +8,12 @@ import android.view.View
 import android.widget.ImageView
 import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.util.AppUtils
-import im.zego.zegoeffectsexample.sdkmanager.ImageTextureView
-import im.zego.zegoeffectsexample.sdkmanager.SDKManager
-import im.zego.zegoeffectsexample.sdkmanager.callback.FaceDetectionCallback
-import im.zego.zegoeffectsexample.sdkmanager.entity.MosaicType
-import im.zego.zegoeffectsexample.sdkmanager.entity.PreviewSize
-import im.zego.zegoeffectsexample.sdkmanager.util.ZegoUtil
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.ImageTextureView
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.SDKManager
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.callback.FaceDetectionCallback
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.entity.MosaicType
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.entity.PreviewSize
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.util.ZegoUtil
 import java.io.File
 import java.util.*
 
@@ -44,11 +44,11 @@ object TestHandler : AbstractHandler() {
 
 
 
-        testImagePath = "$path/Models/test.jpg"
-        ZegoUtil.copyFileFromAssets(context, "test.jpg", "$path/Models/test.jpg")
-
-        val aiModeInfoList = copyAiModeInfoList(context)
-        val resourcesInfoList = copyResourcesInfoList(context)
+//        testImagePath = "$path/Models/test.jpg"
+//        ZegoUtil.copyFileFromAssets(context, "test.jpg", "$path/Models/test.jpg")
+//
+//        val aiModeInfoList = copyAiModeInfoList(context)
+//        val resourcesInfoList = copyResourcesInfoList(context)
 
         openAllBeautifyEffects()
 
@@ -519,7 +519,8 @@ object TestHandler : AbstractHandler() {
     override fun setResolution(width: Int, height: Int) {
         ULog.d(TAG,"setResolution with $width × $height")
         SDKManager.sharedInstance().setPreviewSize(
-                PreviewSize().also {
+                PreviewSize()
+                    .also {
                     it.width = width
                     it.height = height
                 })

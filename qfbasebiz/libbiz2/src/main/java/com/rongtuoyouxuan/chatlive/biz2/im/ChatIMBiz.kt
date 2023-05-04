@@ -242,5 +242,16 @@ object ChatIMBiz {
         it.create(ChatIMServer::class.java).sendTxtMsg(rtTxtMsgRequest)
     }
 
+    fun setRoomManager(
+        request: SetRoomManagerRequest,
+        listener: RequestListener<BaseModel>,
+    ) = newNetworkForChatIM(
+        null,
+        listener,
+        "",
+    ) {
+        it.create(ChatIMServer::class.java).setRoomManager(request)
+    }
+
 
 }

@@ -19,7 +19,7 @@ object LiveRoomHelper {
     val cmMemberTabVM: Observable<Int> = LiveEventBus.get("LIVE_MEMBER_TAB_CM")
 
     //用户VM打开资料卡
-    val openUserCardVM: Observable<Long> = LiveEventBus.get("LIVE_USER_CARD_DIALOG")
+    val openUserCardVM: Observable<String> = LiveEventBus.get("LIVE_USER_CARD_DIALOG")
 
     //更新点赞数量
     val starVM: Observable<Long> = LiveEventBus.get("LIVE_STAR")

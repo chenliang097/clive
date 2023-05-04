@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="24dp">
+
+    <LinearLayout
+        android:id="@+id/addMaskWordsLayout"
+        android:layout_width="46dp"
+        android:layout_height="24dp"
+        android:gravity="center"
+        android:background="@drawable/bg_set_mask_words">
+        <ImageView
+            android:id="@+id/setMaskWordImg"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/qf_stream_icon_follow_add"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/showMaskWordsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_set_mask_words"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/setMaskWordTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/setMaskWordImg"
+            android:text="1111"
+            android:textSize="14sp"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:id="@+id/setMaskWordDeleteImg"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/rt_icon_set_mask_words"/>
+    </LinearLayout>
+</LinearLayout>

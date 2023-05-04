@@ -14,6 +14,7 @@ import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.DebouncingUtils
@@ -232,9 +233,7 @@ class LiveRoomFragment : SimpleFragment() {
 
         lc_livefixintercation?.findViewById<RoundedImageView>(R.id.iv_room_master_headimg)
             ?.setOnClickListener {
-                anchorId?.toLongOrNull()?.let {
-                    LiveRoomHelper.openUserCardVM.post(it)
-                }
+                LiveRoomHelper.openUserCardVM.post(anchorId)
             }
     }
 
@@ -326,31 +325,35 @@ class LiveRoomFragment : SimpleFragment() {
         }
 
         LiveRoomHelper.openUserCardVM.observe(this) {
-//            if (anchorId?.isNotEmpty() == true) {
-//                XPopup.Builder(mContext)
-//                    .enableDrag(false)
-//                    .asCustom(
-//                        (mContext as LiveRoomActivity)?.let { it1 ->
-//                            UserCardDialog(
-//                                it1,
-//                                anchorId?.toLongOrNull() ?: 0L,
-//                                it,
-//                                liveId = streamId
-//                            )
-//                        }
-//                    )
-//                    .show()
-//            }
+            if (anchorId?.isNotEmpty() == true) {
+                XPopup.Builder(mContext as FragmentActivity)
+                    .enableDrag(false)
+                    .asCustom(
+                        roomId?.let { it1 ->
+                            sceneId?.let { it2 ->
+                                UserCardDialog(
+                                    mContext as FragmentActivity,
+                                    DataBus.instance().USER_ID,
+                                    it.toString(),
+                                    it1,
+                                    it2,
+                                    anchorId!!
+                                )
+                            }
+                        }
+                    )
+                    .show()
+            }
         }
 
         UserCardHelper.managerVM.observe(this) {
             CommonBottomDialog(
                 mContext,
-                streamId,
-                anchorId,
-                arrayListOf("${it.userId}")
+                roomId,
+                sceneId,DataBus.instance().USER_ID, DataBus.instance().USER_ID,
+                DataBus.instance().USER_NAME, it.follow_id, it.nick_name, it.is_forbid_speak, it.is_room_admin, it.is_super_admin
             )
-                .showManagerDialog(ConversationTypes.TYPE_CHATROOM, true)
+                .showManagerDialog("", true)
         }
 
         UserCardHelper.reportVM.observe(this) {

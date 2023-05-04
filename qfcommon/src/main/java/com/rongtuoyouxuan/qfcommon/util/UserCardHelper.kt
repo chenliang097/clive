@@ -3,6 +3,7 @@ package com.rongtuoyouxuan.qfcommon.util
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.ProfileUserData
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jeremyliao.liveeventbus.core.Observable
+import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
 
 /**
  * 
@@ -14,7 +15,7 @@ object UserCardHelper {
     val atUserVM: Observable<ProfileUserData> = LiveEventBus.get("LIVE_AT_USER")
 
     //资料卡-管理
-    val managerVM: Observable<ProfileUserData> = LiveEventBus.get("LIVE_USER_CARD_MANAGER")
+    val managerVM: Observable<UserCardInfoBean.ProfileUserData> = LiveEventBus.get("LIVE_USER_CARD_MANAGER")
 
     //资料卡-举报
     val reportVM: Observable<ProfileUserData> = LiveEventBus.get("USER_CARD_REPORT")

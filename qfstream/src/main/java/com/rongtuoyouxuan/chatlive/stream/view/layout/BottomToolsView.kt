@@ -59,9 +59,7 @@ class BottomToolsView @JvmOverloads constructor(
             mControllerViewModel?.mOutDialog?.call()
         }
         streamSettingBtn?.setOnClickListener {
-            LaToastUtil.showShort("设置")
-//            toolsDialog = ToolsDialog(context, shareUrl)
-//            toolsDialog!!.show()
+            mControllerViewModel?.anchorSettingLiveEvent?.call()
         }
 
     }

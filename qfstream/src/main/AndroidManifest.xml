@@ -60,6 +60,21 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.activity.AnchorManagerDialog"
+            android:launchMode="singleTask"
+            android:theme="@style/commenDialogStyle" />
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.activity.SettingManagerActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/commenDialogStyle" />
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.stream.view.activity.AnchorManngerBlackAndMuteActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/commenDialogStyle" />
+
         <service android:name="com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService"/>
 
     </application>

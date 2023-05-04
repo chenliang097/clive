@@ -95,7 +95,7 @@ class ContributionFragment : SimpleFragment() {
             contributionAdapter = ContributionAdapter(context, { entity ->
                 entity?.userId?.let {
                     LiveRoomHelper.cmDismissVM.post(1)
-                    LiveRoomHelper.openUserCardVM.post(it)
+                    LiveRoomHelper.openUserCardVM.post(it.toString())
                 }
             }, { entity, position ->
                 if (null != entity) {
@@ -164,7 +164,7 @@ class ContributionFragment : SimpleFragment() {
         contributionAdapter?.clickTop = object : ContributionAdapter.IClickTop {
             override fun click(uid: Long) {
                 LiveRoomHelper.cmDismissVM.post(1)
-                LiveRoomHelper.openUserCardVM.post(uid)
+                LiveRoomHelper.openUserCardVM.post(uid.toString())
             }
 
             override fun clickFollow(position: Int, ranking: Int, item: LiveAudienceRankEntity) {

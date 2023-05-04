@@ -145,6 +145,7 @@ class Config {
         }
 
         product.each { productName ->
+            println('productName----' + productName)
             def source = android.sourceSets.maybeCreate(productName)
             def subProjectResDir = []
             def subProjectJavaDir = []

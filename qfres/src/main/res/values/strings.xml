@@ -511,7 +511,7 @@
     <string name="identification_agreement_1">《实名认证服务协议、直播主播入驻协议》</string>
     <string name="login_btn_ok">完成</string>
     <string name="rt_copy_suc">复制成功</string>
-    <string name="chat_message_operate_pullblack_hint">拉黑后，该用户将不能进入你的直播间</string>
+    <string name="chat_message_operate_pullblack_hint">Ta将无法进入该主播所有直播间</string>
     <string name="chat_message_operate_unmute">取消禁言</string>
     <string name="rt_stream_location_dialog_ins">显示位置，更多同城/附近的人能看到你</string>
     <string name="rt_stream_show_loacation">显示位置</string>
@@ -534,5 +534,15 @@
     <string name="stream_user_card_female">女</string>
     <string name="stream_follow">关注</string>
     <string name="stream_follow_cancel">取消关注</string>
+    <string name="chat_message_operate_set_manager">设置房管</string>
+    <string name="stream_anchor_manager">直播管理</string>
+    <string name="stream_anchor_manager_set_manager">设置管理员</string>
+    <string name="stream_anchor_manager_black_mute">拉黑与禁言设置</string>
+    <string name="stream_anchor_manager_mask_work">设置屏蔽词</string>
+    <string name="stream_anchor_manager_mask_work_num">(%1$d/%2$d)</string>
+    <string name="stream_anchor_manager_mask_work_ins">包含屏蔽词的评论和弹幕不会再直播间出现</string>
+    <string name="stream_anchor_manager_black">拉黑</string>
+    <string name="stream_anchor_manager_mute">禁言</string>
+    <string name="stream_anchor_manager_set_manager_ins">已设置(%1$d/30)</string>
 
 </resources>

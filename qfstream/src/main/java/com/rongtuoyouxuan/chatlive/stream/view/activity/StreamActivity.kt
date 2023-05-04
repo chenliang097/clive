@@ -184,9 +184,7 @@ class StreamActivity : BaseLiveStreamActivity() {
 
         mInteractionLayout?.findViewById<RoundedImageView>(R.id.iv_room_master_headimg)
             ?.setOnClickListener {
-                anchorId?.toLongOrNull()?.let {
-                    LiveRoomHelper.openUserCardVM.post(it)
-                }
+                LiveRoomHelper.openUserCardVM.post(anchorId)
             }
 
     }
@@ -214,6 +212,10 @@ class StreamActivity : BaseLiveStreamActivity() {
             streamAdslayout.visibility = View.VISIBLE
         }
         mControllerViewModel!!.mOutDialog.observeOnce(this) { showOutDialog() }
+
+        mControllerViewModel!!.anchorSettingLiveEvent.observeOnce(this) {
+            Router.toAnchorManagerDialog(roomID, roomInfoBean?.data?.scene_id_str)
+        }
 
         mIMViewModel!!.showTransteDialog.observeOnce(this) { msg ->
             val dialog = DiySystemDialog.Builder(this@StreamActivity)
@@ -255,6 +257,9 @@ class StreamActivity : BaseLiveStreamActivity() {
                 startStreamBean.data.scene_id_str, StreamPreviewLayout.USER_ID, StreamPreviewLayout.USER_NAME, true)
             mIMViewModel?.systemMsgLiveEvent?.value = "欢迎来到直播间，榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播"
             var enterRoomBean = EnterRoomBean.DataBean()
+            updateLiveRoomID(startStreamBean.data.room_id_str)
+            updateAnchorId(startStreamBean.data.anchor_id.toString())
+            updateLiveStreamID(startStreamBean.data.stream_id)
             enterRoomBean.room_id = startStreamBean.data.room_id
             enterRoomBean.scene_id = startStreamBean.data.scene_id
             enterRoomBean.anchor_id = startStreamBean.data.anchor_id.toString()
@@ -323,16 +328,6 @@ class StreamActivity : BaseLiveStreamActivity() {
 
         completeImCallBack()
 
-        UserCardHelper.managerVM.observe(this) {
-            CommonBottomDialog(
-                this,
-                streamID,
-                anchorId,
-                arrayListOf("${it.userId}")
-            )
-                .showManagerDialog(TYPE_CHATROOM, true)
-        }
-
         UserCardHelper.reportVM.observe(this) {
             CommonBottomDialog(
                 this,
@@ -349,18 +344,33 @@ class StreamActivity : BaseLiveStreamActivity() {
         }
 
         LiveRoomHelper.openUserCardVM.observe(this) {
-//            if (anchorId?.isNotEmpty() == true) {
-//                XPopup.Builder(this)
-//                    .enableDrag(false)
-//                    .asCustom(
-//                        UserCardDialog(
-//                            this@StreamActivity,
-//                            anchorId?.toLongOrNull() ?: 0L,
-//                            it,
-//                        )
-//                    )
-//                    .show()
-//            }
+            if (anchorId?.isNotEmpty() == true) {
+                XPopup.Builder(this)
+                    .enableDrag(false)
+                    .asCustom(
+                        roomID?.let { it1 ->
+                            UserCardDialog(
+                                this@StreamActivity,
+                                DataBus.instance().USER_ID,
+                                it.toString(),
+                                it1,
+                                sceneId,
+                                anchorId!!
+                            )
+                        }
+                    )
+                    .show()
+            }
+        }
+
+        UserCardHelper.managerVM.observe(this) {
+            CommonBottomDialog(
+                this,
+                roomID,
+                sceneId,DataBus.instance().USER_ID, DataBus.instance().USER_ID,
+                DataBus.instance().USER_NAME, it.follow_id, it.nick_name, it.is_forbid_speak, it.is_room_admin, it.is_super_admin
+            )
+                .showManagerDialog("", true)
         }
 
     }

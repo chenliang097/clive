@@ -96,7 +96,7 @@ class MemberFragment : SimpleFragment() {
                 R.id.spaceClick -> {
                     entity.userId?.let {
                         LiveRoomHelper.cmDismissVM.post(1)
-                        LiveRoomHelper.openUserCardVM.post(it)
+                        LiveRoomHelper.openUserCardVM.post(it.toString())
                     }
                 }
                 R.id.ivFollow -> {

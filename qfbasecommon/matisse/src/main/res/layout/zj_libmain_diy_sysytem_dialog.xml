@@ -31,9 +31,10 @@
                 android:paddingTop="20dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
+                android:textStyle="bold"
                 android:text="是否退出登录"
-                android:textColor="@color/c_stream_commen_222222"
-                android:textSize="16sp" />
+                android:textColor="@color/c_stream_commen_333333"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:id="@+id/diy_dialog_msg_ll"
@@ -51,7 +52,7 @@
                     android:paddingEnd="13dp"
                     android:paddingBottom="20dp"
                     android:text="这将允许App和网站共享您的信息。"
-                    android:textColor="@color/c_stream_common_666666"
+                    android:textColor="@color/c_stream_commen_333333"
                     android:textSize="14sp" />
 
 
@@ -104,9 +105,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/boboo_regular"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="@string/cancel"
-                    android:textColor="@color/c_stream_common_666666"
-                    android:textSize="14sp" />
+                    android:textColor="@color/rt_c_3478F6"
+                    android:textSize="18sp" />
 
                 <View
                     android:layout_width="0.2dp"
@@ -121,8 +123,8 @@
                     android:fontFamily="@font/boboo_regular"
                     android:gravity="center"
                     android:text="@string/search_start"
-                    android:textColor="@color/c_common_appcolor"
-                    android:textSize="14sp" />
+                    android:textColor="@color/rt_c_3478F6"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
 

@@ -12,6 +12,8 @@ public class UrlConstanst {
 
     public static String BASE_URL_FANS_API_BOBOO_COM = "http://open.rongtuolive.com/userProxy/v1/user/fansList";
 
+    public static String BASE_URL_MUTE_LIST_API_BOBOO_COM = "http://open.rongtuolive.com/userProxy/v1/user/forbidSpeakList";
+
     //H5地址
     public static String BASE_URL_H5_BOBOO_COM = "http://open.rongtuolive.com";
 

@@ -3,8 +3,10 @@ package com.rongtuoyouxuan.chatlive.base
 import android.content.Context
 import com.rongtuoyouxuan.chatlive.base.view.dialog.AnchorBlockedTipDialog
 import com.rongtuoyouxuan.chatlive.live.view.dialog.AudienceExitDialog
+import com.rongtuoyouxuan.chatlive.stream.view.activity.RoomSetMaskWordInputDialog
 import com.rongtuoyouxuan.chatlive.stream.view.dialog.HostExitDialog
 import com.rongtuoyouxuan.chatlive.stream.view.dialog.StartStreamLevelDialog
+import com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout
 
 object DialogUtils {
 
@@ -22,6 +24,10 @@ object DialogUtils {
 
     fun createAnchorBlockedTipDialog(context: Context, type:Int, mAnchorBlockedTipDialogListener: AnchorBlockedTipDialog.AnchorBlockedTipDialogListener):AnchorBlockedTipDialog{
         return AnchorBlockedTipDialog(context, type, mAnchorBlockedTipDialogListener)
+    }
+
+    fun createRoomSetMaskWordInputDialog(context: Context, onSetMaskWordListener: RoomSetMaskInputLayout.OnSetMaskWordListener):RoomSetMaskWordInputDialog{
+        return RoomSetMaskWordInputDialog(context, onSetMaskWordListener)
     }
 
 }

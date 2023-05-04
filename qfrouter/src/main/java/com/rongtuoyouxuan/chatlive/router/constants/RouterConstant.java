@@ -116,4 +116,19 @@ public interface RouterConstant {
      */
     String PATH_ANHOR_CENTER = "/boboo_stream/anchor/center";
 
+    /**
+     * 直播管理拉黑与禁言
+     */
+    String PATH_ANHOR_MANANGER_BLACK_MUTE = "/boboo_stream/anchor/manager/blackmute";
+
+    /**
+     * 直播管理
+     */
+    String PATH_ANCHOE_MANAGER = "/boboo_stream/anchor/manager";
+
+    /**
+     * 直播管理 设置管理员
+     */
+    String PATH_SET_MANAGER = "/boboo_stream/set/manager";
+
 }

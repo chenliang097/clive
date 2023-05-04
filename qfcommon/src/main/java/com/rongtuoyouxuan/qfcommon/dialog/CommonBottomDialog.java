@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
 import com.rongtuoyouxuan.chatlive.basebizwrapper.R;
 import com.rongtuoyouxuan.chatlive.log.upload.ULog;
+import com.rongtuoyouxuan.libuikit.dialog.BottomDialog;
 import com.rongtuoyouxuan.libuikit.widget.ConfirmBottomSheetDialog;
 import com.rongtuoyouxuan.libuikit.widget.SimpleInputDialog;
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil;
@@ -50,9 +51,19 @@ public class CommonBottomDialog {
     private final int OPERATE_REMOVE_BLACKLIST = 3;
 
     //是否被禁言
-    private boolean isGroupMute;
-    private boolean isChatRoomMute;
-    private boolean isChatRoomKick;
+    private boolean isMute;
+    private boolean isSuperManager;
+    private boolean isRoomManager;
+
+    private boolean isAnchor;
+    private String roomId;
+    private String sceneId;
+    private String anchorId;
+    private String tUserId;
+    private String tNickName;
+
+    private String fUserId;
+    private String fNickName;
 
     /**
      * 构造器
@@ -68,6 +79,22 @@ public class CommonBottomDialog {
         this.sceneType = sceneType;
         //        viewModel = new BottomDialogViewModel(Utils.getApp());
         viewModel = new BottomDialogViewModel(Utils.getApp(), sourceId, anchorId, targetIds);
+    }
+
+    public CommonBottomDialog(Context context, String roomId, String sceneId, String anchorId, String fUserId, String fNickName,String tUserId,String tNickName,boolean isSpeak, boolean isRoomManager, boolean isSuperManager) {
+        this.context = context;
+        this.anchorId = anchorId;
+        this.roomId = roomId;
+        this.sceneId = sceneId;
+        this.fUserId = fUserId;
+        this.fNickName = fNickName;
+        this.tUserId = tUserId;
+        this.tNickName = tNickName;
+        this.isMute = isSpeak;
+        this.isRoomManager = isRoomManager;
+        this.isSuperManager = isSuperManager;
+        this.isAnchor = anchorId==fUserId;
+        viewModel = new BottomDialogViewModel(Utils.getApp());
     }
 
     private LifecycleOwner getLifecycleOwner(Context context) {
@@ -97,9 +124,9 @@ public class CommonBottomDialog {
                         switch (value) {
                             case ConfirmBottomSheetDialog.centerItem0:
                                 if (isBlock) {
-                                    showConfirmDialog(OPERATE_REMOVE_BLACKLIST, TYPE_PRIVATE);
+                                    showConfirmDialog(OPERATE_REMOVE_BLACKLIST);
                                 } else {
-                                    showConfirmDialog(OPERATE_ADD_BLACKLIST, TYPE_PRIVATE);
+                                    showConfirmDialog(OPERATE_ADD_BLACKLIST);
                                 }
                                 break;
                             case ConfirmBottomSheetDialog.centerItem1:
@@ -133,28 +160,12 @@ public class CommonBottomDialog {
     }
 
     /**
-     * 群管理页显示举报对话框
-     */
-    public void showGroupReportDialog() {
-        showReportDialog(TYPE_GROUP);
-    }
-
-    /**
      * 对外显示底部对话框
      *
      * @param isShowReport 是否显示举报
      */
     public void showManagerDialog(String conversationType, boolean isShowReport) {
-        viewModel.getUserAccessPermission(conversationType);
-        viewModel.permissionsLiveData.observe(getLifecycleOwner(context), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                isGroupMute = AccessPermission.isGroupMute(integer);
-                isChatRoomMute = AccessPermission.isChatRoomMute(integer);
-                isChatRoomKick = AccessPermission.isChatRoomKick(integer);
-                showBottomDialog(conversationType, isShowReport);
-            }
-        });
+        showBottomDialog(conversationType, isShowReport);
     }
 
     /**
@@ -163,64 +174,76 @@ public class CommonBottomDialog {
     private void showBottomDialog(String conversationType, boolean isShowReport) {
         String muteText = "";
         String movedText = "";
-        if (conversationType.equalsIgnoreCase(TYPE_CHATROOM)) {
-            muteText = isChatRoomMute ? StringUtils.getString(R.string.chat_message_operate_unmute)
-                    : StringUtils.getString(R.string.chat_message_operate_mute);
-            movedText = StringUtils.getString(R.string.chat_message_operate_moveout_room);
+        muteText = isMute ? StringUtils.getString(R.string.chat_message_operate_unmute)
+                : StringUtils.getString(R.string.chat_message_operate_mute);
+        movedText = StringUtils.getString(R.string.chat_message_operate_moveout_room);
+        BottomDialog.Builder builder = new BottomDialog.Builder(context);
+        if(isAnchor || isSuperManager){
+            builder.setPositiveButton(StringUtils.getString(R.string.chat_message_operate_set_manager),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            viewModel.setRoomAdmin(fUserId, roomId, tUserId, fNickName, tNickName);
+
+                        }
+                    }, R.color.rt_c_3478F6, R.drawable.bg_page_more_top);
+        }else{
+            builder.setPositiveButton(StringUtils.getString(R.string.chat_message_operate_pullblack),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            showConfirmDialog(OPERATE_REMOVE_USER);
+                        }
+                    }, R.color.rt_c_3478F6, R.drawable.bg_page_more_top);
         }
 
-        ConfirmBottomSheetDialog.Companion.showDialog(context,
-                muteText, movedText,
-                StringUtils.getString(R.string.chat_message_operate_pullblack),
-                isShowReport ? StringUtils.getString(R.string.chat_message_operate_report) : null,
-                StringUtils.getString(R.string.chat_message_operate_cancel),
-                new ConfirmBottomSheetDialog.CallBack() {
-                    @Override
-                    public void callBack(int value) {
-                        switch (value) {
-                            case ConfirmBottomSheetDialog.centerItem0:
-//                                showConfirmDialog(OPERATE_MUTE_USER, conversationType);
-                                viewModel.mute(isGroupMute, isChatRoomMute, conversationType);
-                                break;
-                            case ConfirmBottomSheetDialog.centerItem1:
-                                showConfirmDialog(OPERATE_REMOVE_USER, conversationType);
-                                break;
-                            case ConfirmBottomSheetDialog.centerItem2:
-                                showConfirmDialog(OPERATE_ADD_BLACKLIST, conversationType);
-                                break;
-                            case ConfirmBottomSheetDialog.centerItem3:
-                                showReportDialog(conversationType);
-                                break;
-                            default:
-//                                LaToastUtil.showShort("取消");
-                                break;
+        if(isAnchor || isSuperManager) {
+            builder.setPositiveButtonThree(StringUtils.getString(R.string.chat_message_operate_pullblack),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            showConfirmDialog(OPERATE_REMOVE_USER);
                         }
-                    }
+                    }, R.color.rt_c_3478F6);
+        }
 
+        builder.setPositiveButtonFour(muteText,
+                new DialogInterface.OnClickListener() {
                     @Override
-                    public void cancel() {
-//                        LaToastUtil.showShort("取消");
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        viewModel.mute(fUserId, tUserId, roomId, sceneId, isMute);
                     }
-                });
+                }, R.color.rt_c_3478F6);
+
+        builder.setPositiveButtonFive(StringUtils.getString(R.string.chat_message_operate_report),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        showReportDialog(conversationType);
+                    }
+                }, R.color.rt_c_3478F6);
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.create().show();
+
     }
 
 
     /**
      * 二次确认Dialog
      */
-    private void showConfirmDialog(int operateType, String conversationType) {
+    private void showConfirmDialog(int operateType) {
         String title = "";
         String content = "";
         if (operateType == OPERATE_MUTE_USER) {
-            if (conversationType.equalsIgnoreCase(TYPE_GROUP)) {
-                title = context.getString(R.string.chat_message_operate_mute);
-                content = context.getString(R.string.operate_group_mute_hint);
-            } else if (conversationType.equalsIgnoreCase(TYPE_CHATROOM)) {
-                title = context.getString(R.string.chat_message_operate_mute);
-                content = context.getString(R.string.operate_room_mute_hint);
-            }
+            title = context.getString(R.string.chat_message_operate_mute);
+            content = context.getString(R.string.operate_room_mute_hint);
         } else if (operateType == OPERATE_ADD_BLACKLIST) {
-            title = context.getString(R.string.chat_message_operate_pullblack);
+            title = context.getString(R.string.dialog_note);
             content = context.getString(R.string.chat_message_operate_pullblack_hint);
         } else if (operateType == OPERATE_REMOVE_BLACKLIST) {
 //            title = context.getString(R.string.chat_message_operate_pullblack);
@@ -238,12 +261,10 @@ public class CommonBottomDialog {
                 }).setPositiveButton(StringUtils.getString(R.string.login_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (operateType == OPERATE_REMOVE_USER) {
-                            viewModel.removeUser(conversationType);
-                        } else if (operateType == OPERATE_ADD_BLACKLIST) {
-                            viewModel.addBlacklist(conversationType);
+                        if (operateType == OPERATE_ADD_BLACKLIST) {
+                            viewModel.addBlacklist(fUserId, tUserId, roomId, fNickName, tNickName);
                         } else if (operateType == OPERATE_REMOVE_BLACKLIST) {
-                            viewModel.removeBlacklist(conversationType);
+                            viewModel.removeBlacklist(fUserId, tUserId, roomId, fNickName, tNickName);
                         }
                         dialog.dismiss();
                     }

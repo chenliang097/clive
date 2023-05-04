@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/rt_c_161722">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/anchorManagerMaskWordTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/stream_anchor_manager_mask_work"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/anchorManagerMaskWordNumTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_toEndOf="@+id/anchorManagerMaskWordTxt"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/c_20_white"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@+id/anchorManagerMaskWordTxt"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/stream_anchor_manager_mask_work_ins"
+                    android:textColor="@color/c_20_white"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/anchorManagerMaskWordImg"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/rt_icon_stream_arrow_right"/>
+
+        </RelativeLayout>
+        <com.rongtuoyouxuan.libuikit.widget.FlowLayout
+            android:id="@+id/setMaskWordFlowLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/setMaskWordAddLayout"
+            android:layout_width="46dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:gravity="center"
+            android:background="@drawable/bg_set_mask_words">
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/qf_stream_icon_follow_add"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout
+        android:id="@+id/room_message_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+</FrameLayout>

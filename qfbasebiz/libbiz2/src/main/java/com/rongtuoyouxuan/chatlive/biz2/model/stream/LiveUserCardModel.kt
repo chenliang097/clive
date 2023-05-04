@@ -58,7 +58,6 @@ data class LiveUserRes(
 data class LiveUserData(val data: LiveUserRes) : BaseModel()
 
 data class ProfileUserData(val userId: Long, val userName: String, val avatar: String)
-
 data class LiveJoinGroupReq(
     @SerializedName("anchor_id")
     val anchorInt: Long,

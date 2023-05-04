@@ -11,7 +11,7 @@ import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.BottomMenuItem
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.BottomSecondMenu
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.util.*
-import im.zego.zegoeffectsexample.sdkmanager.util.ZegoUtil
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.util.ZegoUtil
 import java.io.File
 
 object BeautifyBottomFragmentViewModel : ViewModel() {

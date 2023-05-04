@@ -29,6 +29,8 @@ public class StreamControllerViewModel extends ControllerViewModel {
     private LiveEvent<Boolean> mInteractionVisibility = new LiveEvent<>(false);//控制交互页view显示
     public MutableLiveData<UploadFileResponse> uploadLiveData = new MutableLiveData<>();//上传文件
 
+    public LiveEvent<Void> anchorSettingLiveEvent = new LiveEvent<>();//退出房间dialog
+
     public StreamControllerViewModel(@NonNull LiveStreamInfo liveStreamInfo) {
         super(liveStreamInfo);
     }

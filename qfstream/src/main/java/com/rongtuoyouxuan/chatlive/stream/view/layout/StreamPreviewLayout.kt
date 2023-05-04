@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.location.*
 import android.net.Uri
@@ -38,13 +37,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartPushStreamRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartStreamInfoBean
 import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.qfzego.KeyCenter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MatisseUtil
 import com.zhihu.matisse.MatisseUtil.onPermissionListener
-import im.zego.zegoeffectsexample.sdkmanager.SDKManager
 import kotlinx.android.synthetic.main.qf_stream_layout_preview.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

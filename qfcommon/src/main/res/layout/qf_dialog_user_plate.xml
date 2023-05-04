@@ -23,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewTop" />
+            app:layout_constraintTop_toBottomOf="@+id/viewTop"/>
 
         <TextView
             android:id="@+id/userCardRightTxt"
@@ -124,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
+            android:layout_marginBottom="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userCardLayout2">
@@ -171,7 +172,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.rongtuoyouxuan.qfcommon.widget.CustomAvatarView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/userCardAvatar"
         android:layout_width="65dp"
         android:layout_height="65dp"

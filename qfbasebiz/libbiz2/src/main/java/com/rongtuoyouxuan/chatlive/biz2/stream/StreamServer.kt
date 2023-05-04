@@ -1,5 +1,7 @@
 package com.rongtuoyouxuan.chatlive.biz2.stream
 
+import com.rongtuoyouxuan.chatlive.biz2.model.im.request.BlacklistRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.im.request.MuteRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel
@@ -7,6 +9,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.PushStreamHeartBeatRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamStartInfoRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.user.FansListRequest
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -129,6 +132,34 @@ interface StreamServer {
 
     @POST("/userProxy/v1/user/setAllowRule")
     fun setUserAllowRange(@Body request: LiveRoomVisibleRangeRequest): Call<BaseModel>
+
+    @GET("/userProxy/v1/user/roomAdminList")
+    fun getRoomManagerList(@Query("room_id") roomId: String, @Query("page") page: Int, @Query("size") size: Int): Call<RoomManagerListBean>
+
+    @POST("/userProxy/v1/user/delRoomAdmin")
+    fun delRoomManager(@Body request: AnchorRoomSettingRequest): Call<BaseModel>
+
+    @GET("/userProxy/v1/user/blackList")
+    fun getManagerBlackList(@Query("room_id") roomId: String, @Query("page") page: Int, @Query("size") size: Int): Call<RoomManagerBlackListBean>
+
+    @POST("/userProxy/v1/user/cancelBlack")
+    fun relieveRoomBlack(@Body request: BlacklistRequest): Call<BaseModel>
+
+    @POST
+    fun getManagerMuteList(@Url url: String?,
+                           @Body request: AnchorRoomMuteListRequest?): Call<RoomManagerMuteListBean>
+
+    @POST("/userProxy/v1/user/cancelForbidSpeak")
+    fun relieveRoomMute(@Body request: MuteRequest): Call<BaseModel>
+
+    @GET("/userProxy/v1/user/getShieldWord")
+    fun getRoomMaskWords(@Query("room_id") roomId:String): Call<RoomMaskWordsBean>
+
+    @POST("/userProxy/v1/user/setShieldWord")
+    fun setRoomMaskWord(@Body request:SetRoomMaskWordsRequest): Call<BaseModel>
+
+    @POST("/userProxy/v1/user/delShieldWord")
+    fun deleteRoomMaskWord(@Body request:SetRoomMaskWordsRequest): Call<BaseModel>
 
 
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/internal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="55dp"
+        android:layout_weight="1"
+        android:background="@color/transparent"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/ll_msg_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!--聊天输入框-->
+        <LinearLayout
+            android:id="@+id/frame_message_edit"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:paddingStart="10dp"
+            android:paddingTop="4dp">
+
+            <RelativeLayout
+                android:id="@+id/rlMessageLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/qf_stream_bg_edit"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/room_message_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/stream_input_hit"
+                    android:textColorHint="@color/c_20_black"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:padding="5dp"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/room_message_sent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="21dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/c_20_black"
+                android:text="@string/stream_bottom_stream_send"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/corner_circle_top"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/stream_anchor_manager"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/c_5_white"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/anchorManagerSetManagerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/stream_anchor_manager_set_manager"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:id="@+id/anchorManagerSetManagerImg"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/rt_icon_stream_arrow_right"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/anchorManagerBAndMLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/stream_anchor_manager_black_mute"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:id="@+id/anchorManagerMuteImg"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/rt_icon_stream_arrow_right"/>
+
+        </RelativeLayout>
+
+        <com.rongtuoyouxuan.chatlive.stream.view.layout.SetMaskWordsView
+            android:id="@+id/anchorManagerSetWordsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -21,6 +21,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.request.ChatRoomRequest;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.GroupRequest;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.MuteRequest;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.SaveReportRequest;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.request.SetRoomManagerRequest;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.response.OperateResultModel;
 import com.rongtuoyouxuan.chatlive.net2.BaseModel;
 import com.rongtuoyouxuan.chatlive.net2.RequestListener;
@@ -106,14 +107,9 @@ public class BottomDialogViewModel extends AndroidViewModel {
     /**
      * 禁言
      */
-    public void mute(boolean isGroupMute, boolean isChatRoomMute, String conversationType) {
-        MuteRequest muteRequest = new MuteRequest(getSource(conversationType), sourceId, anchorId, targetIds, 0);
-        boolean isMute = false;
-        if (conversationType.equalsIgnoreCase(TYPE_GROUP)) {
-            isMute = isGroupMute;
-        } else if (conversationType.equalsIgnoreCase(TYPE_CHATROOM)) {
-            isMute = isChatRoomMute;
-        }
+    public void mute(String userId, String fId, String roomId, String sceneId, boolean isMute) {
+        MuteRequest muteRequest = new MuteRequest(userId, fId, roomId, sceneId);
+
         if (isMute) {
             ChatIMBiz.INSTANCE.cancelMute(muteRequest, new RequestListener<OperateResultModel>() {
                 @Override
@@ -150,51 +146,10 @@ public class BottomDialogViewModel extends AndroidViewModel {
     }
 
     /**
-     * 移出房间/移出群成员
-     */
-    public void removeUser(String conversationType) {
-        if (conversationType.equalsIgnoreCase(TYPE_GROUP)) {
-            GroupRequest groupRequest = new GroupRequest(sourceId, targetIds);
-            ChatIMBiz.INSTANCE.removeGroupUser(groupRequest, new RequestListener<OperateResultModel>() {
-                @Override
-                public void onSuccess(String reqId, OperateResultModel result) {
-                    if (!TextUtils.isEmpty(result.errMsg)) {
-                        LaToastUtil.showShort(result.errMsg);
-                    } else {
-                        LaToastUtil.showShort(StringUtils.getString(R.string.chat_remove_live_tip));
-                    }
-                }
-
-                @Override
-                public void onFailure(String reqId, String errCode, String msg) {
-                    LaToastUtil.showShort(msg);
-                }
-            });
-        } else if (conversationType.equalsIgnoreCase(TYPE_CHATROOM)) {
-            ChatRoomRequest chatRoomRequest = new ChatRoomRequest(sourceId, anchorId, targetIds);
-            ChatIMBiz.INSTANCE.removeChatRoomUser(chatRoomRequest, new RequestListener<OperateResultModel>() {
-                @Override
-                public void onSuccess(String reqId, OperateResultModel result) {
-                    if (!TextUtils.isEmpty(result.errMsg)) {
-                        LaToastUtil.showShort(result.errMsg);
-                    } else {
-                        LaToastUtil.showShort(StringUtils.getString(R.string.chat_operate_remove_success));
-                    }
-                }
-
-                @Override
-                public void onFailure(String reqId, String errCode, String msg) {
-                    LaToastUtil.showShort(msg);
-                }
-            });
-        }
-    }
-
-    /**
      * 拉黑
      */
-    public void addBlacklist(String conversationType) {
-        BlacklistRequest addBlacklistRequest = new BlacklistRequest(getSource(conversationType), sourceId, anchorId, targetIds);
+    public void addBlacklist(String fUid, String tUId, String roomId, String fNickName,String tNickName) {
+        BlacklistRequest addBlacklistRequest = new BlacklistRequest(fUid, tUId, roomId, fNickName, tNickName);
         ChatIMBiz.INSTANCE.addBlacklist(addBlacklistRequest, new RequestListener<BaseModel>() {
             @Override
             public void onSuccess(String reqId, BaseModel result) {
@@ -215,8 +170,8 @@ public class BottomDialogViewModel extends AndroidViewModel {
     /**
      * 取消拉黑
      */
-    public void removeBlacklist(String conversationType) {
-        BlacklistRequest addBlacklistRequest = new BlacklistRequest(getSource(conversationType), sourceId, anchorId, targetIds);
+    public void removeBlacklist(String fUid, String tUId, String roomId, String fNickName,String tNickName) {
+        BlacklistRequest addBlacklistRequest = new BlacklistRequest(fUid, tUId, roomId, fNickName, tNickName);
         ChatIMBiz.INSTANCE.removeBlacklist(addBlacklistRequest, new RequestListener<OperateResultModel>() {
             @Override
             public void onSuccess(String reqId, OperateResultModel result) {
@@ -239,6 +194,21 @@ public class BottomDialogViewModel extends AndroidViewModel {
      *
      * @param content 举报内容
      */
+    public void setRoomAdmin(String userId, String roomId,String roomAdminId, String uNickName,String rNickName) {
+        SetRoomManagerRequest request = new SetRoomManagerRequest(userId, roomId, roomAdminId, uNickName, rNickName);
+        ChatIMBiz.INSTANCE.setRoomManager(request, new RequestListener<BaseModel>() {
+            @Override
+            public void onSuccess(String reqId, BaseModel result) {
+                LaToastUtil.showShort(result.errMsg);
+            }
+
+            @Override
+            public void onFailure(String reqId, String errCode, String msg) {
+                LaToastUtil.showShort(msg);
+            }
+        });
+    }
+
     public void saveReport(String conversationType, String content) {
         SaveReportRequest reportRequest = new SaveReportRequest(getSource(conversationType), sourceId, targetIds.get(0), content);
         ChatIMBiz.INSTANCE.saveReport(reportRequest, new RequestListener<BaseModel>() {

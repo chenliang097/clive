@@ -3,6 +3,8 @@ package com.rongtuoyouxuan.chatlive.biz2.stream
 import androidx.lifecycle.LifecycleOwner
 import com.rongtuoyouxuan.chatlive.biz2.ReqId
 import com.rongtuoyouxuan.chatlive.biz2.constanst.UrlConstanst
+import com.rongtuoyouxuan.chatlive.biz2.model.im.request.BlacklistRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.im.request.MuteRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel
@@ -492,6 +494,116 @@ object StreamBiz {
         newNetworks(null, listener, "") {
             it.create(StreamServer::class.java)
                 .setUserAllowRange(request)
+        }
+    }
+
+    fun getRoomManagerList(
+        roomId: String,
+        page: Int,
+        size:Int,
+        listener: RequestListener<RoomManagerListBean>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .getRoomManagerList(roomId, page, size)
+        }
+    }
+
+    fun deleteRoomManagerList(
+        request: AnchorRoomSettingRequest,
+        listener: RequestListener<BaseModel>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .delRoomManager(request)
+        }
+    }
+
+    fun getManagerBlackList(
+        roomId: String,
+        page: Int,
+        size:Int,
+        listener: RequestListener<RoomManagerBlackListBean>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .getManagerBlackList(roomId, page, size)
+        }
+    }
+
+    fun relieveRoomBlack(
+        request: BlacklistRequest,
+        listener: RequestListener<BaseModel>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .relieveRoomBlack(request)
+        }
+    }
+
+    fun getRoomMuteList(
+        lifecycleOwner: LifecycleOwner?,
+        sceneId: String,
+        roomId: String,
+        page: Int,
+        size: Int,
+        listener: RequestListener<RoomManagerMuteListBean>
+    ) {
+        object : NetWorks<RoomManagerMuteListBean>(lifecycleOwner, listener) {
+            override fun createCall(retrofit: Retrofit): Call<RoomManagerMuteListBean> {
+                return retrofit.create(StreamServer::class.java).getManagerMuteList(
+                    UrlConstanst.BASE_URL_MUTE_LIST_API_BOBOO_COM + "?page=$page&size=$size",
+                        AnchorRoomMuteListRequest(sceneId, roomId)
+                )
+            }
+
+            override fun getReqId(): String {
+                return ""
+            }
+
+            override fun getBaseUrl(): String {
+                return UrlConstanst.BASE_URL_LIVE_API_BOBOO_COM
+            }
+        }.start()
+    }
+
+    fun relieveRoomMute(
+        request: MuteRequest,
+        listener: RequestListener<BaseModel>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .relieveRoomMute(request)
+        }
+    }
+
+    fun getRoomMaskWords(
+        roomId: String,
+        listener: RequestListener<RoomMaskWordsBean>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .getRoomMaskWords(roomId)
+        }
+    }
+
+    fun setRoomMaskWord(
+        request: SetRoomMaskWordsRequest,
+        listener: RequestListener<BaseModel>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .setRoomMaskWord(request)
+        }
+    }
+
+    fun deleteRoomMaskWord(
+        request: SetRoomMaskWordsRequest,
+        listener: RequestListener<BaseModel>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .deleteRoomMaskWord(request)
         }
     }
 

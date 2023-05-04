@@ -44,25 +44,25 @@ interface ChatIMServer {
     /**
      * 禁言
      */
-    @POST("/mute")
+    @POST("/userProxy/v1/user/forbidSpeak")
     fun mute(@Body muteRequest: MuteRequest): Call<OperateResultModel>
 
     /**
      * 取消禁言
      */
-    @POST("/unmute")
+    @POST("/userProxy/v1/user/cancelForbidSpeak")
     fun cancelMute(@Body muteRequest: MuteRequest): Call<OperateResultModel>
 
     /**
      * 拉黑
      */
-    @POST("/blacklist/add")
+    @POST("/userProxy/v1/user/black")
     fun addBlacklist(@Body blacklistRequest: BlacklistRequest): Call<BaseModel>
 
     /**
      * 移除黑名单
      */
-    @POST("/blacklist/remove")
+    @POST("/userProxy/v1/user/cancelBlack")
     fun removeBlacklist(@Body blacklistRequest: BlacklistRequest): Call<OperateResultModel>
 
     /**
@@ -170,4 +170,10 @@ interface ChatIMServer {
      */
     @POST("/medium/v1/barrage/pushBarrage")
     fun sendTxtMsg(@Body rtTxtMsgRequest: RTTxtMsgRequest): Call<BaseModel>
+
+    /**
+     * 设置房管
+     */
+    @POST("/userProxy/v1/user/addRoomAdmin")
+    fun setRoomManager(@Body request: SetRoomManagerRequest): Call<BaseModel>
 }

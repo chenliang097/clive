@@ -7,16 +7,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.rongtuoyouxuan.chatlive.biz2.model.login.response.BatchUserInfo
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveUserData
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveUserRes
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.ProfileUserData
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
 import com.rongtuoyouxuan.chatlive.biz2.stream.UserCardBiz
 import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.qfcommon.R
@@ -26,14 +18,16 @@ import com.hbb20.Country
 import com.lxj.xpopup.core.BottomPopupView
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
+import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.qfcommon.viewmodel.CommonViewModel
 import kotlinx.android.synthetic.main.qf_dialog_user_plate.view.*
 
 @SuppressLint("ViewConstructor")
 class UserCardDialog(
     private val activity: FragmentActivity,
-    //房主UID
-    private val followId: String,
+    //操作者
+    private val fUserId: String,
+    private val tUserId: String,
     private val roomId: String,
     private val sceneId: String,
     private val anchorId: String
@@ -47,7 +41,7 @@ class UserCardDialog(
 
     override fun onCreate() {
         super.onCreate()
-        var request = UserCardInfoRequest(followId, roomId, sceneId, DataBus.instance().USER_ID)
+        var request = UserCardInfoRequest(tUserId, roomId, sceneId, DataBus.instance().USER_ID)
         UserCardBiz.getLiveUserCardInfo(request,
             listener = object : RequestListener<UserCardInfoBean> {
                 override fun onSuccess(reqId: String?, result: UserCardInfoBean?) {
@@ -92,7 +86,7 @@ class UserCardDialog(
     }
 
     private fun completeData(result: UserCardInfoBean.DataBean) {
-        userCardAvatar?.bindData(result.avatar)
+        GlideUtils.loadImage(context, result.avatar, userCardAvatar, R.drawable.icon_default_avatar)
         userCardNameTxt?.text = result.nick_name
         when (result.sex) {
             "1" -> {
@@ -116,7 +110,7 @@ class UserCardDialog(
         userCardFansTxt?.text = context.resources.getString(R.string.stream_user_card_fans,result.fans_count)
         userCardFollowTxt?.text = context.resources.getString(R.string.stream_user_card_follow,result.follow_count)
 
-        if(followId == DataBus.instance().USER_ID){
+        if(fUserId == DataBus.instance().USER_ID){
             userCardLayout3.visibility = View.GONE
         }else{
             userCardLayout3.visibility = View.VISIBLE
@@ -126,9 +120,9 @@ class UserCardDialog(
         userCardFollowBtn?.setOnClickListener {
             //关注
             if(isFollow){
-                mCommonViewModel?.cancelFollow(followId, roomId, sceneId)
+                mCommonViewModel?.cancelFollow(tUserId, roomId, sceneId)
             }else{
-                mCommonViewModel?.addFollow(followId, roomId, sceneId)
+                mCommonViewModel?.addFollow(tUserId, roomId, sceneId)
             }
 
         }
@@ -147,6 +141,22 @@ class UserCardDialog(
         userCardAvatar?.setOnClickListener {
 
             this.dismiss()
+        }
+
+        userCardRightTxt?.setOnClickListener {
+            if(DataBus.instance().USER_ID == anchorId){
+                UserCardHelper.managerVM.post(UserCardInfoBean.ProfileUserData(result.follow_id, result.nick_name,
+                    result.is_super_admin, result.is_room_admin, result.is_forbid_speak))
+            }else if(result.is_super_admin){//超管
+                UserCardHelper.managerVM.post(UserCardInfoBean.ProfileUserData(result.follow_id, result.nick_name,
+                    result.is_super_admin, result.is_room_admin, result.is_forbid_speak))
+            }else if(result.is_room_admin){//房管
+                UserCardHelper.managerVM.post(UserCardInfoBean.ProfileUserData(result.follow_id, result.nick_name,
+                    result.is_super_admin, result.is_room_admin, result.is_forbid_speak))
+            }else{
+                LaToastUtil.showShort("举报")
+            }
+            dismiss()
         }
     }
 

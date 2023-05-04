@@ -3,14 +3,11 @@ package com.rongtuoyouxuan.qfzego;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
@@ -30,11 +27,11 @@ import java.util.ArrayList;
 import im.zego.effects.ZegoEffects;
 import im.zego.effects.entity.ZegoEffectsVideoFrameParam;
 import im.zego.effects.enums.ZegoEffectsVideoFrameFormat;
-import im.zego.zegoeffectsexample.sdkmanager.SDKManager;
-import im.zego.zegoeffectsexample.sdkmanager.ZegoLicense;
-import im.zego.zegoeffectsexample.sdkmanager.net.IGetLicenseCallback;
-import im.zego.zegoeffectsexample.sdkmanager.net.License;
-import im.zego.zegoeffectsexample.sdkmanager.net.LicenseAPI;
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.SDKManager;
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.ZegoLicense;
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.net.IGetLicenseCallback;
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.net.License;
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.net.LicenseAPI;
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.callback.IZegoApiCalledEventHandler;
 import im.zego.zegoexpress.callback.IZegoEventHandler;
@@ -252,6 +249,7 @@ public class ZegoStreamView extends BaseStreamView {
 
     private void initBeauty(){
         String encryptInfo = SDKManager.getAuthInfo(mContext);
+        SDKManager.sharedInstance().initResource(mContext);
         LicenseAPI.getLicense(encryptInfo, new IGetLicenseCallback() {
             @Override
             public void onGetLicense(int code, String message, License license) {
@@ -464,7 +462,7 @@ public class ZegoStreamView extends BaseStreamView {
         //停止推流
         if(mZegoEngine != null) {
             logoutLiveRoom();
-            SDKManager.sharedInstance().stopCamera();
+//            SDKManager.sharedInstance().stopCamera();
         }
         if (null != handler) {
             handler.removeCallbacksAndMessages(null);

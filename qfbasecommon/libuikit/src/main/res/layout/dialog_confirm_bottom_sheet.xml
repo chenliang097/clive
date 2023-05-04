@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/transparent">
 
 
     <LinearLayout
@@ -21,7 +22,8 @@
             android:paddingStart="20pt"
             android:paddingTop="28pt"
             android:paddingEnd="20pt"
-            android:paddingBottom="28pt">
+            android:paddingBottom="28pt"
+            android:background="@color/c_80_white">
 
             <TextView
                 android:id="@+id/tv_content0"
@@ -30,7 +32,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/boboo_regular"
                 android:gravity="center"
-                android:textColor="#222222"
+                android:textColor="@color/rt_c_3478F6"
                 android:textSize="30pt"
                 tools:text="拍照" />
 
@@ -39,7 +41,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1pt"
-            android:background="#E6EAED" />
+            android:background="@color/c_10_black" />
 
         <LinearLayout
             android:id="@+id/container_tv_content2"
@@ -49,7 +51,8 @@
             android:paddingTop="28pt"
             android:paddingEnd="20pt"
             android:paddingBottom="28pt"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:background="@color/c_80_white">
 
             <TextView
                 android:id="@+id/tv_content2"
@@ -58,7 +61,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/boboo_regular"
                 android:gravity="center"
-                android:textColor="#222222"
+                android:textColor="@color/rt_c_3478F6"
                 android:textSize="30pt"
                 tools:text="拉黑" />
 
@@ -77,7 +80,8 @@
             android:paddingTop="28pt"
             android:paddingEnd="20pt"
             android:paddingBottom="28pt"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:background="@color/c_80_white">
 
             <TextView
                 android:id="@+id/tv_content3"
@@ -86,7 +90,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/boboo_regular"
                 android:gravity="center"
-                android:textColor="#222222"
+                android:textColor="@color/rt_c_3478F6"
                 android:textSize="30pt"
                 tools:text="举报" />
 
@@ -104,7 +108,8 @@
             android:paddingStart="20pt"
             android:paddingTop="28pt"
             android:paddingEnd="20pt"
-            android:paddingBottom="28pt">
+            android:paddingBottom="28pt"
+            android:background="@color/c_80_white">
 
             <TextView
                 android:id="@+id/tv_content1"
@@ -113,7 +118,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/boboo_regular"
                 android:gravity="center"
-                android:textColor="#222222"
+                android:textColor="@color/rt_c_3478F6"
                 android:textSize="30pt"
                 tools:text="相册" />
 
@@ -127,7 +132,8 @@
         <LinearLayout
             android:id="@+id/container_cancel"
             android:layout_width="match_parent"
-            android:layout_height="140pt">
+            android:layout_height="140pt"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/tv_cancel"
@@ -138,8 +144,9 @@
                 android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:paddingTop="35pt"
-                android:textColor="#222222"
+                android:textColor="@color/rt_c_3478F6"
                 android:textSize="30pt"
+                android:textStyle="bold"
                 tools:text="取消" />
 
         </LinearLayout>
