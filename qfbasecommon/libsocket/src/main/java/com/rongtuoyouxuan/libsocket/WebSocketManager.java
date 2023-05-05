@@ -152,7 +152,7 @@ public class WebSocketManager implements ISocket, IWebSocketListener {
 
     @Override
     public void sendMessageBySocket(String peer, String msg, ChatSendCallback chatSendCallback) {
-        webSocketImpl.sendCommonMessage(Integer.parseInt(peer), msg, chatSendCallback);
+         webSocketImpl.sendCommonMessage(Integer.parseInt(peer), msg, chatSendCallback);
     }
 
     @Override

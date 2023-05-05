@@ -36,6 +36,8 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveKickPeopleMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GifMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GiftMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTAnnounceMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTEnterRoomMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.TxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean;
@@ -79,6 +81,20 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
             ULog.d("clll", "textObserver：" + txtMsg.getContent());
             txtMsg.setType(2);
             addMessageToList(txtMsg);
+        }
+    };
+
+    private Observer<RTAnnounceMsg> announceObserver = new Observer<RTAnnounceMsg>() {
+        @Override
+        public void onChanged(@Nullable RTAnnounceMsg announceMsg) {
+            addMessageToList(announceMsg);
+        }
+    };
+
+    private Observer<RTEnterRoomMsg> enterObserver = new Observer<RTEnterRoomMsg>() {
+        @Override
+        public void onChanged(@Nullable RTEnterRoomMsg enterRoomMsg) {
+            addMessageToList(enterRoomMsg);
         }
     };
 
@@ -143,24 +159,14 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
     private void registerObserver(String streamId) {
         roomId = streamId;
         IMSocketBase.instance().room(streamId).chmsg.observe(textObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).textCallback.observe(textObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).gifCallback.observe(gifObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).giftCallback.observe(giftObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).likeAnchorMsgLiveCallback.observe(likeObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).fanLightSignMsgLiveCallback.observe(fansClubObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).bannedCallback.observe(bannedObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).liveKickPeopleMsgLiveCallback.observe(kickObserver);
+        IMSocketBase.instance().room(streamId).announceMsg.observe(announceObserver);
+        IMSocketBase.instance().room(streamId).enterRoomMsg.observe(enterObserver);
     }
 
     private void unregisterObserver(String streamId) {
         IMSocketBase.instance().room(streamId).chmsg.removeObserver(textObserver);
-//        IMSocketImpl.getInstance().chatRoom(streamId).textCallback.removeObserver(textObserver);
-//        IMSocketImpl.getInstance().chatRoom(streamId).gifCallback.removeObserver(gifObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).giftCallback.removeObserver(giftObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).likeAnchorMsgLiveCallback.removeObserver(likeObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).fanLightSignMsgLiveCallback.removeObserver(fansClubObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).bannedCallback.removeObserver(bannedObserver);
-//        IMSocketImpl.getInstance().chatRoom(roomId).liveKickPeopleMsgLiveCallback.removeObserver(kickObserver);
+        IMSocketBase.instance().room(streamId).announceMsg.removeObserver(announceObserver);
+        IMSocketBase.instance().room(streamId).enterRoomMsg.removeObserver(enterObserver);
 
 
     }

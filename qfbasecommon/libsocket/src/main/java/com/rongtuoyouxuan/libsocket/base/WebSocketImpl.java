@@ -66,6 +66,8 @@ public class WebSocketImpl {
         if (mWebSocket == null) {
             return;
         }
+        hbThread.interrupt();
+        hbThread = null;
         mWebSocket.close(1000, null);
         mWebSocket = null;
         ULog.i(getTAG(), "release");
@@ -194,8 +196,9 @@ public class WebSocketImpl {
         }
     }
 
+    private Thread hbThread;
     private void heartBeat(WebSocket webSocket) {
-        Thread hbThread = new Thread(new HeartbeatTask(webSocket));
+        hbThread = new Thread(new HeartbeatTask(webSocket));
         hbThread.start();
     }
 
@@ -208,6 +211,9 @@ public class WebSocketImpl {
         public void run() {
             // TODO Auto-generated method stub
             while (true) {
+                if(hbThread.isInterrupted()){
+                    break;
+                }
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
@@ -225,9 +231,9 @@ public class WebSocketImpl {
     }
 
     public synchronized byte[] authWrite() throws IOException {
-        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2013};
+        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2013,2020};
         String contentStr = GsonUtils.toJson(new MsgHeaderBean(Integer.parseInt(mBuilder.imUserInfo.userid), "live://" + mBuilder.imUserInfo.roomId, "android",codes));
-        int packLength = contentStr.length() + 16;
+        int packLength = contentStr.getBytes().length + 16;
         byte[] message = new byte[4 + 2 + 2 + 4 + 4];
         int offset = BruteForceCoding.encodeIntBigEndian(message, packLength, 0, 4 * BruteForceCoding.BSIZE);
         offset = BruteForceCoding.encodeIntBigEndian(message, 16, offset, 2 * BruteForceCoding.BSIZE);
@@ -239,9 +245,9 @@ public class WebSocketImpl {
     }
 
     public synchronized void heartBeatWrite(WebSocket webSocket) throws IOException {
-        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2013};
+        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2013,2020};
         String contentStr = GsonUtils.toJson(new MsgHeaderBean(Integer.parseInt(mBuilder.imUserInfo.userid), "live://" + mBuilder.imUserInfo.roomId, "android",codes));
-        int packLength = contentStr.length() + 16;
+        int packLength = contentStr.getBytes().length + 16;
         byte[] message = new byte[4 + 2 + 2 + 4 + 4];
 
         // package length
@@ -322,9 +328,9 @@ public class WebSocketImpl {
     }
 
     private static void sendMessage(int op, WebSocket webSocket, String msg) {
-        int packLength = msg.length() + 16;
+        int packLength = msg.getBytes().length + 16;
         byte[] message = new byte[16];
-        ULog.d("clll", "op:" + op + "--sendMessage:" + msg);
+        ULog.e("clll", "op:" + op + "--sendMessage:" + msg);
         int offset = BruteForceCoding.encodeIntBigEndian(message, packLength, 0, 4 * BruteForceCoding.BSIZE);
         offset = BruteForceCoding.encodeIntBigEndian(message, 16, offset, 2 * BruteForceCoding.BSIZE);
         offset = BruteForceCoding.encodeIntBigEndian(message, 1, offset, 2 * BruteForceCoding.BSIZE);

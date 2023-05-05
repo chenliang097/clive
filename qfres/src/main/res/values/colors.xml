@@ -168,6 +168,7 @@
     <color name="c_stream_common_bbb0ff">#BBB0FF</color>
     <color name="c_stream_message_bg">#99222222</color>
     <color name="c_stream_ff684a">#FF684A</color>
+    <color name="c_stream_enter_msg_nick_name">#FDEA4D</color>
 
     <!--IM-->
     <color name="c_chat_warning_color">#FF4141</color>

@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName
 import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
 
 class RTTxtMsg: BaseRoomMessage() {
-    @SerializedName("room_id")
-    var roomId = ""
     @SerializedName("scene_id")
     var sceneId = ""
     @SerializedName("anchor_id")

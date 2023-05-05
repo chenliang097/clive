@@ -28,7 +28,8 @@ public class LivePublicChatAreaListAdapter extends BaseMultiItemQuickAdapter<Bas
         mMessageSpanMatcher = new MessageSpanMatcher(context);
         addItemType(BaseRoomMessage.TYPE_UNKNOWN, R.layout.qf_stream_adapter_item_empty);
         addItemType(BaseRoomMessage.TYPE_MESSAGE, R.layout.qf_stream_adapter_item_common);
-
+        addItemType(BaseRoomMessage.TYPE_ANNOUNCE, R.layout.qf_stream_adapter_item_common);
+        addItemType(BaseRoomMessage.TYPE_ENTER_ROOM, R.layout.qf_stream_adapter_item_common);
     }
 
     @Override
@@ -43,7 +44,9 @@ public class LivePublicChatAreaListAdapter extends BaseMultiItemQuickAdapter<Bas
     @Override
     protected void convert(BaseViewHolder helper, final BaseRoomMessage item) {
         switch (item.getItemType()) {
+            case BaseRoomMessage.TYPE_ANNOUNCE:
             case BaseRoomMessage.TYPE_MESSAGE:
+            case BaseRoomMessage.TYPE_ENTER_ROOM:
                 TextView textView = helper.getView(R.id.textView);
                 textView.setBackgroundResource(R.drawable.transparent);
                 mMessageSpanMatcher.loadSpan(textView, item);

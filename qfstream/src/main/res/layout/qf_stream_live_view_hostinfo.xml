@@ -48,7 +48,6 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text="@string/stream_host_click_zan_num"
                 android:textColor="@color/white"
                 android:textSize="8sp" />
         </LinearLayout>

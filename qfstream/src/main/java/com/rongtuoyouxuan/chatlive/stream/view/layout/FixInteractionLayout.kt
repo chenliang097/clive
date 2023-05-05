@@ -4,12 +4,15 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.libsocket.base.IMSocketBase
 import kotlinx.android.synthetic.main.item_layout_online.view.*
 import kotlinx.android.synthetic.main.qf_stream_layout_intercation_fix.view.*
 
@@ -21,7 +24,15 @@ class FixInteractionLayout @JvmOverloads constructor(
     private var fixLayout: View? = null
     private var imViewModel:IMLiveViewModel? = null
     var mControllerViewModel: StreamControllerViewModel? = null
+    private var roomId: String? = null
 
+
+    var observer: Observer<RTHotChangeMsg> = Observer<RTHotChangeMsg> {
+        if (it.roomId == mControllerViewModel?.roomId) {
+            rl_master_room_info?.setCurrentDiamond(it.fire)
+            tvOnline4?.text = "" + it.userCount
+        }
+    }
     init {
         init(context)
     }
@@ -60,6 +71,8 @@ class FixInteractionLayout @JvmOverloads constructor(
         mControllerViewModel = ViewModelUtils.get(context as FragmentActivity?, StreamControllerViewModel::class.java)
         imViewModel?.roomInfoExtraLiveData?.observe(context as FragmentActivity){
             tvOnline4.text = "" + it?.data?.scene_user_count
+            roomId = it?.data?.room_id_str
+            it?.data?.room_id_str?.let { it1 -> registerObserver(it1) }
         }
     }
 
@@ -67,10 +80,12 @@ class FixInteractionLayout @JvmOverloads constructor(
         super.onAttachedToWindow()
     }
 
-    private fun registerObserver(streamId:String) {
+    private fun registerObserver(roomId: String) {
+        IMSocketBase.instance().room(roomId).hotChangeMsg.observe(observer)
     }
 
     override fun onDetachedFromWindow() {
+        IMSocketBase.instance().room(roomId).hotChangeMsg.removeObserver(observer)
         super.onDetachedFromWindow()
     }
 }

@@ -6,8 +6,11 @@ import com.google.gson.annotations.SerializedName
 abstract class BaseRoomMessage : MultiItemEntity {
     companion object {
         const val TYPE_UNKNOWN = 0
-        const val TYPE_MESSAGE = 1
+        const val TYPE_MESSAGE = 2001
         const val TYPE_GIFT = 2
+        const val TYPE_ANNOUNCE = 2002
+        const val TYPE_ENTER_ROOM = 2007
+        const val TYPE_HOT_CHANGE = 2013
         const val TYPE_COMMON_TEMPLATEMSG = 13 // 模板消息
 
     }
@@ -21,4 +24,10 @@ abstract class BaseRoomMessage : MultiItemEntity {
     var isRoomAdmin = false
     @SerializedName("is_anchor")
     var isAnchor = false
+    @SerializedName("user_id_str")
+    var userIdStr = ""
+    @SerializedName("room_id")
+    var roomId = ""
+    @SerializedName("room_id_str")
+    var roomIdStr = ""
 }

@@ -256,7 +256,6 @@ class StreamActivity : BaseLiveStreamActivity() {
             ll_room_bottom_tools.visibility = View.VISIBLE
             mIMViewModel?.initIM(this, "enter_room", startStreamBean.data.room_id_str,
                 startStreamBean.data.scene_id_str, StreamPreviewLayout.USER_ID, StreamPreviewLayout.USER_NAME, true)
-            mIMViewModel?.systemMsgLiveEvent?.value = "欢迎来到直播间，榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播"
             var enterRoomBean = EnterRoomBean.DataBean()
             updateLiveRoomID(startStreamBean.data.room_id_str)
             updateAnchorId(startStreamBean.data.anchor_id.toString())
@@ -271,6 +270,7 @@ class StreamActivity : BaseLiveStreamActivity() {
             enterRoomBean.user_id = StreamPreviewLayout.USER_ID
             enterRoomBean.user_name = StreamPreviewLayout.USER_NAME
             mIMViewModel?.roomInfoLiveEvent?.value = enterRoomBean
+            mIMViewModel?.streamIdLiveEvent?.value = startStreamBean.data.room_id_str
             mIMViewModel?.getRoomInfo(startStreamBean.data.room_id_str, startStreamBean.data.scene_id_str, StreamPreviewLayout.USER_ID, true)
             imObserver(startStreamBean.data.scene_id_str)
             ULog.d("clll", "streamID:$streamID----anchorId:$anchorId")

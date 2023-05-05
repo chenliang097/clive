@@ -208,7 +208,7 @@ class LiveRoomFragment : SimpleFragment() {
         }
         dl_drawerlayout.setRightToLeftCallBack {
             if (!isHide) {
-//                liveId?.let { RecommendDialog.showDialog(mContext, it) }
+                roomId?.let { RecommendDialog.showDialog(mContext, it) }
             }
         }
         initListener1()
@@ -284,7 +284,7 @@ class LiveRoomFragment : SimpleFragment() {
                 }
                 imViewModel?.roomInfoLiveEvent?.value = roomInfoModel?.data
                 imViewModel?.followStateLiveData?.value = roomInfoModel.data?.is_follow
-                imViewModel?.streamIdLiveEvent?.value = roomInfoModel.data?.stream_id
+                imViewModel?.streamIdLiveEvent?.value = roomInfoModel.data?.room_id_str
                 roomInfoModel.data?.room_id_str?.let {
                     roomInfoModel.data?.scene_id_str?.let { it1 ->
                         mLiveControllerViewModel?.getRoomInfoExtra(
@@ -301,8 +301,6 @@ class LiveRoomFragment : SimpleFragment() {
             if (roomInfoModel != null) {
                 dismissDialogLoading()
 //                imViewModel?.shareUrlLiveEvent?.value = roomInfoModel.data.share_url
-                imViewModel?.systemMsgLiveEvent?.value = "欢迎来到直播间，榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播榜样严禁未成年人进行直播"
-
                 var anchorInfo = AnchorInfo()
                 anchorInfo.avatar = roomInfoBean?.data?.user_avatar.toString()
                 anchorInfo.nickname = roomInfoBean?.data?.anchor_name.toString()

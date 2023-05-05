@@ -11,6 +11,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.rongtuoyouxuan.chatlive.arch.LiveCallback;
 import com.rongtuoyouxuan.chatlive.biz2.model.config.MsgConfigModel;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTAnnounceMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTEnterRoomMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.response.IMTokenModel;
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UserInfo;
@@ -434,8 +437,17 @@ public class IMSocketBase implements ISocket {
             return;
         }
         switch (channel) {
-            case 1001:
+            case 2001:
                 room(roomId).chmsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTTxtMsg.class));
+                break;
+            case 2002:
+                room(roomId).announceMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTAnnounceMsg.class));
+                break;
+            case 2007:
+                room(roomId).enterRoomMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTEnterRoomMsg.class));
+                break;
+            case 2013:
+                room(roomId).hotChangeMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTHotChangeMsg.class));
                 break;
 
             default:
@@ -531,7 +543,7 @@ public class IMSocketBase implements ISocket {
             return;
         }
         try {
-            String roomId = jsonObj.getString("room_id");
+            String roomId = jsonObj.getString("room_id_str");
             int operation = (int) op;
             if (operation > 0) {
                 dispatch(msg, roomId, operation, isOffline);
@@ -548,6 +560,9 @@ public class IMSocketBase implements ISocket {
     public static class Room {
         private boolean isJoinGroup = false;
         public LiveCallback<RTTxtMsg> chmsg = new LiveCallback<>();//弹幕
+        public LiveCallback<RTAnnounceMsg> announceMsg = new LiveCallback<>();//公告
+        public LiveCallback<RTEnterRoomMsg> enterRoomMsg = new LiveCallback<>();//进入房间
+        public LiveCallback<RTHotChangeMsg> hotChangeMsg = new LiveCallback<>();//人气变动
         public LiveCallback<RoomGift> roomgift = new LiveCallback<>();//送礼物
         public LiveCallback<RoomGift> roomgiftend = new LiveCallback<>();//送礼物结束
         public LiveCallback<String> forbidroom = new LiveCallback<>();//直播间封禁

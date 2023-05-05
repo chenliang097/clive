@@ -11,10 +11,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LikeAnchorMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveJoinRoomMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveKickPeopleMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GifMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GiftMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.TxtMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.*
 import com.rongtuoyouxuan.chatlive.image.ImgLoader
 import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.stream.R
@@ -30,8 +27,6 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
             BaseRoomMessage.TYPE_MESSAGE -> {
                 //添加聊天内容
                 val txtMsg: RTTxtMsg = message as RTTxtMsg
-
-
                 //添加聊天内容
                 val message = txtMsg as RTTxtMsg
                 var contentColor = mContext.resources.getColor(R.color.white)
@@ -40,7 +35,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                         mContext.resources.getColor(R.color.c_stream_live_convention)
                 } else {
                     addCommonIcons(textView, txtMsg, spanString, fontHeight)
-                    addNickName(textView, txtMsg, spanString, 0, true)
+                    addNickName(textView, txtMsg, spanString, mContext.resources.getColor(R.color.c_stream_msg_nick_name), true)
                     contentColor = mContext.resources.getColor(R.color.white)
                 }
                 if (isSelf(message)) {
@@ -50,6 +45,35 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                     })
                 }
                 createMsgBackground(textView, txtMsg)
+            }
+
+            BaseRoomMessage.TYPE_ANNOUNCE -> {
+                //添加聊天内容
+                val announceMsg: RTAnnounceMsg = message as RTAnnounceMsg
+                var contentColor =
+                        mContext.resources.getColor(R.color.c_stream_live_convention)
+
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, announceMsg.announce, contentColor)
+                } else {
+                    addTextSpan(spanString, textView, announceMsg.announce, contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, announceMsg)
+            }
+
+            BaseRoomMessage.TYPE_ENTER_ROOM -> {
+                val enterMsg: RTEnterRoomMsg = message as RTEnterRoomMsg
+                var contentColor =
+                    mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                addNickName(textView, enterMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false)
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_enter_room), contentColor)
+                } else {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_enter_room), contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, enterMsg)
             }
 
 //            MessageContent.MSG_LIKE_ANCHOR.type -> {//关注主播、给主播点赞、分享主播
