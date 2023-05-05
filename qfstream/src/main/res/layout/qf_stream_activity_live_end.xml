@@ -13,15 +13,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/c_70_black"
+        android:background="@color/c_40_black"
         android:scaleType="centerCrop" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.8"
-        android:scaleType="centerCrop"
-        android:src="@drawable/qf_stream_bg_live_down" />
 
     <ImageView
         android:id="@+id/liveEndCloseImg"
@@ -66,44 +59,5 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="13sp" />
-
-    <TextView
-        android:id="@+id/liveEndFollowTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_below="@id/liveEndNameTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/rt_common_btn"
-        android:gravity="center"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:text="@string/stream_user_card_add_folow"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/liveEndTimeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/liveEndFollowTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/stream_live_time"
-        android:textColor="@color/c_stream_end_time"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/liveEndReturnMainBtn"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/rt_common_btn"
-        android:text="@string/stream_return_main"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
 
 </RelativeLayout>

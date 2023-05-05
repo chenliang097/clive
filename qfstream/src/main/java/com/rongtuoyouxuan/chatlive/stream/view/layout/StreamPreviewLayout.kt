@@ -20,8 +20,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.StringUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartPushStreamRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartStreamInfoBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
@@ -29,14 +34,10 @@ import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamViewModel
 import com.rongtuoyouxuan.chatlive.util.DirectoryUtils
 import com.rongtuoyouxuan.chatlive.util.DirectoryUtils.getCacheFilesDirFile
 import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils
-import com.rongtuoyouxuan.libuikit.dialog.BottomDialog
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libuikit.TransferLoadingUtil
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartPushStreamRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartStreamInfoBean
-import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.libuikit.dialog.BottomDialog
+import com.rongtuoyouxuan.qfcommon.dialog.ShareBottomDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
@@ -126,6 +127,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
         streamPreviewChangeCoverTxt?.setOnClickListener(this)
         streamPreviewLocationTxt?.setOnClickListener(this)
         streamPreviewKeijianTxt?.setOnClickListener(this)
+        streamPreviewShareTxt?.setOnClickListener(this)
         mStreamViewModel.startStreamEvent.observe(context) {
             streamPreviewBtnStart?.isEnabled = true
             visibility = GONE
@@ -149,6 +151,11 @@ class StreamPreviewLayout @JvmOverloads constructor(
         controllerViewModel.uploadLiveData.observe(context) { t ->
             TransferLoadingUtil.dismissDialogLoading(getContext())
             setPhoto(t?.data?.url)
+        }
+
+        controllerViewModel.ActivityResultEvent.observe(context) { activityResult ->
+            onActivityResult(activityResult!!.requestCode, activityResult.resultCode,
+                activityResult.data)
         }
 
         mStreamViewModel.startPushStreamInfoLiveData.observe(context){
@@ -199,6 +206,9 @@ class StreamPreviewLayout @JvmOverloads constructor(
             }
             R.id.streamPreviewKeijianTxt ->{
                 Router.toStartLiveVisibleRangeDialog(startStreamInfoBean?.data?.stream_id)
+            }
+            R.id.streamPreviewShareTxt ->{
+                showShareDialog()
             }
         }
     }
@@ -479,6 +489,21 @@ class StreamPreviewLayout @JvmOverloads constructor(
         if (!TextUtils.isEmpty(userName)) {
             USER_NAME = userName!!
         }
+    }
+
+    private fun showShareDialog(){
+        var title = titleEdit?.text.toString()
+       var shareBottomDialog:ShareBottomDialog.Builder = ShareBottomDialog.Builder(context)
+        shareBottomDialog.setEventListener(object :ShareBottomDialog.Builder.EventListener{
+            override fun onSuccess(type: String?) {
+            }
+
+            override fun onError() {
+            }
+
+        })
+        var shareContent = context.resources.getString(R.string.share_to_content, startStreamInfoBean?.data?.anchor_name)
+        shareBottomDialog.create(true, "",shareContent, "https://www.baidu.com/", title).show()
     }
 
 }

@@ -295,4 +295,11 @@ public class Router {
                 .navigation();
     }
 
+    //我的钱包
+    public static void toWalletActivity(String fromSource) {
+        ARouter.getInstance().build(RouterConstant.PATH_MY_WALLET)
+                .withString("fromSource", fromSource)
+                .navigation();
+    }
+
 }

@@ -53,6 +53,7 @@ import com.rongtuoyouxuan.chatlive.stream.view.beauty.BeautifyBottomFragmentView
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.BottomFragmentViewModel
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.listener.OnClickListener
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
+import com.rongtuoyouxuan.qfcommon.share.RxUmengSocial
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zhihu.matisse.dialog.DiySystemDialog
 import kotlinx.android.synthetic.main.qf_stream_activity_stream.*
@@ -456,6 +457,7 @@ class StreamActivity : BaseLiveStreamActivity() {
             mStreamViewModel!!.onResume()
         }
         startWakeLock()
+        RxUmengSocial.get().onResume(this);
     }
 
     private fun doOnPause() {
@@ -475,6 +477,7 @@ class StreamActivity : BaseLiveStreamActivity() {
 
     override fun onDestroy() {
         destroy()
+        RxUmengSocial.get().onDestroy(this);
         super.onDestroy()
     }
 
@@ -619,6 +622,7 @@ class StreamActivity : BaseLiveStreamActivity() {
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        RxUmengSocial.get().onActivityResult(this, requestCode, resultCode, data);
         ll_room_bottom_tools.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             DEFAULT_SETTINGS_REQ_CODE -> {

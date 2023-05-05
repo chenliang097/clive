@@ -109,6 +109,9 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
 //                        }
                         list.add(it)
                     }
+                }else{
+                    LaToastUtil.showShort("暂无直播")
+                    finish()
                 }
             }
             completeVP()

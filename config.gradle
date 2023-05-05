@@ -96,11 +96,17 @@ ext {
 
             //第三方sdk
             //融云
-            "rong_im_lib"                         : "cn.rongcloud.sdk:im_lib:5.2.4",
-            'xiangxin_core'                       : 'com.faceunity:core:8.3.0',
-            'xiangxin_model'                      : 'com.faceunity:model:8.3.0',
             'workManager'                         : 'androidx.work:work-runtime-ktx:2.7.1',
+            "umcommon"                            : "com.umeng.umsdk:common:9.5.4",
+            "umams"                               : "com.umeng.umsdk:asms:1.6.3",
+            "umshare-core"                        : "com.umeng.umsdk:share-core:7.3.2",
+            "umshare-board"                       : "com.umeng.umsdk:share-board:7.3.2",
+            "umshare-wx"                          : "com.umeng.umsdk:share-wx:7.3.2",
             "weixin"                              : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.7.0",
+            "umshare-sina"                        : "com.umeng.umsdk:share-sina:7.3.2",
+            "sina-share"                          : "io.github.sinaweibosdk:core:12.5.0@aar",
+            "umshare-qq"                          : "com.umeng.umsdk:share-qq:7.3.2",
+
 
 
     ]

@@ -31,10 +31,13 @@ import com.rongtuoyouxuan.libuikit.loadsir.callbacks.LoadingCallback;
 import com.rongtuoyouxuan.qfcommon.util.APIEnvironment;
 import com.just.agentweb.AgentWebConfig;
 import com.kingja.loadsir.core.LoadSir;
+import com.rongtuoyouxuan.qfzego.KeyCenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
@@ -157,6 +160,8 @@ public class Live {
 
             initAgentWeb();
 
+            initUmeng(app);
+
         }
     }
 
@@ -245,6 +250,32 @@ public class Live {
         });
     }
 
+
+    //友盟分享
+    private static void initUmeng(Application app) {
+        /**
+         * 初始化common库
+         * 参数1:上下文，不能为空
+         * 参数2:【友盟+】 AppKey
+         * 参数3:【友盟+】 Channel，Channel命名请详见Channel渠道命名规范。
+         * 参数4:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
+         * 参数5:Push推送业务的secret  需要集成Push功能时必须传入Push的secret，否则传空。
+         */
+        UMConfigure.init(app, KeyCenter.getInstance().UM_APPKEY, "umeng",
+                UMConfigure.DEVICE_TYPE_PHONE, "");
+        PlatformConfig.setWeixin(KeyCenter.getInstance().UM_WX_APP_ID, KeyCenter.getInstance().UM_WX_APP_SECRET);
+        PlatformConfig.setWXFileProvider(app.getPackageName() + ".fileprovider");
+        PlatformConfig.setSinaWeibo(KeyCenter.getInstance().UM_SINA_APP_ID, KeyCenter.getInstance().UM_SINA_APP_KEY,
+                "http://sns.whalecloud.com");
+        PlatformConfig.setSinaFileProvider(app.getPackageName() + ".fileprovider");
+        PlatformConfig.setQQZone(KeyCenter.getInstance().UM_QQ_APP_ID, KeyCenter.getInstance().UM_QQ_APP_KEY);
+        PlatformConfig.setQQFileProvider(app.getPackageName() + ".fileprovider");
+        /**
+         * 设置组件化的Log开关
+         * 参数: boolean 默认为false，如需查看LOG设置为true
+         */
+        UMConfigure.setLogEnabled(true);
+    }
 
     public interface InitApp {
     }

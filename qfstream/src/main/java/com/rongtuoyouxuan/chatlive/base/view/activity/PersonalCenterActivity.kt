@@ -80,7 +80,7 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
                 LaToastUtil.showShort("商品")
             }
             R.id.centerTabWalletLayout->{
-                LaToastUtil.showShort("钱包")
+                Router.toWalletActivity("")
             }
             R.id.centerFansLayout->{
                 Router.toFansAndFollowListActivity(userId)

@@ -54,4 +54,17 @@ dependencies {
     implementation(name: 'WbCloudFaceLiveSdk-v5.3.0-dcfa6f5f', ext: 'aar')
     //2. 云common SDK
     implementation(name: 'WbCloudNormal-v5.1.7-2c93d01', ext: 'aar')
+    implementation rootProject.ext.dependencies["rxandroid2"]
+    //友盟分享
+    api files('libs/open_sdk_3.5.14.3_rc26220c_lite.jar') //QQ官方依赖库
+    api rootProject.ext.dependencies["umcommon"]
+    api rootProject.ext.dependencies["umams"]
+    api rootProject.ext.dependencies["umshare-core"]
+    api rootProject.ext.dependencies["umshare-board"]
+    api rootProject.ext.dependencies["umshare-wx"]
+    api rootProject.ext.dependencies["weixin"]
+    api rootProject.ext.dependencies["umshare-sina"]
+    api rootProject.ext.dependencies["sina-share"]
+    api rootProject.ext.dependencies["umshare-qq"]
+
 }

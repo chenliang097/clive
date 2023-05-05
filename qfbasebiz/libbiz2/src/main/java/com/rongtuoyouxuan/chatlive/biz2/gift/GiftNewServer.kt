@@ -12,7 +12,7 @@ import retrofit2.http.*
  */
 interface GiftNewServer {
 
-    @GET("/v1/gift/list")
+    @GET("/gift/v1/gift/list")
     fun getPanel(): Call<GiftPanelResData>
 
     //礼物资源全量/增量接口
@@ -30,7 +30,7 @@ interface GiftNewServer {
     ): CarResponseData
 
     //发送礼物
-    @POST("/v1/gift/give")
+    @POST("/gift/v1/gift/give")
     fun sendGift(@Body request: GiftSendReq): Call<GiftSendResData>
 
     //下载文件

@@ -12,6 +12,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.translate.RoomTranslateResponse;
 import com.rongtuoyouxuan.chatlive.biz2.translate.TranslateBiz;
 import com.rongtuoyouxuan.chatlive.databus.DataBus;
 import com.rongtuoyouxuan.chatlive.net2.RequestListener;
+import com.rongtuoyouxuan.chatlive.stream.view.model.ActivityResult;
 
 /**
  * 推流与直播间公用
@@ -24,12 +25,15 @@ public class ControllerViewModel extends LiveBaseViewModel {
     public UserCardModel userCardModel = new UserCardModel();
     public MutableLiveData<AnchorInfo> mHostInfo = new MutableLiveData<>();//主播信息
 
+    public LiveEvent<ActivityResult> ActivityResultEvent = new LiveEvent<>();
+
 
     public ControllerViewModel(LiveStreamInfo liveStreamInfo) {
         super(liveStreamInfo);
     }
 
     public void onActivityResultEvent(int requestCode, int resultCode, Intent data) {
+        ActivityResultEvent.setValue(new ActivityResult(requestCode, resultCode, data));
     }
 
     public void translateContent(final String content) {

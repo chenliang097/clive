@@ -9,6 +9,7 @@ import com.rongtuoyouxuan.chatlive.base.viewmodel.ControllerViewModel;
 import com.rongtuoyouxuan.chatlive.biz2.user.UserBiz;
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UploadFileResponse;
 import com.rongtuoyouxuan.chatlive.net2.RequestListener;
+import com.rongtuoyouxuan.chatlive.stream.view.model.ActivityResult;
 
 import java.io.File;
 import java.net.FileNameMap;

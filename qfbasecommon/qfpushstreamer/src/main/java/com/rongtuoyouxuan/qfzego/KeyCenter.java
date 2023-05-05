@@ -38,5 +38,13 @@ public final class KeyCenter {
     public final String TENCENT_WB_KEY_LICENCE = "NlPnOFnVULw6YUMrQTV3yctzNbqI8V7q3GFHtcvc9v1jp6LBi6pS9oRh5wCe2THHEk1Qcx9j3dyVEJg5hhn4MFsi6F2edork24DY/CR7HzQo18FLum4t9dbbk12mzqQWzI1CAgsOSaC7t7HFpR6HHZ8MXDQ49JQbp8kq7EPHWBulhGi4EiqOIM9PrDeRd2W409UKUSltW5H8Op8Mis4l5yJ2aWxjgUI0Cdkht/9HPiwANqCOt3fR+ZvY6xnzvwZz/Iv80CNLRsdbIOvU09v+pkHS+lggvu/H53UNtzN/aqxDxgHHjY/ZDmDIar3DoVW1ugLUCLfrnQsX0J+4cyHbgw==";
     public final String TENCENT_WB_VERSION= "1.0.0";
 
+    public final String UM_APPKEY = "5bfb4d4ab465f5512e000713";
+    public final String UM_WX_APP_ID = "wx9ccc2d5883fae2a7";
+    public final String UM_WX_APP_SECRET = "127ce31d7902e0292c50c1a4ed1edd25";
+    public final String UM_QQ_APP_ID = "1107995764";
+    public final String UM_QQ_APP_KEY = "iAKx9yJ4HNTiMyKb";
+    public final String UM_SINA_APP_ID = "1842517014";
+    public final String UM_SINA_APP_KEY = "733a8b4678a4ac15b57e0b3e6c9027a9";
+
 
 }

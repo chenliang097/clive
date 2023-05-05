@@ -556,4 +556,15 @@
     <string name="stream_center_no_data">系统维护中，精彩内容即将上线～</string>
     <string name="stream_center_add_follow">回关</string>
     <string name="stream_center_followed">互相关注</string>
+    <string name="stream_wallet_recharge">充值今个</string>
+    <string name="wechat">微信好友</string>
+    <string name="moments">朋友圈</string>
+    <string name="weibo">微博</string>
+    <string name="qq">QQ好友</string>
+    <string name="share_no_install">没有安装</string>
+    <string name="share_share_cancel">取消分享</string>
+    <string name="share_share_fail">分享失败</string>
+    <string name="share_share_suc">分享成功</string>
+    <string name="finish">完成</string>
+    <string name="share_to_content">%1$s邀请您观看直播</string>
 </resources>

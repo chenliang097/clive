@@ -145,5 +145,9 @@ public interface RouterConstant {
      * 粉丝和关注列表
      */
     String PATH_FANS_AND_FOLLOW_LIST = "/boboo_stream/fansandfollow/list";
+    /**
+     * 我的钱包页面
+     */
+    String PATH_MY_WALLET = "/boboo_pay/gold/dialog";
 
 }

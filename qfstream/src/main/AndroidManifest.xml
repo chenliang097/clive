@@ -92,6 +92,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.WalletActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <service android:name="com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService"/>
 
     </application>

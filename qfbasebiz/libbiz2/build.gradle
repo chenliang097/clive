@@ -50,6 +50,4 @@ dependencies {
     implementation (rootProject.ext.dependencies["retrofit"]){
         exclude module: 'okhttp'
     }
-
-    implementation rootProject.ext.dependencies["rong_im_lib"]
 }
