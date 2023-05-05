@@ -56,7 +56,7 @@ interface UserServer {
     @POST("/userProxy/v1/user/mainPage")
     fun getPersonalCenterInfo(@Body request: PersonalCenterInfoRequest): Call<PersonalCenterInfoBean>
 
-    @POST("/userProxy/v1/user/followList")
+    @GET("/userProxy/v1/user/followList")
     fun getFollowlist(@Query("page")page:Int, @Query("size")size:Int, @Query("user_id")user_id:String): Call<FollowListBean>
 
 }

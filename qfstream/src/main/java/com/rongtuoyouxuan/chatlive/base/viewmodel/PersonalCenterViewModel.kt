@@ -27,7 +27,7 @@ open class PersonalCenterViewModel(application: Application):AndroidViewModel(ap
     fun setRoomId(roomId:String){
         this.roomId = roomId
     }
-    fun get(followId:String) {
+    fun getPersonalCenterInfo(followId:String) {
         var request = PersonalCenterInfoRequest(DataBus.instance().USER_ID, followId)
         UserBiz.getPersonalCenterInfo(request, object :RequestListener<PersonalCenterInfoBean>{
             override fun onSuccess(reqId: String?, result: PersonalCenterInfoBean?) {

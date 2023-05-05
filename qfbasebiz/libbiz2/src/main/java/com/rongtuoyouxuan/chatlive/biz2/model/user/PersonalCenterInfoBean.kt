@@ -22,6 +22,7 @@ class PersonalCenterInfoBean : BaseModel() {
         var status = 0 //  是否认证
         var relation = 0 //   关注关系       0：未关注  1 ：关注
         var sex = 0
+        var location = ""
     }
 
 }

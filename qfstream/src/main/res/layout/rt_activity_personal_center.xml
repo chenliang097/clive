@@ -20,8 +20,13 @@
         <ImageView
             android:id="@+id/bg"
             android:layout_width="match_parent"
-            android:layout_height="375dp"
-            tools:src="@drawable/shape_img_cover_bg" />
+            android:layout_height="360dp"
+            tools:src="@drawable/rt_default_avatar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="@color/c_40_black"/>
         <RelativeLayout
             android:id="@+id/centerUserInfoLayout"
             android:layout_width="match_parent"
@@ -36,48 +41,54 @@
                 app:riv_oval="true"
                 android:layout_marginStart="12dp"
                 android:src="@drawable/icon_default_avatar"/>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/centerAvatar"
-                android:gravity="center_vertical"
-                android:layout_centerVertical="true"
+                android:layout_height="80dp"
                 android:layout_marginStart="12dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/centerNickNameTxt"
+                android:layout_toEndOf="@id/centerAvatar">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    tools:text="@string/stream_anchor"/>
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/centerNickNameTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        tools:text="@string/stream_anchor"/>
+
+                    <TextView
+                        android:id="@+id/centerIDTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="12sp"
+                        android:textColor="@color/c_40_white"
+                        tools:text="@string/stream_anchor"/>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/centerIDTxt"
+                    android:id="@+id/centerEditTxt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
+                    android:layout_height="26dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center"
+                    android:text="@string/stream_center_edit"
                     android:textSize="12sp"
-                    android:textColor="@color/c_40_white"
-                    tools:text="@string/stream_anchor"/>
-            </LinearLayout>
+                    android:textColor="@color/white"
+                    tools:text="@string/stream_center_edit"
+                    android:background="@drawable/btn_center_edit"/>
 
-            <TextView
-                android:id="@+id/centerEditTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="12dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center"
-                android:text="@string/stream_center_edit"
-                android:textSize="12sp"
-                android:textColor="@color/c_40_white"
-                tools:text="@string/stream_center_edit"
-                android:background="@drawable/btn_center_edit"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/centerInsTxt"

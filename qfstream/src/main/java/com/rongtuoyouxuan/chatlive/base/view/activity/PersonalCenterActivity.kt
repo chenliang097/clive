@@ -1,5 +1,6 @@
 package com.rongtuoyouxuan.chatlive.base.view.activity
 
+import android.text.TextUtils
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.lifecycle.ViewModelProvider
@@ -32,9 +33,14 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
         personalCenterViewModel?.infoLiveData?.observe(this){
             updateInfo(it)
         }
+        userId?.let { personalCenterViewModel?.getPersonalCenterInfo(it) }
     }
 
     override fun initListener() {
+        centerTabProductLayout.setOnClickListener(this)
+        centerTabWalletLayout.setOnClickListener(this)
+        centerFansLayout.setOnClickListener(this)
+        centerFollowNumTxt.setOnClickListener(this)
     }
 
     fun updateInfo(bean: PersonalCenterInfoBean?){
@@ -46,17 +52,22 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
             0->{
                 val drawable = resources.getDrawable(R.drawable.qf_stream_gender_male)
                 drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-                centerGenderTxt.setCompoundDrawables(null, null, drawable, null)
+                centerGenderTxt.setCompoundDrawables(drawable, null, null, null)
                 centerGenderTxt.text = getString(R.string.stream_user_card_male)
             }
             1->{
                 val drawable = resources.getDrawable(R.drawable.qf_stream_gender_female)
                 drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-                centerGenderTxt.setCompoundDrawables(null, null, drawable, null)
+                centerGenderTxt.setCompoundDrawables(drawable, null, null, null)
                 centerGenderTxt.text = getString(R.string.stream_user_card_female)
             }
         }
-        centerLocationTxt.text = ""
+        if(!TextUtils.isEmpty(bean?.data?.user_center?.location)){
+            centerLocationTxt.text = bean?.data?.user_center?.location
+        }else {
+            centerLocationTxt.text = resources.getString(R.string.stream_prepare_empty_location)
+        }
+
         centerFansNumTxt.text = "" + bean?.data?.fans_count
         centerFollowNumTxt.text = "" + bean?.data?.follow_count
         centerLikeNumTxt.text = "" + bean?.data?.like_count

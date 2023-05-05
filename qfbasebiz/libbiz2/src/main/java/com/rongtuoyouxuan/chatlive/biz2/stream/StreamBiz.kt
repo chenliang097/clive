@@ -204,7 +204,7 @@ object StreamBiz {
         sceneId: String? = null,
         status: Int? = null,
         lifecycleOwner: LifecycleOwner?,
-        listener: RequestListener<BaseModel?>,
+        listener: RequestListener<BaseModel>,
     ) {
         object : NetWorks<BaseModel>(lifecycleOwner, listener) {
             override fun getBaseUrl(): String {
