@@ -211,7 +211,10 @@ public class WebSocketImpl {
         public void run() {
             // TODO Auto-generated method stub
             while (true) {
-                if(hbThread.isInterrupted()){
+                if(hbThread == null){
+                    break;
+                }
+                if(hbThread!= null && hbThread.isInterrupted()){
                     break;
                 }
                 try {
