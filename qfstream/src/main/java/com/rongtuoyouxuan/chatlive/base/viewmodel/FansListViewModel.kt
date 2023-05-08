@@ -28,7 +28,7 @@ open class FansListViewModel(application: Application):BaseListFragmentViewModel
         }
     }
     override fun doLoadData(mPage: Int, event: LoadEvent?) {
-        UserRelationBiz.instance?.getFansList(null, toUserId, status, mPage, 20, object :RequestListener<FansListBean?>{
+        UserRelationBiz.instance?.getFansList(null, DataBus.instance().USER_ID, toUserId, mPage, 20, object :RequestListener<FansListBean?>{
             override fun onSuccess(reqId: String?, result: FansListBean?) {
                 result?.event = event
                 _getData().value = result

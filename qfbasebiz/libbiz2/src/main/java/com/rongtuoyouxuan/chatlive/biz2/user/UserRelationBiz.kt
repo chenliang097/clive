@@ -19,7 +19,9 @@ class UserRelationBiz {
     fun getStartLiveFansList(
         lifecycleOwner: LifecycleOwner?,
         userId: String?,
-        status: Int,
+        followId: String,
+        roomId: String,
+        sceneId: String,
         page: Int,
         size: Int,
         listener: RequestListener<LiveRoomVisibleRangeListBean?>?
@@ -29,7 +31,7 @@ class UserRelationBiz {
                 return retrofit.create(UserRelationServer::class.java).getStartLiveFansList(
                     UrlConstanst.BASE_URL_FANS_API_BOBOO_COM + "?page=$page&size=$size", userId?.let {
                         FansListRequest(
-                            it, status
+                            it, followId, roomId, sceneId
                         )
                     }
                 )
@@ -48,7 +50,7 @@ class UserRelationBiz {
     fun getFansList(
         lifecycleOwner: LifecycleOwner?,
         userId: String?,
-        status: Int,
+        followId: String,
         page: Int,
         size: Int,
         listener: RequestListener<FansListBean?>
@@ -58,7 +60,7 @@ class UserRelationBiz {
                 return retrofit.create(UserRelationServer::class.java).getFansList(
                     UrlConstanst.BASE_URL_FANS_API_BOBOO_COM + "?page=$page&size=$size", userId?.let {
                         FansListRequest(
-                            it, status
+                            it, followId, "", ""
                         )
                     }
                 )

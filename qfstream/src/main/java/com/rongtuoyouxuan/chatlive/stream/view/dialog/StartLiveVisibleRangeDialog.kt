@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.rt_dialog_start_live_visible_range.*
 class StartLiveVisibleRangeDialog : LanguageActivity(), View.OnClickListener {
 
     private var sceneId:String? = ""
+    private var roomId:String? = ""
     private var liveRoomVisibleRangeListViewModel:LiveRoomVisibleRangeListViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class StartLiveVisibleRangeDialog : LanguageActivity(), View.OnClickListener {
         setTheme(R.style.commenDialogStyle)
         setContentView(R.layout.rt_dialog_start_live_visible_range)
         sceneId = intent.getStringExtra("sceneId")
+        roomId = intent.getStringExtra("roomId")
         setWindowLocation()
         initListener()
         initObserver()
@@ -74,10 +76,10 @@ class StartLiveVisibleRangeDialog : LanguageActivity(), View.OnClickListener {
                 }
             }
             R.id.startLiveVisibleSeeLayout->{
-                Router.toLiveRoomVisibleRangeListActivity("1", sceneId)
+                Router.toLiveRoomVisibleRangeListActivity("1", sceneId, roomId)
             }
             R.id.startLiveVisibleSeeNoLayout->{
-                Router.toLiveRoomVisibleRangeListActivity("2", sceneId)
+                Router.toLiveRoomVisibleRangeListActivity("2", sceneId, roomId)
             }
         }
 

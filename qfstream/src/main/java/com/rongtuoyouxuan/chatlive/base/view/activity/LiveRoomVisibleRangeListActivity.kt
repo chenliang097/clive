@@ -38,7 +38,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
     private var pageNo = 1
     private val mAllDataLists: MutableList<FansItemBean> = ArrayList()
     private var mSelectList: MutableList<String> = ArrayList() //已选择的列表
-    private var anchorId //主播id
+    private var roomId //主播id
             : String? = null
     private var anchorImageUrl //主播封面
             : String? = null
@@ -46,7 +46,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.rt_stream_select_contacts_activity)
-        anchorId = intent.getStringExtra("anchorId")
+        roomId = intent.getStringExtra("roomId")
         anchorImageUrl = intent.getStringExtra("imageUrl")
         initView()
         initListener()

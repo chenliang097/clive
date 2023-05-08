@@ -203,7 +203,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 showLocationPermissonDialog()
             }
             R.id.streamPreviewKeijianTxt ->{
-                Router.toStartLiveVisibleRangeDialog(startStreamInfoBean?.data?.stream_id)
+                Router.toStartLiveVisibleRangeDialog(startStreamInfoBean?.data?.scene_id_str, startStreamInfoBean?.data?.room_id_str)
             }
             R.id.streamPreviewShareTxt ->{
                 showShareDialog()

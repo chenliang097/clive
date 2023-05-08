@@ -227,17 +227,19 @@ public class Router {
     }
 
     //直播可见范围弹框
-    public static void toStartLiveVisibleRangeDialog(String sceneId) {
+    public static void toStartLiveVisibleRangeDialog(String sceneId, String roomId) {
         ARouter.getInstance().build(RouterConstant.PATH_START_LIVE_VISIBLE_RANGE)
                 .withString("sceneId", sceneId)
+                .withString("roomId", roomId)
                 .navigation();
     }
 
     //直播可见范围列表
-    public static void toLiveRoomVisibleRangeListActivity(String type, String sceneId) {
+    public static void toLiveRoomVisibleRangeListActivity(String type, String sceneId, String roomId) {
         ARouter.getInstance().build(RouterConstant.PATH_START_LIVE_VISIBLE_RANGE_list)
                 .withString("type", type)
                 .withString("sceneId", sceneId)
+                .withString("roomId", roomId)
                 .navigation();
     }
 

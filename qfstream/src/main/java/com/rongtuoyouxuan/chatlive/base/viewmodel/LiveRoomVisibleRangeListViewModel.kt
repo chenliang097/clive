@@ -17,28 +17,32 @@ class LiveRoomVisibleRangeListViewModel(application: Application) : AndroidViewM
     var fansListLiveData = MutableLiveData<LiveRoomVisibleRangeListBean?>()
     var setUserAllowRangLiveData = MutableLiveData<BaseModel>()
 
-    fun getStartLiveFansList(userId: String?, status: Int, pageNo: Int) {
-        UserRelationBiz.instance?.getStartLiveFansList(
-            null,
-            userId,
-            status,
-            pageNo,
-            PAGE_NUM,
-            object : RequestListener<LiveRoomVisibleRangeListBean?> {
-                override fun onSuccess(reqId: String, result: LiveRoomVisibleRangeListBean?) {
-                    fansListLiveData.value = result
-                }
-
-                override fun onFailure(reqId: String, errCode: String, msg: String) {
-                    try {
-                        val liveRoomVisibleRangeListBean = LiveRoomVisibleRangeListBean()
-                        liveRoomVisibleRangeListBean.errCode = errCode.toInt()
-                        fansListLiveData.setValue(liveRoomVisibleRangeListBean)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+    fun getStartLiveFansList(userId: String?, roomId: String, sceneId : String, pageNo: Int) {
+        if (userId != null) {
+            UserRelationBiz.instance?.getStartLiveFansList(
+                null,
+                userId,
+                userId,
+                roomId,
+                sceneId,
+                pageNo,
+                PAGE_NUM,
+                object : RequestListener<LiveRoomVisibleRangeListBean?> {
+                    override fun onSuccess(reqId: String, result: LiveRoomVisibleRangeListBean?) {
+                        fansListLiveData.value = result
                     }
-                }
-            })
+
+                    override fun onFailure(reqId: String, errCode: String, msg: String) {
+                        try {
+                            val liveRoomVisibleRangeListBean = LiveRoomVisibleRangeListBean()
+                            liveRoomVisibleRangeListBean.errCode = errCode.toInt()
+                            fansListLiveData.setValue(liveRoomVisibleRangeListBean)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                })
+        }
     }
 
     fun setUserAllowRange(ruleType: Int, user_id: String, sceneId: String, userIdList:MutableList<String>) {
