@@ -244,8 +244,8 @@ public class ZegoStreamView extends BaseStreamView {
         effectsVideoFrameParam.format = ZegoEffectsVideoFrameFormat.RGBA32;
 
         mZegoVideoConfig = new ZegoVideoConfig(ZegoVideoConfigPreset.PRESET_360P);
-//        mZegoVideoConfig.bitrate = 1000;
-//        mZegoVideoConfig.fps = 15;
+        mZegoVideoConfig.bitrate = 1500;
+        mZegoVideoConfig.fps = 15;
 //        mZegoVideoConfig.setCaptureResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
 //        mZegoVideoConfig.setEncodeResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
         mZegoEngine.setVideoConfig(mZegoVideoConfig);

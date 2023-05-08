@@ -210,7 +210,7 @@ public class SDKManager {
             @Override
             public void onStart(ZegoPublishChannel channel) {
                 Log.e("ZEGO", "[Express] [onStart]");
-                zegoEffects.initEnv(720, 1280);
+                zegoEffects.initEnv(360, 640);
             }
 
             @Override
