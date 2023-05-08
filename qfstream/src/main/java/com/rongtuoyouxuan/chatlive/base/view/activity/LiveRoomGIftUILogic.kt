@@ -57,7 +57,7 @@ class LiveRoomGIftUILogic(
     private val giftPlayView: GiftLargerAnimPlayView? = null,
     private val liveBottomStarView: LiveBottomStarView? = null,
     private val broadcastGiftLayout: BroadcastGiftLayout? = null,
-    private val isHost: Boolean = true,
+    private val isHost: Boolean = false,
 ) {
     var currentStarTotal = 0L
 
@@ -163,16 +163,14 @@ class LiveRoomGIftUILogic(
                     return@setOnClickListener
                 }
                 liveBottomStarView?.addChildView()
-                scendId?.toLongOrNull()?.let {
-                    starManager.addChild(LikeLiveReq(it, 1))
-                }
+                starManager.addChild(roomId?.let { it1 -> LikeLiveReq(it1, scendId, DataBus.instance().USER_ID, anchorId) })
             }
 
             if (isHost) {
-                LiveRoomHelper.starVM2.observe(lifecycleOwner) {
-                    currentStarTotal = it
-                    starText?.text = BigDecimalUtil.setNumber(it)
-                }
+//                LiveRoomHelper.starVM2.observe(lifecycleOwner) {
+//                    currentStarTotal = it
+//                    starText?.text = BigDecimalUtil.setNumber(it)
+//                }
 
                 LiveRoomHelper.starVM.observe(lifecycleOwner) {
                     //更新点赞数量

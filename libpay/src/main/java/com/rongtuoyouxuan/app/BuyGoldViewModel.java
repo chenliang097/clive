@@ -1,4 +1,4 @@
-package com.rongtuoyouxuan.chatlive.base.view.viewmodel;
+package com.rongtuoyouxuan.app;
 
 import android.app.Activity;
 import android.app.Application;

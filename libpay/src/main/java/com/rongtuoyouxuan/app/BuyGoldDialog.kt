@@ -1,4 +1,4 @@
-package com.rongtuoyouxuan.chatlive.base.view.activity
+package com.rongtuoyouxuan.app
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,30 +10,29 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ccom.rongtuoyouxuan.chatlive.base.view.adapter.GoldBuyGridAdapter
-import ccom.rongtuoyouxuan.chatlive.base.view.adapter.GoldBuyGridAdapter.BuyGoldClickListener
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.rongtuoyouxuan.chatlive.base.view.model.RechargeInfoBean
-import com.rongtuoyouxuan.chatlive.base.view.viewmodel.BuyGoldViewModel
+import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
-import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libuikit.LanguageActivity
-import kotlinx.android.synthetic.main.rt_dialog_pay_type.*
 
-@Route(path = RouterConstant.PATH_PAY_TYPE_DIALOG)
-class PayTypeDialog : LanguageActivity(), View.OnClickListener {
+@Route(path = RouterConstant.PATH_BUY_GOLD_DIALOG)
+class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
     private var banlanceTxt: TextView? = null
     private var btn: Button? = null
+    private var recyclerView: RecyclerView? = null
+    private var goldBuyGridAdapter: GoldBuyGridAdapter? = null
     private var buyGoldViewModel: BuyGoldViewModel? = null
-    private var rtCoin = 0
-    private var rtRmb = 0
-    private var payType = 1 //1：支付宝， 2：微信
+    private var curPosition = 0
+    private var fromSource: String? = null
+    private val rechargeCoins = intArrayOf(10, 60, 300, 980, 2980, 5180)
+    private val rechargeRmb = intArrayOf(1, 6, 30, 98, 298, 518)
+    private var payDatas: MutableList<RechargeInfoBean> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.commenDialogStyle)
-        setContentView(R.layout.rt_dialog_pay_type)
+        setContentView(R.layout.rt_dialog_buy_gold)
+        fromSource = intent.getStringExtra("fromSource")
         setWindowLocation()
         initView()
         initListener()
@@ -56,14 +55,13 @@ class PayTypeDialog : LanguageActivity(), View.OnClickListener {
     }
 
     private fun initView() {
+        recyclerView = findViewById(R.id.buyGoldRecyclerView)
         banlanceTxt = findViewById(R.id.buyGoldBanlanceTxt)
         btn = findViewById(R.id.buyGoldBtn)
     }
 
     private fun initListener() {
-        btn?.setOnClickListener(this)
-        payTypeWeChatRadioBtn?.setOnClickListener(this)
-        payTypeAlipayRadioBtn?.setOnClickListener(this)
+        btn!!.setOnClickListener(this)
     }
 
     private fun initObserver() {
@@ -72,38 +70,32 @@ class PayTypeDialog : LanguageActivity(), View.OnClickListener {
     }
 
     private fun initData() {
-        rtCoin = intent.getIntExtra("rt_coin", 0)
-        rtRmb = intent.getIntExtra("rt_rmb", 0)
-        payTypeRmbTxt.text = "" + rtRmb
-        payTypeCoinTxt.text = resources.getString(R.string.rt_pay_type_coin, rtCoin)
+        //初始化数据
+        payDatas = ArrayList()
+        for (i in rechargeCoins.indices) {
+            val payBean = RechargeInfoBean()
+            payBean.coin = rechargeCoins[i]
+            payBean.rmp = rechargeRmb[i]
+            payDatas.add(payBean)
+        }
+        val gridLayoutManager = GridLayoutManager(this, 3)
+        recyclerView!!.layoutManager = gridLayoutManager
+        goldBuyGridAdapter = GoldBuyGridAdapter(this, payDatas)
+        recyclerView!!.adapter = goldBuyGridAdapter
+        goldBuyGridAdapter!!.updateView(curPosition)
+        goldBuyGridAdapter!!.setBuyGoldClickListener(object : GoldBuyGridAdapter.BuyGoldClickListener {
+            override fun onBuyGoldClickListener(position: Int) {
+                curPosition = position
+                goldBuyGridAdapter!!.updateView(position)
+            }
+        })
     }
 
     override fun onClick(view: View) {
-        when(view.id){
-            R.id.payTypeBtn->{
-                doBuy()
-            }
-            R.id.payTypeAlipayRadioBtn->{
-                payType = 1
-                payTypeWeChatRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_normal)
-                payTypeAlipayRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_pressed)
-            }
-            R.id.payTypeWeChatRadioBtn->{
-                payType = 2
-                payTypeWeChatRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_pressed)
-                payTypeAlipayRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_normal)
-            }
+        if (view.id == R.id.buyGoldBtn) { //购买
+            var buyGoldBean = payDatas[curPosition];
+            Router.toPayTypeDialogg(buyGoldBean.coin, buyGoldBean.rmp)
         }
-
-    }
-
-    private fun doBuy() {
-        LaToastUtil.showShort("去充值")
-//        if(payDatas == null)return;
-//        if(payDatas.size() == 0)return;
-//        RechargeInfoBean buyGoldBean = payDatas.get(curPosition);
-//        //Google支付
-//        buyGoldViewModel.goldToPay(buyGoldBean.getPayPurchaseId(), "weixin");
     }
 
     private fun obtainStreamViewModel(): BuyGoldViewModel {

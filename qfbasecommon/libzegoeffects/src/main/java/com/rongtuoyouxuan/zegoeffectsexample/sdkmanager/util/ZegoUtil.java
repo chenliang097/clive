@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class ZegoUtil {
@@ -61,6 +62,26 @@ public class ZegoUtil {
             Log.d("Tag", "copyFileFromAssets " + "IOException-" + e.getMessage());
         }
     }
+
+
+    public static void copyFileFromAssets(Context context) {
+
+        try {
+            String[] files = context.getAssets().list("Models");
+            String[] files1 = context.getAssets().list("Resources");
+            if (files.length == 0) {
+                Log.d("Zego", "文件夹为空");
+            }
+            for (String file : files) {
+                // 打印 Models 文件夹中的文件名
+                Log.d("Zego", file);
+            }
+        } catch (IOException e) {
+            Log.d("Zego", "获取文件夹内文件名失败" + e.getMessage());
+        }
+    }
+
+
 
     /**
      * 递归删除目录下的所有文件及子目录下所有文件

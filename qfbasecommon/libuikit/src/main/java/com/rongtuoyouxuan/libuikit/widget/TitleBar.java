@@ -79,6 +79,16 @@ public class TitleBar {
         return this;
     }
 
+    public TitleBar setTitleTextColor(int color) {
+        tv_title_middle.setTextColor(color);
+        return this;
+    }
+
+    public TitleBar setTitleRightTextColor(int color) {
+        tv_title_right.setTextColor(color);
+        return this;
+    }
+
     public TitleBar setTitleBarBg(int color) {
         titleView.setBackgroundResource(color);
         return this;

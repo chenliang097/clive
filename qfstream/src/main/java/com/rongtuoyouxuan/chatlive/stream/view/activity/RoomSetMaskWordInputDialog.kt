@@ -16,8 +16,6 @@ import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils
 import com.rongtuoyouxuan.chatlive.util.StringUtils
 import com.rongtuoyouxuan.chatlive.util.UIUtils
 import kotlinx.android.synthetic.main.qf_stream_layout_sendmessage.*
-import kotlinx.android.synthetic.main.rt_dialog_anchor_manager.*
-import kotlinx.android.synthetic.main.rt_dialog_pay_type.*
 
 class RoomSetMaskWordInputDialog : Dialog, View.OnClickListener {
     private var anchorManagerViewModel: AnchorManagerViewModel? = null

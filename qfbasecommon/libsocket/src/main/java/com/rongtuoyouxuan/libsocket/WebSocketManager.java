@@ -91,7 +91,7 @@ public class WebSocketManager implements ISocket, IWebSocketListener {
         if (webSocketImpl != null) {
             webSocketImpl.release();
         }
-        webSocketImpl = builder.conncect("ws://goim.rongtuolive.com:3102/sub")
+        webSocketImpl = builder.conncect("wss://goim.rongtuolive.com:3103/sub")
                 .setInterval(result.data.period)
                 .setEventCallback(eventCallback)
                 .setInfo(imUserInfo)

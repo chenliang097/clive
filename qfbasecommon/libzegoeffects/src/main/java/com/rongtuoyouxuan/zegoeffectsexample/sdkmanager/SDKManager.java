@@ -175,12 +175,7 @@ public class SDKManager {
 //        initResource(context);
 
         zegoEffects = ZegoEffects.create(ZegoLicense.effectsLicense, context);
-
-//        videoCaptureFromCamera2 = new VideoCaptureFromCamera2(expressEngine, zegoEffects, context);
-//        videoCaptureFromCamera2.setView(previewView);
-//        startCamera();
         enableFaceDetection(true);
-//        videoCaptureFromCamera2.startCapture();
         zegoEffects.setEventHandler(new ZegoEffectsEventHandler() {
             @Override
             public void onError(ZegoEffects handle, int errorCode, String desc) {

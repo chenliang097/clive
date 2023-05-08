@@ -298,7 +298,7 @@ class LiveRoomFragment : SimpleFragment() {
                 anchorInfo.likeNum = roomInfoModel?.data?.liking_count!!
                 mLiveControllerViewModel?.mHostInfo?.value = anchorInfo
 
-                LiveRoomHelper.starVM2.post(roomInfoModel.data?.liking_count?.toLong())
+//                LiveRoomHelper.starVM2.post(roomInfoModel.data?.liking_count?.toLong())
             }
         }
         viewModel!!.playerError.observe(this) { }

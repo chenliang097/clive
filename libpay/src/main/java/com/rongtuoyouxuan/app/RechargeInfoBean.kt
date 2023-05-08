@@ -1,4 +1,4 @@
-package com.rongtuoyouxuan.chatlive.base.view.model
+package com.rongtuoyouxuan.app
 
 class RechargeInfoBean {
     var coin = 0

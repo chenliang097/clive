@@ -59,12 +59,13 @@
                         android:id="@+id/streamPreviewImgCover"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:background="@drawable/rt_default_avatar"
+                        android:src="@drawable/rt_default_avatar"
                         android:scaleType="centerCrop"
                         app:riv_corner_radius="@dimen/dp_10"
                         app:riv_mutate_background="true" />
 
                     <ImageView
+                        android:id="@+id/streamPreviewChangeCoverImg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"

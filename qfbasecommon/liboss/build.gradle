@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+configurations {
+    all {
+        resolutionStrategy {
+            eachDependency { DependencyResolveDetails details ->
+                if (details.requested.group == 'com.squareup.okhttp3' &&
+                        details.requested.name ==
+                        'okhttp') {
+                    // OkHttp drops support before 5.0 since 3.13.0
+                    details.useVersion '3.10.0'
+                }
+            }
+        }
+    }
+}
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    resourcePrefix "pl_liboss_"
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.dependencies["oss"]
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+
+    implementation project(':qfbasebiz:libbiz2')
+    api project(':qfbasecommon:commonwrapper')
+
+}

@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 apply from: '../utils.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 
 android {
@@ -13,6 +16,11 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
     }
@@ -52,7 +60,12 @@ dependencies {
     implementation(rootProject.ext.dependencies["com.alibaba:arouter-api"]) {
         exclude module: 'support-v4'
     }
-    annotationProcessor rootProject.ext.dependencies["com.alibaba:arouter-compiler"]
+    annotationProcessor (rootProject.ext.dependencies["com.alibaba:arouter-compiler"]){
+        exclude module: 'support-v4'
+    }
+    kapt(rootProject.ext.dependencies["com.alibaba:arouter-compiler"]) {
+        exclude module: 'support-v4'
+    }
     //支付宝支付
     implementation rootProject.ext.dependencies["lifecycle-extensions"]
     implementation rootProject.ext.dependencies["weixin"]

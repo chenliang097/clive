@@ -32,6 +32,8 @@ import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.ZegoLicense;
 import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.net.IGetLicenseCallback;
 import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.net.License;
 import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.net.LicenseAPI;
+import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.util.ZegoUtil;
+
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.callback.IZegoApiCalledEventHandler;
 import im.zego.zegoexpress.callback.IZegoEventHandler;
@@ -264,6 +266,7 @@ public class ZegoStreamView extends BaseStreamView {
 
     private void initBeauty(){
         String encryptInfo = SDKManager.getAuthInfo(mContext);
+        ZegoUtil.copyFileFromAssets(mContext);
         SDKManager.sharedInstance().initResource(mContext);
         LicenseAPI.getLicense(encryptInfo, new IGetLicenseCallback() {
             @Override

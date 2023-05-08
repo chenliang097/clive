@@ -1,25 +1,18 @@
-package com.rongtuoyouxuan.chatlive.base.view.activity
+package com.rongtuoyouxuan.app
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.Gravity
 import android.view.View
-import android.view.WindowManager
-import android.widget.Button
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import ccom.rongtuoyouxuan.chatlive.base.view.adapter.GoldBuyGridAdapter
-import ccom.rongtuoyouxuan.chatlive.base.view.adapter.GoldBuyGridAdapter.BuyGoldClickListener
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
-import com.rongtuoyouxuan.chatlive.base.view.model.RechargeInfoBean
-import com.rongtuoyouxuan.chatlive.base.view.viewmodel.BuyGoldViewModel
+import com.rongtuoyouxuan.chatlive.biz2.model.user.WalletBean
+import com.rongtuoyouxuan.chatlive.biz2.user.PayBiz
+import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
-import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libuikit.SimpleActivity
 import kotlinx.android.synthetic.main.rt_stream_activity_wallet.*
 
@@ -49,7 +42,14 @@ class WalletActivity : SimpleActivity(), View.OnClickListener {
     }
 
     override fun initData() {
+        mTitleBar.setTitleText(getString(R.string.stream_wallet_title))
+        mTitleBar.setTitleTextColor(resources.getColor(R.color.white))
+        mTitleBar.setLeftIco(R.drawable.icon_white_back)
+        mTitleBar.setTitleRight(getString(R.string.stream_wallet_title_right))
+        mTitleBar.setTitleRightTextColor(resources.getColor(R.color.c_40_white))
         fromSource = intent.getStringExtra("fromSource")
+
+        getBalance()
         //初始化数据
         payDatas = ArrayList()
         for (i in rechargeCoins.indices) {
@@ -63,7 +63,7 @@ class WalletActivity : SimpleActivity(), View.OnClickListener {
         goldBuyGridAdapter = GoldBuyGridAdapter(this, payDatas)
         buyGoldRecyclerView!!.adapter = goldBuyGridAdapter
         goldBuyGridAdapter!!.updateView(curPosition)
-        goldBuyGridAdapter!!.setBuyGoldClickListener(object : BuyGoldClickListener {
+        goldBuyGridAdapter!!.setBuyGoldClickListener(object : GoldBuyGridAdapter.BuyGoldClickListener {
             override fun onBuyGoldClickListener(position: Int) {
                 curPosition = position
                 goldBuyGridAdapter!!.updateView(position)
@@ -76,6 +76,18 @@ class WalletActivity : SimpleActivity(), View.OnClickListener {
             var buyGoldBean = payDatas[curPosition];
             Router.toPayTypeDialogg(buyGoldBean.coin, buyGoldBean.rmp)
         }
+    }
+
+    private fun getBalance(){
+        PayBiz.getMyWallet(DataBus.instance().USER_ID, object : RequestListener<WalletBean> {
+            override fun onSuccess(reqId: String, result: WalletBean) {
+                walletBalanceTxt?.text = "" + result.data.balance
+            }
+
+            override fun onFailure(reqId: String, errCode: String, msg: String) {
+                LaToastUtil.showShort("$msg--$errCode")
+            }
+        })
     }
 
     private fun obtainStreamViewModel(): BuyGoldViewModel {

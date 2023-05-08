@@ -9,10 +9,15 @@ import com.google.gson.annotations.SerializedName
  * des: 直播间点赞--贴纸
  */
 data class LikeLiveReq(
-    @SerializedName("live_id")
-    val liveId: Long,
-    @SerializedName("like_num")
-    val likeNum: Int? = 0
+    @SerializedName("room_id_str")
+    val roomId: String? = "",
+    @SerializedName("scene_id_str")
+    val sceneIdStr: String? = "",
+    @SerializedName("user_id_str")
+    val userIdStr: String? = "",
+    @SerializedName("anchor_id_str")
+    val anchorIdStr: String? = ""
+
 )
 
 data class LikeLiveRes(

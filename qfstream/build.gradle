@@ -114,6 +114,7 @@ dependencies {
     implementation project(':qfcommon')
     implementation project(':qfbasecommon:qfbasestream')
     implementation project(':qfbasecommon:qfpushstreamer')
+    implementation project(':qfbasecommon:liboss')
 
     implementation rootProject.ext.dependencies["switchbutton"]
 }

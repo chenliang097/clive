@@ -40,6 +40,8 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
     private var mSelectList: MutableList<String> = ArrayList() //已选择的列表
     private var roomId //主播id
             : String? = null
+    private var sceneId //场次id
+            : String? = null
     private var anchorImageUrl //主播封面
             : String? = null
 
@@ -47,6 +49,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.rt_stream_select_contacts_activity)
         roomId = intent.getStringExtra("roomId")
+        sceneId = intent.getStringExtra("sceneId")
         anchorImageUrl = intent.getStringExtra("imageUrl")
         initView()
         initListener()
@@ -75,13 +78,23 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
         mSmartRefreshLayout!!.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 ++pageNo
-                mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID, 0, pageNo)
+                roomId?.let {
+                    sceneId?.let { it1 ->
+                        mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID,
+                            it, it1, pageNo)
+                    }
+                }
             }
 
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 pageNo = 1
                 mSelectList = ArrayList()
-                mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID, 0, pageNo)
+                roomId?.let {
+                    sceneId?.let { it1 ->
+                        mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID,
+                            it, it1, pageNo)
+                    }
+                }
             }
         })
         mSelectContactsAdapter?.setOnSelectContactsListener(object : OnSelectContactsListener {
@@ -106,7 +119,12 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
 
     private fun initObserver() {
         mViewModel = ViewModelUtils.get(this, LiveRoomVisibleRangeListViewModel::class.java)
-        mViewModel?.getStartLiveFansList(DataBus.instance().USER_ID, 0, pageNo)
+        roomId?.let {
+            sceneId?.let { it1 ->
+                mViewModel?.getStartLiveFansList(DataBus.instance().USER_ID,
+                    it, it1, pageNo)
+            }
+        }
         mViewModel?.fansListLiveData?.observe(this) { liveRoomVisibleRangeListBean ->
             if (1 == pageNo) {
                 mSmartRefreshLayout!!.finishRefresh()
@@ -160,7 +178,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
                     intent.getStringExtra("type")?.toInt()?.let {
                         mViewModel?.setUserAllowRange(
                             it, DataBus.instance().USER_ID,
-                            intent.getStringExtra("sceneId")!!, mSelectList
+                            sceneId!!, mSelectList
                         )
                     }
                 }else{

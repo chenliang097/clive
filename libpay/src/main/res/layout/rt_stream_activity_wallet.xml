@@ -38,7 +38,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:text="@string/stream_wallet_recharge"/>
 
         <TextView
@@ -49,8 +49,8 @@
             android:layout_marginEnd="12dp"
             android:layout_marginTop="14dp"
             android:textColor="@color/c_40_white"
-            android:textSize="16sp"
-            android:text="@string/stream_wallet_recharge"/>
+            android:textSize="14sp"
+            android:text="@string/stream_wallet_recharge_record"/>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

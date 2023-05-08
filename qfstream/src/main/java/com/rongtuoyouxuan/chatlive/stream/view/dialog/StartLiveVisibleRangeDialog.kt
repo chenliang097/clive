@@ -6,9 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.rongtuoyouxuan.chatlive.base.view.viewmodel.BuyGoldViewModel
 import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveRoomVisibleRangeListViewModel
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.router.Router

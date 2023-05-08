@@ -556,7 +556,8 @@
     <string name="stream_center_no_data">系统维护中，精彩内容即将上线～</string>
     <string name="stream_center_add_follow">回关</string>
     <string name="stream_center_followed">互相关注</string>
-    <string name="stream_wallet_recharge">充值今个</string>
+    <string name="stream_wallet_recharge">充值金额</string>
+    <string name="stream_wallet_recharge_record">充值记录</string>
     <string name="wechat">微信好友</string>
     <string name="moments">朋友圈</string>
     <string name="weibo">微博</string>
@@ -580,4 +581,6 @@
     <string name="stream_report_reson_8">网络暴力</string>
     <string name="stream_msg_follow_anchor">关注了主播</string>
     <string name="stream_msg_out_room">离开了直播间</string>
+    <string name="stream_wallet_title">余额充值</string>
+    <string name="stream_wallet_title_right">消费明细</string>
 </resources>

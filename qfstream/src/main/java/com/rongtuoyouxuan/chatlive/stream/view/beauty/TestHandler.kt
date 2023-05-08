@@ -7,7 +7,6 @@ import android.view.TextureView
 import android.view.View
 import android.widget.ImageView
 import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.stream.view.beauty.util.AppUtils
 import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.ImageTextureView
 import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.SDKManager
 import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.callback.FaceDetectionCallback
@@ -34,13 +33,13 @@ object TestHandler : AbstractHandler() {
     override fun onCreate(context: Context) {
         val path = context.externalCacheDir!!.path
 
-        if(AppUtils.getApp(context) != AppUtils.getVersionCode(context))
-        {
-            val file = File(path)
-            ZegoUtil.deleteDir(file)
-            file.mkdirs()
-            AppUtils.setApp(context,AppUtils.getVersionCode(context))
-        }
+//        if(AppUtils.getApp(context) != AppUtils.getVersionCode(context))
+//        {
+//            val file = File(path)
+//            ZegoUtil.deleteDir(file)
+//            file.mkdirs()
+//            AppUtils.setApp(context,AppUtils.getVersionCode(context))
+//        }
 
 
 

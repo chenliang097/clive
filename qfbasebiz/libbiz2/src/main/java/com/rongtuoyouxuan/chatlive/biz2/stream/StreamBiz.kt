@@ -129,8 +129,11 @@ object StreamBiz {
     }
 
     fun liveLike(
-        liveId: Long,
-        likeNum: Int,
+        roomId: String?,
+        sceneId: String?,
+        userId: String?,
+        anchorId: String?,
+        count: Int?,
         lifecycleOwner: LifecycleOwner?,
         listener: RequestListener<LikeLiveData>,
     ) {
@@ -141,29 +144,7 @@ object StreamBiz {
 
             override fun createCall(retrofit: Retrofit): Call<LikeLiveData> {
                 return retrofit.create(StreamServer::class.java)
-                    .liveLike(LikeLiveReq(liveId, likeNum))
-            }
-
-            override fun getReqId(): String {
-                return ""
-            }
-        }.start()
-    }
-
-    fun liveAudienceLike(
-        liveId: Long,
-        likeNum: Int,
-        lifecycleOwner: LifecycleOwner?,
-        listener: RequestListener<LikeLiveData>,
-    ) {
-        object : NetWorks<LikeLiveData>(lifecycleOwner, listener) {
-            override fun getBaseUrl(): String {
-                return UrlConstanst.BASE_URL_LIVE_API_BOBOO_COM
-            }
-
-            override fun createCall(retrofit: Retrofit): Call<LikeLiveData> {
-                return retrofit.create(StreamServer::class.java)
-                    .liveAudienceLike(LikeLiveReq(liveId, likeNum))
+                    .liveLike(LikeLiveReq(roomId, sceneId, userId, anchorId))
             }
 
             override fun getReqId(): String {

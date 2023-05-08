@@ -29,7 +29,7 @@ interface StreamServer {
     fun getStreamStatiscData(@Query("user_id") userId: String?, @Query("t") t: Int): Call<StreamEndBean?>?
 
     //主播点赞
-    @POST("/anchor/like/live")
+    @POST("/medium/v1/room/userLiking")
     fun liveLike(@Body request: LikeLiveReq): Call<LikeLiveData>
 
     //观众点赞

@@ -34,12 +34,12 @@
             android:theme="@style/commenDialogStyle"/>
 
         <activity
-            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.BuyGoldDialog"
+            android:name="com.rongtuoyouxuan.app.BuyGoldDialog"
             android:launchMode="singleTask"
             android:theme="@style/commenDialogStyle" />
 
         <activity
-            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.PayTypeDialog"
+            android:name="com.rongtuoyouxuan.app.PayTypeDialog"
             android:launchMode="singleTask"
             android:theme="@style/commenDialogStyle" />
 
@@ -93,7 +93,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rongtuoyouxuan.chatlive.base.view.activity.WalletActivity"
+            android:name="com.rongtuoyouxuan.app.WalletActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

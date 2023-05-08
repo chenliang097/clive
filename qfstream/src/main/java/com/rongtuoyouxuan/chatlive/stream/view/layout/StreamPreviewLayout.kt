@@ -26,6 +26,7 @@ import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartPushStreamRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartStreamInfoBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity
@@ -135,6 +136,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
             streamPreviewLayout.visibility = VISIBLE
             LaToastUtil.showShort(s)
         }
+
         controllerViewModel.mControllerVisibility.observe(context) { aBoolean ->
             if (popupWindow != null && !aBoolean!!) {
                 popupWindow!!.dismiss()
@@ -148,7 +150,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
         controllerViewModel.uploadLiveData.observe(context) { t ->
             TransferLoadingUtil.dismissDialogLoading(getContext())
-            setPhoto(t?.data?.url)
+            setPhoto(t)
         }
 
         controllerViewModel.ActivityResultEvent.observe(context) { activityResult ->
@@ -174,9 +176,11 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     private fun setPhoto(url: String?) {
         addPhotoPath = url
+        streamPreviewChangeCoverImg.visibility = View.GONE
         Glide.with(context).load(url).apply(RequestOptions()
                 .dontAnimate())
             .into(streamPreviewImgCover!!)
+        ULog.e("clll", "setPhotofullPath:$url")
     }
 
     override fun onClick(v: View) {
@@ -406,7 +410,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 val croppedFileUri = UCrop.getOutput(data!!)
                 if (croppedFileUri != null) {
                     TransferLoadingUtil.showDialogLoading(context)
-                    controllerViewModel.uploadIcon(File(croppedFileUri.path))
+                    controllerViewModel.uploadIcon(croppedFileUri.path)
                 }
             } else if (resultCode == UCrop.RESULT_ERROR) {
                 Toast.makeText(context, R.string.stream_crop_error, Toast.LENGTH_SHORT).show()

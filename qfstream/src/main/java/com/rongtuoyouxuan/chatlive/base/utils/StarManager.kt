@@ -44,79 +44,65 @@ class StarManager {
     }
 
     private fun startReceive() {
-        if (isHanding) {
-            return
-        }
-        isHanding = true
-        timeTask = Runnable {
-            synchronized(starList) {
-                if (starList.isEmpty()) {
-                    return@Runnable
-                }
-                updateStarCount()
-            }
-        }
-        msgTimer = Executors.newScheduledThreadPool(1)
-        futures = msgTimer?.scheduleAtFixedRate(
-            timeTask, 2000, 2000, TimeUnit.MILLISECONDS
-        )
+//        if (isHanding) {
+//            return
+//        }
+//        isHanding = true
+//        timeTask = Runnable {
+//            synchronized(starList) {
+//                if (starList.isEmpty()) {
+//                    return@Runnable
+//                }
+//                updateStarCount()
+//            }
+//        }
+//        msgTimer = Executors.newScheduledThreadPool(1)
+//        futures = msgTimer?.scheduleAtFixedRate(
+//            timeTask, 2000, 0, TimeUnit.MILLISECONDS
+//        )
     }
 
     private fun stopReceive() {
-        isHanding = false
-        if (starList.size > 0) {
-            starList.clear()
-        }
-        futures?.cancel(true)
-        msgTimer = null
-        futures = null
-        timeTask = null
-
-        if (starList.isNotEmpty()) {
-            updateStarCount()
-        }
+//        isHanding = false
+//        if (starList.size > 0) {
+//            starList.clear()
+//        }
+//        futures?.cancel(true)
+//        msgTimer = null
+//        futures = null
+//        timeTask = null
+//
+//        if (starList.isNotEmpty()) {
+//            updateStarCount()
+//        }
     }
 
     @Synchronized
     fun addChild(item: LikeLiveReq?) {
-        if (!isHanding) {
-            return
-        }
+//        if (!isHanding) {
+//            return
+//        }
         if (null == item) {
             return
         }
         starList.offer(item)
+        updateStarCount()
     }
 
     private fun updateStarCount() {
         ThreadUtils.runOnUiThread {
-            if (isHost) {
-                StreamBiz.liveLike(starList[0].liveId, starList.size, null, object :
-                    RequestListener<LikeLiveData> {
-                    override fun onSuccess(reqId: String?, result: LikeLiveData?) {
-                        starList.clear()
-                        if (null != result?.data) {
-                            LiveRoomHelper.starVM.post(result.data.likeTotal)
-                        }
+            StreamBiz.liveLike(starList[0].roomId, starList[0].sceneIdStr, starList[0].userIdStr, starList[0].anchorIdStr, 1, null, object :
+                RequestListener<LikeLiveData> {
+                override fun onSuccess(reqId: String?, result: LikeLiveData?) {
+                    starList.clear()
+                    if (null != result?.data) {
+                        LiveRoomHelper.starVM.post(result.data.likeTotal)
                     }
+                }
 
-                    override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-                    }
-                })
-            } else {
-                StreamBiz.liveAudienceLike(starList[0].liveId, starList.size, null, object :
-                    RequestListener<LikeLiveData> {
-                    override fun onSuccess(reqId: String?, result: LikeLiveData?) {
-                        starList.clear()
-                        if (null != result?.data) {
-                            LiveRoomHelper.starVM.post(result.data.likeTotal)
-                        }
-                    }
-
-                    override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-                    }
-                })
-            }
+                override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
+                }
+            })
         }
     }
 }

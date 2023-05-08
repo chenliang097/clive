@@ -1,11 +1,9 @@
-package ccom.rongtuoyouxuan.chatlive.base.view.adapter
+package com.rongtuoyouxuan.app
 
 import android.content.Context
 import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.rongtuoyouxuan.chatlive.base.view.model.RechargeInfoBean
-import com.rongtuoyouxuan.chatlive.stream.R
 
 class GoldBuyGridAdapter:BaseQuickAdapter<RechargeInfoBean, BaseViewHolder> {
     private var buyGoldClickListener: BuyGoldClickListener? = null

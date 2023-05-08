@@ -101,6 +101,18 @@
         <meta-data
             android:name="ZEGO_APP_ID"
             android:value="\${ZEGO_APP_ID}" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.file.path.share"
+            android:exported="false"
+            tools:replace="android:authorities"
+            android:grantUriPermissions="true">
+            <meta-data
+                tools:replace="android:resource"
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/permission_file_paths" />
+        </provider>
     </application>
 
 </manifest>
