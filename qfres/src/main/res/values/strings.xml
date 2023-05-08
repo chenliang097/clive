@@ -568,7 +568,7 @@
     <string name="share_share_suc">分享成功</string>
     <string name="finish">完成</string>
     <string name="share_to_content">%1$s邀请您观看直播</string>
-    <string name="stream_msg_enter_room">欢迎来到直播间</string>
+    <string name="stream_msg_enter_room">来了</string>
     <string name="stream_report_reson">选择原因</string>
     <string name="stream_report_suc">成功</string>
     <string name="stream_report_reson_1">垃圾广告营销</string>
@@ -583,4 +583,8 @@
     <string name="stream_msg_out_room">离开了直播间</string>
     <string name="stream_wallet_title">余额充值</string>
     <string name="stream_wallet_title_right">消费明细</string>
+    <string name="stream_msg_banner">您已被禁言</string>
+    <string name="stream_msg_banner_relieve">您已被解除禁言</string>
+    <string name="stream_msg_room_manager">您已获得房管权限</string>
+    <string name="stream_msg_room_manager_relieve">您被取消房管权限</string>
 </resources>

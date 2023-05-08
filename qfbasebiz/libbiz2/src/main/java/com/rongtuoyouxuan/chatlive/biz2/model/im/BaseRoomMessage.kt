@@ -15,6 +15,12 @@ abstract class BaseRoomMessage : MultiItemEntity {
         const val TYPE_FOLLOW = 2010
         const val TYPE_HOT_CHANGE = 2013
         const val TYPE_ENTER_ROOM_TO_SERVER = 2020
+        const val TYPE_BANNED = 3001
+        const val TYPE_BANNED_RELIEVE = 3002
+        const val TYPE_ROOM_MANAGER_ADD = 3003
+        const val TYPE_ROOM_MANAGER_RELIEVE = 3006
+        const val TYPE_ROOM_BLACK = 3004
+
         const val TYPE_COMMON_TEMPLATEMSG = 13 // 模板消息
 
     }

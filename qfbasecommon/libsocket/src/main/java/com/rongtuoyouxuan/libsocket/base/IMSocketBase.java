@@ -12,12 +12,17 @@ import androidx.lifecycle.MutableLiveData;
 import com.rongtuoyouxuan.chatlive.arch.LiveCallback;
 import com.rongtuoyouxuan.chatlive.biz2.model.config.MsgConfigModel;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTAnnounceMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedRelieveMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTEnterRoomMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTFollowMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTGiftMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLeaveRoomMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLiveEndMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomBlackMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerAddMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerRelieveMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.response.IMTokenModel;
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UserInfo;
@@ -462,6 +467,21 @@ public class IMSocketBase implements ISocket {
             case 2013:
                 room(roomId).hotChangeMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTHotChangeMsg.class));
                 break;
+            case 3001:
+                room(roomId).bannerMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTBannedMsg.class));
+                break;
+            case 3002:
+                room(roomId).bannerRelieveMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTBannedRelieveMsg.class));
+                break;
+            case 3003:
+                room(roomId).roomManagerAddMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomManagerAddMsg.class));
+                break;
+            case 3006:
+                room(roomId).roomManagerRelieveMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomManagerRelieveMsg.class));
+                break;
+            case 3004:
+                room(roomId).roomBlackMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomBlackMsg.class));
+                break;
             case 4001:
                 room(roomId).giftMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTGiftMsg.class));
                 break;
@@ -559,7 +579,13 @@ public class IMSocketBase implements ISocket {
             return;
         }
         try {
-            String roomId = jsonObj.getString("room_id_str");
+            String roomId = "";
+            if(jsonObj.has("room_id_str")){
+                roomId = jsonObj.getString("room_id_str");
+            }
+            if(jsonObj.has("room_id")){
+                roomId = jsonObj.getString("room_id");
+            }
             int operation = (int) op;
             if (operation > 0) {
                 dispatch(msg, roomId, operation, isOffline);
@@ -584,9 +610,11 @@ public class IMSocketBase implements ISocket {
 
         public LiveCallback<RTFollowMsg> followMsg = new LiveCallback<>();//关注
         public LiveCallback<RTLiveEndMsg> liveEndMsg = new LiveCallback<>();//观众端关播
-        public LiveCallback<RoomGift> roomgift = new LiveCallback<>();//送礼物
-        public LiveCallback<RoomGift> roomgiftend = new LiveCallback<>();//送礼物结束
-        public LiveCallback<String> forbidroom = new LiveCallback<>();//直播间封禁
+        public LiveCallback<RTBannedMsg> bannerMsg = new LiveCallback<>();//
+        public LiveCallback<RTBannedRelieveMsg> bannerRelieveMsg = new LiveCallback<>();//
+        public LiveCallback<RTRoomManagerAddMsg> roomManagerAddMsg = new LiveCallback<>();//
+        public LiveCallback<RTRoomManagerRelieveMsg> roomManagerRelieveMsg = new LiveCallback<>();//
+        public LiveCallback<RTRoomBlackMsg>  roomBlackMsg= new LiveCallback<>();//
         public LiveCallback<MsgConfigModel.Item> templatemsg = new LiveCallback<>(); //通用模板消息
     }
 

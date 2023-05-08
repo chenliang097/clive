@@ -37,9 +37,13 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GifMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GiftMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTAnnounceMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedRelieveMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTEnterRoomMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTFollowMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLeaveRoomMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerAddMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerRelieveMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.TxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean;
@@ -114,32 +118,40 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         }
     };
 
+    private Observer<RTBannedMsg> bannedObserver = new Observer<RTBannedMsg>() {
+        @Override
+        public void onChanged(@Nullable RTBannedMsg bannedMsg) {
+            addMessageToList(bannedMsg);
+        }
+    };
+
+    private Observer<RTBannedRelieveMsg> bannedRelieveObserver = new Observer<RTBannedRelieveMsg>() {
+        @Override
+        public void onChanged(@Nullable RTBannedRelieveMsg bannedRelieveMsg) {
+            addMessageToList(bannedRelieveMsg);
+        }
+    };
+
+    private Observer<RTRoomManagerAddMsg> managerAObserver = new Observer<RTRoomManagerAddMsg>() {
+        @Override
+        public void onChanged(@Nullable RTRoomManagerAddMsg roomManagerAddMsg) {
+            addMessageToList(roomManagerAddMsg);
+        }
+    };
+
+    private Observer<RTRoomManagerRelieveMsg> managerRelieveObserver = new Observer<RTRoomManagerRelieveMsg>() {
+        @Override
+        public void onChanged(@Nullable RTRoomManagerRelieveMsg rtRoomManagerRelieveMsg) {
+            addMessageToList(rtRoomManagerRelieveMsg);
+        }
+    };
+
     private Observer<GiftMsg> giftObserver = new Observer<GiftMsg>() {
         @Override
         public void onChanged(@Nullable GiftMsg giftMsg) {
 //            addMessageToList(baseMsg);
         }
     };
-
-//    private Observer<BannedMsg> bannedObserver = new Observer<BannedMsg>() {
-//        @Override
-//        public void onChanged(@Nullable BannedMsg bannedMsg) {
-//            BaseMsg baseMsg = new BaseMsg();
-//            baseMsg.messageType = MessageContent.MSG_BANNED.type;
-//            baseMsg.body = bannedMsg;
-//            addMessageToList(baseMsg);
-//        }
-//    };
-
-//    private Observer<LiveKickPeopleMsg> kickObserver = new Observer<LiveKickPeopleMsg>() {
-//        @Override
-//        public void onChanged(@Nullable LiveKickPeopleMsg liveKickPeopleMsg) {
-//            BaseMsg baseMsg = new BaseMsg();
-//            baseMsg.messageType = MessageContent.MSG_LIVE_KICK.type;
-//            baseMsg.body = liveKickPeopleMsg;
-//            addMessageToList(baseMsg);
-//        }
-//    };
 
     public LivePublicChatAreaListLayout(Context context) {
         this(context, null);
@@ -179,6 +191,10 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         IMSocketBase.instance().room(streamId).enterRoomMsg.observe(enterObserver);
         IMSocketBase.instance().room(streamId).followMsg.observe(followObserver);
         IMSocketBase.instance().room(streamId).leaveRoomMsg.observe(leaveObserver);
+        IMSocketBase.instance().room(streamId).bannerMsg.observe(bannedObserver);
+        IMSocketBase.instance().room(streamId).bannerRelieveMsg.observe(bannedRelieveObserver);
+        IMSocketBase.instance().room(streamId).roomManagerAddMsg.observe(managerAObserver);
+        IMSocketBase.instance().room(streamId).roomManagerRelieveMsg.observe(managerRelieveObserver);
     }
 
     private void unregisterObserver(String streamId) {
@@ -187,7 +203,10 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         IMSocketBase.instance().room(streamId).enterRoomMsg.removeObserver(enterObserver);
         IMSocketBase.instance().room(streamId).followMsg.removeObserver(followObserver);
         IMSocketBase.instance().room(streamId).leaveRoomMsg.removeObserver(leaveObserver);
-
+        IMSocketBase.instance().room(streamId).bannerMsg.removeObserver(bannedObserver);
+        IMSocketBase.instance().room(streamId).bannerRelieveMsg.removeObserver(bannedRelieveObserver);
+        IMSocketBase.instance().room(streamId).roomManagerAddMsg.removeObserver(managerAObserver);
+        IMSocketBase.instance().room(streamId).roomManagerRelieveMsg.removeObserver(managerRelieveObserver);
 
     }
 

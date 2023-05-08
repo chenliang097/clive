@@ -105,7 +105,59 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                 }
                 createMsgBackground(textView, followMsg)
             }
+
+            BaseRoomMessage.TYPE_BANNED -> {
+                val msg: RTBannedMsg = message as RTBannedMsg
+                var contentColor =
+                    mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_banner), contentColor)
+                } else {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_banner), contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, msg)
             }
+
+            BaseRoomMessage.TYPE_BANNED_RELIEVE -> {
+                val msg: RTBannedRelieveMsg = message as RTBannedRelieveMsg
+                var contentColor =
+                    mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_banner_relieve), contentColor)
+                } else {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_banner_relieve), contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, msg)
+            }
+
+            BaseRoomMessage.TYPE_ROOM_MANAGER_ADD -> {
+                val msg: RTRoomManagerAddMsg = message as RTRoomManagerAddMsg
+                var contentColor =
+                    mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_room_manager), contentColor)
+                } else {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_room_manager), contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, msg)
+            }
+
+            BaseRoomMessage.TYPE_ROOM_MANAGER_RELIEVE -> {
+                val msg: RTRoomManagerRelieveMsg = message as RTRoomManagerRelieveMsg
+                var contentColor =
+                    mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_room_manager_relieve), contentColor)
+                } else {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_room_manager_relieve), contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, msg)
+            }
+        }
         textView.text = spanString
 
     }
