@@ -101,7 +101,7 @@ class GiftDialogActivity : SimpleActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun initListener() {
         ivBox?.setOnClickListener {
-            LaToastUtil.showShort("个人中心")
+            Router.toPersonalCenterActivity(DataBus.instance().USER_ID)
         }
 
         tvCoin?.setOnClickListener {
@@ -225,9 +225,9 @@ class GiftDialogActivity : SimpleActivity() {
 
         val count = GiftHelper.giftNum.value ?: 0
 
-        GiftNewBiz.sendGift(giftEntity.giftId ?: "0",
+        GiftNewBiz.sendGift(giftEntity.giftId ?: 0,
             roomId, sceneId, userId,
-            anchorId, count, userName, avatar,
+            anchorId, count, userName,
             object : RequestListener<GiftSendResData> {
                 override fun onSuccess(reqId: String?, result: GiftSendResData?) {
                     if (null != result?.data) {

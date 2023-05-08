@@ -29,6 +29,7 @@ import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.ControllerViewModel;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean;
+import com.rongtuoyouxuan.chatlive.databus.DataBus;
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus;
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants;
 import com.rongtuoyouxuan.chatlive.router.Router;
@@ -62,8 +63,6 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
     private View mInternalLayout;
     private ImageView gifImg;
     private TextView inputTextNumTxt;
-    private KPSwitchPanelLinearLayout mPanelView;
-    private GifPannelView gifPannelView;
     private EnterRoomBean.DataBean roomInfoBean;
 
 
@@ -125,9 +124,6 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
                     @Override
                     public void run() {
                         KeyBoardUtils.showSoftInput(roomMessageInput);
-                        if(event.object != null && event.object.equals("showGif")) {
-                            KPSwitchConflictUtil.switchPanelAndKeyboard(mPanelView, gifImg);
-                        }
 
                     }
                 }, 50);
@@ -137,7 +133,6 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
         imViewModel.streamIdLiveEvent.observe((LifecycleOwner) getContext(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                gifPannelView.setRoomId(imViewModel.getStreamId(), ISource.FROM_LIVE_ROOM);
                 mControllerViewModel.upUserInfo(s);
                 gifImg.setVisibility(GONE);
                 inputTextNumTxt.setVisibility(GONE);
@@ -192,10 +187,6 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
         roomMessageInput = findViewById(R.id.room_message_input);
         roomMessageSent = findViewById(R.id.room_message_sent);
         inputTextNumTxt = findViewById(R.id.bottomInputTextNumTxt);
-        mPanelView = findViewById(R.id.panelView);
-        gifPannelView = findViewById(R.id.gitPannel);
-
-        mPanelView.setIgnoreRecommendHeight(true);
 
         roomMessageInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -267,8 +258,8 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
                             imViewModel.sendLiveTxtMsg(String.valueOf(roomInfoBean.getRoom_id()), String.valueOf(roomInfoBean.getScene_id()),
                                     roomInfoBean.getAnchor_id(), msg, roomInfoBean.is_super_admin(),
                                     roomInfoBean.is_room_admin(), roomInfoBean.is_anchor(),
-                                    roomInfoBean.getUser_avatar(), roomInfoBean.getUser_id(),
-                                    roomInfoBean.getUser_name());
+                                    roomInfoBean.getUser_avatar(), DataBus.instance().USER_ID,
+                                    DataBus.instance().USER_NAME);
                         }
                         break;
                     case TYPE_NOTICE:
@@ -291,18 +282,6 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        onGlobalLayoutListener = KeyboardUtil.attach((Activity) getContext(), mPanelView, new KeyboardUtil.OnKeyboardShowingListener() {
-            @Override
-            public void onKeyboardShowing(boolean isShowing) {
-
-            }
-        });
-        KPSwitchConflictUtil.attach(mPanelView, gifImg, roomMessageInput, new KPSwitchConflictUtil.SwitchClickListener() {
-            @Override
-            public void onClickSwitch(View v, boolean switchToPanel) {
-
-            }
-        });
 
     }
 
@@ -324,7 +303,6 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
 
     private void hidePanelAndKeyboard() {
         mLLMsgContainer.setVisibility(GONE);
-        KPSwitchConflictUtil.hidePanelAndKeyboard(mPanelView);
         KeyboardUtil.hideKeyboard(roomMessageInput);
         imViewModel.showPanel.setValue(false);
     }

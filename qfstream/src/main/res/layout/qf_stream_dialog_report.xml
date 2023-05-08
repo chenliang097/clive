@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_host_tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/rt_c_161722">
+
+
+    <TextView
+        android:id="@+id/reportTitleTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="@string/stream_user_card_report"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
+    <View
+        android:id="@+id/reportTitleLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@id/reportTitleTxt"
+        android:background="@color/c_5_white"/>
+
+    <LinearLayout
+        android:id="@+id/reportContentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@+id/reportTitleLine"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/rt_bg_report_content">
+
+        <TextView
+            android:id="@+id/reportNickNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="12dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/rt_c_FDEA4D"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/reportContentTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="12dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/reportResonTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/reportContentLayout"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/stream_report_reson"
+        android:textColor="@color/c_40_white"
+        android:textSize="12sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reportResonRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/reportResonTxt"/>
+
+    <Button
+        android:id="@+id/reportResonBtn"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/reportResonRecyclerView"
+        android:background="@drawable/rt_common_btn"
+        android:gravity="center"
+        android:text="@string/chat_message_operate_submit"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+</RelativeLayout>

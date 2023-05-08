@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.GsonUtils
 import com.rongtuoyouxuan.chatlive.arch.LiveEvent
 import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
 import com.rongtuoyouxuan.chatlive.biz2.im.ChatIMBiz
+import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsgRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.BannedRequest
@@ -18,6 +19,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomInfoExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.ShareLiveRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomUserInfo
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.stream.R
@@ -130,7 +132,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         })
     }
 
-    fun addFollowAndExit() {
+    fun  addFollowAndExit() {
 
     }
 
@@ -171,40 +173,16 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
                        isAnchor: Boolean, userAvatar: String, userId: String, userName: String) {
 
         var rtTxtMsgRequest = RTTxtMsgRequest(roomId, sceneId, anchorId, content, isSuperAdmin, isRoomAdmin, isAnchor, userAvatar, userId, userName)
-//        IMSocketBase.instance().sendMessageBySocket("", GsonUtils.toJson(rtTxtMsgRequest),object:ChatSendCallback{
-//            override fun sendSuccess(msg: String?) {
-//            }
-//
-//            override fun sendFail(code: Int, desc: String?) {
-//            }
-//
-//        })
         ChatIMBiz.sendTextMsg(rtTxtMsgRequest, object :RequestListener<BaseModel>{
             override fun onSuccess(reqId: String?, result: BaseModel?) {
                 LaToastUtil.showShort("发送成功")
             }
 
             override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-                LaToastUtil.showShort("发送失败")
+                LaToastUtil.showShort(msg)
             }
 
         })
-//        IMSocketImpl.getInstance().sendChatRoomMessage(streamId, txtMsg, DataBus.instance().userInfo.value,
-//            object :ISendMsgCallBack{
-//                override fun onSuccess(
-//                    message: Message,
-//                    msgBody: BaseMsg.MsgBody?
-//                ) {
-////                    IMSocketImpl.getInstance().chatRoom(streamId).textCallback.setValue(txtMsg)
-////                    ToastUtils.showLong("$msg---$streamId")
-//                    selfSendTxtLiveEvent.value = msg
-//                }
-//
-//                override fun onFail(errorCode: ImErrorCode) {
-////                    ToastUtils.showLong("sendTxtMessage---$streamId---$errorCode")
-//                }
-//
-//            });
     }
 
     //发送禁言信息
@@ -237,26 +215,6 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
             }
 
         })
-//        IMSocketImpl.getInstance().sendChatRoomMessage(streamId, bannedMsg, DataBus.instance().userInfo.value,
-//            object :ISendMsgCallBack{
-//                override fun onSuccess(message: Message, msgBody: BaseMsg.MsgBody?) {
-//                    when(banned){
-//                        true-> {
-//                            LaToastUtil.showShort(context.getString(R.string.stream_banned))//暂未提供文案
-//                        }
-//                        false-> {
-//                            LaToastUtil.showShort(context.getString(R.string.stream_banned_remove))
-//                        }
-//                    }
-//                    bannedLiveData.value = banned
-//                    IMSocketImpl.getInstance().chatRoom(streamId).bannedCallback.setValue(bannedMsg)
-//                }
-//
-//                override fun onFail(errorCode: ImErrorCode) {
-////                    ToastUtils.showLong("sendTxtMessage---$streamId---$errorCode")
-//                }
-//
-//            });
     }
 
 
@@ -320,12 +278,6 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         retryJoinGroupCount = 0
         handler.removeCallbacksAndMessages(null)
         IMSocketBase.instance().signOut()
-//        IMSocketImpl.getInstance().quitChatRoom(streamId, object : IOperateCallback {
-//            override fun onSuccess() {
-//                ULog.d("clll", "quitChatRoom----------")
-//            }
-//            override fun onFail(code: String, desc: String) {}
-//        })
     }
 
     fun giftCallClick() {
@@ -339,7 +291,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
             override fun Success() {
                 LaToastUtil.showShort("socket成功-------")
                 GlobalScope.launch(Dispatchers.Main) {
-                    IMSocketBase.instance().sendMessageBySocket("2020", GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
+                    IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
                         override fun sendSuccess(msg: String?) {
 
                         }
@@ -355,6 +307,19 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
                 LaToastUtil.showShort("socket失败")
             }
 
-        }, StreamPreviewLayout.USER_ID, roomId)
+        }, DataBus.instance().USER_ID, roomId)
+    }
+
+    fun imOutRoom(action:String, roomId:String, sceneId:String, userId:String, userName: String, isLogin:Boolean){
+        IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
+            override fun sendSuccess(msg: String?) {
+
+            }
+
+            override fun sendFail(code: Int, desc: String?) {
+            }
+
+        })
+
     }
 }

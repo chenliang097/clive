@@ -42,7 +42,7 @@ data class GiftEntity(
     @SerializedName("name")
     val giftName: String? = "",
     @SerializedName("id")
-    val giftId: String? = ""
+    val giftId: Int? = 0
 )
 
 data class GiftPanelRes(
@@ -64,7 +64,7 @@ data class CarResponseData(val data: CarResourceListRes?) : BaseModel()
 
 data class GiftSendReq(
     @SerializedName("gift_id")
-    val giftId: String,
+    val giftId: Int,
     @SerializedName("room_id")
     val roomId: String = "",
     @SerializedName("scene_id")

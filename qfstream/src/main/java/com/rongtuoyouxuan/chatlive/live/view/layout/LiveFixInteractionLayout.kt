@@ -33,7 +33,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
     private var liveRoomInfoAnchorLayout:LiveHostView? = null
 
     var observer: Observer<RTHotChangeMsg> = Observer<RTHotChangeMsg> {
-        if (it.roomId == mControllerViewModel?.roomId) {
+        if (it.roomIdStr == mControllerViewModel?.roomId) {
             liveRoomInfoAnchorLayout?.setCurrentDiamond(it.fire)
             tvOnline4?.text = "" + it.userCount
         }
@@ -76,6 +76,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
             anchorName = it?.data?.anchor_name
             roomId = it?.data?.room_id_str
             it?.data?.room_id_str?.let { it1 -> registerObserver(it1) }
+            it?.data?.scene_id_str?.let { it1 -> liveRoomInfoAnchorLayout?.setSceneId(it1) }
         }
         mControllerViewModel?.roomInfoExtraLiveData?.observe((context as LifecycleOwner)) {
 //            liveRoomInfoAnchorLayout?.setCurrentDiamond(it.data.diamond_total)

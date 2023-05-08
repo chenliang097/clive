@@ -36,7 +36,9 @@ import com.rongtuoyouxuan.qfcommon.player.GiftLargerAnimPlayView
 import com.rongtuoyouxuan.qfcommon.player.GiftResourceManager
 import com.rongtuoyouxuan.qfcommon.util.DiySystemDialogUtil
 import com.lxj.xpopup.XPopup
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTGiftMsg
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
+import com.rongtuoyouxuan.libsocket.base.IMSocketBase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -78,12 +80,10 @@ class LiveRoomGIftUILogic(
         val lifecycle = fragment?.lifecycle ?: activity.lifecycle
         val lifecycleOwner = fragment ?: activity
 
-        val userInfo = DataBus.instance().userInfo.value?.user_info
-
         giftImg?.let {
             it.setOnClickListener {
                 Router.toGiftPanelActivity(
-                    activity, roomId, scendId, anchorId, StreamPreviewLayout.USER_ID, StreamPreviewLayout.USER_NAME, "")
+                    activity, roomId, scendId, anchorId, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, DataBus.instance().AVATAR)
             }
         }
 
@@ -131,129 +131,26 @@ class LiveRoomGIftUILogic(
             }
             giftLargerAnimManager.init(lifecycle)
 
-            scendId?.let { liveId ->
-//                IMSocketImpl.getInstance()
-//                    .chatRoom(liveId).giftCallback?.observe(lifecycleOwner) { giftMsg ->
-//                        ULog.d(
-//                            "giftCallBack",
-//                            ">>giftCallback:${giftMsg.giftLevel}>>>${giftMsg.giftMark}"
-//                        )
-//                        if (giftMsg.giftLevel == "1") {
-//                            //普通礼物
-//                            giftMsg.from?.let { from ->
-//                                val entity = GiftEntity(
-//                                    userHead = from.avatar,
-//                                    userName = from.nickname,
-//                                    giftName = giftMsg.giftName,
-//                                    giftNum = giftMsg.num,
-//                                    thumbnail = giftMsg.giftImgUrl,
-//                                    giftExtra = giftMsg.extra
-//                                )
-//                                createMarquee(entity)
-//                                if (!isPlayGift) {
-//                                    return@observe
-//                                }
-//                                if (from.userId.toLong() == userInfo?.userId) {
-//                                    giftSideManager.addChildGiftFirst(entity)
-//                                } else {
-//                                    giftSideManager.addChildGift(entity)
-//                                }
-//                            }
-//                        } else if (giftMsg.giftLevel == "2") {
-//                            giftMsg.extra?.let {
-//                                giftMsg.from?.let { from ->
-//                                    val entity = GiftEntity(
-//                                        userHead = from.avatar,
-//                                        userName = from.nickname,
-//                                        giftName = giftMsg.giftName,
-//                                        giftNum = giftMsg.num,
-//                                        thumbnail = giftMsg.giftImgUrl,
-//                                        giftExtra = it
-//                                    )
-//                                    createMarquee(entity)
-//                                    if (!isPlayGift) {
-//                                        return@observe
-//                                    }
-//                                    if (giftMsg.giftMark == 1) {
-//                                        if (from.userId.toLong() == userInfo?.userId) {
-//                                            giftSideManager.addChildGiftFirst(entity)
-//                                        } else {
-//                                            giftSideManager.addChildGift(entity)
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                            if (!isPlayGift) {
-//                                return@observe
-//                            }
-//                            //高级礼物
-//                            if (giftMsg.giftResources?.isNotEmpty() == true) {
-//                                val giftFileZip = giftMsg.giftResources[0]
-//                                val filePath =
-//                                    GiftResourceManager.getMp4File(
-//                                        giftFileZip,
-//                                        activity.lifecycleScope
-//                                    ) {
-//                                        giftMsg.from?.let { from ->
-//                                            val entity = GiftLargerAnimEntity(
-//                                                1,
-//                                                from.avatar ?: "",
-//                                                from.nickname ?: "",
-//                                                it
-//                                            )
-//                                            if (from.userId.toLong() == userInfo?.userId) {
-//                                                if (giftMsg.num > 1) {
-//                                                    for (i in 0 until giftMsg.num) {
-//                                                        giftLargerAnimManager.addChildGiftFirst(
-//                                                            entity
-//                                                        )
-//                                                    }
-//                                                } else {
-//                                                    giftLargerAnimManager.addChildGiftFirst(entity)
-//                                                }
-//                                            } else {
-//                                                if (giftMsg.num > 1) {
-//                                                    for (i in 0 until giftMsg.num) {
-//                                                        giftLargerAnimManager.addChildGift(entity)
-//                                                    }
-//                                                } else {
-//                                                    giftLargerAnimManager.addChildGift(entity)
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                if (filePath?.isNotEmpty() == true) {
-//                                    giftMsg.from?.let { from ->
-//                                        val entity = GiftLargerAnimEntity(
-//                                            1,
-//                                            from.avatar ?: "",
-//                                            from.nickname ?: "",
-//                                            filePath
-//                                        )
-//                                        if (from.userId.toLong() == userInfo?.userId) {
-//                                            if (giftMsg.num > 1) {
-//                                                for (i in 0 until giftMsg.num) {
-//                                                    giftLargerAnimManager.addChildGiftFirst(entity)
-//                                                }
-//                                            } else {
-//                                                giftLargerAnimManager.addChildGiftFirst(entity)
-//                                            }
-//                                        } else {
-//                                            if (giftMsg.num > 1) {
-//                                                for (i in 0 until giftMsg.num) {
-//                                                    giftLargerAnimManager.addChildGift(entity)
-//                                                }
-//                                            } else {
-//                                                giftLargerAnimManager.addChildGift(entity)
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
+            roomId?.let { roomId ->
+                IMSocketBase.instance().room(roomId).giftMsg.observe(lifecycleOwner) { giftMsg ->
+                    //普通礼物
+                        val entity = GiftEntity(
+                            userHead = giftMsg.avatar,
+                            userName = giftMsg.userName,
+                            giftName = giftMsg.giftName,
+                            giftNum = giftMsg.num,
+                            thumbnail = giftMsg.url_1x)
+                        if (!isPlayGift) {
+                            return@observe
+                        }
+                        if (giftMsg.userId.toString() == DataBus.instance().USER_ID) {
+                            giftSideManager.addChildGiftFirst(entity)
+                        } else {
+                            giftSideManager.addChildGift(entity)
+                        }
+                    }
 
-                clickMarquee(lifecycleOwner, liveId)
+                clickMarquee(lifecycleOwner, roomId)
             }
         }
 
@@ -283,85 +180,8 @@ class LiveRoomGIftUILogic(
                 }
             }
             starManager.init(lifecycle, isHost)
-
-//            IMSocketImpl.getInstance()
-//                .chatRoom(streamID).liveLikeNumCallBack?.observe(lifecycleOwner) { entity ->
-//                    if ((entity?.from?.userId?.toLongOrNull() ?: 0L) != userInfo?.userId) {
-//                        val total = entity.likesNum
-//                        val num = total - currentStarTotal
-//                        if (num > 0) {
-//                            for (i in 0 until num) {
-//                                activity.lifecycleScope.launch {
-//                                    delay(300 * i)
-//                                    liveBottomStarView?.addChildView()
-//                                }
-//                            }
-//                        }
-//                    }
-//                    currentStarTotal = entity.likesNum
-//                    if (isHost) {
-//                        starText?.text = BigDecimalUtil.setNumber(entity.likesNum)
-//                    }
-//                }
         }
 
-        broadcastGiftLayout?.let {
-            scendId?.let {
-//                IMSocketImpl.getInstance()
-//                    .chatRoom(it).fullSiteGiftCallBack?.observe(lifecycleOwner) { entity ->
-//                        ULog.d(
-//                            "giftCallBack",
-//                            ">>fullSiteGiftCallBack:${entity.giftLevel}>>"
-//                        )
-//                        if (!isPlayGift) {
-//                            return@observe
-//                        }
-//                        val from = RoomBannerGift.FromBean()
-//                        if (entity?.from?.nickname?.isNotEmpty() == true) {
-//                            from.nick = entity.from?.nickname
-//                        } else {
-//                            from.nick = ""
-//                        }
-//                        val to = RoomBannerGift.ToBean()
-//                        if (entity?.to?.nickname?.isNotEmpty() == true) {
-//                            to.nick = entity.to?.nickname
-//                        } else {
-//                            to.nick = ""
-//                        }
-//                        val roomBannerGift = RoomBannerGift()
-//                        roomBannerGift.from = from
-//                        roomBannerGift.to = to
-//                        roomBannerGift.giftUrl = entity?.giftThumbnail ?: ""
-//                        roomBannerGift.count = entity?.num ?: 1
-//                        roomBannerGift.giftExtra = entity.giftExtra
-//                        roomBannerGift.roomId = entity.roomId
-//                        if (null != entity.giftExtra) {
-//                            roomBannerGift.type = 1
-//                        } else {
-//                            roomBannerGift.type = 0
-//                        }
-//                        broadcastGiftLayout.addWinningMsg(roomBannerGift)
-//
-//                        if (roomBannerGift.type == 0 && entity.giftLevel == 2) {
-//                            entity.from?.let { xFrom ->
-//                                val xEntity = GiftEntity(
-//                                    userHead = xFrom.avatar,
-//                                    userName = xFrom.nickname,
-//                                    giftName = entity.giftName,
-//                                    giftNum = entity.num,
-//                                    thumbnail = entity.giftImgUrl,
-//                                )
-//                                if (xFrom.userId.toLong() == userInfo?.userId) {
-//                                    giftSideManager.addChildGiftFirst(xEntity)
-//                                } else {
-//                                    giftSideManager.addChildGift(xEntity)
-//                                }
-//                            }
-//                        }
-//                    }
-
-            }
-        }
 
         GiftHelper.giftConfigAnim.observe(lifecycleOwner) {
             isPlayGift = it == 1

@@ -163,5 +163,8 @@ interface StreamServer {
     @GET("/userProxy/v1/user/rankList")
     fun getPopularityRank(@Query("page") page:Int, @Query("size") size:Int, @Query("user_id") userId:String): Call<PopolarityRankBean>
 
+    @POST("/medium/v1/push/closeRoomInfo")
+    fun getStreamEnd(@Body request:StreamEndRequest): Call<StreamEndBean>
+
 
 }

@@ -87,8 +87,6 @@ class StreamPreviewLayout @JvmOverloads constructor(
         private const val CAMERA_REQ_CODE = 0x112
         const val STREAM_TITLE = "stream_title"
         const val STREAM_COVER = "stream_cover"
-        var USER_ID = "13652"
-        var USER_NAME = "你猜我猜不猜"
     }
 
     init {
@@ -271,7 +269,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
             mStreamViewModel.startRequestPullUrl(
                 title, addPhotoPath, longitude, latitude,
                 streamPreviewLocationTxt.text.toString(),
-                USER_ID, USER_NAME
+                DataBus.instance().USER_ID, DataBus.instance().USER_NAME
             )
         }
     }
@@ -484,10 +482,10 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     fun setUserInfo(userId:String?, userName:String?){
         if (!TextUtils.isEmpty(userId)) {
-            USER_ID = userId!!
+            DataBus.instance().USER_ID = userId!!
         }
         if (!TextUtils.isEmpty(userName)) {
-            USER_NAME = userName!!
+            DataBus.instance().USER_NAME = userName!!
         }
     }
 

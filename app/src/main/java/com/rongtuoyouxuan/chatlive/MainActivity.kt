@@ -10,6 +10,7 @@ import com.rongtuoyouxuan.app.Open3rdpayActivity
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.EnterRoomMsgRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.MainLiveEnterBean
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.bean.ISource
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getMainLiveEnter(){
-        StreamBiz.mainLiveEnter(StreamPreviewLayout.USER_ID, object :RequestListener<MainLiveEnterBean>{
+        StreamBiz.mainLiveEnter(DataBus.instance().USER_ID, object :RequestListener<MainLiveEnterBean>{
             override fun onSuccess(reqId: String?, result: MainLiveEnterBean?) {
                 Router.toLiveRoomActivity(result?.data?.room_id_str, result?.data?.stream_id, result?.data?.scene_id_str, result?.data?.anchor_id, ISource.FROM_MAIN_TAB)
 

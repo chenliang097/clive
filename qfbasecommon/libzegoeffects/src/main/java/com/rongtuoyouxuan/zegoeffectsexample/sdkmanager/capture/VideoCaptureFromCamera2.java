@@ -63,7 +63,7 @@ public class VideoCaptureFromCamera2 implements
     public int mViewWidth = 0;
     public int mViewHeight = 0;
     private int mViewMode = 1;
-    private int mFrameRate = 30;
+    private int mFrameRate = 15;
     private int mDisplayRotation = 0;
     private int mImageRotation = 0;
 
@@ -190,6 +190,7 @@ public class VideoCaptureFromCamera2 implements
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        setFrameRate(15);
         startPreview();
 
     }
@@ -620,7 +621,7 @@ public class VideoCaptureFromCamera2 implements
         } else {
             mFrameRate = realRate[1] / 2 / 1000;
         }
-
+        parms.setPreviewFrameRate(mFrameRate);
         // 设置camera的对焦模式
         // Set the camera's focus mode
         boolean bFocusModeSet = false;

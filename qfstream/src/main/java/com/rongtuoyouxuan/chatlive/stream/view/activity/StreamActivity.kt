@@ -255,7 +255,7 @@ class StreamActivity : BaseLiveStreamActivity() {
         mStreamViewModel?.startStreamModel?.observe(this) { startStreamBean ->
             ll_room_bottom_tools.visibility = View.VISIBLE
             mIMViewModel?.initIM(this, "enter_room", startStreamBean.data.room_id_str,
-                startStreamBean.data.scene_id_str, StreamPreviewLayout.USER_ID, StreamPreviewLayout.USER_NAME, true)
+                startStreamBean.data.scene_id_str, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
             var enterRoomBean = EnterRoomBean.DataBean()
             updateLiveRoomID(startStreamBean.data.room_id_str)
             updateAnchorId(startStreamBean.data.anchor_id.toString())
@@ -267,11 +267,11 @@ class StreamActivity : BaseLiveStreamActivity() {
             enterRoomBean.is_super_admin = false
             enterRoomBean.is_anchor = true
             enterRoomBean.user_avatar = ""
-            enterRoomBean.user_id = StreamPreviewLayout.USER_ID
-            enterRoomBean.user_name = StreamPreviewLayout.USER_NAME
+            enterRoomBean.user_id = DataBus.instance().USER_ID
+            enterRoomBean.user_name = DataBus.instance().USER_NAME
             mIMViewModel?.roomInfoLiveEvent?.value = enterRoomBean
             mIMViewModel?.streamIdLiveEvent?.value = startStreamBean.data.room_id_str
-            mIMViewModel?.getRoomInfo(startStreamBean.data.room_id_str, startStreamBean.data.scene_id_str, StreamPreviewLayout.USER_ID, true)
+            mIMViewModel?.getRoomInfo(startStreamBean.data.room_id_str, startStreamBean.data.scene_id_str, DataBus.instance().USER_ID, true)
             imObserver(startStreamBean.data.scene_id_str)
             ULog.d("clll", "streamID:$streamID----anchorId:$anchorId")
         }
@@ -293,7 +293,7 @@ class StreamActivity : BaseLiveStreamActivity() {
             roomInfoBean = it
             it?.data?.room_id_str?.let { it1 -> it?.data?.scene_id_str?.let { it2 ->
                 mIMViewModel?.getRoomInfoExtra(it1,
-                    it2, StreamPreviewLayout.USER_ID, true)
+                    it2, DataBus.instance().USER_ID, true)
             } }
         }
 
@@ -426,8 +426,9 @@ class StreamActivity : BaseLiveStreamActivity() {
     private fun intentStreamEnd() {
         Router.toStreamEndActivity(
             this@StreamActivity,
-            liveStreamInfo?.streamId,
-            mIMViewModel?.streamType
+            liveStreamInfo?.roomId,
+            roomInfoBean?.data?.scene_id_str,
+            roomInfoBean?.data?.user_avatar
         )
         finish()
     }
@@ -675,11 +676,7 @@ class StreamActivity : BaseLiveStreamActivity() {
                         1,
                         object : AnchorBlockedTipDialog.AnchorBlockedTipDialogListener {
                             override fun onConfirm() {
-                                Router.toStreamEndActivity(
-                                    this@StreamActivity,
-                                    liveStreamInfo?.streamId,
-                                    mIMViewModel?.streamType
-                                )
+                                intentStreamEnd()
                                 finish()
                             }
 
@@ -699,11 +696,7 @@ class StreamActivity : BaseLiveStreamActivity() {
                         1,
                         object : AnchorBlockedTipDialog.AnchorBlockedTipDialogListener {
                             override fun onConfirm() {
-                                Router.toStreamEndActivity(
-                                    this@StreamActivity,
-                                    liveStreamInfo?.streamId,
-                                    mIMViewModel?.streamType
-                                )
+                                intentStreamEnd()
                                 finish()
                             }
 

@@ -40,14 +40,13 @@ object GiftNewBiz {
     }
 
     fun sendGift(
-        giftId: String,
+        giftId: Int,
         roomId: String,
         sceneId: String,
         userId: String,
         anchorId: String,
         count: Int,
         userName: String,
-        avatar: String,
         listener: RequestListener<GiftSendResData>
     ) {
         newNetworkForGift(
@@ -64,8 +63,7 @@ object GiftNewBiz {
                         userId,
                         anchorId,
                         count,
-                        userName, avatar
-                    )
+                        userName)
                 )
         }
     }

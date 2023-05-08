@@ -105,17 +105,4 @@
 
     </LinearLayout>
 
-    <cn.dreamtobe.kpswitch.widget.KPSwitchPanelLinearLayout
-        android:id="@+id/panelView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <com.rongtuoyouxuan.qfcommon.widget.GifPannelView
-            android:id="@+id/gitPannel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </cn.dreamtobe.kpswitch.widget.KPSwitchPanelLinearLayout>
-
 </cn.dreamtobe.kpswitch.widget.KPSwitchRootLinearLayout>

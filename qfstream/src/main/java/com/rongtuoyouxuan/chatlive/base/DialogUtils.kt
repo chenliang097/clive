@@ -5,6 +5,7 @@ import com.rongtuoyouxuan.chatlive.base.view.dialog.AnchorBlockedTipDialog
 import com.rongtuoyouxuan.chatlive.live.view.dialog.AudienceExitDialog
 import com.rongtuoyouxuan.chatlive.stream.view.activity.RoomSetMaskWordInputDialog
 import com.rongtuoyouxuan.chatlive.stream.view.dialog.HostExitDialog
+import com.rongtuoyouxuan.chatlive.stream.view.dialog.ReportDialog
 import com.rongtuoyouxuan.chatlive.stream.view.dialog.StartStreamLevelDialog
 import com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout
 
@@ -28,6 +29,10 @@ object DialogUtils {
 
     fun createRoomSetMaskWordInputDialog(context: Context, onSetMaskWordListener: RoomSetMaskInputLayout.OnSetMaskWordListener):RoomSetMaskWordInputDialog{
         return RoomSetMaskWordInputDialog(context, onSetMaskWordListener)
+    }
+
+    fun createReportDialog(context: Context, roomId:String?, tUserId:String?, tNickName:String?, reportBarrage:String?):ReportDialog{
+        return ReportDialog(context, roomId, tUserId, tNickName, reportBarrage)
     }
 
 }

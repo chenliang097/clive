@@ -7,6 +7,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowStatusBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.FansListRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.user.FollowRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.user.ReportRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.net2.NetWorks
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
@@ -103,6 +104,26 @@ class UserRelationBiz {
         object : NetWorks<FollowStatusBean?>(lifecycleOwner, listener) {
             override fun createCall(retrofit: Retrofit): Call<FollowStatusBean?>? {
                 return retrofit.create(UserRelationServer::class.java).followDel(FollowRequest(fUserId, tUserId))
+            }
+
+            override fun getReqId(): String {
+                return ""
+            }
+
+            override fun getBaseUrl(): String {
+                return UrlConstanst.BASE_URL_LIVE_API_BOBOO_COM
+            }
+        }.start()
+    }
+
+    fun reportUser(
+        lifecycleOwner: LifecycleOwner?,
+        reportRequest: ReportRequest,
+        listener: RequestListener<BaseModel?>
+    ) {
+        object : NetWorks<BaseModel?>(lifecycleOwner, listener) {
+            override fun createCall(retrofit: Retrofit): Call<BaseModel?>? {
+                return retrofit.create(UserRelationServer::class.java).reportUser(reportRequest)
             }
 
             override fun getReqId(): String {

@@ -38,6 +38,8 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GifMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GiftMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTAnnounceMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTEnterRoomMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTFollowMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLeaveRoomMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.TxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean;
@@ -95,6 +97,20 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         @Override
         public void onChanged(@Nullable RTEnterRoomMsg enterRoomMsg) {
             addMessageToList(enterRoomMsg);
+        }
+    };
+
+    private Observer<RTFollowMsg> followObserver = new Observer<RTFollowMsg>() {
+        @Override
+        public void onChanged(@Nullable RTFollowMsg followMsg) {
+            addMessageToList(followMsg);
+        }
+    };
+
+    private Observer<RTLeaveRoomMsg> leaveObserver = new Observer<RTLeaveRoomMsg>() {
+        @Override
+        public void onChanged(@Nullable RTLeaveRoomMsg leaveRoomMsg) {
+            addMessageToList(leaveRoomMsg);
         }
     };
 
@@ -161,12 +177,16 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         IMSocketBase.instance().room(streamId).chmsg.observe(textObserver);
         IMSocketBase.instance().room(streamId).announceMsg.observe(announceObserver);
         IMSocketBase.instance().room(streamId).enterRoomMsg.observe(enterObserver);
+        IMSocketBase.instance().room(streamId).followMsg.observe(followObserver);
+        IMSocketBase.instance().room(streamId).leaveRoomMsg.observe(leaveObserver);
     }
 
     private void unregisterObserver(String streamId) {
         IMSocketBase.instance().room(streamId).chmsg.removeObserver(textObserver);
         IMSocketBase.instance().room(streamId).announceMsg.removeObserver(announceObserver);
         IMSocketBase.instance().room(streamId).enterRoomMsg.removeObserver(enterObserver);
+        IMSocketBase.instance().room(streamId).followMsg.removeObserver(followObserver);
+        IMSocketBase.instance().room(streamId).leaveRoomMsg.removeObserver(leaveObserver);
 
 
     }

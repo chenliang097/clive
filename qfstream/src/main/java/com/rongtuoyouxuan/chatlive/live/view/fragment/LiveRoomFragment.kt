@@ -7,18 +7,18 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.DebouncingUtils
 import com.blankj.utilcode.util.StringUtils
+import com.lxj.xpopup.XPopup
+import com.makeramen.roundedimageview.RoundedImageView
 import com.rongtuoyouxuan.chatlive.base.DialogUtils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
 import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
@@ -30,14 +30,15 @@ import com.rongtuoyouxuan.chatlive.base.view.dialog.RecommendDialog
 import com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
 import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.im.constants.ConversationTypes
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveAudienceNotificationMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveEndMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLiveEndMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.databus.live.LiveManager
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.live.view.ZegoLiveplay
 import com.rongtuoyouxuan.chatlive.live.view.activity.LiveRoomActivity
 import com.rongtuoyouxuan.chatlive.live.view.dialog.AudienceExitDialog
@@ -52,16 +53,11 @@ import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.layout.LivePublicChatAreaListLayout
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.libsocket.base.IMSocketBase
 import com.rongtuoyouxuan.libuikit.SimpleFragment
 import com.rongtuoyouxuan.qfcommon.dialog.CommonBottomDialog
 import com.rongtuoyouxuan.qfcommon.dialog.UserCardDialog
-import com.rongtuoyouxuan.qfcommon.util.DiySystemDialogUtil
 import com.rongtuoyouxuan.qfcommon.util.UserCardHelper
-import com.rongtuoyouxuan.qfcommon.widget.CustomAvatarView
-import com.lxj.xpopup.XPopup
-import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
 import com.zhihu.matisse.dialog.DiySystemDialog
 import kotlinx.android.synthetic.main.qf_stream_live_fragment_live_room.*
 import kotlinx.android.synthetic.main.qf_stream_live_layout_intercation_fix.*
@@ -94,18 +90,13 @@ class LiveRoomFragment : SimpleFragment() {
 
     var observer: Observer<String> = Observer { msg -> LaToastUtil.showShort(msg) }
 
-    private var liveEndObserver: Observer<LiveEndMsg> = Observer {
-        isFollow?.let { it1 ->
-            Router.toLiveEndActivity(
-                (mContext as LiveRoomActivity),
-                it?.roomId.toString(),
-                it.from.userId.toLong(),
-                it?.from?.avatar,
-                it?.from?.nickname,
-                it.liveDuration,
-                it1, it.pic
-            )
-        }
+    private var liveEndObserver: Observer<RTLiveEndMsg> = Observer {
+        Router.toLiveEndActivity(
+            (mContext as LiveRoomActivity),
+            roomInfoBean?.data?.room_id_str,
+            roomInfoBean?.data?.user_avatar,
+            roomInfoBean?.data?.anchor_name
+        )
         LiveDataBus.getInstance()
             .with(LiveDataBusConstants.EVENT_KEY_TO_FINISH_ROOM_ACTIVITY).value = true
         (mContext as LiveRoomActivity)?.finish()
@@ -260,7 +251,7 @@ class LiveRoomFragment : SimpleFragment() {
                 roomInfoModel.data?.scene_id_str?.let {
                     roomInfoModel.data?.room_id_str?.let { it1 ->
                         imViewModel?.initIM(mContext, "enter_room", it1,
-                            it, StreamPreviewLayout.USER_ID, StreamPreviewLayout.USER_NAME, true)
+                            it, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
                     }
                 }
                 anchorAvatar = roomInfoModel?.data?.anchor_pic
@@ -288,7 +279,7 @@ class LiveRoomFragment : SimpleFragment() {
                 roomInfoModel.data?.room_id_str?.let {
                     roomInfoModel.data?.scene_id_str?.let { it1 ->
                         mLiveControllerViewModel?.getRoomInfoExtra(
-                            it, it1, StreamPreviewLayout.USER_ID, true)
+                            it, it1, DataBus.instance().USER_ID, true)
                     }
                 }
             } else {
@@ -427,10 +418,10 @@ class LiveRoomFragment : SimpleFragment() {
         })
 
         imViewModel?.followAndExitLiveData?.observe(this) {
-            viewModel?.audienceExitRoom(1)
+            exitRequest()
         }
 
-//        IMSocketImpl.getInstance().chatRoom(streamID).liveEndCallback.observe(liveEndObserver)
+        IMSocketBase.instance().room(roomId).liveEndMsg.observe(liveEndObserver)
 //        IMSocketImpl.getInstance().chatRoom(streamID).liveAudiecneNotifyMsgLiveCallback.observe(
 //            liveNotifyCallback
 //        )
@@ -486,7 +477,7 @@ class LiveRoomFragment : SimpleFragment() {
 //        showDialogLoading()
         roomId?.let { sceneId?.let { it1 ->
             mLiveControllerViewModel!!.getRoomInfo(it,
-                it1, StreamPreviewLayout.USER_ID, true)
+                it1, DataBus.instance().USER_ID, true)
         } }
 //        mLiveControllerViewModel!!.setFromSource(fromSource)
         completeImCallBack()
@@ -525,8 +516,8 @@ class LiveRoomFragment : SimpleFragment() {
             imViewModel!!.onDestroy()
         }
         liveStreamcontainer?.removeAllViews()
-//        IMSocketImpl.getInstance()
-//            .chatRoom(streamID).liveEndCallback.removeObserver(liveEndObserver)
+        IMSocketBase.instance().room(roomId).liveEndMsg.removeObserver(liveEndObserver)
+
 //        IMSocketImpl.getInstance()
 //            .chatRoom(streamID).liveAudiecneNotifyMsgLiveCallback.removeObserver(liveNotifyCallback)
 
@@ -551,25 +542,15 @@ class LiveRoomFragment : SimpleFragment() {
             DialogUtils.createAudienceExitDialog(
                 mContext, anchorAvatar, isFollow, StreamPreviewLayout.TYPE_LIVE,
                 object : AudienceExitDialog.AudienceExitDialogListener {
-                    override fun onAudienceExitAndFollowListener() {//退出
-                        viewModel?.setStatus("finish")
-                        if (isFollow == true) {
-                            viewModel?.audienceExitRoom(1)
-                        } else {
-                            imViewModel?.addFollowAndExit()
-                        }
-
-
+                    override fun onAudienceExitAndFollowListener() {//继续观看
                     }
 
                     override fun onAudienceExitListener() {//
-                        viewModel?.audienceExitRoom(1)
-//                    ToastUtils.showLong("最小化")
+                        exitRequest()
                         (mContext as LiveRoomActivity)?.finish()
                     }
 
                     override fun onFollowListener() {
-//                        imViewModel?.addFollow()
                     }
 
                 }).show()
@@ -676,17 +657,12 @@ class LiveRoomFragment : SimpleFragment() {
                         2,
                         object : AnchorBlockedTipDialog.AnchorBlockedTipDialogListener {
                             override fun onConfirm() {
-                                isFollow?.let { it1 ->
-                                    Router.toLiveEndActivity(
-                                        (mContext as LiveRoomActivity),
-                                        it?.roomId.toString(),
-                                        it.from.userId.toLong(),
-                                        it?.from?.avatar,
-                                        it?.from?.nickname,
-                                        it.liveDuration,
-                                        it1, it.pic
-                                    )
-                                }
+                                Router.toLiveEndActivity(
+                                    (mContext as LiveRoomActivity),
+                                    roomInfoBean?.data?.room_id_str,
+                                    roomInfoBean?.data?.user_avatar,
+                                    roomInfoBean?.data?.anchor_name
+                                )
                             }
 
                         }).show()
@@ -696,7 +672,12 @@ class LiveRoomFragment : SimpleFragment() {
     }
 
     private fun exitRequest() {
-        viewModel?.audienceExitRoom(1)
+        roomInfoBean?.data?.room_id_str?.let {
+            roomInfoBean?.data?.scene_id_str?.let { it1 ->
+                imViewModel?.imOutRoom("leave_room", it, it1, DataBus.instance().USER_ID,
+                    DataBus.instance().USER_NAME, true)
+            }
+        }
     }
 
     private fun notifyNextPager() {

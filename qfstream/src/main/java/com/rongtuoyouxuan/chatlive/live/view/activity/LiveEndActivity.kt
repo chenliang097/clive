@@ -19,16 +19,12 @@ class LiveEndActivity : SimpleActivity() {
     }
 
     override fun initData() {
+        var roomId = intent.getStringExtra("roomId")
         var avatar = intent.getStringExtra("avatar")
         var nickName = intent.getStringExtra("nickName")
-        var cover = intent.getStringExtra("pic")
         ImgLoader.with(this).load(avatar).into(liveEndAvatar)
         liveEndNameTxt.text = nickName
-        if(!TextUtils.isEmpty(cover)){
-            GlideUtils.loadBlurImage(this, cover, coverBg, 25)
-        }else{
-            GlideUtils.loadBlurImage(this, cover, coverBg, 25)
-        }
+        GlideUtils.loadImage(this, avatar, coverBg, R.drawable.rt_default_avatar)
 
     }
 

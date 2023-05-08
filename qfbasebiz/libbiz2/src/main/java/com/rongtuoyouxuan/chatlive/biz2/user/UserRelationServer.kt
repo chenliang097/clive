@@ -7,6 +7,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.user.FansListRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.user.FollowRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.user.FollowResponseModel
+import com.rongtuoyouxuan.chatlive.biz2.model.user.ReportRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import retrofit2.Call
 import retrofit2.http.*
@@ -29,5 +30,8 @@ interface UserRelationServer {
         @Url url: String?,
         @Body request: FansListRequest?
     ): Call<FansListBean?>?
+
+    @POST("/userProxy/v1/user/report")
+    fun reportUser(@Body request:ReportRequest?): Call<BaseModel?>?
 
 }

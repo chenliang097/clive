@@ -30,6 +30,8 @@ public class LivePublicChatAreaListAdapter extends BaseMultiItemQuickAdapter<Bas
         addItemType(BaseRoomMessage.TYPE_MESSAGE, R.layout.qf_stream_adapter_item_common);
         addItemType(BaseRoomMessage.TYPE_ANNOUNCE, R.layout.qf_stream_adapter_item_common);
         addItemType(BaseRoomMessage.TYPE_ENTER_ROOM, R.layout.qf_stream_adapter_item_common);
+        addItemType(BaseRoomMessage.TYPE_FOLLOW, R.layout.qf_stream_adapter_item_common);
+        addItemType(BaseRoomMessage.TYPE_OUT_ROOM, R.layout.qf_stream_adapter_item_common);
     }
 
     @Override
@@ -44,6 +46,8 @@ public class LivePublicChatAreaListAdapter extends BaseMultiItemQuickAdapter<Bas
     @Override
     protected void convert(BaseViewHolder helper, final BaseRoomMessage item) {
         switch (item.getItemType()) {
+            case BaseRoomMessage.TYPE_OUT_ROOM:
+            case BaseRoomMessage.TYPE_FOLLOW:
             case BaseRoomMessage.TYPE_ANNOUNCE:
             case BaseRoomMessage.TYPE_MESSAGE:
             case BaseRoomMessage.TYPE_ENTER_ROOM:

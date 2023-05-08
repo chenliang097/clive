@@ -82,7 +82,7 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
      */
     open fun addNickName(textView: TextView, common:BaseRoomMessage, spanString: SpannableStringBuilder, nameColor: Int, addMaohao: Boolean) {
         addTextSpan(spanString, textView, common.userName + if (addMaohao) ": " else " ", nameColor, ClickiTextSpan.SpanClick {
-            LiveRoomHelper.openUserCardVM.post(common.userId)
+            LiveRoomHelper.openUserCardVM.post(common.userIdStr)
             ULog.d("clll", "addNickName")
         })
     }
@@ -93,7 +93,7 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
     open fun addNickName(textView: TextView, common:BaseRoomMessage, spanString: SpannableStringBuilder, addMaohao: Boolean) {
         addTextSpan(spanString, textView, common.userName + if (addMaohao) ": " else " ", mContext.resources.getColor(
             R.color.c_stream_msg_common), ClickiTextSpan.SpanClick {
-            LiveRoomHelper.openUserCardVM.post(common.userId)
+            LiveRoomHelper.openUserCardVM.post(common.userIdStr)
         })
     }
 
@@ -123,7 +123,7 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
     //判断是否是自己
     open fun isSelf(message: BaseRoomMessage): Boolean {
         if(message.userId != null){
-            return uid.toString() == message.userId
+            return uid.toString() == message.userIdStr
         }
         return false
     }

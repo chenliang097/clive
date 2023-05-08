@@ -13,7 +13,11 @@ import com.rongtuoyouxuan.chatlive.arch.LiveCallback;
 import com.rongtuoyouxuan.chatlive.biz2.model.config.MsgConfigModel;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTAnnounceMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTEnterRoomMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTFollowMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTGiftMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLeaveRoomMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLiveEndMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.response.IMTokenModel;
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UserInfo;
@@ -437,17 +441,29 @@ public class IMSocketBase implements ISocket {
             return;
         }
         switch (channel) {
-            case 2001:
+            case 1001:
                 room(roomId).chmsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTTxtMsg.class));
                 break;
             case 2002:
                 room(roomId).announceMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTAnnounceMsg.class));
                 break;
+            case 2004:
+                room(roomId).liveEndMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTLiveEndMsg.class));
+                break;
             case 2007:
                 room(roomId).enterRoomMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTEnterRoomMsg.class));
                 break;
+            case 2008:
+                room(roomId).leaveRoomMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTLeaveRoomMsg.class));
+                break;
+            case 2010:
+                room(roomId).followMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTFollowMsg.class));
+                break;
             case 2013:
                 room(roomId).hotChangeMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTHotChangeMsg.class));
+                break;
+            case 4001:
+                room(roomId).giftMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTGiftMsg.class));
                 break;
 
             default:
@@ -562,7 +578,12 @@ public class IMSocketBase implements ISocket {
         public LiveCallback<RTTxtMsg> chmsg = new LiveCallback<>();//弹幕
         public LiveCallback<RTAnnounceMsg> announceMsg = new LiveCallback<>();//公告
         public LiveCallback<RTEnterRoomMsg> enterRoomMsg = new LiveCallback<>();//进入房间
+        public LiveCallback<RTLeaveRoomMsg> leaveRoomMsg = new LiveCallback<>();//退出房间
         public LiveCallback<RTHotChangeMsg> hotChangeMsg = new LiveCallback<>();//人气变动
+        public LiveCallback<RTGiftMsg> giftMsg = new LiveCallback<>();//礼物
+
+        public LiveCallback<RTFollowMsg> followMsg = new LiveCallback<>();//关注
+        public LiveCallback<RTLiveEndMsg> liveEndMsg = new LiveCallback<>();//观众端关播
         public LiveCallback<RoomGift> roomgift = new LiveCallback<>();//送礼物
         public LiveCallback<RoomGift> roomgiftend = new LiveCallback<>();//送礼物结束
         public LiveCallback<String> forbidroom = new LiveCallback<>();//直播间封禁

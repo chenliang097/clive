@@ -619,4 +619,14 @@ object StreamBiz {
         }
     }
 
+    fun getStreamEnd(
+        streamEndRequest: StreamEndRequest,
+        listener: RequestListener<StreamEndBean>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .getStreamEnd(streamEndRequest)
+        }
+    }
+
 }

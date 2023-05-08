@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.SpannableStringBuilder
 import android.widget.ImageView
 import android.widget.TextView
+import com.rongtuoyouxuan.chatlive.base.DialogUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.MessageContent
@@ -42,6 +43,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                     addTextSpan(spanString, textView, message.content, contentColor)
                 } else {
                     addTextSpan(spanString, textView, message.content, contentColor, ClickiTextSpan.SpanClick {
+                        DialogUtils.createReportDialog(mContext, message.roomIdStr, message.userIdStr, message.userName, message.content).show()
                     })
                 }
                 createMsgBackground(textView, txtMsg)
@@ -76,47 +78,33 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                 createMsgBackground(textView, enterMsg)
             }
 
-//            MessageContent.MSG_LIKE_ANCHOR.type -> {//关注主播、给主播点赞、分享主播
-//                createLikeAnchorMessage(textView, message, spanString, fontHeight)
-//                createMsgBackground(textView, message)
-//            }
-//
-//            MessageContent.MSG_LIVE_JOIN.type -> {
-//                var contentRes = R.string.stream_live_enter_room
-//                val liveJoinRoomMsg: LiveJoinRoomMsg = message.body as LiveJoinRoomMsg
-//                if (liveJoinRoomMsg.userType != 0) {
-//                    addCommonIcons(textView, message, spanString, fontHeight)
-//                } else {
-//                    addRoleDrawableSpan(spanString, 0, fontHeight)
-//                }
-//                addNickName(textView, message, spanString, R.color.c_fec421, false)
-//                addKnownContent(textView, contentRes, spanString, R.color.white)
-//                createMsgBackground(textView, message)
-//            }
-//
-//            MessageContent.MSG_GIFT.type -> {
-//                createGiftMessage(textView, message, spanString, fontHeight)
-//                createMsgBackground(textView, message)
-//            }
-//            MessageContent.MSG_BANNED.type -> {//禁言
-//                createBannedMsg(textView, message, spanString)
-//                createMsgBackground(textView, message)
-//            }
-//            MessageContent.MSG_LIVE_KICK.type -> {//移除/拉黑
-//                var liveKickPeopleMsg: LiveKickPeopleMsg = message.body as LiveKickPeopleMsg
-//                var content: String
-//                //1-移出直播间 2-拉黑并踢出直播间
-//                if (liveKickPeopleMsg.operateType == 1) {
-//                    if (isSelf(message)) {
-//                        content = mContext.getString(R.string.chat_remove_live_tip)
-//                    }else{
-//                        content = mContext.getString(R.string.chat_remove_live_tip_audience, liveKickPeopleMsg.operateUser.nickname)
-//                    }
-//                } else {
-//                    content = mContext.getString(R.string.chat_balck_live_tip)
-//                }
-//                addKnownContent(textView, content, spanString, R.color.white)
-//                createMsgBackground(textView, message)
+            BaseRoomMessage.TYPE_OUT_ROOM -> {
+                val leaveRoomMsg: RTLeaveRoomMsg = message as RTLeaveRoomMsg
+                var contentColor =
+                    mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                addNickName(textView, leaveRoomMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false)
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_out_room), contentColor)
+                } else {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_out_room), contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, leaveRoomMsg)
+            }
+
+            BaseRoomMessage.TYPE_FOLLOW -> {
+                val followMsg: RTFollowMsg = message as RTFollowMsg
+                var contentColor =
+                    mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                addNickName(textView, followMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false)
+                if (isSelf(message)) {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_follow_anchor), contentColor)
+                } else {
+                    addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_follow_anchor), contentColor, ClickiTextSpan.SpanClick {
+                    })
+                }
+                createMsgBackground(textView, followMsg)
+            }
             }
         textView.text = spanString
 
@@ -190,16 +178,6 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
             "×" + giftMsg.num.toString(),
             spanString,
             R.color.c_stream_msg_common)
-
-//        if(getTextWidth(spanString.toString(), textView) == width){
-
-//        }
-//        var layoutParams = textView.layoutParams
-//        var dimen = UIUtils.px2dip(mContext, mContext.resources.getDimension(R.dimen.dp_119))
-//        var width = UIUtils.screenWidth(mContext) - UIUtils.dip2px(mContext, dimen)
-//        layoutParams.width = width
-//        textView.layoutParams = layoutParams
-//        ULog.d("cllll", "礼物textview 长度：" + getTextWidth(spanString.toString(), textView))
     }
 
 }

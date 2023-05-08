@@ -127,10 +127,11 @@ class UserCardDialog(
 
         }
 
-        if(anchorId == DataBus.instance().USER_ID){
+        if(anchorId == DataBus.instance().USER_ID || result.is_super_admin){
+            userCardRightTxt.visibility = View.VISIBLE
             userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
         }else{
-            userCardRightTxt.text = context.getString(R.string.stream_user_card_report)
+            userCardRightTxt.visibility = View.GONE
         }
 
         userCardWindowBtn.setOnClickListener {

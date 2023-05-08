@@ -52,17 +52,6 @@ class AudienceExitDialog: Dialog{
 
     private fun initView() {
         ImgLoader.with(context).load(avatar).into(liveAudienceExitAvatar)
-
-        when(isFollow){
-            true->{
-                liveAudienceExitAndFollowTxt?.visibility = View.GONE
-                liveAudienceExitAndFollowTxt?.text = context.getString(R.string.stream_live_exit_room)
-            }
-            false->{
-                liveAudienceExitAndFollowTxt?.visibility = View.VISIBLE
-                liveAudienceExitAndFollowTxt?.text = context.getString(R.string.stream_audience_follow_and_exit)
-            }
-        }
     }
 
     private fun initListener(){

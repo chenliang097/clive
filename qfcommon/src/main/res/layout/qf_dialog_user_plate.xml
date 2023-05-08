@@ -185,6 +185,7 @@
         android:id="@+id/userCardAvatar"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        app:riv_oval="true"/>
 
 </FrameLayout>

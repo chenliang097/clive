@@ -116,7 +116,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
             }
             completeVP()
         }
-        sceneId?.let { vm?.getLiveRoomLists(StreamPreviewLayout.USER_ID, it) }
+        sceneId?.let { vm?.getLiveRoomLists(DataBus.instance().USER_ID, it) }
 
         GiftHelper.clickGiftRecharge.observe(this) {
             Router.toGoldToBuyDialog("1")

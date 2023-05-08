@@ -568,4 +568,16 @@
     <string name="finish">完成</string>
     <string name="share_to_content">%1$s邀请您观看直播</string>
     <string name="stream_msg_enter_room">欢迎来到直播间</string>
+    <string name="stream_report_reson">选择原因</string>
+    <string name="stream_report_suc">成功</string>
+    <string name="stream_report_reson_1">垃圾广告营销</string>
+    <string name="stream_report_reson_2">侮辱谩骂</string>
+    <string name="stream_report_reson_3">违法反动</string>
+    <string name="stream_report_reson_4">淫秽色情</string>
+    <string name="stream_report_reson_5">嘲讽/不友善</string>
+    <string name="stream_report_reson_6">疑似机器人</string>
+    <string name="stream_report_reson_7">其他</string>
+    <string name="stream_report_reson_8">网络暴力</string>
+    <string name="stream_msg_follow_anchor">关注了主播</string>
+    <string name="stream_msg_out_room">离开了直播间</string>
 </resources>

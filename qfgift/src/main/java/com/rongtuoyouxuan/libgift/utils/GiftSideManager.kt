@@ -183,7 +183,7 @@ class GiftSideManager {
         tvName?.text = "${entity.userName}"
 
         val tvTip = itemView.findViewById<TextView>(R.id.tvTip)
-        tvTip?.text = tvTip.context.getString(R.string.gift_side_send)
+        tvTip?.text = "${entity.giftName}"
 
         val ivGiftImage = itemView.findViewById<ImageView>(R.id.ivGiftImage)
         if (entity.thumbnail?.isNotEmpty() == true) {

@@ -16,6 +16,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomNumber
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
+import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
 
@@ -32,6 +33,7 @@ class LiveHostView @JvmOverloads constructor(
     var observer: Observer<*> = Observer<RoomNumber?> { }
     private var liveRoomBean:EnterRoomBean? = null
     var tvCurrentDiamond: TextView? = null
+    private var sceneId = "";
 
     init {
         init(context)
@@ -103,12 +105,16 @@ class LiveHostView @JvmOverloads constructor(
             if (roomUserInfo!!.data.role != null) {
             }
         } else if (v.id == R.id.hostInfoFollowImg) {
-//            mIMViewModel?.addFollow()
+            mIMViewModel?.anchorId?.let { mIMViewModel?.addFollow(it, DataBus.instance().USER_ID, mIMViewModel?.roomId, sceneId, 1) }
             follows!!.isClickable = false
         }
     }
 
     fun setCurrentDiamond(diamond: Int) {
         tvCurrentDiamond?.text = context.getString(R.string.stream_host_click_zan_num, diamond)
+    }
+
+    fun setSceneId(sceneId: String) {
+        this.sceneId = sceneId
     }
 }

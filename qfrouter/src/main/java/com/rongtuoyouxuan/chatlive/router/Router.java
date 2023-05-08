@@ -120,23 +120,20 @@ public class Router {
     }
 
     //主播端直播结束
-    public static void toStreamEndActivity(Context context, String streamId, String streamType) {
+    public static void toStreamEndActivity(Context context, String roomId, String sceneId,String avatar) {
         ARouter.getInstance().build(RouterConstant.PATH_ACTIVITY_STREAM_END)
-                .withString("streamId", streamId)
-                .withString("streamType", streamType)
+                .withString("roomId", roomId)
+                .withString("sceneId", sceneId)
+                .withString("coverUrl", avatar)
                 .navigation(context);
     }
 
     //观看端直播结束
-    public static void toLiveEndActivity(Context context, String streamId, long anchorId, String avatar, String nickName, long time, boolean isFollow, String pic) {
+    public static void toLiveEndActivity(Context context, String roomId, String avatar, String nickName) {
         ARouter.getInstance().build(RouterConstant.PATH_ACTIVITY_LIVE_END)
-                .withString("streamId", streamId)
-                .withLong("anchorId", anchorId)
+                .withString("roomId", roomId)
                 .withString("avatar", avatar)
                 .withString("nickName", nickName)
-                .withLong("time", time)
-                .withBoolean("follow", isFollow)
-                .withString("pic", pic)
                 .navigation(context);
     }
 

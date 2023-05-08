@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reportReasonLayout"
+    android:layout_width="match_parent"
+    android:layout_height="24dp"
+    android:orientation="vertical"
+    android:background="@drawable/rt_bg_report_content">
+
+
+    <TextView
+        android:id="@+id/reportReasonTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/stream_user_card_report"
+        android:textColor="@color/c_50_white"
+        android:textSize="14sp"/>
+</RelativeLayout>

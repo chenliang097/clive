@@ -28,7 +28,7 @@ class FixInteractionLayout @JvmOverloads constructor(
 
 
     var observer: Observer<RTHotChangeMsg> = Observer<RTHotChangeMsg> {
-        if (it.roomId == mControllerViewModel?.roomId) {
+        if (it.roomIdStr == mControllerViewModel?.roomId) {
             rl_master_room_info?.setCurrentDiamond(it.fire)
             tvOnline4?.text = "" + it.userCount
         }

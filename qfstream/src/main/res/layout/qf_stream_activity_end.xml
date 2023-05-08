@@ -3,25 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/rt_c_161722">
 
     <ImageView
         android:id="@+id/coverBg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_height="260dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rt_default_avatar"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/c_70_black"
-        android:scaleType="centerCrop" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.8"
-        android:background="@drawable/qf_stream_bg_live_down"
+        android:background="@color/c_40_black"
         android:scaleType="centerCrop" />
 
     <ImageView

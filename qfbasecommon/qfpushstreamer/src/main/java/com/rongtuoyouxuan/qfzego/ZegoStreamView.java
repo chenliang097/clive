@@ -47,6 +47,7 @@ import im.zego.zegoexpress.constants.ZegoVideoMirrorMode;
 import im.zego.zegoexpress.constants.ZegoViewMode;
 import im.zego.zegoexpress.entity.ZegoCanvas;
 import im.zego.zegoexpress.entity.ZegoCustomVideoCaptureConfig;
+import im.zego.zegoexpress.entity.ZegoCustomVideoProcessConfig;
 import im.zego.zegoexpress.entity.ZegoEngineProfile;
 import im.zego.zegoexpress.entity.ZegoPublishStreamQuality;
 import im.zego.zegoexpress.entity.ZegoRoomConfig;
@@ -56,8 +57,8 @@ import im.zego.zegoexpress.entity.ZegoVideoConfig;
 
 public class ZegoStreamView extends BaseStreamView {
     private final String TAG = "ZEGOStreamView";
-    private static final int DEFAULT_VIDEO_WIDTH = 720;
-    private static final int DEFAULT_VIDEO_HEIGHT = 1280;
+    private static final int DEFAULT_VIDEO_WIDTH =360;
+    private static final int DEFAULT_VIDEO_HEIGHT = 640;
     private static final int MAX_RETRY = 10;
     final StringBuilder logs = new StringBuilder();
     private String pushUrl;
@@ -78,11 +79,10 @@ public class ZegoStreamView extends BaseStreamView {
     private ZegoVideoConfig mZegoVideoConfig;
     private MyHandler handler = null;
 
-    private ZegoEffectsVideoFrameParam effectsVideoFrameParam;
-
-    private ZegoEffects effects;
     private TextureView mPreviewView;
-    private ZegoCustomVideoCaptureConfig mZegoCustomVideoCaptureConfig;
+    private ZegoCustomVideoProcessConfig mZegoCustomVideoCaptureConfig;
+
+    private ZegoEffectsVideoFrameParam effectsVideoFrameParam;
 
 //    private Handler handler = new Handler(Looper.getMainLooper()){
 //        @Override
@@ -240,11 +240,26 @@ public class ZegoStreamView extends BaseStreamView {
         mZegoEngine = ZegoExpressEngine.createEngine(profile, mIZegoEventHandler);
         mZegoEngine.enableHardwareEncoder(true);
 
-        mZegoCustomVideoCaptureConfig = new ZegoCustomVideoCaptureConfig();
-        mZegoCustomVideoCaptureConfig.bufferType = ZegoVideoBufferType.RAW_DATA;
-        mZegoEngine.enableCustomVideoCapture(true, mZegoCustomVideoCaptureConfig, ZegoPublishChannel.MAIN);
+        effectsVideoFrameParam = new ZegoEffectsVideoFrameParam();
+        effectsVideoFrameParam.format = ZegoEffectsVideoFrameFormat.RGBA32;
+
+        mZegoVideoConfig = new ZegoVideoConfig(ZegoVideoConfigPreset.PRESET_360P);
+//        mZegoVideoConfig.bitrate = 1000;
+//        mZegoVideoConfig.fps = 15;
+//        mZegoVideoConfig.setCaptureResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
+//        mZegoVideoConfig.setEncodeResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
+        mZegoEngine.setVideoConfig(mZegoVideoConfig);
+        mZegoEngine.setVideoMirrorMode(ZegoVideoMirrorMode.BOTH_MIRROR);
+        mZegoEngine.enableCamera(true);
+
+        mZegoCustomVideoCaptureConfig = new ZegoCustomVideoProcessConfig();
+        mZegoCustomVideoCaptureConfig.bufferType = ZegoVideoBufferType.GL_TEXTURE_2D;
+        mZegoEngine.enableCustomVideoProcessing(true, mZegoCustomVideoCaptureConfig, ZegoPublishChannel.MAIN);
 
         setApiCalledResult();
+//        mZegoCanvas = new ZegoCanvas(null);
+//        mZegoCanvas.viewMode = ZegoViewMode.ASPECT_FILL;
+//        mZegoEngine.startPreview(mZegoCanvas);
     }
 
     private void initBeauty(){
@@ -256,29 +271,13 @@ public class ZegoStreamView extends BaseStreamView {
                 if (license != null) {
                     ULog.e("clll", "message:" + message + "---license:" + license.getLicense());
                     ZegoLicense.effectsLicense = license.getLicense();
-                    SDKManager.sharedInstance().initEvn(mZegoEngine, mPreviewView, mContext);
+                    SDKManager.sharedInstance().initEvn(mZegoEngine, mPreviewView, mContext, effectsVideoFrameParam);
                 }
 
             }
         });
-        effectsVideoFrameParam = new ZegoEffectsVideoFrameParam();
-        effectsVideoFrameParam.format = ZegoEffectsVideoFrameFormat.RGBA32;
     }
 
-    public void setDefaultConfig(){
-
-        mZegoVideoConfig = new ZegoVideoConfig(ZegoVideoConfigPreset.PRESET_720P);
-        mZegoVideoConfig.bitrate = 2000;
-        mZegoVideoConfig.fps = 15;
-        mZegoVideoConfig.setCaptureResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
-        mZegoVideoConfig.setEncodeResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
-        mZegoEngine.setVideoConfig(mZegoVideoConfig);
-        mZegoEngine.setVideoMirrorMode(ZegoVideoMirrorMode.BOTH_MIRROR);
-
-        mZegoCanvas = new ZegoCanvas(null);
-        mZegoCanvas.viewMode = ZegoViewMode.ASPECT_FILL;
-        mZegoEngine.startPreview(mZegoCanvas);
-    }
 
     @Override
     public void onCreate() {
@@ -287,8 +286,6 @@ public class ZegoStreamView extends BaseStreamView {
         getAppID();
         setCreateEngine();
         initBeauty();
-        setDefaultConfig();
-        setApiCalledResult();
     }
 
     private void pushCdn(){
@@ -473,7 +470,7 @@ public class ZegoStreamView extends BaseStreamView {
     public void logoutLiveRoom() {
         mZegoEngine.stopPreview();
         mZegoEngine.logoutRoom(roomID);
-        mZegoEngine.enableCustomVideoCapture(true, mZegoCustomVideoCaptureConfig, ZegoPublishChannel.MAIN);
+        mZegoEngine.enableCustomVideoProcessing(false, mZegoCustomVideoCaptureConfig, ZegoPublishChannel.MAIN);
         ZegoExpressEngine.setApiCalledCallback(null);
         ZegoExpressEngine.destroyEngine(null);
         pushUrl = "";

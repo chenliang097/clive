@@ -64,6 +64,10 @@ import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.callback.FaceDetectionCa
 import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.callback.KiwiCallback;
 
 import im.zego.zegoexpress.ZegoExpressEngine;
+import im.zego.zegoexpress.callback.IZegoCustomVideoProcessHandler;
+import im.zego.zegoexpress.constants.ZegoPublishChannel;
+import im.zego.zegoexpress.constants.ZegoViewMode;
+import im.zego.zegoexpress.entity.ZegoCanvas;
 
 public class SDKManager {
 
@@ -165,16 +169,16 @@ public class SDKManager {
      * 初始化环境
      * @param context
      */
-    public void initEvn(ZegoExpressEngine expressEngine, TextureView previewView, Context context) {
+    public void initEvn(ZegoExpressEngine expressEngine, TextureView previewView, Context context, ZegoEffectsVideoFrameParam effectsVideoFrameParam) {
         Log.v(TAG, "initEvn");
         this.context = context;
 //        initResource(context);
 
         zegoEffects = ZegoEffects.create(ZegoLicense.effectsLicense, context);
 
-        videoCaptureFromCamera2 = new VideoCaptureFromCamera2(expressEngine, zegoEffects, context);
-        videoCaptureFromCamera2.setView(previewView);
-        startCamera();
+//        videoCaptureFromCamera2 = new VideoCaptureFromCamera2(expressEngine, zegoEffects, context);
+//        videoCaptureFromCamera2.setView(previewView);
+//        startCamera();
         enableFaceDetection(true);
 //        videoCaptureFromCamera2.startCapture();
         zegoEffects.setEventHandler(new ZegoEffectsEventHandler() {
@@ -202,6 +206,39 @@ public class SDKManager {
                 }
             }
         });
+        expressEngine.setCustomVideoProcessHandler(new IZegoCustomVideoProcessHandler() {
+            @Override
+            public void onStart(ZegoPublishChannel channel) {
+                Log.e("ZEGO", "[Express] [onStart]");
+                zegoEffects.initEnv(720, 1280);
+            }
+
+            @Override
+            public void onStop(ZegoPublishChannel channel) {
+                Log.e("ZEGO", "[Express] [onStop]");
+                zegoEffects.uninitEnv();
+            }
+
+            @Override
+            public void onCapturedUnprocessedTextureData(int textureID, int width, int height, long referenceTimeMillisecond, ZegoPublishChannel channel) {
+                Log.e("ZEGO", "[Express] [onCapturedUnprocessedTextureData] textureID: " + textureID + ", width: " + width + ", height: " + height + ", ts: " + referenceTimeMillisecond);
+                // Receive texture from ZegoExpressEngine
+//                super.onCapturedUnprocessedTextureData(textureID, width, height, referenceTimeMillisecond, channel);
+
+                effectsVideoFrameParam.width = width;
+                effectsVideoFrameParam.height = height;
+
+                // Process buffer by ZegoEffects
+                int processedTextureID = zegoEffects.processTexture(textureID, effectsVideoFrameParam);
+
+                // Send processed texture to ZegoExpressEngine
+                expressEngine.sendCustomVideoProcessedTextureData(processedTextureID, width, height, referenceTimeMillisecond);
+            }
+        });
+
+        ZegoCanvas mZegoCanvas = new ZegoCanvas(previewView);
+        mZegoCanvas.viewMode = ZegoViewMode.ASPECT_FILL;
+        expressEngine.startPreview(mZegoCanvas);
     }
 
     private void uninit(){
