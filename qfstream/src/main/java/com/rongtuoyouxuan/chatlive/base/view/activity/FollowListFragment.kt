@@ -79,10 +79,10 @@ class FollowListFragment:BaseRefreshListFragment<FollowListViewModel, FollowList
                 R.id.itemBtn -> {
                     if(bean.status){
                         bean.status = !bean.status
-                        viewModel?.cancelFollow(DataBus.instance().USER_ID, bean.id, position, bean)
+                        viewModel?.cancelFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
                     }else{
                         bean.status = !bean.status
-                        viewModel?.addFollow(DataBus.instance().USER_ID, bean.id, position, bean)
+                        viewModel?.addFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
                     }
                 }
 

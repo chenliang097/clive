@@ -50,9 +50,9 @@ class ReportDialog: Dialog{
         val win = this.window
         win?.decorView?.setPadding(0, 0, 0, 0)
         val lp = win?.attributes
-        lp?.width = (UIUtils.screenWidth(mContext) * 0.8).toInt()
+        lp?.width = WindowManager.LayoutParams.MATCH_PARENT
         lp?.height = WindowManager.LayoutParams.WRAP_CONTENT
-        lp?.gravity = Gravity.CENTER
+        lp?.gravity = Gravity.BOTTOM
         win?.attributes = lp
         win?.decorView?.setBackgroundResource(R.drawable.corner_circle_white_bg)
 //        win?.setWindowAnimations(R.style.CommonDialogStyleAnimation)
@@ -79,13 +79,16 @@ class ReportDialog: Dialog{
                         map?.put(item.data.report_type, true)
                         reportTypePressed = it.data.report_type
                     }else{
-                        map?.put(item.data.report_type, false)
+                        map?.put(it.data.report_type, false)
                     }
                 }
                 map?.let { adapter.updateMapData(it) }
             }
 
         })
+
+        reportNickNameTxt.text = tNickName.plus(":")
+        reportContentTxt.text = reportBarrage
 
         reportResonBtn.setOnClickListener {
             sendReportData(reportTypePressed)

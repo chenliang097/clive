@@ -72,6 +72,18 @@ public class Router {
                 .withString("from_source", fromSource)
                 .withString("sceneId", sceneId)
                 .withString("anchor_id", anchorId)
+                .withInt("type", 2)
+                .navigation();
+    }
+
+    public static void toLiveRoomActivity(String liveData, String roomId, String streamId, String sceneId, String anchorId, @FromSource String fromSource) {
+        ARouter.getInstance().build(RouterConstant.PATH_ACTIVITY_LIVEROOM)
+                .withString("liveData", liveData)
+                .withString("room_id", roomId)
+                .withString("stream_id", streamId)
+                .withString("from_source", fromSource)
+                .withString("sceneId", sceneId)
+                .withString("anchor_id", anchorId)
                 .withInt("type", 1)
                 .navigation();
     }

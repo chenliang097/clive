@@ -81,7 +81,7 @@ data class LiveData(
     val page: Int? = 1,
     val total: Int? = 1,
     val type: String? = "",
-    val base_64_room_ids: String? = "",
+    val base_64_scene_ids: String? = "",
     val count: Int? = 0,
 )
 

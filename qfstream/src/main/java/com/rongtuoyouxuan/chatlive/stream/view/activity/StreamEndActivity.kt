@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.TimeUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamEndBean
 import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.util.ChatTimeUtil
 import com.rongtuoyouxuan.chatlive.util.GsonUtils
 import kotlinx.android.synthetic.main.qf_stream_activity_end.*
 
@@ -58,6 +60,11 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
         streamEndSeeFansNumTxt.text = "" + streamEndBean.data?.medium_fans_view_count
         streamEndZanNumTxt.text = "" + streamEndBean.data?.liking_count
         streamEndGiftNumTxt.text = "" + streamEndBean.data?.gift_income
+        streamEndTimeTxt.text =
+            streamEndBean.data?.living_start_time?.toLong()
+                ?.let { ChatTimeUtil.getHourAndMin(it).plus("~")
+                    .plus(streamEndBean.data?.living_off_time?.toLong())
+                    .plus(getString(R.string.stream_end_time_min, streamEndBean.data?.living_time_minutes)) }
         streamEndHotTxt.text = "" + "0"
     }
 

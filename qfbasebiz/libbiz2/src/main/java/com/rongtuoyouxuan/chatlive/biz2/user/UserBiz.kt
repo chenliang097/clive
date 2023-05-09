@@ -43,13 +43,13 @@ object UserBiz {
             it.create(UserServer::class.java).getPersonalCenterInfo(request)
         }
 
-    fun getFollowList(page:Int,size:Int, userId:String,  listener: RequestListener<FollowListBean>) =
+    fun getFollowList(page:Int,size:Int, userId:String, followId:String, listener: RequestListener<FollowListBean>) =
         newNetworkForUser(
             null,
             listener,
             "",
         ) {
-            it.create(UserServer::class.java).getFollowlist(page, size, userId)
+            it.create(UserServer::class.java).getFollowlist(page, size, userId, followId)
         }
 
 

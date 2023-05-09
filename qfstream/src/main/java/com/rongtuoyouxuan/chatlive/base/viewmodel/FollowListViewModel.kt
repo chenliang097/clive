@@ -25,7 +25,7 @@ open class FollowListViewModel(application: Application):BaseListFragmentViewMod
         this.toUserId = toUserId
     }
     override fun doLoadData(mPage: Int, event: LoadEvent?) {
-        UserBiz.getFollowList(mPage, 20, toUserId, object :RequestListener<FollowListBean>{
+        UserBiz.getFollowList(mPage, 20, DataBus.instance().USER_ID, toUserId, object :RequestListener<FollowListBean>{
             override fun onSuccess(reqId: String?, result: FollowListBean?) {
                 result?.event = event
                 _getData().value = result

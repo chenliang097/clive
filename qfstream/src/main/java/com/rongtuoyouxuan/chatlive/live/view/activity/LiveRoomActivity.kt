@@ -37,10 +37,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.gson.reflect.TypeToken
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomListBean
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.bean.ISource
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
+import com.rongtuoyouxuan.chatlive.util.GsonUtils
 import com.rongtuoyouxuan.libgift.viewmodel.GiftHelper
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.qf_stream_live_activity_live_room.*
@@ -74,10 +76,11 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
             val streamId = intent.getStringExtra(ZegoLiveplay.STREAM_ID)
             val sceneId = intent.getStringExtra("sceneId")
             val anchorId = intent.getStringExtra(ZegoLiveplay.ANCHORID)
+            var liveData = intent.getStringExtra("liveData")
             if (theuid != streamID) {
                 isResetOpen = true
                 finish()
-                Router.toLiveRoomActivity(roomId, streamId, sceneId, anchorId, ISource.FROM_LIVE_ROOM)
+                Router.toLiveRoomActivity(liveData, roomId, streamId, sceneId, anchorId, ISource.FROM_LIVE_ROOM)
             }else{
                 LaToastUtil.showShort("您已在当前直播间")
             }
@@ -98,34 +101,66 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
         fromSource = intent.getStringExtra(ZegoLiveplay.FROAM_SOURCE)
         recoverIs = intent.getBooleanExtra("recover_is", false)
         isToMainActivity = intent.getBooleanExtra(RouterParams.IS_TO_MAIN_ACTIVITY, false)
-        type = intent?.getIntExtra("type", 1) ?: 1
+        type = intent?.getIntExtra("type", 2) ?: 2
         roomID = intent.getStringExtra(ZegoLiveplay.ROOM_ID)
         streamID = intent.getStringExtra(ZegoLiveplay.STREAM_ID)
         anchorId = intent.getStringExtra(ZegoLiveplay.ANCHORID)
         roomID?.let { updateLiveRoomID(it) }
         streamID?.let { updateLiveStreamID(it) }
         anchorId?.let { updateAnchorId(it) }
-        vm = getViewModel(LiveRoomListViewModel::class.java)
-        vm?.liveVM?.observe(this) {
-            dismissDialogLoading()
-            if(it.errCode == 0) {
-                SPUtils.getInstance().put("recomond_base_scene_id", it.data?.base_64_room_ids)
-                val lives = it.data?.rooms_info
-                if (lives?.isNotEmpty() == true) {
-                    lives.forEach {
-//                        if (it.stream_id != streamID) {
-//
-//                        }
-                        list.add(it)
+
+        if (type == 1) {
+            val liveData = intent?.getStringExtra("liveData")
+            if (liveData?.isNotEmpty() == true) {
+                try {
+                    val type = object : TypeToken<ArrayList<LiveRoomListBean.RoomItemBean>>() {}.type
+                    list.addAll(GsonUtils.fromJson<ArrayList<LiveRoomListBean.RoomItemBean>>(liveData, type))
+                    if (list.size > 1) {
+                        val liveItem = list.first {
+                            "${it.stream_id}" == streamID
+                        }
+                        list.remove(liveItem)
+
+                        list.add(0, liveItem)
                     }
-                }else{
-                    LaToastUtil.showShort("暂无直播")
-                    finish()
+                } catch (ex: Exception) {
+                    var roomItemBean = LiveRoomListBean.RoomItemBean()
+                    roomItemBean.room_id = roomID?.toLong()!!
+                    roomItemBean.room_id_str = roomID as String
+                    roomItemBean.scene_id = sceneId?.toLong()!!
+                    roomItemBean.scene_id_str = sceneId as String
+                    list.add(roomItemBean)
                 }
+            } else {
+                var roomItemBean = LiveRoomListBean.RoomItemBean()
+                roomItemBean.room_id = roomID?.toLong()!!
+                roomItemBean.room_id_str = roomID as String
+                roomItemBean.scene_id = sceneId?.toLong()!!
+                roomItemBean.scene_id_str = sceneId as String
+                list.add(roomItemBean)
             }
             completeVP()
+        }else {
+            vm = getViewModel(LiveRoomListViewModel::class.java)
+            vm?.liveVM?.observe(this) {
+                dismissDialogLoading()
+                if (it.errCode == 0) {
+                    SPUtils.getInstance().put("recomond_base_scene_id", it.data?.base_64_scene_ids)
+                    val lives = it.data?.rooms_info
+                    if (lives?.isNotEmpty() == true) {
+                        lives.forEach {
+
+                            list.add(it)
+                        }
+                    } else {
+                        LaToastUtil.showShort("暂无直播")
+                        finish()
+                    }
+                }
+                completeVP()
+            }
+            sceneId?.let { vm?.getLiveRoomLists(DataBus.instance().USER_ID, "") }
         }
-        sceneId?.let { vm?.getLiveRoomLists(DataBus.instance().USER_ID, "") }
 
         GiftHelper.clickGiftRecharge.observe(this) {
             Router.toGoldToBuyDialog("1")

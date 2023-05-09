@@ -85,7 +85,7 @@ public class Live {
 //        if (!Storage.Companion.getInstance().getBoolean(SPConstants.BooleanConstants.LAST_LOGIN)) {
 //            BaseNetImpl.getInstance().clearCookie();
 //        }
-//        BaseNetImpl.setCertificate(context, "Digicert-OV-DV-root.cer");
+        BaseNetImpl.setCertificate(context, "Digicert-OV-DV-root.cer");
     }
 
     private static void initLogConfig(Context context) {

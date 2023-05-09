@@ -22,6 +22,7 @@ import com.rongtuoyouxuan.qfcommon.util.LaViewModelUtil
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.DrawerPopupView
 import com.lxj.xpopup.enums.PopupPosition
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.RecommenListRequestBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import kotlinx.android.synthetic.main.layout_recomend.view.*
@@ -59,7 +60,7 @@ class RecommendDialog(context: Context, var base64SceneIds: String?) : DrawerPop
         recommendViewModel.liveVM.observe(ActivityUtils.getTopActivity() as FragmentActivity) {
             LogUtils.e(" liveVM:)")
             val lives = it.data.rooms_info
-            SPUtils.getInstance().put("recomond_base_scene_id", it.data.base_64_room_ids)
+            SPUtils.getInstance().put("recomond_base_scene_id", it.data.base_64_scene_ids)
             if (lives == null) {
                 if (page == 1) adapter.setEmptyView(R.layout.empty_recommend)
                 return@observe
@@ -85,17 +86,33 @@ class RecommendDialog(context: Context, var base64SceneIds: String?) : DrawerPop
         }
 
         refresh.setOnLoadMoreListener {
-            if (page >= pageTotal) {
-                refresh.finishLoadMoreWithNoMoreData()
-                return@setOnLoadMoreListener
-            }
+//            if (page >= pageTotal) {
+//                refresh.finishLoadMoreWithNoMoreData()
+//                return@setOnLoadMoreListener
+//            }
             page++
             requestServer(2)
         }
 
         adapter.setOnItemClickListener { _, _, position ->
             val item = adapter.data[position]
-            Router.toLiveRoomActivity("${item.roomIdStr}", "${item.streamId}", "${item.sceneIdStr}", "${item.anchorId}", ISource.FROM_LIVE_ROOM)
+            val list = arrayListOf<LiveRoomListBean.RoomItemBean>()
+            adapter.data.forEach {
+                it?.let { result ->
+                    var roomItemBean = LiveRoomListBean.RoomItemBean()
+                    roomItemBean.stream_id = result.streamId.toString()
+                    roomItemBean.room_id = result.roomId!!
+                    roomItemBean.room_id_str = result.roomIdStr.toString()
+                    roomItemBean.scene_id = result.sceneId!!
+                    roomItemBean.scene_id_str = result.sceneIdStr.toString()
+                    roomItemBean.anchor_id = result.anchorId.toString()
+                    roomItemBean.anchor_name = result.anchorName.toString()
+                    roomItemBean.anchor_avatar = result.avatar.toString()
+                    list.add(roomItemBean)
+                }
+            }
+            val dataGson = GsonUtils.toJson(list)
+            Router.toLiveRoomActivity(dataGson, "${item.roomIdStr}", "${item.streamId}", "${item.sceneIdStr}", "${item.anchorId}", ISource.FROM_LIVE_ROOM)
         }
     }
 

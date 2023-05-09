@@ -101,7 +101,7 @@
     <string name="stream_user_card_delete_folowed">已关注</string>
     <string name="stream_user_card_person">主页</string>
     <string name="stream_user_card_manager">管理</string>
-    <string name="stream_user_card_report">举报</string>
+    <string name="stream_user_card_report">举报弹幕</string>
     <string name="stream_bottom_stream_notice">公告</string>
     <string name="stream_bottom_stream_paster">贴纸</string>
     <string name="stream_bottom_stream_music">音乐</string>
@@ -481,6 +481,7 @@
     <string name="stream_host_persion_raning">人气榜</string>
     <string name="stream_end_anchor_center">主播中心</string>
     <string name="stream_end_title">直播已结束</string>
+    <string name="stream_end_time_min">共%1$d分钟</string>
     <string name="stream_end_ins">你的直播很精彩，期待下次开播！</string>
     <string name="stream_end_hot">收获热度</string>
     <string name="stream_end_fans_increase">新增粉丝</string>

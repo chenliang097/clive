@@ -11,8 +11,10 @@ import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveHotMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel
+import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.layout.LockableScrollView
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libsocket.base.IMSocketBase
 import kotlinx.android.synthetic.main.item_layout_online.view.*
 import kotlinx.android.synthetic.main.qf_stream_live_layout_intercation_fix.view.*
@@ -86,7 +88,14 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
         }
     }
 
-    private fun initListener(context: Context) {}
+    private fun initListener(context: Context) {
+        liveRoomInfoPersonTxt.setOnClickListener {
+            Router.toPopularityRankActivity(mIMLiveViewModel?.roomId)
+        }
+        liveRoomInfoGoodsLayout.setOnClickListener {
+            LaToastUtil.showShort("带货榜")
+        }
+    }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()

@@ -21,7 +21,7 @@ class FansListBean:BaseListModel<FansListBean.ItemBean>() {
     }
 
     class ItemBean{
-        var id = ""
+        var id = 0
         var nick_name = ""
         var avatar = ""
         var status = false  // 关注状态

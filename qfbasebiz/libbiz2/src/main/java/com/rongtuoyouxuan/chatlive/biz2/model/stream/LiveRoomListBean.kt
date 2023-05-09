@@ -7,7 +7,7 @@ class LiveRoomListBean:BaseModel() {
     var data: DataBean? = DataBean()
 
     class DataBean {
-        var base_64_room_ids = ""
+        var base_64_scene_ids = ""
         var count = 0
         var rooms_info:MutableList<RoomItemBean> = ArrayList<RoomItemBean>()
     }

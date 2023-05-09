@@ -28,6 +28,7 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
     }
 
     override fun initData() {
+        mTitleBar.setLeftIco(R.drawable.icon_white_back)
         userId = intent.getStringExtra("userId")
         personalCenterViewModel = ViewModelProvider(this).get(PersonalCenterViewModel::class.java)
         personalCenterViewModel?.infoLiveData?.observe(this){
@@ -41,10 +42,13 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
         centerTabWalletLayout.setOnClickListener(this)
         centerFansLayout.setOnClickListener(this)
         centerFollowNumTxt.setOnClickListener(this)
+        centerEditTxt.setOnClickListener(this)
     }
 
     fun updateInfo(bean: PersonalCenterInfoBean?){
         GlideUtils.loadImage(this, bean?.data?.user_center?.avatar, centerAvatar, R.drawable.rt_default_avatar)
+
+        GlideUtils.loadImage(this, bean?.data?.user_center?.avatar, bg, R.drawable.rt_default_avatar)
         centerNickNameTxt.text = bean?.data?.user_center?.user_name
         centerIDTxt.text = "ID:$userId"
         centerInsTxt.text = bean?.data?.user_center?.describe
@@ -87,6 +91,9 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
             }
             R.id.centerFollowNumTxt->{
                 Router.toFansAndFollowListActivity(userId)
+            }
+            R.id.centerEditTxt->{
+                LaToastUtil.showShort("编辑资料")
             }
         }
     }

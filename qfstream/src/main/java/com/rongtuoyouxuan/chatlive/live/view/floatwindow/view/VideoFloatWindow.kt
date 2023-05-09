@@ -76,6 +76,6 @@ class VideoFloatWindow(context: Context,
     fun onClick() {
         exit()
         // TODO: 直播界面
-        Router.toLiveRoomActivity(streamId, anchorId, ISource.FROM_LIVE_ROOM, true)
+//        Router.toLiveRoomActivity(streamId, anchorId, ISource.FROM_LIVE_ROOM, true)
     }
 }

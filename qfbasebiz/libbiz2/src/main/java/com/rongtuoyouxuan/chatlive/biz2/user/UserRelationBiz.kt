@@ -6,6 +6,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowStatusBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.FansListRequest
+import com.rongtuoyouxuan.chatlive.biz2.model.user.FansListUserRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.user.FollowRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.user.ReportRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
@@ -58,11 +59,8 @@ class UserRelationBiz {
         object : NetWorks<FansListBean?>(lifecycleOwner, listener) {
             override fun createCall(retrofit: Retrofit): Call<FansListBean?>? {
                 return retrofit.create(UserRelationServer::class.java).getFansList(
-                    UrlConstanst.BASE_URL_FANS_API_BOBOO_COM + "?page=$page&size=$size", userId?.let {
-                        FansListRequest(
-                            it, followId, "", ""
-                        )
-                    }
+                    UrlConstanst.BASE_URL_FANS_API_BOBOO_COM + "?page=$page&size=$size",
+                    userId?.let { FansListUserRequest(it, followId) }
                 )
             }
 

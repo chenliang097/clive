@@ -37,7 +37,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import androidx.annotation.Nullable;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -141,9 +143,11 @@ public class BaseNetImpl {
         builder.connectTimeout(Constants.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
         builder.readTimeout(Constants.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
         builder.writeTimeout(Constants.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
-        if (null != sSocketFactory && null != sTrustManager) {
-            builder.sslSocketFactory(sSocketFactory, sTrustManager);
-        }
+//        if (null != sSocketFactory && null != sTrustManager) {
+//            builder.sslSocketFactory(sSocketFactory, sTrustManager);
+//        }
+        builder.sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getX509TrustManager());
+        builder.hostnameVerifier(SSLSocketClient.getHostnameVerifier());
         if (universalParams == null) {
             universalParams = new HashMap<>();
         }
@@ -300,4 +304,5 @@ public class BaseNetImpl {
             e.printStackTrace();
         }
     }
+
 }
