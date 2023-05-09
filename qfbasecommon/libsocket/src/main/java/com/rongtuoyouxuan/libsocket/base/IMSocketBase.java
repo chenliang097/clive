@@ -468,19 +468,19 @@ public class IMSocketBase implements ISocket {
                 room(roomId).hotChangeMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTHotChangeMsg.class));
                 break;
             case 3001:
-                room(roomId).bannerMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTBannedMsg.class));
+                room(userId).bannerMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTBannedMsg.class));
                 break;
             case 3002:
-                room(roomId).bannerRelieveMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTBannedRelieveMsg.class));
+                room(userId).bannerRelieveMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTBannedRelieveMsg.class));
                 break;
             case 3003:
-                room(roomId).roomManagerAddMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomManagerAddMsg.class));
+                room(userId).roomManagerAddMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomManagerAddMsg.class));
                 break;
             case 3006:
-                room(roomId).roomManagerRelieveMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomManagerRelieveMsg.class));
+                room(userId).roomManagerRelieveMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomManagerRelieveMsg.class));
                 break;
             case 3004:
-                room(roomId).roomBlackMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomBlackMsg.class));
+                room(userId).roomBlackMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTRoomBlackMsg.class));
                 break;
             case 4001:
                 room(roomId).giftMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTGiftMsg.class));
@@ -714,5 +714,10 @@ public class IMSocketBase implements ISocket {
         }
 
         iSocket.sendMessageBySocket(peer, msg, chatSendCallback);
+    }
+
+    private String userId = "";
+    public void setCurUserId(String userId){
+        this.userId = userId;
     }
 }

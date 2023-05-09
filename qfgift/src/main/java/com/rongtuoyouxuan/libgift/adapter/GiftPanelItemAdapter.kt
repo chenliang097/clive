@@ -24,7 +24,7 @@ class GiftPanelItemAdapter :
         holder.getView<View>(R.id.viewBg).isSelected = item.isSelected == true
         GlideUtils.loadImage(
             context,
-            item.thumbnail,
+            item.giftUrl1X,
             holder.getView(R.id.ivImage),
             R.drawable.icon_gift_default
         )

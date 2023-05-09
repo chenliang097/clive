@@ -536,6 +536,7 @@
     <string name="stream_follow">关注</string>
     <string name="stream_follow_cancel">取消关注</string>
     <string name="chat_message_operate_set_manager">设置房管</string>
+    <string name="chat_message_operate_cancel_manager">取消房管</string>
     <string name="stream_anchor_manager">直播管理</string>
     <string name="stream_anchor_manager_set_manager">设置管理员</string>
     <string name="stream_anchor_manager_black_mute">拉黑与禁言设置</string>

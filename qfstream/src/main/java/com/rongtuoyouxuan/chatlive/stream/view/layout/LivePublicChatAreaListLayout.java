@@ -47,6 +47,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerReliev
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.TxtMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean;
+import com.rongtuoyouxuan.chatlive.databus.DataBus;
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel;
 import com.rongtuoyouxuan.chatlive.log.upload.ULog;
 import com.rongtuoyouxuan.chatlive.stream.R;
@@ -186,15 +187,16 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
 
     private void registerObserver(String streamId) {
         roomId = streamId;
+        IMSocketBase.instance().setCurUserId(DataBus.instance().USER_ID);
         IMSocketBase.instance().room(streamId).chmsg.observe(textObserver);
         IMSocketBase.instance().room(streamId).announceMsg.observe(announceObserver);
         IMSocketBase.instance().room(streamId).enterRoomMsg.observe(enterObserver);
         IMSocketBase.instance().room(streamId).followMsg.observe(followObserver);
         IMSocketBase.instance().room(streamId).leaveRoomMsg.observe(leaveObserver);
-        IMSocketBase.instance().room(streamId).bannerMsg.observe(bannedObserver);
-        IMSocketBase.instance().room(streamId).bannerRelieveMsg.observe(bannedRelieveObserver);
-        IMSocketBase.instance().room(streamId).roomManagerAddMsg.observe(managerAObserver);
-        IMSocketBase.instance().room(streamId).roomManagerRelieveMsg.observe(managerRelieveObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).bannerMsg.observe(bannedObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).bannerRelieveMsg.observe(bannedRelieveObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).roomManagerAddMsg.observe(managerAObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).roomManagerRelieveMsg.observe(managerRelieveObserver);
     }
 
     private void unregisterObserver(String streamId) {
@@ -203,10 +205,10 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         IMSocketBase.instance().room(streamId).enterRoomMsg.removeObserver(enterObserver);
         IMSocketBase.instance().room(streamId).followMsg.removeObserver(followObserver);
         IMSocketBase.instance().room(streamId).leaveRoomMsg.removeObserver(leaveObserver);
-        IMSocketBase.instance().room(streamId).bannerMsg.removeObserver(bannedObserver);
-        IMSocketBase.instance().room(streamId).bannerRelieveMsg.removeObserver(bannedRelieveObserver);
-        IMSocketBase.instance().room(streamId).roomManagerAddMsg.removeObserver(managerAObserver);
-        IMSocketBase.instance().room(streamId).roomManagerRelieveMsg.removeObserver(managerRelieveObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).bannerMsg.removeObserver(bannedObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).bannerRelieveMsg.removeObserver(bannedRelieveObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).roomManagerAddMsg.removeObserver(managerAObserver);
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).roomManagerRelieveMsg.removeObserver(managerRelieveObserver);
 
     }
 

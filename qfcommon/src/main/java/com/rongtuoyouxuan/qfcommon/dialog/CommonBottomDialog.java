@@ -174,12 +174,14 @@ public class CommonBottomDialog {
     private void showBottomDialog(String conversationType, boolean isShowReport) {
         String muteText = "";
         String movedText = "";
+        String roomManagerText = "";
         muteText = isMute ? StringUtils.getString(R.string.chat_message_operate_unmute)
                 : StringUtils.getString(R.string.chat_message_operate_mute);
         movedText = StringUtils.getString(R.string.chat_message_operate_moveout_room);
+        roomManagerText = isRoomManager?StringUtils.getString(R.string.chat_message_operate_set_manager):StringUtils.getString(R.string.chat_message_operate_set_manager);
         BottomDialog.Builder builder = new BottomDialog.Builder(context);
         if(isAnchor || isSuperManager){
-            builder.setPositiveButton(StringUtils.getString(R.string.chat_message_operate_set_manager),
+            builder.setPositiveButton(roomManagerText,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -242,7 +244,7 @@ public class CommonBottomDialog {
         if (operateType == OPERATE_MUTE_USER) {
             title = context.getString(R.string.chat_message_operate_mute);
             content = context.getString(R.string.operate_room_mute_hint);
-        } else if (operateType == OPERATE_ADD_BLACKLIST) {
+        } else if (operateType == OPERATE_REMOVE_USER) {
             title = context.getString(R.string.dialog_note);
             content = context.getString(R.string.chat_message_operate_pullblack_hint);
         } else if (operateType == OPERATE_REMOVE_BLACKLIST) {

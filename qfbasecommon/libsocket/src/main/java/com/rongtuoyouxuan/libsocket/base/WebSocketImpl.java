@@ -231,7 +231,7 @@ public class WebSocketImpl {
     }
 
     public synchronized byte[] authWrite() throws IOException {
-        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2013,2020};
+        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2008,2010,2013,2020,3001,3002,3003,3004,3006,4001};
         String contentStr = GsonUtils.toJson(new MsgHeaderBean(Integer.parseInt(mBuilder.imUserInfo.userid), "live://" + mBuilder.imUserInfo.roomId, "android",codes));
         int packLength = contentStr.getBytes().length + 16;
         byte[] message = new byte[4 + 2 + 2 + 4 + 4];
@@ -245,7 +245,7 @@ public class WebSocketImpl {
     }
 
     public synchronized void heartBeatWrite(WebSocket webSocket) throws IOException {
-        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2013,2020};
+        int[] codes = {1000,1001,1002,2001,2002,2004,2005,2006,2007,2008,2010,2013,2020,3001,3002,3003,3004,3006,4001};
         String contentStr = GsonUtils.toJson(new MsgHeaderBean(Integer.parseInt(mBuilder.imUserInfo.userid), "live://" + mBuilder.imUserInfo.roomId, "android",codes));
         int packLength = contentStr.getBytes().length + 16;
         byte[] message = new byte[4 + 2 + 2 + 4 + 4];
