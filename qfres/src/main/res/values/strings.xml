@@ -481,7 +481,7 @@
     <string name="stream_host_persion_raning">人气榜</string>
     <string name="stream_end_anchor_center">主播中心</string>
     <string name="stream_end_title">直播已结束</string>
-    <string name="stream_end_time_min">共%1$d分钟</string>
+    <string name="stream_end_time_min"> 共%1$d分钟</string>
     <string name="stream_end_ins">你的直播很精彩，期待下次开播！</string>
     <string name="stream_end_hot">收获热度</string>
     <string name="stream_end_fans_increase">新增粉丝</string>

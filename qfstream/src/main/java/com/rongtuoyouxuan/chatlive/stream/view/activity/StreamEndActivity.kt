@@ -62,8 +62,9 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
         streamEndGiftNumTxt.text = "" + streamEndBean.data?.gift_income
         streamEndTimeTxt.text =
             streamEndBean.data?.living_start_time?.toLong()
-                ?.let { ChatTimeUtil.getHourAndMin(it).plus("~")
-                    .plus(streamEndBean.data?.living_off_time?.toLong())
+                ?.let { ChatTimeUtil.getHourAndMin(it*1000).plus("~")
+                    .plus(streamEndBean.data?.living_off_time?.toLong()
+                        ?.let { it1 -> ChatTimeUtil.getHourAndMin(it1*1000) })
                     .plus(getString(R.string.stream_end_time_min, streamEndBean.data?.living_time_minutes)) }
         streamEndHotTxt.text = "" + "0"
     }
