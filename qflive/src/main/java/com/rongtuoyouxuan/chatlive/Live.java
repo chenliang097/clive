@@ -21,6 +21,7 @@ import com.rongtuoyouxuan.chatlive.databus.DataBus;
 import com.rongtuoyouxuan.chatlive.databus.storage.Storage;
 import com.rongtuoyouxuan.chatlive.log.PLog;
 import com.rongtuoyouxuan.chatlive.log.upload.ULog;
+import com.rongtuoyouxuan.chatlive.net2.BaseNetImpl;
 import com.rongtuoyouxuan.chatlive.util.DirectoryUtils;
 import com.rongtuoyouxuan.chatlive.util.EnvUtils;
 import com.rongtuoyouxuan.chatlive.util.MyLifecycleHandler;
@@ -84,6 +85,7 @@ public class Live {
 //        if (!Storage.Companion.getInstance().getBoolean(SPConstants.BooleanConstants.LAST_LOGIN)) {
 //            BaseNetImpl.getInstance().clearCookie();
 //        }
+//        BaseNetImpl.setCertificate(context, "Digicert-OV-DV-root.cer");
     }
 
     private static void initLogConfig(Context context) {

@@ -26,6 +26,7 @@ open class PopularityRankViewModel(application: Application):BaseListFragmentVie
             override fun onSuccess(reqId: String?, result: PopolarityRankBean?) {
                 result?.event = event
                 _getData().value = result
+                rankLiveData.value = result
             }
 
             override fun onFailure(reqId: String?, errCode: String?, msg: String?) {

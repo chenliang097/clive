@@ -57,8 +57,8 @@ object TestHandler : AbstractHandler() {
 
     private fun copyAiModeInfoList(context: Context): ArrayList<String>? {
         val path = context.externalCacheDir!!.path
-        val faceDetection = "Models/FaceDetectionModel.model"
-        val segmentation = "Models/SegmentationModel.model"
+        val faceDetection = "effect/FaceDetectionModel.model"
+        val segmentation = "effect/SegmentationModel.model"
         ZegoUtil.copyFileFromAssets(context, faceDetection, path + File.separator + faceDetection)
         ZegoUtil.copyFileFromAssets(context, segmentation, path + File.separator + segmentation)
         val aiModeInfoList = ArrayList<String>()

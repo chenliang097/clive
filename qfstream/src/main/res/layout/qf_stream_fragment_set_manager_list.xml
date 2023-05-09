@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -23,7 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/setManagerInsTxt">
 
         <com.rongtuoyouxuan.libuikit.layout.refreshheader.WaterDropHeader
             android:layout_width="match_parent"
@@ -39,5 +41,77 @@
             android:layout_marginEnd="15dp"/>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/setManagerBottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/c_5_black"/>
+        <LinearLayout
+            android:id="@+id/itemRankLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp">
+            <ImageView
+                android:id="@+id/itemRankImg"
+                android:layout_width="20dp"
+                android:layout_height="28dp"
+                android:src="@drawable/rt_icon_rank_one"/>
+
+            <TextView
+                android:id="@+id/itemRankTxt"
+                android:layout_width="20dp"
+                android:layout_height="28dp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:text="1"
+                android:textColor="@color/color_999999"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/itemAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/itemRankLayout"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            android:src="@drawable/icon_default_avatar"/>
+
+        <TextView
+            android:id="@+id/itemNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/itemAvatar"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/itemNumTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/c_666666"
+            android:textSize="14sp"
+            android:text="11111"/>
+    </RelativeLayout>
+</RelativeLayout>
 

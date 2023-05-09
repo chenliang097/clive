@@ -99,8 +99,8 @@ public class SDKManager {
 
     private ArrayList<String> copyAiModeInfoList(Context context) {
         String path = context.getExternalCacheDir().getPath();
-        String faceDetection = "Models/FaceDetectionModel.model";
-        String segmentation = "Models/SegmentationModel.model";
+        String faceDetection = "effect/FaceDetectionModel.model";
+        String segmentation = "effect/SegmentationModel.model";
         ZegoUtil.copyFileFromAssets(context, faceDetection, path + File.separator + faceDetection);
         ZegoUtil.copyFileFromAssets(context, segmentation, path + File.separator + segmentation);
         ArrayList<String> aiModeInfoList = new ArrayList<String>();

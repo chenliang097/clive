@@ -69,6 +69,7 @@ public class ZegoUtil {
         try {
             String[] files = context.getAssets().list("Models");
             String[] files1 = context.getAssets().list("Resources");
+            String[] files2 = context.getAssets().list("effect");
             if (files.length == 0) {
                 Log.d("Zego", "文件夹为空");
             }

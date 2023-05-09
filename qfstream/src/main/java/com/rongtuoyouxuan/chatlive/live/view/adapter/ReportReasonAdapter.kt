@@ -1,6 +1,7 @@
 package com.rongtuoyouxuan.chatlive.live.view.adapter
 
 import android.net.Uri
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.StringUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveChatRoomUserEntity
@@ -18,7 +19,7 @@ class ReportReasonAdapter : BaseQuickAdapter<ReportBean, BaseViewHolder> {
     constructor():super(R.layout.qf_stream_adapter_report_reason)
 
     override fun convert(holder: BaseViewHolder, item: ReportBean) {
-        var layout = holder.getView<TextView>(R.id.reportReasonLayout)
+        var layout = holder.getView<RelativeLayout>(R.id.reportReasonLayout)
         var content = holder.getView<TextView>(R.id.reportReasonTxt)
         content.text = item.data.report_content
         if(map?.get(item.data.report_type) == true){

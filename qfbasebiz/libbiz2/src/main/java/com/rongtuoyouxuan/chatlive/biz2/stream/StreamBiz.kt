@@ -1,5 +1,6 @@
 package com.rongtuoyouxuan.chatlive.biz2.stream
 
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
 import com.rongtuoyouxuan.chatlive.biz2.ReqId
 import com.rongtuoyouxuan.chatlive.biz2.constanst.UrlConstanst
@@ -8,6 +9,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.request.MuteRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel
+import com.rongtuoyouxuan.chatlive.biz2.model.main.LiveResponse
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.PushStreamHeartBeatRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamStartInfoRequest
@@ -607,6 +609,17 @@ object StreamBiz {
         newNetworks(null, listener, "") {
             it.create(StreamServer::class.java)
                 .getStreamEnd(streamEndRequest)
+        }
+    }
+
+    fun getRecommendList(
+        lifecycleCoroutineScope: LifecycleCoroutineScope,
+        request: RecommenListRequestBean,
+        listener: RequestListener<LiveResponse>
+    ) {
+        newNetworks(null, listener, "") {
+            it.create(StreamServer::class.java)
+                .getRecommendList(request)
         }
     }
 

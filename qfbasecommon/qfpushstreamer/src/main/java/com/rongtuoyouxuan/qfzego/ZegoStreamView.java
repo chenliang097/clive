@@ -266,7 +266,7 @@ public class ZegoStreamView extends BaseStreamView {
 
     private void initBeauty(){
         String encryptInfo = SDKManager.getAuthInfo(mContext);
-        ZegoUtil.copyFileFromAssets(mContext);
+//        ZegoUtil.copyFileFromAssets(mContext);
         SDKManager.sharedInstance().initResource(mContext);
         LicenseAPI.getLicense(encryptInfo, new IGetLicenseCallback() {
             @Override

@@ -22,8 +22,32 @@ class MainMultiEntity(override val itemType: Int) : MultiItemEntity {
 
 data class LiveItemEntity(
     val id: String,
+    @SerializedName("fire")
+    val fire: Long? = 0,
     @SerializedName("anchor_id")
     val anchorId: Long? = 0,
+    @SerializedName("anchor_name")
+    val anchorName: String? = "",
+    @SerializedName("anchor_avatar")
+    val avatar: String? = "",
+    @SerializedName("medium_cover_image")
+    val medium_cover_image: String? = "",
+    @SerializedName("room_id")
+    val roomId: Long? = 0L,
+    @SerializedName("room_id_str")
+    val roomIdStr: String? = "",
+    @SerializedName("scene_id")
+    val sceneId: Long? = 0,
+    @SerializedName("scene_id_str")
+    val sceneIdStr: String? = "",
+    @SerializedName("room_number")
+    val roomNumber: String? = "",
+    @SerializedName("stream_id")
+    val streamId: String? = "",
+    @SerializedName("room_user_total")
+    val roomUserTotal: Int? = 0,
+    @SerializedName("room_title")
+    val roomTitle: String? = "",
     val title: String? = "",
     val pic: String? = "",
     @SerializedName("live_tag")
@@ -52,11 +76,13 @@ data class LiveMainEntity(
 )
 
 data class LiveData(
-    val lives: ArrayList<LiveMainEntity>?,
+    val rooms_info: ArrayList<LiveItemEntity>?,
     val ads: ArrayList<LiveAdsEntity>?,
     val page: Int? = 1,
     val total: Int? = 1,
     val type: String? = "",
+    val base_64_room_ids: String? = "",
+    val count: Int? = 0,
 )
 
 data class LiveResponse(val data: LiveData) : BaseModel() {

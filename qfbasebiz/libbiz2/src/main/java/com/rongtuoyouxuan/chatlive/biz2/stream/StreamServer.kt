@@ -5,6 +5,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.request.MuteRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.LiveRoomExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel
+import com.rongtuoyouxuan.chatlive.biz2.model.main.LiveResponse
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.PushStreamHeartBeatRequest
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
@@ -165,6 +166,9 @@ interface StreamServer {
 
     @POST("/medium/v1/push/closeRoomInfo")
     fun getStreamEnd(@Body request:StreamEndRequest): Call<StreamEndBean>
+
+    @POST("/medium/v1/pull/getRoomListByUser")
+    fun getRecommendList(@Body request:RecommenListRequestBean): Call<LiveResponse>
 
 
 }

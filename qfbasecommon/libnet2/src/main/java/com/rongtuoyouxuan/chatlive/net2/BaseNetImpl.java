@@ -21,6 +21,12 @@ import com.rongtuoyouxuan.chatlive.util.EnvUtils;
 import com.rongtuoyouxuan.chatlive.util.NetworkUtil;
 import com.chuckerteam.chucker.api.ChuckerInterceptor;
 import java.io.File;
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.SecureRandom;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -30,6 +36,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import androidx.annotation.Nullable;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+
 import okhttp3.Cache;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -57,6 +70,10 @@ public class BaseNetImpl {
     private AtomicInteger mSequenceGenerator = new AtomicInteger();
     private PersistentCookieJar persistentCookieJar;
     private HookNetworkError hookNetworkError;
+
+    // 证书
+    public static SSLSocketFactory sSocketFactory = null;
+    public static X509TrustManager sTrustManager = null;
 
     public BaseNetImpl() {
         mHandler = new Handler(Looper.getMainLooper());
@@ -124,6 +141,9 @@ public class BaseNetImpl {
         builder.connectTimeout(Constants.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
         builder.readTimeout(Constants.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
         builder.writeTimeout(Constants.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
+        if (null != sSocketFactory && null != sTrustManager) {
+            builder.sslSocketFactory(sSocketFactory, sTrustManager);
+        }
         if (universalParams == null) {
             universalParams = new HashMap<>();
         }
@@ -239,5 +259,45 @@ public class BaseNetImpl {
     public Locale getLocale(Resources res) {
         Configuration config = res.getConfiguration();
         return Build.VERSION.SDK_INT >= N ? config.getLocales().get(0) : config.locale;
+    }
+
+    public static void setCertificate(Context context, String certificateName) {
+        if (null == context) {
+            return;
+        }
+        try {
+            InputStream is = context.getAssets().open(certificateName);
+            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+            Certificate certificate = certificateFactory.generateCertificate(is);
+            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry(certificateName, certificate);
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+
+            TrustManagerFactory trustManagerFactory =
+                    TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init(keyStore);
+
+
+            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+            if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+                throw new IllegalStateException("Unexpected default trust managers:"
+                        + Arrays.toString(trustManagers));
+            }
+            X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
+            sslContext.init
+                    (
+                            null,
+                            new TrustManager[]{trustManager},
+                            new SecureRandom()
+                    );
+            SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            sSocketFactory = sslSocketFactory;
+            sTrustManager = trustManager;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -24,9 +24,4 @@ class RTGiftMsg: BaseRoomMessage() {
 
     override val itemType: Int
         get() = TYPE_GIFT
-
-    class GiftExtra {
-        var type = 0
-        var num = 0
-    }
 }

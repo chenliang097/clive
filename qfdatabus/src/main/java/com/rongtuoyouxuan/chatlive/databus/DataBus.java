@@ -34,7 +34,7 @@ public class DataBus {
     public String USER_ID = "13652";
     public String USER_NAME = "你猜我猜不猜";
 
-    public final String AVATAR = "你猜我猜不猜";
+    public final String AVATAR = "http://rtyx-bosstest.oss-cn-shanghai.aliyuncs.com/img/head_pic/%E5%B0%8F%E8%9E%8D%E5%A4%B4%E5%83%8F.png";
     private static volatile DataBus sDataBus;
     private static Context context;
     private final String TAG = DataBus.class.getSimpleName();

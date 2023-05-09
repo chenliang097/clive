@@ -61,7 +61,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
 
     private fun initView() {
         sh_intercation?.setOnClickListener {
-            roomId?.let { it1 -> RecommendDialog.showDialog(context, it1) }
+            RecommendDialog.showDialog(context)
         }
         liveRoomInfoAnchorLayout = findViewById(R.id.liveRoomInfoAnchorLayout)
     }

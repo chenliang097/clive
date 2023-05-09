@@ -6,21 +6,22 @@ import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.rongtuoyouxuan.chatlive.biz2.model.main.LiveItemEntity
 
 /*
 *Create by {Mr秦} on 2023/1/29
 */
 class RecommendAdapter :
-    BaseQuickAdapter<LiveMainEntity, BaseViewHolder>(R.layout.item_layout_recommend) {
+    BaseQuickAdapter<LiveItemEntity, BaseViewHolder>(R.layout.item_layout_recommend) {
 
-    override fun convert(holder: BaseViewHolder, item: LiveMainEntity) {
-        val liveItemEntity = item.live
+    override fun convert(holder: BaseViewHolder, item: LiveItemEntity) {
         GlideUtils.loadRoundCircleImage(context,
-            liveItemEntity?.pic,
+            item?.pic,
             holder.getView(R.id.bg),
             AdaptScreenUtils.pt2Px(12f),
             R.drawable.icon_default_live_common)
-
-        holder.setText(R.id.tvTitle, liveItemEntity?.title)
+        GlideUtils.loadImage(context, item.avatar, holder.getView(R.id.recommondAvatar))
+        holder.setText(R.id.recommondHotTxt, "" + item?.roomUserTotal)
+        holder.setText(R.id.recommondNameTxt, item?.anchorName)
     }
 }

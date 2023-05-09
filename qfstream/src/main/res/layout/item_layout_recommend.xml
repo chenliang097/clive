@@ -2,18 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="280pt"
+    android:layout_width="130dp"
+    android:layout_height="164dp"
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="14pt">
 
     <LinearLayout
         android:id="@+id/sh"
-        android:layout_width="283pt"
-        android:layout_height="283pt"
+        android:layout_width="130dp"
+        android:layout_height="164dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14pt"
-        android:padding="2pt">
+        android:layout_marginTop="7dp"
+        android:padding="2dp">
 
 
         <RelativeLayout
@@ -25,27 +25,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="60pt"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/shape_000000_black_10_other" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_recommond_hot">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/rt_icon_live_site"/>
+                <TextView
+                    android:id="@+id/recommondHotTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="4dp"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    tools:text="一二" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="12pt"
-                android:paddingEnd="12pt"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="12pt"
-                android:ellipsize="end"
-                android:fontFamily="@font/boboo_regular"
-                android:maxLines="1"
-                android:textColor="@color/white"
-                android:textSize="24pt"
-                tools:text="一二三四五六七八九..." />
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/recommondAvatar"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    app:riv_oval="true"
+                    app:riv_border_color="@color/white"
+                    app:riv_border_width="1dp"/>
+                <TextView
+                    android:id="@+id/recommondNameTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/boboo_regular"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    tools:text="一二三四五六七八九..." />
+            </LinearLayout>
+            
         </RelativeLayout>
     </LinearLayout>
 

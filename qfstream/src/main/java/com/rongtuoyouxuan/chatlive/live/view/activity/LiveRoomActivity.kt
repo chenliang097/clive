@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SPUtils
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.activity.BaseLiveStreamActivity
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
@@ -38,6 +39,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomListBean
 import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.router.bean.ISource
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
 import com.rongtuoyouxuan.libgift.viewmodel.GiftHelper
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -68,10 +70,16 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
         super.onNewIntent(intent)
         if (intent != null) {
             val theuid = intent.getStringExtra(ZegoLiveplay.STREAM_ID)
+            val roomId = intent.getStringExtra(ZegoLiveplay.ROOM_ID)
+            val streamId = intent.getStringExtra(ZegoLiveplay.STREAM_ID)
+            val sceneId = intent.getStringExtra("sceneId")
+            val anchorId = intent.getStringExtra(ZegoLiveplay.ANCHORID)
             if (theuid != streamID) {
                 isResetOpen = true
                 finish()
-                startActivity(intent)
+                Router.toLiveRoomActivity(roomId, streamId, sceneId, anchorId, ISource.FROM_LIVE_ROOM)
+            }else{
+                LaToastUtil.showShort("您已在当前直播间")
             }
         }
     }
@@ -101,6 +109,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
         vm?.liveVM?.observe(this) {
             dismissDialogLoading()
             if(it.errCode == 0) {
+                SPUtils.getInstance().put("recomond_base_scene_id", it.data?.base_64_room_ids)
                 val lives = it.data?.rooms_info
                 if (lives?.isNotEmpty() == true) {
                     lives.forEach {
@@ -116,7 +125,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
             }
             completeVP()
         }
-        sceneId?.let { vm?.getLiveRoomLists(DataBus.instance().USER_ID, it) }
+        sceneId?.let { vm?.getLiveRoomLists(DataBus.instance().USER_ID, "") }
 
         GiftHelper.clickGiftRecharge.observe(this) {
             Router.toGoldToBuyDialog("1")

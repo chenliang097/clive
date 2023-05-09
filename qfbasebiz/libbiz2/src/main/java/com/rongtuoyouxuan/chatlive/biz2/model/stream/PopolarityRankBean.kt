@@ -17,12 +17,13 @@ class PopolarityRankBean:BaseListModel<PopolarityRankBean.ItemBean>() {
         var count = 0 // 总共条数
         var page = 0  // 当前页数
         var size = 0
-        var show = 0 // true 展示 false不展示
+        var show = false // true 展示 false不展示
         var rank_list:MutableList<ItemBean> = ArrayList()
+        var self_rank:ItemBean = ItemBean()
     }
 
     class ItemBean{
-        var user_id = ""
+        var user_id = 0L
         var nick_name = ""
         var avatar = ""
         var degree = 0

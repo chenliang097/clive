@@ -199,7 +199,7 @@ class LiveRoomFragment : SimpleFragment() {
         }
         dl_drawerlayout.setRightToLeftCallBack {
             if (!isHide) {
-                roomId?.let { RecommendDialog.showDialog(mContext, it) }
+                RecommendDialog.showDialog(mContext)
             }
         }
         initListener1()
