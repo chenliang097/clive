@@ -16,7 +16,7 @@ class RecommendAdapter :
 
     override fun convert(holder: BaseViewHolder, item: LiveItemEntity) {
         GlideUtils.loadRoundCircleImage(context,
-            item?.pic,
+            item?.avatar,
             holder.getView(R.id.bg),
             AdaptScreenUtils.pt2Px(12f),
             R.drawable.icon_default_live_common)

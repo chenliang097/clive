@@ -402,35 +402,35 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     }
 
     override fun getPushStreamInfo(logs: String?) {
-        if (logs != null) {
-            ULog.d("clll", logs)
-            val logsAppend = java.lang.StringBuilder()
-            logsAppend.append("userId:" + DataBus.instance().uid + "\n")
-            logsAppend.append(logs)
-            StreamBiz.uploadPushStreamInfo(logsAppend.toString(),object :RequestListener<BaseModel>{
-                override fun onSuccess(reqId: String?, result: BaseModel?) {
-                }
-
-                override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-                }
-
-            })
-        }
+//        if (logs != null) {
+//            ULog.d("clll", logs)
+//            val logsAppend = java.lang.StringBuilder()
+//            logsAppend.append("userId:" + DataBus.instance().uid + "\n")
+//            logsAppend.append(logs)
+//            StreamBiz.uploadPushStreamInfo(logsAppend.toString(),object :RequestListener<BaseModel>{
+//                override fun onSuccess(reqId: String?, result: BaseModel?) {
+//                }
+//
+//                override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
+//                }
+//
+//            })
+//        }
     }
 
     override fun pushStreamHeartbeat(id: String, msg:String) {
-        StreamBiz.pushStreamHeartbeat(id, msg, object :RequestListener<StreamHeartBeatBean>{
-            override fun onSuccess(reqId: String?, result: StreamHeartBeatBean?) {
-                pushStreamHeartBeatLiveData.value = result!!
-//                ULog.d("clll", "pushStreamHeartbeat----")
-
-            }
-
-            override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-//                ULog.d("clll", "pushStreamHeartbeat1----")
-            }
-
-        })
+//        StreamBiz.pushStreamHeartbeat(id, msg, object :RequestListener<StreamHeartBeatBean>{
+//            override fun onSuccess(reqId: String?, result: StreamHeartBeatBean?) {
+//                pushStreamHeartBeatLiveData.value = result!!
+////                ULog.d("clll", "pushStreamHeartbeat----")
+//
+//            }
+//
+//            override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
+////                ULog.d("clll", "pushStreamHeartbeat1----")
+//            }
+//
+//        })
     }
 
     override fun pushStreamStatus(id: String?) {

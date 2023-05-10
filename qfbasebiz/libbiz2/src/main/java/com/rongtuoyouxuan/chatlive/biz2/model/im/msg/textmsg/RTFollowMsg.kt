@@ -17,7 +17,7 @@ class RTFollowMsg: BaseRoomMessage() {
 
 
     override val itemType: Int
-        get() = TYPE_GIFT
+        get() = TYPE_FOLLOW
 
     class GiftExtra {
         var type = 0

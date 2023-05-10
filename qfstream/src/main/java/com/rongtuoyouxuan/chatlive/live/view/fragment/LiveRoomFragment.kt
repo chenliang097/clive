@@ -497,16 +497,17 @@ class LiveRoomFragment : SimpleFragment() {
         gIftUILogic?.init(this)
 
         val onlineLayout = mRootView.findViewById<LinearLayout>(R.id.llOnlineLayout)
-        onlineLogic = (mContext as LiveRoomActivity)?.let {
-            LiveRoomOnlineLogic(
-                it,
-                streamId,
-                anchorId,
-                null,
-                onlineLayout
-            )
-        }
-        onlineLogic?.init(this)
+//        onlineLogic = (mContext as LiveRoomActivity)?.let {
+//            LiveRoomOnlineLogic(
+//                it,
+//                streamId,
+//                streamId,
+//                anchorId,
+//                null,
+//                onlineLayout
+//            )
+//        }
+//        onlineLogic?.init(this)
     }
 
     override fun onDestroyView() {

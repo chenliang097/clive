@@ -178,7 +178,7 @@ public class CommonBottomDialog {
         muteText = isMute ? StringUtils.getString(R.string.chat_message_operate_unmute)
                 : StringUtils.getString(R.string.chat_message_operate_mute);
         movedText = StringUtils.getString(R.string.chat_message_operate_moveout_room);
-        roomManagerText = isRoomManager?StringUtils.getString(R.string.chat_message_operate_set_manager):StringUtils.getString(R.string.chat_message_operate_set_manager);
+        roomManagerText = isRoomManager?StringUtils.getString(R.string.chat_message_operate_set_manager):StringUtils.getString(R.string.chat_message_operate_cancel_manager);
         BottomDialog.Builder builder = new BottomDialog.Builder(context);
         if(isAnchor || isSuperManager){
             builder.setPositiveButton(roomManagerText,
@@ -186,6 +186,7 @@ public class CommonBottomDialog {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             viewModel.setRoomAdmin(fUserId, roomId, tUserId, fNickName, tNickName);
+                            dialogInterface.dismiss();
 
                         }
                     }, R.color.rt_c_3478F6, R.drawable.bg_page_more_top);
@@ -195,6 +196,7 @@ public class CommonBottomDialog {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             showConfirmDialog(OPERATE_REMOVE_USER);
+                            dialogInterface.dismiss();
                         }
                     }, R.color.rt_c_3478F6, R.drawable.bg_page_more_top);
         }
@@ -205,6 +207,7 @@ public class CommonBottomDialog {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             showConfirmDialog(OPERATE_REMOVE_USER);
+                            dialogInterface.dismiss();
                         }
                     }, R.color.rt_c_3478F6);
         }
@@ -214,6 +217,7 @@ public class CommonBottomDialog {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         viewModel.mute(fUserId, tUserId, roomId, sceneId, isMute);
+                        dialogInterface.dismiss();
                     }
                 }, R.color.rt_c_3478F6);
 
@@ -222,6 +226,7 @@ public class CommonBottomDialog {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         showReportDialog(conversationType);
+                        dialogInterface.dismiss();
                     }
                 }, R.color.rt_c_3478F6);
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

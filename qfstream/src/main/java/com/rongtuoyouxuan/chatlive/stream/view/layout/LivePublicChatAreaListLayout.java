@@ -53,6 +53,7 @@ import com.rongtuoyouxuan.chatlive.log.upload.ULog;
 import com.rongtuoyouxuan.chatlive.stream.R;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 import com.rongtuoyouxuan.chatlive.stream.view.adapter.LivePublicChatAreaListAdapter;
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil;
 import com.rongtuoyouxuan.libsocket.base.IMSocketBase;
 import com.rongtuoyouxuan.qfcommon.dialog.ShareDialog;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.MessageContent;
@@ -136,14 +137,16 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
     private Observer<RTRoomManagerAddMsg> managerAObserver = new Observer<RTRoomManagerAddMsg>() {
         @Override
         public void onChanged(@Nullable RTRoomManagerAddMsg roomManagerAddMsg) {
-            addMessageToList(roomManagerAddMsg);
+            LaToastUtil.showShort(mContext.getString(R.string.stream_msg_room_manager));
+//            addMessageToList(roomManagerAddMsg);
         }
     };
 
     private Observer<RTRoomManagerRelieveMsg> managerRelieveObserver = new Observer<RTRoomManagerRelieveMsg>() {
         @Override
         public void onChanged(@Nullable RTRoomManagerRelieveMsg rtRoomManagerRelieveMsg) {
-            addMessageToList(rtRoomManagerRelieveMsg);
+            LaToastUtil.showShort(mContext.getString(R.string.stream_msg_room_manager_relieve));
+//            addMessageToList(rtRoomManagerRelieveMsg);
         }
     };
 

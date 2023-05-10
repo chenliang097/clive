@@ -9,7 +9,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.CollectionUtils;
+import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean;
+import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest;
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz;
+import com.rongtuoyouxuan.chatlive.biz2.stream.UserCardBiz;
 import com.rongtuoyouxuan.chatlive.biz2.user.UserBiz;
 import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UploadFileResponse;
 import com.rongtuoyouxuan.chatlive.databus.DataBus;
@@ -36,6 +39,7 @@ public class CommonViewModel extends AndroidViewModel {
     public MutableLiveData<BaseModel> addFollowLiveData = new MutableLiveData<>();
 
     public MutableLiveData<BaseModel> cancelFollowLiveData = new MutableLiveData<>();
+    public MutableLiveData<UserCardInfoBean> userInfoLiveData = new MutableLiveData<>();
 
 
     private volatile Map<Integer, UploadFileResponse.DataBean> uploadSuccessMap = new HashMap<>();
@@ -166,6 +170,20 @@ public class CommonViewModel extends AndroidViewModel {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+
+            }
+        });
+    }
+
+    public void getUserInfo(UserCardInfoRequest request){
+        UserCardBiz.INSTANCE.getLiveUserCardInfo(request, null, new RequestListener<UserCardInfoBean>() {
+            @Override
+            public void onSuccess(String reqId, UserCardInfoBean result) {
+                userInfoLiveData.setValue(result);
+            }
+
+            @Override
+            public void onFailure(String reqId, String errCode, String msg) {
 
             }
         });

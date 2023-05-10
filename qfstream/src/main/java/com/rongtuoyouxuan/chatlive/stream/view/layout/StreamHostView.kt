@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.layout.BaseHostView
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
@@ -44,6 +45,6 @@ class StreamHostView : BaseHostView {
     }
 
     fun setCurrentDiamond(likeNum: Int) {
-        tvCurrentDiamond?.text = context.getString(R.string.stream_host_click_zan_num, likeNum)
+        tvCurrentDiamond?.text = context.getString(R.string.stream_host_click_zan_num, RoomDegreeUtils.getDegree(likeNum))
     }
 }

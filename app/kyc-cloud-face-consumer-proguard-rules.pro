@@ -64,10 +64,6 @@
 -keep public class com.tencent.cloud.huiyansdkface.normal.net.*{
     *;
 }
-#bugly
--keep class com.tencent.bugly.idasc.**{
-    *;
-}
 #wehttp混淆规则
 -dontwarn com.tencent.cloud.huiyansdkface.okio.**
 -keep class com.tencent.cloud.huiyansdkface.okio.**{

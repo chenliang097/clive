@@ -90,7 +90,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
 
     private fun initListener(context: Context) {
         liveRoomInfoPersonTxt.setOnClickListener {
-            Router.toPopularityRankActivity(mIMLiveViewModel?.roomId)
+            Router.toPopularityRankActivity(mIMLiveViewModel?.anchorId)
         }
         liveRoomInfoGoodsLayout.setOnClickListener {
             LaToastUtil.showShort("带货榜")

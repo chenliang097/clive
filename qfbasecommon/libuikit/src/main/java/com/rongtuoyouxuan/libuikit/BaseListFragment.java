@@ -141,11 +141,11 @@ public abstract class BaseListFragment<ViewModel extends BaseListFragmentViewMod
                 } else {
                     showError(EVENT_LOAD_INIT_OR_RETRY);
                 }
-//                if (data.getListData().size() > 0) {
-//                    adapter.getLoadMoreModule().loadMoreComplete();
-//                } else {
+                if (data.getListData().size() > 0) {
+                    adapter.getLoadMoreModule().loadMoreComplete();
+                } else {
                     adapter.getLoadMoreModule().loadMoreEnd(true);
-//                }
+                }
                 break;
             case EVENT_PULL_TO_REFRESH:
                 if (data.getListData() != null && !data.getListData().isEmpty()) {
@@ -153,11 +153,11 @@ public abstract class BaseListFragment<ViewModel extends BaseListFragmentViewMod
                 } else {
                     showEmpty();
                 }
-//                if (data.getListData().size() > 0) {
-//                    adapter.getLoadMoreModule().loadMoreComplete();
-//                } else {
+                if (data.getListData().size() > 0) {
+                    adapter.getLoadMoreModule().loadMoreComplete();
+                } else {
                     adapter.getLoadMoreModule().loadMoreEnd(true);
-//                }
+                }
                 break;
             case EVENT_LOAD_MORE:
                 if (data.errCode == 0) {

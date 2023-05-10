@@ -8,9 +8,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -221,6 +223,31 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
                     return true;
                 }
                 return false;
+            }
+        });
+
+        roomMessageInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String msg = roomMessageInput.getText().toString();
+                    if (StringUtils.isEmpty(msg)) {
+                        Toast.makeText(getContext(), R.string.message_room_chat_empty, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                    if(roomInfoBean != null) {
+                        imViewModel.sendLiveTxtMsg(String.valueOf(roomInfoBean.getRoom_id()), String.valueOf(roomInfoBean.getScene_id()),
+                                roomInfoBean.getAnchor_id(), msg, roomInfoBean.is_super_admin(),
+                                roomInfoBean.is_room_admin(), roomInfoBean.is_anchor(),
+                                roomInfoBean.getUser_avatar(), DataBus.instance().USER_ID,
+                                DataBus.instance().USER_NAME);
+                    }
+                    clearMessage();
+                    return true;
+                }
+                return false;
+
+
             }
         });
 //        findViewById(R.id.room_message_list).setOnTouchListener(new OnTouchListener() {

@@ -50,7 +50,6 @@ dependencies {
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["glide"]
-    implementation rootProject.ext.dependencies["play-services-maps"]
 //    implementation project(':qfbasecommon:baseadapterhelper')
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
     implementation rootProject.ext.dependencies["appcompat"]

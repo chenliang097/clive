@@ -20,6 +20,7 @@ class UserCardInfoBean : BaseModel() {
         var is_super_admin = false
         var follow_id = ""
         var is_forbid_speak = false
+        var is_anchor = false
     }
 
     data class ProfileUserData(val follow_id: String, val nick_name: String, var is_super_admin: Boolean, var is_room_admin: Boolean, var is_forbid_speak: Boolean)

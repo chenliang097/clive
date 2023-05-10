@@ -101,29 +101,14 @@ class StreamPreviewLayout @JvmOverloads constructor(
     private fun initView() {
         inflate(context, R.layout.qf_stream_layout_preview, this)
         titleEdit = findViewById(R.id.streamPreviewEditTitle)
-        handler.sendEmptyMessageDelayed(0, 500)
-        getLocalHostInfo()
-    }
-
-    private fun getLocalHostInfo(){
-        var localTitle = SPUtils.getInstance().getString(DataBus.instance().uid + StreamPreviewLayout.STREAM_TITLE)
-        if(!TextUtils.isEmpty(localTitle)){
-            titleEdit?.setText(localTitle)
-        }
-        var localPic = SPUtils.getInstance().getString(DataBus.instance().uid + StreamPreviewLayout.STREAM_COVER)
-        if(!TextUtils.isEmpty(localPic)){
-            setPhoto(localPic)
-        }
-
     }
 
     private fun initListener(context: LifecycleOwner) {
         streamPreviewBeautyTxt?.setOnClickListener(this)
         streamPreviewBtnStart?.setOnClickListener(this)
-        streamPreviewImgCoverLayout?.setOnClickListener(this)
         streamPreviewTurnCameraTxt?.setOnClickListener(this)
         streamPreviewCloseImg?.setOnClickListener(this)
-        streamPreviewChangeCoverTxt?.setOnClickListener(this)
+        streamPreviewImgCoverLayout?.setOnClickListener(this)
         streamPreviewLocationTxt?.setOnClickListener(this)
         streamPreviewKeijianTxt?.setOnClickListener(this)
         streamPreviewShareTxt?.setOnClickListener(this)
@@ -146,7 +131,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 }
             }
         }
-        mStreamViewModel.setCover.observe(context) { streamPreviewChangeCoverTxt!!.performClick() }
+        mStreamViewModel.setCover.observe(context) { streamPreviewImgCoverLayout!!.performClick() }
 
         controllerViewModel.uploadLiveData.observe(context) { t ->
             TransferLoadingUtil.dismissDialogLoading(getContext())
@@ -193,7 +178,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 Log.d("clll", "11111---")
                 isCanStartStream()
             }
-            R.id.streamPreviewChangeCoverTxt -> {
+            R.id.streamPreviewImgCoverLayout -> {
                 showBottomDialog()
             }
             R.id.streamPreviewCloseImg -> {
@@ -282,12 +267,14 @@ class StreamPreviewLayout @JvmOverloads constructor(
         val builder = BottomDialog.Builder(context)
         builder.setTitle(R.string.rt_stream_location_dialog_ins)
         builder.setPositiveButton(StringUtils.getString(R.string.rt_stream_show_loacation),
-            { p0, p1 ->
-
+            { dialog, p1 ->
+                handler.sendEmptyMessageDelayed(0, 500)
+                dialog.dismiss()
             }, R.color.rt_c_3478F6)
         builder.setPositiveButtonTwo(StringUtils.getString(R.string.rt_stream_hide_loacation),
-            { p0, p1 ->
-
+            { dialog, p1 ->
+                streamPreviewLocationTxt?.text = StringUtils.getString(R.string.stream_unknown_location)
+                dialog.dismiss()
             }, R.color.rt_c_3478F6)
         builder.setNegativeButton(R.string.cancel) { dialog, which -> dialog.dismiss() }
         builder.create().show()
@@ -455,7 +442,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
             }else{
                 longitude = 0.00
                 latitude = 0.00
-                streamPreviewLocationTxt?.text = resources.getString(R.string.stream_unknown_location)
+                streamPreviewLocationTxt?.text = StringUtils.getString(R.string.stream_unknown_location)
             }
         }catch (e:Exception){
             e.printStackTrace()
@@ -491,6 +478,16 @@ class StreamPreviewLayout @JvmOverloads constructor(
         if (!TextUtils.isEmpty(userName)) {
             DataBus.instance().USER_NAME = userName!!
         }
+        getLocalHostInfo()
+    }
+
+    private fun getLocalHostInfo(){
+        var title = DataBus.instance().USER_NAME + StringUtils.getString(R.string.stream_prepare_edit_title_default)
+        if(title.length > 12){
+            title = DataBus.instance().USER_NAME.substring(0, 12).plus("...")
+        }
+        titleEdit?.setText(title)
+
     }
 
     private fun showShareDialog(){

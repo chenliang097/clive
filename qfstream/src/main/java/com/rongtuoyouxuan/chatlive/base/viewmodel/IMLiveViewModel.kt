@@ -175,7 +175,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         var rtTxtMsgRequest = RTTxtMsgRequest(roomId, sceneId, anchorId, content, isSuperAdmin, isRoomAdmin, isAnchor, userAvatar, userId, userName)
         ChatIMBiz.sendTextMsg(rtTxtMsgRequest, object :RequestListener<BaseModel>{
             override fun onSuccess(reqId: String?, result: BaseModel?) {
-                LaToastUtil.showShort("发送成功")
+//                LaToastUtil.showShort("发送成功")
             }
 
             override fun onFailure(reqId: String?, errCode: String?, msg: String?) {

@@ -50,7 +50,7 @@ class FixInteractionLayout @JvmOverloads constructor(
             LaToastUtil.showShort("带货榜")
         }
         hostPersonLayout?.setOnClickListener {
-            Router.toPopularityRankActivity(imViewModel?.roomId)
+            Router.toPopularityRankActivity(imViewModel?.anchorId)
         }
 
     }

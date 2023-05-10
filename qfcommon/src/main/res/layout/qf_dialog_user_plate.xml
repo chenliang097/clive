@@ -75,7 +75,7 @@
                 android:layout_marginStart="1dp"
                 android:textColor="@color/c_20_black"
                 android:textSize="10sp"
-                android:text="@string/stream_unknown_location1"/>
+                android:text="@string/stream_user_card_female"/>
 
             <TextView
                 android:id="@+id/userCardLocationTxt"
@@ -103,7 +103,6 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@string/stream_user_card_fans"
                 android:textColor="@color/c_333333"
                 android:textSize="14sp" />
 
@@ -115,37 +114,40 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@string/stream_user_card_follow"
                 android:textColor="@color/c_333333"
                 android:textSize="15sp" />
         </LinearLayout>
+        <View
+            android:id="@+id/viewBottom"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userCardLayout2"/>
 
         <LinearLayout
             android:id="@+id/userCardLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userCardLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/viewBottom"
+            android:visibility="gone">
             <LinearLayout
                 android:id="@+id/userCardFollowBtn"
                 android:layout_width="102dp"
                 android:layout_height="32dp"
                 android:gravity="center"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_btn_follow">
+                android:layout_marginEnd="10dp">
                 <ImageView
                     android:id="@+id/userCardFollowIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="3dp"
-                    android:src="@drawable/qf_stream_icon_follow_add"/>
+                    android:layout_marginEnd="3dp"/>
                 <TextView
+                    android:id="@+id/userCardFollowAddBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/stream_follow"
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -172,12 +174,13 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/viewBottom"
+            android:id="@+id/viewBottom1"
             android:layout_width="0dp"
             android:layout_height="32.5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userCardLayout3"/>
+            app:layout_constraintTop_toBottomOf="@+id/userCardLayout3"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

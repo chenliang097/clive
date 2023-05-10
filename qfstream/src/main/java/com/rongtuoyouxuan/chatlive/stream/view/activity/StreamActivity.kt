@@ -199,7 +199,7 @@ class StreamActivity : BaseLiveStreamActivity() {
     }
 
     private fun initData() {
-        streamPreview?.setUserInfo(intent.getStringExtra("userId"), intent.getStringExtra("userName"))
+        streamPreview?.setUserInfo(DataBus.instance().USER_ID, DataBus.instance().USER_NAME)
         initObsever()
     }
 
@@ -324,8 +324,8 @@ class StreamActivity : BaseLiveStreamActivity() {
 
         val onlineLayout = findViewById<LinearLayout>(R.id.llOnlineLayout)
         var interactionLayout: LinearLayout? = null
-        onlineLogic = LiveRoomOnlineLogic(this, streamID, anchorId, interactionLayout, onlineLayout)
-        onlineLogic?.init()
+//        onlineLogic = LiveRoomOnlineLogic(this, streamID, anchorId, interactionLayout, onlineLayout)
+//        onlineLogic?.init()
 
         completeImCallBack()
 

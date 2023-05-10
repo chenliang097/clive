@@ -16,17 +16,21 @@ import com.rongtuoyouxuan.libuikit.viewmodel.BaseListFragmentViewModel
 open class PopularityRankViewModel(application: Application):BaseListFragmentViewModel<PopolarityRankBean>(application) {
 
     private var roomId:String = ""
+    private var userId:String = ""
     var rankLiveData: MutableLiveData<PopolarityRankBean> = MutableLiveData<PopolarityRankBean>()
 
     fun setRoomId(roomId:String){
         this.roomId = roomId
+        this.userId
     }
     override fun doLoadData(mPage: Int, event: LoadEvent?) {
         StreamBiz.getPopularityRank(roomId, mPage, 20, object :RequestListener<PopolarityRankBean>{
             override fun onSuccess(reqId: String?, result: PopolarityRankBean?) {
                 result?.event = event
                 _getData().value = result
-                rankLiveData.value = result
+                if(result?.data?.show == true) {
+                    rankLiveData.value = result
+                }
             }
 
             override fun onFailure(reqId: String?, errCode: String?, msg: String?) {

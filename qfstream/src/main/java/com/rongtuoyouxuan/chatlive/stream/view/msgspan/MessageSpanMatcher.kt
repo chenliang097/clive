@@ -96,6 +96,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                 val followMsg: RTFollowMsg = message as RTFollowMsg
                 var contentColor =
                     mContext.resources.getColor(R.color.c_stream_msg_nick_name)
+                followMsg.userName = followMsg.fromNickName
                 addNickName(textView, followMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false)
                 if (isSelf(message)) {
                     addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_follow_anchor), contentColor)
@@ -207,29 +208,6 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                     R.color.white)
             }
         }
-    }
-
-    private fun createGiftMessage(
-        textView: TextView,
-        message: BaseRoomMessage,
-        spanString: SpannableStringBuilder,
-        fontHeight: Int,
-    ) {
-        //添加礼物文案
-        var giftMsg: GiftMsg = message as GiftMsg
-        var gitftext = String.format(
-            mContext.getString(
-                R.string.chat_send_gift_tip_4,
-                giftMsg.giftName))
-
-        addCommonIcons(textView, message, spanString, fontHeight)
-        addNickName(textView, message, spanString, false)
-        addKnownContent(textView, gitftext, spanString, R.color.c_stream_msg_common)
-        addGiftImg(fontHeight, textView, spanString, giftMsg)
-        addKnownContent(textView,
-            "×" + giftMsg.num.toString(),
-            spanString,
-            R.color.c_stream_msg_common)
     }
 
 }

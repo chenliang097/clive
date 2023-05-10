@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.GsonUtils
 import com.rongtuoyouxuan.app.Open3rdpayActivity
@@ -28,7 +29,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         pushStreamBtn.setOnClickListener {
-            Router.toStreamActivity(etUserId.text.toString().trim(), etUserName.text.toString().trim())
+            if(!TextUtils.isEmpty(etUserId.text.toString().trim()) && !TextUtils.isEmpty(etUserName.text.toString().trim())){
+                Router.toStreamActivity(etUserId.text.toString().trim(), etUserName.text.toString().trim())
+            }else{
+                Router.toStreamActivity()
+            }
+
 //            IMSocketBase.instance().init(this)
 //            WebSocketManager._getInstance().initIM("", true, "", "")
 //            IMSocketBase.instance().login(object : EventCallback {
@@ -80,6 +86,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getMainLiveEnter(){
+        if(!TextUtils.isEmpty(etUserId.text.toString().trim()) && !TextUtils.isEmpty(etUserName.text.toString().trim())){
+            DataBus.instance().USER_ID = etUserId.text.toString().trim()
+            DataBus.instance().USER_NAME = etUserName.text.toString().trim()
+        }
         StreamBiz.mainLiveEnter(DataBus.instance().USER_ID, object :RequestListener<MainLiveEnterBean>{
             override fun onSuccess(reqId: String?, result: MainLiveEnterBean?) {
                 Router.toLiveRoomActivity(result?.data?.room_id_str, result?.data?.stream_id, result?.data?.scene_id_str, result?.data?.anchor_id, ISource.FROM_MAIN_TAB)

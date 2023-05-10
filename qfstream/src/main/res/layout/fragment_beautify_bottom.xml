@@ -136,6 +136,7 @@
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
                         android:text="一键美颜"
+                        android:visibility="invisible"
                         android:textColor="@drawable/btn_title_text_selector" />
 
                 </RadioGroup>

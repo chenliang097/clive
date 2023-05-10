@@ -77,6 +77,7 @@
     <string name="request_fail">失败</string>
     <string name="stream_prepare_empty_location">未知</string>
     <string name="stream_prepare_edit_title">给直播写个标题吧~</string>
+    <string name="stream_prepare_edit_title_default">在直播</string>
     <string name="stream_tool_mute_open">声音开启</string>
     <string name="stream_tool_mute_close">声音关闭</string>
     <string name="stream_start_beauty">美颜</string>
@@ -470,13 +471,13 @@
 
     <string name="stream_preview_title">视频</string>
     <string name="stream_preview_change_cover">更换封面</string>
-    <string name="stream_unknown_location">未知 ></string>
+    <string name="stream_unknown_location">开启位置 ></string>
     <string name="stream_preview_kejian">所有人可见 ></string>
     <string name="stream_preview_return">旋转</string>
     <string name="stream_preview_beauty">美颜</string>
     <string name="stream_preview_share">分享</string>
     <string name="stream_prepare_live_start">开始视频直播</string>
-    <string name="stream_host_click_zan_num">%1$d+本场点赞</string>
+    <string name="stream_host_click_zan_num">%1$s+本场点赞</string>
     <string name="stream_host_goods_raning">带货榜</string>
     <string name="stream_host_persion_raning">人气榜</string>
     <string name="stream_end_anchor_center">主播中心</string>
@@ -527,7 +528,7 @@
     <string name="anchor_center_w">近七日</string>
     <string name="anchor_center_m">近30日</string>
     <string name="rt_stream_visible_range_tip">请先选择</string>
-    <string name="stream_unknown_location1">未知</string>
+    <string name="stream_unknown_location1">来自火星</string>
     <string name="stream_user_card_fans">%1$d粉丝</string>
     <string name="stream_user_card_follow">%1$d关注</string>
     <string name="stream_user_card_enter_window">进入橱窗</string>

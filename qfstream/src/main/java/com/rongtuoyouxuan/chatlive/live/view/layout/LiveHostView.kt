@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.makeramen.roundedimageview.RoundedImageView
+import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomNumber
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
@@ -19,6 +20,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 
 class LiveHostView @JvmOverloads constructor(
     context: Context,
@@ -55,6 +57,7 @@ class LiveHostView @JvmOverloads constructor(
         mControllerViewModel!!.mHostInfo.observe((context as LifecycleOwner)) { it ->
             name?.text = it.nickname
             val coverImg = it.avatar
+            GlideUtils.loadImage(context, coverImg, roundedImageView, R.drawable.rt_default_avatar)
             setCurrentDiamond(it.likeNum)
         }
         mIMViewModel!!.followStateLiveData.observe((context as LifecycleOwner), Observer { aBoolean ->
@@ -111,7 +114,7 @@ class LiveHostView @JvmOverloads constructor(
     }
 
     fun setCurrentDiamond(diamond: Int) {
-        tvCurrentDiamond?.text = context.getString(R.string.stream_host_click_zan_num, diamond)
+        tvCurrentDiamond?.text = context.getString(R.string.stream_host_click_zan_num, RoomDegreeUtils.getDegree(diamond))
     }
 
     fun setSceneId(sceneId: String) {

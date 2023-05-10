@@ -265,7 +265,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
                                 .commitAllowingStateLoss()
                         }
                         fragmentId = 0
-                        exitLiveFragment(list[liveCurrentItem].stream_id.toString())
+//                        exitLiveFragment(list[liveCurrentItem].stream_id.toString())
                     }
 
                     jobLiveRoom = lifecycleScope.launch(Dispatchers.Main) {

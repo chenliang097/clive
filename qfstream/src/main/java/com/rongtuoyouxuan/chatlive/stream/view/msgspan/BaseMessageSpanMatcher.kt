@@ -18,7 +18,7 @@ import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
 import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.MessageContent
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GiftMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTGiftMsg
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.stream.R
@@ -101,9 +101,9 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
      * 添加礼物缩略图
      */
     @SuppressLint("CheckResult")
-    open fun addGiftImg(imgHeight: Int, textView:TextView, spanString: SpannableStringBuilder, giftMsg:GiftMsg) {
+    open fun addGiftImg(imgHeight: Int, textView:TextView, spanString: SpannableStringBuilder, giftMsg:RTGiftMsg) {
         val span = SpannableString("$")
-        val urlDrawableLoader = UrlDrawableLoader(mContext, textView, imgHeight, giftMsg.giftImgUrl)
+        val urlDrawableLoader = UrlDrawableLoader(mContext, textView, imgHeight, giftMsg.url_1x)
         val ispan = CustomImageSpan(urlDrawableLoader.drawable)
         span.setSpan(ispan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spanString.append(span)
