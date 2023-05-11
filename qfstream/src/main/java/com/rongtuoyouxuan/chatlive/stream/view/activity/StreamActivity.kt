@@ -208,7 +208,7 @@ class StreamActivity : BaseLiveStreamActivity() {
             streamControllerView!!.visibility = if (aBoolean!!) View.VISIBLE else View.GONE
         }
         mStreamViewModel?.startStreamEvent?.observeOnce(this) {
-            mIMViewModel?.joinGroup(false)
+//            mIMViewModel?.joinGroup(false)
 
             streamAdslayout.visibility = View.VISIBLE
         }
@@ -356,7 +356,7 @@ class StreamActivity : BaseLiveStreamActivity() {
                                 it.toString(),
                                 it1,
                                 sceneId,
-                                anchorId!!
+                                anchorId!!,false, false
                             )
                         }
                     )

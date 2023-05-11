@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rt_c_161722">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/stream_popularity_rank_title"
-                android:textColor="@color/white"
+                android:textColor="@color/c_333333"
                 android:textSize="16sp"/>
         </RelativeLayout>
 

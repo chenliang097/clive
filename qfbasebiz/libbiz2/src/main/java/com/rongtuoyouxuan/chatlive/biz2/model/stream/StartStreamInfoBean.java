@@ -18,5 +18,7 @@ public class StartStreamInfoBean extends BaseModel {
         public String room_id_str = "";
         public long scene_id = 0;
         public String scene_id_str = "";
+        public boolean is_access = false;
+        public String cdn_url = "";
     }
 }

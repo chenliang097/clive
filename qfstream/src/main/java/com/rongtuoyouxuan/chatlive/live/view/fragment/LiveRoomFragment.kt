@@ -10,7 +10,10 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -31,7 +34,6 @@ import com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGift
 import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveAudienceNotificationMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveEndMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLiveEndMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
@@ -247,6 +249,7 @@ class LiveRoomFragment : SimpleFragment() {
             dismissDialogLoading()
             if (roomInfoModel?.errCode == 0) {
                 roomInfoBean = roomInfoModel
+                imViewModel!!.roomManagerLiveData.value = roomInfoModel.data?.is_room_admin
                 viewModel?.setStatus("living")
                 roomInfoModel.data?.scene_id_str?.let {
                     roomInfoModel.data?.room_id_str?.let { it1 ->
@@ -326,7 +329,9 @@ class LiveRoomFragment : SimpleFragment() {
                                     it.toString(),
                                     it1,
                                     it2,
-                                    anchorId!!
+                                    anchorId!!,
+                                    roomInfoBean?.data?.is_super_admin!!,
+                                    imViewModel?.roomManagerLiveData?.value!!
                                 )
                             }
                         }

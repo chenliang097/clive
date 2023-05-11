@@ -28,4 +28,13 @@ object PayBiz {
             it.create(PayServer::class.java).getMyWallet(userId)
         }
 
+    fun getBalance(userId: String, listener: RequestListener<WalletBean>) =
+        newNetworkForGift(
+            null,
+            listener,
+            "",
+        ) {
+            it.create(PayServer::class.java).getBalance(userId)
+        }
+
 }

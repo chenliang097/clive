@@ -49,6 +49,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     var clickFollow = LiveEvent<Void>()
     var roomInfoLiveData = MutableLiveData<EnterRoomBean?>() //房间信息
     var roomInfoExtraLiveData = MutableLiveData<RoomInfoExtraBean?>() //房间额外信息
+    var roomManagerLiveData = MutableLiveData<Boolean>() //房管
 
 
     @JvmField
@@ -276,7 +277,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
 
     fun onDestroy() {
         retryJoinGroupCount = 0
-        handler.removeCallbacksAndMessages(null)
+//        handler.removeCallbacksAndMessages(null)
         IMSocketBase.instance().signOut()
     }
 

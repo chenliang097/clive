@@ -23,6 +23,8 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.request.MuteRequest;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.SaveReportRequest;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.SetRoomManagerRequest;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.response.OperateResultModel;
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorRoomSettingRequest;
+import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz;
 import com.rongtuoyouxuan.chatlive.net2.BaseModel;
 import com.rongtuoyouxuan.chatlive.net2.RequestListener;
 import com.rongtuoyouxuan.qfcommon.R;
@@ -194,19 +196,34 @@ public class BottomDialogViewModel extends AndroidViewModel {
      *
      * @param content 举报内容
      */
-    public void setRoomAdmin(String userId, String roomId,String roomAdminId, String uNickName,String rNickName) {
+    public void setRoomAdmin(String userId, String roomId,String roomAdminId, String uNickName,String rNickName, boolean isRoomManager) {
         SetRoomManagerRequest request = new SetRoomManagerRequest(userId, roomId, roomAdminId, uNickName, rNickName);
-        ChatIMBiz.INSTANCE.setRoomManager(request, new RequestListener<BaseModel>() {
-            @Override
-            public void onSuccess(String reqId, BaseModel result) {
-                LaToastUtil.showShort(result.errMsg);
-            }
+        if(isRoomManager){
+            AnchorRoomSettingRequest request1 = new AnchorRoomSettingRequest(roomId, roomAdminId);
+            StreamBiz.INSTANCE.deleteRoomManagerList(request1, new RequestListener<BaseModel>() {
+                @Override
+                public void onSuccess(String reqId, BaseModel result) {
+                    LaToastUtil.showShort(result.errMsg);
+                }
 
-            @Override
-            public void onFailure(String reqId, String errCode, String msg) {
-                LaToastUtil.showShort(msg);
-            }
-        });
+                @Override
+                public void onFailure(String reqId, String errCode, String msg) {
+                    LaToastUtil.showShort(msg);
+                }
+            });
+        }else {
+            ChatIMBiz.INSTANCE.setRoomManager(request, new RequestListener<BaseModel>() {
+                @Override
+                public void onSuccess(String reqId, BaseModel result) {
+                    LaToastUtil.showShort(result.errMsg);
+                }
+
+                @Override
+                public void onFailure(String reqId, String errCode, String msg) {
+                    LaToastUtil.showShort(msg);
+                }
+            });
+        }
     }
 
     public void saveReport(String conversationType, String content) {

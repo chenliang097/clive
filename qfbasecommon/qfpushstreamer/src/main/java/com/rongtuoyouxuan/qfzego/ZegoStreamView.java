@@ -371,7 +371,7 @@ public class ZegoStreamView extends BaseStreamView {
                 logs.append("Start Publishing Stream:" + publishStreamID + "\n");
                 loginRoom();
                 mZegoEngine.startPublishingStream(publishStreamID);
-//                pushCdn();
+                pushCdn();
                 ULog.d(TAG, "Start Publishing Stream:" + publishStreamID);
             } catch (Exception e) {
                 ToastUtils.showShort(R.string.push_stream_error);

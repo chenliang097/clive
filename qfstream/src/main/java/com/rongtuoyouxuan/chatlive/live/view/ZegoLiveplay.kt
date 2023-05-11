@@ -134,11 +134,12 @@ open class ZegoLiveplay {
         profile.appSign = KeyCenter.getInstance().appSign
         profile.scenario = ZegoScenario.BROADCAST
         profile.application = application
-        val config = ZegoCDNConfig()
-        config.url = baseUrl
-        config.authParam = authParams
+//        val config = ZegoCDNConfig()
+//        config.url = baseUrl
+//        config.authParam = authParams
         mZegoPlayerConfig = ZegoPlayerConfig()
-        mZegoPlayerConfig!!.cdnConfig = config
+        mZegoPlayerConfig?.resourceMode = ZegoStreamResourceMode.ONLY_CDN
+//        mZegoPlayerConfig!!.cdnConfig = config
         zegoCanvas = ZegoCanvas(basePlayerView)
         zegoCanvas?.viewMode = ZegoViewMode.ASPECT_FILL
         mZegoExpressEngine = ZegoExpressEngine.createEngine(profile, mIZegoEventHandler)

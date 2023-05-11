@@ -36,7 +36,9 @@ class UserCardDialog(
     private val tUserId: String,
     private val roomId: String,
     private val sceneId: String,
-    private val anchorId: String
+    private val anchorId: String,
+    private val isSuperManager: Boolean,
+    private val isRoomManger: Boolean,
 ) :
     BottomPopupView(activity) {
 
@@ -47,37 +49,38 @@ class UserCardDialog(
 
     override fun onCreate() {
         super.onCreate()
-
-        handler1.sendEmptyMessageDelayed(0, 200)
+        initObserver()
+//        handler1.sendEmptyMessageDelayed(0, 500)
     }
 
     var handler1 = object :Handler(Looper.getMainLooper()){
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            initObserver()
+
         }
     }
 
     fun initObserver(){
-        mCommonViewModel = ViewModelProvider(context as ViewModelStoreOwner).get(CommonViewModel::class.java)
+        mCommonViewModel = ViewModelProvider(activity).get(CommonViewModel::class.java)
         var request = UserCardInfoRequest(tUserId, roomId, sceneId, DataBus.instance().USER_ID)
-        mCommonViewModel?.getUserInfo(request)
-        mCommonViewModel?.userInfoLiveData?.observe(context as LifecycleOwner){
+        mCommonViewModel?.userInfoLiveData?.observe(activity){
             completeData(it.data)
         }
-        mCommonViewModel?.addFollowLiveData?.observe(context as LifecycleOwner){
+        mCommonViewModel?.addFollowLiveData?.observe(activity){
             if(it.errCode == 0){
                 updateFollowUI(true)
             }
             LaToastUtil.showShort(it?.errMsg)
 
         }
-        mCommonViewModel?.cancelFollowLiveData?.observe(context as LifecycleOwner){
+        mCommonViewModel?.cancelFollowLiveData?.observe(activity){
             if(it.errCode == 0){
                 updateFollowUI(false)
             }
             LaToastUtil.showShort(it?.errMsg)
         }
+
+        mCommonViewModel?.getUserInfo(request)
     }
 
     fun updateFollowUI(followStatus:Boolean){
@@ -136,15 +139,17 @@ class UserCardDialog(
 
         }
 
-        if(result.is_super_admin){
-            userCardRightTxt.visibility = View.GONE
-        }else if(result.is_anchor){
-            userCardRightTxt.visibility = View.GONE
+        if(isSuperManager){
+            userCardRightTxt.visibility = View.VISIBLE
+            userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
+        }else if(DataBus.instance().USER_ID == anchorId){
+            userCardRightTxt.visibility = View.VISIBLE
+            userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
+        }else if(isRoomManger){
+            userCardRightTxt.visibility = View.VISIBLE
+            userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
         }else{
-            if(DataBus.instance().USER_ID == anchorId) {
-                userCardRightTxt.visibility = View.VISIBLE
-                userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
-            }
+            userCardRightTxt.visibility = View.GONE
         }
 
         userCardWindowBtn.setOnClickListener {

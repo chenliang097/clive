@@ -145,7 +145,7 @@
         android:maxWidth="100dp"
         android:maxLines="1"
         android:text="0"
-        android:textAlignment="viewStart"
+        android:gravity="center_vertical"
         android:textColor="@color/white"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"

@@ -138,6 +138,7 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         @Override
         public void onChanged(@Nullable RTRoomManagerAddMsg roomManagerAddMsg) {
             LaToastUtil.showShort(mContext.getString(R.string.stream_msg_room_manager));
+            imViewModel.getRoomManagerLiveData().setValue(true);
 //            addMessageToList(roomManagerAddMsg);
         }
     };
@@ -147,6 +148,7 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
         public void onChanged(@Nullable RTRoomManagerRelieveMsg rtRoomManagerRelieveMsg) {
             LaToastUtil.showShort(mContext.getString(R.string.stream_msg_room_manager_relieve));
 //            addMessageToList(rtRoomManagerRelieveMsg);
+            imViewModel.getRoomManagerLiveData().setValue(false);
         }
     };
 

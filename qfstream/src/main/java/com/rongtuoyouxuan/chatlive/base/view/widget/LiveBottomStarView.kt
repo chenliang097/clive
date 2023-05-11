@@ -25,15 +25,7 @@ class LiveBottomStarView : RelativeLayout {
         R.drawable.icon_star_anim_5,
         R.drawable.icon_star_anim_6,
         R.drawable.icon_star_anim_7,
-        R.drawable.icon_star_anim_8,
-        R.drawable.icon_star_anim_9,
-        R.drawable.icon_star_anim_10,
-        R.drawable.icon_star_anim_11,
-        R.drawable.icon_star_anim_12,
-        R.drawable.icon_star_anim_13,
-        R.drawable.icon_star_anim_14,
-        R.drawable.icon_star_anim_15,
-        R.drawable.icon_star_anim_16,
+        R.drawable.icon_star_anim_8
     )
 
     private var currentWidth = 0

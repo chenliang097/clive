@@ -95,7 +95,11 @@ class GiftDialogActivity : SimpleActivity() {
             mGiftDialogItemFragment =GiftDialogItemFragment.newInstance()
             showFragment()
         }
+        giftVm?.balanceLiveData?.observe(this){
+            tvCoin.text = "" + it
+        }
         giftVm?.getPanel()
+        giftVm?.getBalance()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -238,6 +242,7 @@ class GiftDialogActivity : SimpleActivity() {
 //                            GiftHelper.isChatPlayGift = true
 //                            GiftHelper.sendGiftVM.post(giftEntity)
 //                        }
+
                         finish()
                     }
                 }

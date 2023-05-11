@@ -101,7 +101,7 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         if (mStreamApi == null) {
             return
         }
-//        mStreamApi!!.setPushUrl(rtmpAddress)
+        mStreamApi!!.setPushUrl(publishUrl)
         mStreamApi?.setStreamId(streamId)
         mStreamApi?.setRoomInfo(roomId, token, anchorId);
 //        publishUrl = rtmpAddress
@@ -232,7 +232,7 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
             override fun onSuccess(reqId: String?, result: BaseModel?) {
                 startStreamModel.value = startStreamBean
                 startStreamEvent.postCall()
-//                publishUrl = result?.data?.push_url
+                publishUrl = startStreamBean?.data?.cdn_url
                 streamId = startStreamBean?.data?.stream_id
                 streamToken = startStreamBean?.data?.token
 //                    streamToken = KeyCenter.getInstance()._token

@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/dp_6"
             android:text="@string/new_message"
-            android:textColor="@color/c_common_appcolor" />
+            android:textColor="@color/rt_c_FF2434" />
 
         <ImageView
             android:layout_width="wrap_content"

@@ -22,7 +22,7 @@ class LiveEndActivity : SimpleActivity() {
         var roomId = intent.getStringExtra("roomId")
         var avatar = intent.getStringExtra("avatar")
         var nickName = intent.getStringExtra("nickName")
-        ImgLoader.with(this).load(avatar).into(liveEndAvatar)
+        GlideUtils.loadImage(this, avatar, liveEndAvatar, R.drawable.rt_default_avatar)
         liveEndNameTxt.text = nickName
         GlideUtils.loadImage(this, avatar, coverBg, R.drawable.rt_default_avatar)
 

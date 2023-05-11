@@ -18,4 +18,7 @@ interface PayServer {
     @GET("/wallet/v1/wallet/my")
     fun getMyWallet(@Query("user_id") userId:String): Call<WalletBean>
 
+    @GET("/wallet/v1/wallet/balance")
+    fun getBalance(@Query("user_id") userId:String): Call<WalletBean>
+
 }

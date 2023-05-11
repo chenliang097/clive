@@ -178,14 +178,14 @@ public class CommonBottomDialog {
         muteText = isMute ? StringUtils.getString(R.string.chat_message_operate_unmute)
                 : StringUtils.getString(R.string.chat_message_operate_mute);
         movedText = StringUtils.getString(R.string.chat_message_operate_moveout_room);
-        roomManagerText = isRoomManager?StringUtils.getString(R.string.chat_message_operate_set_manager):StringUtils.getString(R.string.chat_message_operate_cancel_manager);
+        roomManagerText = isRoomManager?StringUtils.getString(R.string.chat_message_operate_cancel_manager):StringUtils.getString(R.string.chat_message_operate_set_manager);
         BottomDialog.Builder builder = new BottomDialog.Builder(context);
         if(isAnchor || isSuperManager){
             builder.setPositiveButton(roomManagerText,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            viewModel.setRoomAdmin(fUserId, roomId, tUserId, fNickName, tNickName);
+                            viewModel.setRoomAdmin(fUserId, roomId, tUserId, fNickName, tNickName, isRoomManager);
                             dialogInterface.dismiss();
 
                         }

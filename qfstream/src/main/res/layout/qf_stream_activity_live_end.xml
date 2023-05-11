@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/icon_default_live_common"
+        android:src="@drawable/rt_default_avatar"
         app:riv_mutate_background="true"
         app:riv_oval="true" />
 
