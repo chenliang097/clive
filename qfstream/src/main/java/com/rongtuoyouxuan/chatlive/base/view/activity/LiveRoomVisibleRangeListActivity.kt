@@ -71,7 +71,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
     }
 
     private fun initListener() {
-        mSelectContactsAdapter = LiveRoomVisibleRangeAdapter(R.layout.rt_stream_select_contacts_item)
+        mSelectContactsAdapter = LiveRoomVisibleRangeAdapter(R.layout.rt_stream_select_contacts_item, intent.getStringExtra("type"))
         mRecyclerView!!.adapter = mSelectContactsAdapter
         imgBack?.setOnClickListener(this)
         visibleRangeBtn.setOnClickListener(this)

@@ -47,9 +47,9 @@
             </RelativeLayout>
 
         </LinearLayout>
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottomLayout"
@@ -166,7 +166,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </HorizontalScrollView>
+<!--        </HorizontalScrollView>-->
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

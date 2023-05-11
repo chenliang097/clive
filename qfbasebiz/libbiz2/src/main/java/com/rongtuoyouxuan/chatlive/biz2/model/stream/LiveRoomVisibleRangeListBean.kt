@@ -19,5 +19,6 @@ class LiveRoomVisibleRangeListBean:BaseModel() {
         var nick_name = ""
         var avatar = ""
         var status = false  // 关注状态
+        var allow = false  //
     }
 }

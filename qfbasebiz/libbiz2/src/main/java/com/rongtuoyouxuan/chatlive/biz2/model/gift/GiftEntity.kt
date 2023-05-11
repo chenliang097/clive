@@ -85,7 +85,8 @@ data class GiftSendRes(
     val balanceAmount: Float? = 0.0f,
     val count: Int? = 0,
     val timestamp: Long? = 0L,
-    val type: Int? = 0
+    val type: Int? = 0,
+    val balance: Int? = 0
 )
 
 data class GiftSendResData(val data: GiftSendRes) : BaseModel()

@@ -64,7 +64,7 @@ public abstract class SimpleActivity extends LanguageActivity {
             return;
         }
         mTitleBar = new TitleBar(this);
-        mTitleBar.setLeftIco(R.drawable.icon_black_back)
+        mTitleBar.setLeftIco(R.drawable.icon_white_back)
                 .setLeftIcoListening(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

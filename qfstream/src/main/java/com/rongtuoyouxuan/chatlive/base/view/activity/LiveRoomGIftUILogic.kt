@@ -172,12 +172,29 @@ class LiveRoomGIftUILogic(
 //                    starText?.text = BigDecimalUtil.setNumber(it)
 //                }
 
-                LiveRoomHelper.starVM.observe(lifecycleOwner) {
-                    //更新点赞数量
-                    starText?.text = BigDecimalUtil.setNumber(it)
-                }
+//                LiveRoomHelper.starVM.observe(lifecycleOwner) {
+//                    //更新点赞数量
+//                    starText?.text = BigDecimalUtil.setNumber(it)
+//                }
             }
             starManager.init(lifecycle, isHost)
+
+        }
+
+        IMSocketBase.instance().room(roomId).likeMsg.observe(lifecycleOwner){
+//                if ((it?.from?.userId?.toLongOrNull() ?: 0L) != DataBus.instance().USER_ID) {
+            val total = it.likeCount
+            val num = total - currentStarTotal
+            if (num > 0) {
+                for (i in 0 until num) {
+                    activity.lifecycleScope.launch {
+                        delay(300 * i)
+                        liveBottomStarView?.addChildView()
+                    }
+                }
+            }
+//                }
+            currentStarTotal = it.likeCount
         }
 
 

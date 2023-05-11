@@ -77,7 +77,7 @@
     <string name="request_fail">失败</string>
     <string name="stream_prepare_empty_location">未知</string>
     <string name="stream_prepare_edit_title">给直播写个标题吧~</string>
-    <string name="stream_prepare_edit_title_default">在直播</string>
+    <string name="stream_prepare_edit_title_default">正在直播</string>
     <string name="stream_tool_mute_open">声音开启</string>
     <string name="stream_tool_mute_close">声音关闭</string>
     <string name="stream_start_beauty">美颜</string>

@@ -19,6 +19,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTFollowMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTGiftMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLeaveRoomMsg;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLikeMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLiveEndMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomBlackMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerAddMsg;
@@ -75,6 +76,7 @@ public class IMSocketBase implements ISocket {
     private ISocket iSocket = null;
 
     public String uid = "";
+    public String roomId = "";
     public boolean isEnableBackgroundRetry = false;
 
     final AtomicBoolean isRetrying = new AtomicBoolean(false);
@@ -287,7 +289,7 @@ public class IMSocketBase implements ISocket {
     }
 
     private boolean isNeedRetry() {
-        return isLogin.get() && isCanRetryWhileBackground();
+        return isCanRetryWhileBackground();
     }
 
     /**
@@ -308,7 +310,7 @@ public class IMSocketBase implements ISocket {
                 @Override
                 public void run() {
                     if (isNeedRetry()) {
-                        login(null, IMSocketBase.instance().uid, "");
+                        login(null, IMSocketBase.instance().uid, IMSocketBase.instance().roomId);
                     } else {
                         isRetrying.set(false);
                         ULog.i(TAG, "doRetryFetchToken finish count:%s", String.valueOf(retryCount));
@@ -454,6 +456,9 @@ public class IMSocketBase implements ISocket {
                 break;
             case 2004:
                 room(roomId).liveEndMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTLiveEndMsg.class));
+                break;
+            case 2005:
+                room(roomId).likeMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTLikeMsg.class));
                 break;
             case 2007:
                 room(roomId).enterRoomMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTEnterRoomMsg.class));
@@ -615,6 +620,8 @@ public class IMSocketBase implements ISocket {
         public LiveCallback<RTRoomManagerAddMsg> roomManagerAddMsg = new LiveCallback<>();//
         public LiveCallback<RTRoomManagerRelieveMsg> roomManagerRelieveMsg = new LiveCallback<>();//
         public LiveCallback<RTRoomBlackMsg>  roomBlackMsg= new LiveCallback<>();//
+
+        public LiveCallback<RTLikeMsg> likeMsg = new LiveCallback<>();//
         public LiveCallback<MsgConfigModel.Item> templatemsg = new LiveCallback<>(); //通用模板消息
     }
 
@@ -658,6 +665,7 @@ public class IMSocketBase implements ISocket {
             return;
         }
         IMSocketBase.instance().uid = uid;
+        IMSocketBase.instance().roomId = roomId;
         iSocket.login(uid, roomId, model, eventCallback);
         ULog.i(TAG, "login override");
     }

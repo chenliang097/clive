@@ -105,7 +105,7 @@ class PopolarityRankFragment:BaseRefreshListFragment<PopularityRankViewModel, Po
                 itemRankTxt.visibility = View.VISIBLE
                 if(it.data?.self_rank?.rank!! > 100){
                     var rank = it.data?.self_rank?.rank
-                    itemRankTxt.text = "100+"
+                    itemRankTxt.text = "" + rank
                 }else {
                     itemRankTxt.text = "" + it.data?.self_rank?.rank
                 }

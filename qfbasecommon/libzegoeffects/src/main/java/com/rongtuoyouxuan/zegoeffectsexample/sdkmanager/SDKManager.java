@@ -76,6 +76,7 @@ public class SDKManager {
     public static ZegoEffects zegoEffects;
     public String TAG = "SDKManage";
     public FaceDetectionCallback faceDetectionCallback;
+    private boolean mIsEffects = true;
 
     Context context;
 
@@ -224,7 +225,12 @@ public class SDKManager {
                 effectsVideoFrameParam.height = height;
 
                 // Process buffer by ZegoEffects
-                int processedTextureID = zegoEffects.processTexture(textureID, effectsVideoFrameParam);
+                int processedTextureID;
+                if(!mIsEffects){
+                    processedTextureID = textureID;
+                }else{
+                    processedTextureID = zegoEffects.processTexture(textureID, effectsVideoFrameParam);
+                }
 
                 // Send processed texture to ZegoExpressEngine
                 expressEngine.sendCustomVideoProcessedTextureData(processedTextureID, width, height, referenceTimeMillisecond);
@@ -1103,10 +1109,11 @@ public class SDKManager {
      */
     public void stopRenderAllEffects() {
         Log.v(TAG, "stopRenderAllEffects ");
-        if (videoCaptureFromCamera2 == null)
-            return;
-
-        videoCaptureFromCamera2.stopRenderAllEffects();
+        mIsEffects = false;
+//        if (videoCaptureFromCamera2 == null)
+//            return;
+//
+//        videoCaptureFromCamera2.stopRenderAllEffects();
     }
 
     /**
@@ -1114,10 +1121,11 @@ public class SDKManager {
      */
     public void startRenderAllEffects() {
         Log.v(TAG, "startRenderAllEffects ");
-        if (videoCaptureFromCamera2 == null)
-            return;
-
-        videoCaptureFromCamera2.startRenderAllEffects();
+        mIsEffects = true;
+//        if (videoCaptureFromCamera2 == null)
+//            return;
+//
+//        videoCaptureFromCamera2.startRenderAllEffects();
     }
 
 

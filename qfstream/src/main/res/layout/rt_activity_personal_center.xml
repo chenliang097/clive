@@ -86,7 +86,8 @@
                     android:textSize="12sp"
                     android:textColor="@color/white"
                     tools:text="@string/stream_center_edit"
-                    android:background="@drawable/btn_center_edit"/>
+                    android:background="@drawable/btn_center_edit"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

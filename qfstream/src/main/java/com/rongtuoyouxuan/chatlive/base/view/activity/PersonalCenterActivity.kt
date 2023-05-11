@@ -28,7 +28,7 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
     }
 
     override fun initData() {
-        mTitleBar.setLeftIco(R.drawable.icon_white_back)
+//        mTitleBar.setLeftIco(R.drawable.icon_white_back)
         userId = intent.getStringExtra("userId")
         personalCenterViewModel = ViewModelProvider(this).get(PersonalCenterViewModel::class.java)
         personalCenterViewModel?.infoLiveData?.observe(this){
@@ -53,13 +53,13 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
         centerIDTxt.text = "ID:$userId"
         centerInsTxt.text = bean?.data?.user_center?.describe
         when(bean?.data?.user_center?.sex){
-            0->{
+            1->{
                 val drawable = resources.getDrawable(R.drawable.qf_stream_gender_male)
                 drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
                 centerGenderTxt.setCompoundDrawables(drawable, null, null, null)
                 centerGenderTxt.text = getString(R.string.stream_user_card_male)
             }
-            1->{
+            0->{
                 val drawable = resources.getDrawable(R.drawable.qf_stream_gender_female)
                 drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
                 centerGenderTxt.setCompoundDrawables(drawable, null, null, null)

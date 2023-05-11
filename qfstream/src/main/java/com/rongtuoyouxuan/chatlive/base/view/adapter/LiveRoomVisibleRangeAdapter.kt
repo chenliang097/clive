@@ -9,15 +9,22 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.util.NumUtils
+import kotlinx.android.synthetic.main.rt_libstream_select_common_title.*
 
-class LiveRoomVisibleRangeAdapter(layoutResId: Int) :
-    BaseQuickAdapter<LiveRoomVisibleRangeListBean.FansItemBean, BaseViewHolder>(layoutResId) {
+class LiveRoomVisibleRangeAdapter:
+    BaseQuickAdapter<LiveRoomVisibleRangeListBean.FansItemBean, BaseViewHolder> {
     private var mOnSelectContactsListener: OnSelectContactsListener? = null
 
     //用于存储CheckBox选中状态
     private var mCBFlag: MutableMap<Int, Boolean>? = HashMap()
     private var isShowCheckbox = true
+    private var type = ""
 
+    constructor(layoutResId: Int, type:String?):super(layoutResId){
+        if (type != null) {
+            this.type = type
+        }
+    }
     init {
         mCBFlag = HashMap()
     }
@@ -37,6 +44,22 @@ class LiveRoomVisibleRangeAdapter(layoutResId: Int) :
             checkBox.visibility = View.VISIBLE
         } else {
             checkBox.visibility = View.GONE
+        }
+        when(type){
+            "1"->{
+                if(item.allow){
+                    checkBox.isChecked = true
+                    mCBFlag?.set(item.id.toInt(), true)
+                    mOnSelectContactsListener!!.onItemCheck(position, item, true)
+                }
+            }
+            "2"->{
+                if(!item.allow){
+                    checkBox.isChecked = true
+                    mCBFlag?.set(item.id.toInt(), true)
+                    mOnSelectContactsListener!!.onItemCheck(position, item, true)
+                }
+            }
         }
         checkBox.setOnClickListener {
             if (checkBox.isChecked) {

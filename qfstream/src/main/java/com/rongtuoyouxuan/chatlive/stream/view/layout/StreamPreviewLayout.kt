@@ -10,7 +10,9 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Log
 import android.view.*
@@ -18,7 +20,6 @@ import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.StringUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -62,6 +63,8 @@ class StreamPreviewLayout @JvmOverloads constructor(
     private var popupWindow: PopupWindow? = null
     private var mPhotoPath: String? = null
     private var viewbutton : View? = null//记录点击的view用于弹出popupwindow
+    private var inputTxt:String? = ""
+    private var inputTxtBoolean:Boolean? = false
 
     private var mTips = 0
     private var startLiveListener: StartLiveListener? = null
@@ -483,9 +486,6 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     private fun getLocalHostInfo(){
         var title = DataBus.instance().USER_NAME + StringUtils.getString(R.string.stream_prepare_edit_title_default)
-        if(title.length > 12){
-            title = DataBus.instance().USER_NAME.substring(0, 12).plus("...")
-        }
         titleEdit?.setText(title)
 
     }

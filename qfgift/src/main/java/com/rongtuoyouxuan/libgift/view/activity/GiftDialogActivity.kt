@@ -242,8 +242,7 @@ class GiftDialogActivity : SimpleActivity() {
 //                            GiftHelper.isChatPlayGift = true
 //                            GiftHelper.sendGiftVM.post(giftEntity)
 //                        }
-
-                        finish()
+                        tvCoin.text = "" + result.data.balance
                     }
                 }
 

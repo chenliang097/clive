@@ -98,7 +98,6 @@ public class GuardWebSocketThread {
                 if (!IMSocketBase.instance().isConnected()
                         && !IMSocketBase.instance().isRetrying.get()
                         && NetworkUtil.isNetConnected(mContext)
-                        && IMSocketBase.instance().isLogin()
                         && isCanRetryWhileBackground()) {
                     ULog.i(TAG, "checkWebSocketStatus retryFetchToken");
                     IMSocketBase.instance().retryFetchToken();
