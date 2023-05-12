@@ -100,7 +100,7 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
         imViewModel.showRechargeDialog.observe((LifecycleOwner) context, new Observer<Void>() {
             @Override
             public void onChanged(Void aVoid) {
-                Router.toGoldToBuyDialog("12");
+                Router.toGoldToBuyDialog(1);
             }
         });
         mControllerViewModel.mMessageButton.observeOnce((LifecycleOwner) context, new Observer<SendEvent>() {

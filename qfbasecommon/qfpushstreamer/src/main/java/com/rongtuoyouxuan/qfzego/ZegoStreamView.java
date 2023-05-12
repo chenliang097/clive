@@ -61,7 +61,7 @@ public class ZegoStreamView extends BaseStreamView {
     private final String TAG = "ZEGOStreamView";
     private static final int DEFAULT_VIDEO_WIDTH =360;
     private static final int DEFAULT_VIDEO_HEIGHT = 640;
-    private static final int MAX_RETRY = 10;
+    private static final int MAX_RETRY = 3;
     final StringBuilder logs = new StringBuilder();
     private String pushUrl;
     private View mMeasureView;

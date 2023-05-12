@@ -211,6 +211,7 @@ open class ZegoLiveplay {
     }
 
     fun onDestroy() {
+        ULog.d("clll", "zegoliveplay----------onDestroy")
         if (liveStatus == "floatWindow"){
             ULog.d("clll", "floatWindow")
         }else{
@@ -219,6 +220,7 @@ open class ZegoLiveplay {
                 mZegoExpressEngine?.stopPlayingStream(streamId1)
             }
             ZegoExpressEngine.destroyEngine(null)
+            ULog.d("clll", "zegoliveplay----------onDestroy1")
         }
         isFirstEnter = true
     }

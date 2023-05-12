@@ -82,7 +82,7 @@ interface StreamServer {
     @POST("/anchor/debug/log")
     fun uploadPushStreamInfo(@Body request: PushStreamInfoRequest): Call<BaseModel>
 
-    @POST("/anchor/live/push/heartbeat")
+    @POST("/medium/v1/heart/sceneKeepLive")
     fun pushStreamHeartbeat(@Body request: PushStreamHeartBeatRequest): Call<StreamHeartBeatBean>
 
     //日榜
@@ -127,7 +127,7 @@ interface StreamServer {
     @POST("/userProxy/v1/user/faceIdentification")
     fun getTencentFaceData(@Body request: LiveZanReq): Call<BaseModel>
 
-    @POST("/medium/v1/push/updateSceneBaseInfo")
+    @POST("/medium/v1/push/showTime")
     fun uploadAnchorInfo(@Body request: StartPushStreamRequest): Call<BaseModel>
 
     @POST("/userProxy/v1/user/setAllowRule")

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.rongtuoyouxuan.chatlive.stream.R;
 import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils;
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil;
 import com.rongtuoyouxuan.chatlive.util.StringUtils;
 
 public class RoomSetMaskInputLayout extends RelativeLayout {
@@ -53,7 +54,9 @@ public class RoomSetMaskInputLayout extends RelativeLayout {
         roomMessageInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                if(s.length() > 10){
+                    LaToastUtil.showShort(context.getResources().getString(R.string.stream_mask_words_tip));
+                }
             }
 
             @Override

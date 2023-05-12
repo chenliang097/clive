@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg
@@ -30,7 +31,7 @@ class FixInteractionLayout @JvmOverloads constructor(
     var observer: Observer<RTHotChangeMsg> = Observer<RTHotChangeMsg> {
         if (it.roomIdStr == mControllerViewModel?.roomId) {
             rl_master_room_info?.setCurrentDiamond(it.fire)
-            tvOnline4?.text = "" + it.userCount
+            tvOnline4?.text = RoomDegreeUtils.getDegree(it.userCount)
         }
     }
     init {

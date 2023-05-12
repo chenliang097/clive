@@ -36,11 +36,6 @@ public class CommonViewModel extends AndroidViewModel {
     public MutableLiveData<List<String>> uploadSuccessData = new MutableLiveData<>();
     public MutableLiveData<List<String>> uploadFailData = new MutableLiveData<>();
 
-    public MutableLiveData<BaseModel> addFollowLiveData = new MutableLiveData<>();
-
-    public MutableLiveData<BaseModel> cancelFollowLiveData = new MutableLiveData<>();
-    public MutableLiveData<UserCardInfoBean> userInfoLiveData = new MutableLiveData<>();
-
 
     private volatile Map<Integer, UploadFileResponse.DataBean> uploadSuccessMap = new HashMap<>();
     private volatile Map<Integer, String> uploadFailMap = new HashMap<>();
@@ -129,63 +124,5 @@ public class CommonViewModel extends AndroidViewModel {
                 uploadFailData.setValue(failedList);
             }
         }
-    }
-
-    public void addFollow(String followId, String roomId, String sceneId){
-        StreamBiz.INSTANCE.liveFollows(followId, DataBus.instance().USER_ID, roomId, sceneId, 1, null, new RequestListener<BaseModel>() {
-            @Override
-            public void onSuccess(String reqId, BaseModel result) {
-                addFollowLiveData.setValue(result);
-            }
-
-            @Override
-            public void onFailure(String reqId, String errCode, String msg) {
-                try {
-                    BaseModel baseModel = new BaseModel();
-                    baseModel.errCode = Integer.parseInt(errCode);
-                    baseModel.errMsg = msg;
-                    addFollowLiveData.setValue(baseModel);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-
-    public void cancelFollow(String followId, String roomId, String sceneId){
-        StreamBiz.INSTANCE.liveFollows(followId, DataBus.instance().USER_ID, roomId, sceneId, 0, null, new RequestListener<BaseModel>() {
-            @Override
-            public void onSuccess(String reqId, BaseModel result) {
-                cancelFollowLiveData.setValue(result);
-            }
-
-            @Override
-            public void onFailure(String reqId, String errCode, String msg) {
-                try {
-                    BaseModel baseModel = new BaseModel();
-                    baseModel.errCode = Integer.parseInt(errCode);
-                    baseModel.errMsg = msg;
-                    cancelFollowLiveData.setValue(baseModel);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-
-    public void getUserInfo(UserCardInfoRequest request){
-        UserCardBiz.INSTANCE.getLiveUserCardInfo(request, null, new RequestListener<UserCardInfoBean>() {
-            @Override
-            public void onSuccess(String reqId, UserCardInfoBean result) {
-                userInfoLiveData.setValue(result);
-            }
-
-            @Override
-            public void onFailure(String reqId, String errCode, String msg) {
-
-            }
-        });
     }
 }

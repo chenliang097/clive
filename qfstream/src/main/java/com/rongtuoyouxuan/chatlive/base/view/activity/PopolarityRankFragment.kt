@@ -71,7 +71,7 @@ class PopolarityRankFragment:BaseRefreshListFragment<PopularityRankViewModel, Po
         roomId = arguments?.get("roomId") as String?
         popularityRankViewModel = ViewModelProviders.of(activity as FragmentActivity).get(
             PopularityRankViewModel::class.java)
-        roomId?.let { popularityRankViewModel?.setRoomId(it) }
+        roomId?.let { context?.let { it1 -> popularityRankViewModel?.setRoomId(it, it1) } }
         return popularityRankViewModel
     }
 

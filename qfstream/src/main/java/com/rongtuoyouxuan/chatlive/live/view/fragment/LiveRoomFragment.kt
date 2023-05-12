@@ -50,6 +50,7 @@ import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatingWindowHelper
 import com.rongtuoyouxuan.chatlive.live.view.layout.BasePlayerView
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveRoomViewModel
+import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.layout.LivePublicChatAreaListLayout
@@ -427,6 +428,9 @@ class LiveRoomFragment : SimpleFragment() {
         }
 
         IMSocketBase.instance().room(roomId).liveEndMsg.observe(liveEndObserver)
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).roomBlackMsg.observe{
+            (mContext as LiveRoomActivity)?.finish()
+        }
 //        IMSocketImpl.getInstance().chatRoom(streamID).liveAudiecneNotifyMsgLiveCallback.observe(
 //            liveNotifyCallback
 //        )
@@ -442,9 +446,11 @@ class LiveRoomFragment : SimpleFragment() {
         streamId: String,
         roomId: String
     ) {
+        ULog.e("clll", "reloadPlayer1------")
         if (TextUtils.isEmpty(anchorId)) {
             return
         }
+        ULog.e("clll", "reloadPlayer2------")
         viewModel?.preparePlayer(baseUrl, authParams, streamId, roomId)
         if (recoverIs == true) {
             val playerView: BasePlayerView? = ZegoLiveplay.instance.getPlayerView()
@@ -545,21 +551,23 @@ class LiveRoomFragment : SimpleFragment() {
     }
 
     private fun showOutDialog() {
-            DialogUtils.createAudienceExitDialog(
-                mContext, anchorAvatar, isFollow, StreamPreviewLayout.TYPE_LIVE,
-                object : AudienceExitDialog.AudienceExitDialogListener {
-                    override fun onAudienceExitAndFollowListener() {//继续观看
-                    }
-
-                    override fun onAudienceExitListener() {//
-                        exitRequest()
-                        (mContext as LiveRoomActivity)?.finish()
-                    }
-
-                    override fun onFollowListener() {
-                    }
-
-                }).show()
+        exitRequest()
+        (mContext as LiveRoomActivity)?.finish()
+//            DialogUtils.createAudienceExitDialog(
+//                mContext, anchorAvatar, isFollow, StreamPreviewLayout.TYPE_LIVE,
+//                object : AudienceExitDialog.AudienceExitDialogListener {
+//                    override fun onAudienceExitAndFollowListener() {//继续观看
+//                    }
+//
+//                    override fun onAudienceExitListener() {//
+//                        exitRequest()
+//                        (mContext as LiveRoomActivity)?.finish()
+//                    }
+//
+//                    override fun onFollowListener() {
+//                    }
+//
+//                }).show()
     }
 
     private fun showLoginDialog() {

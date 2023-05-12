@@ -86,7 +86,7 @@
                 android:id="@+id/tv_dialog_lahei"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:background="@drawable/bg_page_more_unit"
+                android:background="@drawable/bg_page_more_bottom"
                 android:gravity="center"
                 android:text=" "
                 android:textColor="@color/rt_c_3478F6"

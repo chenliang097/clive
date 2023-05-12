@@ -196,7 +196,7 @@ object StreamBiz {
 
             override fun createCall(retrofit: Retrofit): Call<BaseModel> {
                 return retrofit.create(StreamServer::class.java)
-                    .liveFollows(LiveFollowsReq(followId, userId, roomId, sceneId, 1))
+                    .liveFollows(LiveFollowsReq(followId, userId, roomId, sceneId, status))
             }
 
             override fun getReqId(): String {
@@ -346,13 +346,14 @@ object StreamBiz {
     }
 
     fun pushStreamHeartbeat(
-        streamId: String,
-        msg: String,
+        roomId: String,
+        sceneId: String,
+        userId: String,
         requestListener: RequestListener<StreamHeartBeatBean>,
     ) {
         newNetworks(null, requestListener, "") {
             it.create(StreamServer::class.java)
-                .pushStreamHeartbeat(PushStreamHeartBeatRequest(msg, streamId))
+                .pushStreamHeartbeat(PushStreamHeartBeatRequest(userId, roomId, sceneId))
         }
     }
 

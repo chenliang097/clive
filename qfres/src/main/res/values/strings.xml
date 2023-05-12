@@ -14,7 +14,7 @@
     <string name="brv_load_failed">加载失败，请点我重试</string>
     <string name="downloading">Loading....</string>
     <string name="share_to">分享至</string>
-    <string name="no_datas">没有更多数据</string>
+    <string name="no_datas">没有更多了</string>
     <string name="refresh">刷新</string>
     <string name="detail">详情</string>
     <string name="apply">使用</string>
@@ -590,4 +590,8 @@
     <string name="stream_msg_banner_relieve">您已被解除禁言</string>
     <string name="stream_msg_room_manager">您已获得房管权限</string>
     <string name="stream_msg_room_manager_relieve">您被取消房管权限</string>
+    <string name="pay_panel_recharge_title">托币充值</string>
+    <string name="stream_mask_words_tip">最多支持10个字符</string>
+    <string name="stream_manager_remove">移除</string>
+    <string name="stream_report_type">请选择举报类型</string>
 </resources>

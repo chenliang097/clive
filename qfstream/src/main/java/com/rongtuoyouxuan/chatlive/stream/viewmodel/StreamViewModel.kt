@@ -419,18 +419,19 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     }
 
     override fun pushStreamHeartbeat(id: String, msg:String) {
-//        StreamBiz.pushStreamHeartbeat(id, msg, object :RequestListener<StreamHeartBeatBean>{
-//            override fun onSuccess(reqId: String?, result: StreamHeartBeatBean?) {
-//                pushStreamHeartBeatLiveData.value = result!!
-////                ULog.d("clll", "pushStreamHeartbeat----")
-//
-//            }
-//
-//            override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-////                ULog.d("clll", "pushStreamHeartbeat1----")
-//            }
-//
-//        })
+        var bean = startStreamModel.value
+        StreamBiz.pushStreamHeartbeat(bean.data.room_id_str, bean.data.scene_id_str, DataBus.instance().USER_ID, object :RequestListener<StreamHeartBeatBean>{
+            override fun onSuccess(reqId: String?, result: StreamHeartBeatBean?) {
+                pushStreamHeartBeatLiveData.value = result!!
+//                ULog.d("clll", "pushStreamHeartbeat----")
+
+            }
+
+            override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
+//                ULog.d("clll", "pushStreamHeartbeat1----")
+            }
+
+        })
     }
 
     override fun pushStreamStatus(id: String?) {

@@ -90,7 +90,7 @@ class StarManager {
     }
 
     private fun updateStarCount() {
-        ThreadUtils.runOnUiThread {
+        ThreadUtils.runOnUiThreadDelayed(Runnable {
             StreamBiz.liveLike(starList[0].roomId, starList[0].sceneIdStr, starList[0].userIdStr, starList[0].anchorIdStr, 1, null, object :
                 RequestListener<LikeLiveData> {
                 override fun onSuccess(reqId: String?, result: LikeLiveData?) {
@@ -103,6 +103,6 @@ class StarManager {
                 override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
                 }
             })
-        }
+        }, 500)
     }
 }

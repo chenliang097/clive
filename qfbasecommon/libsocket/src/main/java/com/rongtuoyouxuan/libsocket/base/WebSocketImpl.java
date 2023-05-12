@@ -66,7 +66,9 @@ public class WebSocketImpl {
         if (mWebSocket == null) {
             return;
         }
-        hbThread.interrupt();
+        if(hbThread != null) {
+            hbThread.interrupt();
+        }
         hbThread = null;
         mWebSocket.close(1000, null);
         mWebSocket = null;
@@ -128,7 +130,7 @@ public class WebSocketImpl {
 
 //            Log.e(getTAG(), "onMessage: " + bytes.hex() + "--operation:" + operation);
             if (3 == operation) {
-                Log.e("heartBeatReceived", "onMessage: " + "heartBeatReceived---");
+                Log.e(getTAG(), "onMessage: " + "heartBeatReceived---");
             } else if (8 == operation) {
                 Log.e(getTAG(), "onMessage: " + "authSuccess---");
                 if (mEventCallback != null) {

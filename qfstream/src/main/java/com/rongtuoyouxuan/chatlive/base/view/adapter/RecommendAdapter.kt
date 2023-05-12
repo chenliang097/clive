@@ -7,6 +7,7 @@ import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.main.LiveItemEntity
 
 /*
@@ -26,7 +27,8 @@ class RecommendAdapter :
             AdaptScreenUtils.pt2Px(12f),
             R.drawable.icon_default_live_common)
         GlideUtils.loadImage(context, item.avatar, holder.getView(R.id.recommondAvatar))
-        holder.setText(R.id.recommondHotTxt, "" + item?.roomUserTotal)
+        holder.setText(R.id.recommondHotTxt,
+            item.fire?.toInt()?.let { RoomDegreeUtils.getDegree(it) })
         holder.setText(R.id.recommondNameTxt, item?.anchorName)
     }
 }

@@ -18,12 +18,14 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomInfoExtraBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.ShareLiveRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomUserInfo
+import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
+import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.biz2.stream.UserCardBiz.getLiveUserCardInfo
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libsocket.WebSocketManager
 import com.rongtuoyouxuan.libsocket.base.ChatSendCallback
@@ -50,6 +52,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     var roomInfoLiveData = MutableLiveData<EnterRoomBean?>() //房间信息
     var roomInfoExtraLiveData = MutableLiveData<RoomInfoExtraBean?>() //房间额外信息
     var roomManagerLiveData = MutableLiveData<Boolean>() //房管
+    var userInfoLiveData = MutableLiveData<UserCardInfoBean>()
 
 
     @JvmField
@@ -112,17 +115,24 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         })
     }
 
-    fun addFollow(followId: String,
-                  userId: String,
-                  roomId: String? = null,
-                  sceneId: String? = null,
-                  status: Int? = null,) {
+    fun addFollow(
+        followId: String,
+        userId: String,
+        roomId: String? = null,
+        sceneId: String? = null,
+        status: Int? = null,
+    ) {
         StreamBiz.liveFollows(
             followId, userId, roomId, sceneId, status, null,
             object : RequestListener<BaseModel> {
             override fun onSuccess(reqId: String?, result: BaseModel?) {
                 if (result?.errCode == 0) {
-                    followStateLiveData.value = true
+                    if(status == 0){
+                        followStateLiveData.value = false
+                    }else{
+                        followStateLiveData.value = true
+                    }
+
                 }
             }
 
@@ -180,7 +190,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
             }
 
             override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-                LaToastUtil.showShort(msg)
+                LaToastUtil.showShort("发送失败")
             }
 
         })
@@ -290,7 +300,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         WebSocketManager._getInstance().initIM("", true, "", "")
         IMSocketBase.instance().login(object : EventCallback {
             override fun Success() {
-//                LaToastUtil.showShort("socket成功-------")
+                LaToastUtil.showShort("socket成功-------")
                 GlobalScope.launch(Dispatchers.Main) {
                     IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
                         override fun sendSuccess(msg: String?) {
@@ -322,5 +332,15 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
 
         })
 
+    }
+
+    fun getUserInfo(request: UserCardInfoRequest?) {
+        getLiveUserCardInfo(request!!, null, object : RequestListener<UserCardInfoBean?> {
+            override fun onSuccess(reqId: String, result: UserCardInfoBean?) {
+                userInfoLiveData.setValue(result)
+            }
+
+            override fun onFailure(reqId: String, errCode: String, msg: String) {}
+        })
     }
 }

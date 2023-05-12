@@ -220,15 +220,6 @@ public class CommonBottomDialog {
                         dialogInterface.dismiss();
                     }
                 }, R.color.rt_c_3478F6);
-
-        builder.setPositiveButtonFive(StringUtils.getString(R.string.chat_message_operate_report),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        showReportDialog(conversationType);
-                        dialogInterface.dismiss();
-                    }
-                }, R.color.rt_c_3478F6);
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -268,7 +259,7 @@ public class CommonBottomDialog {
                 }).setPositiveButton(StringUtils.getString(R.string.login_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (operateType == OPERATE_ADD_BLACKLIST) {
+                        if (operateType == OPERATE_REMOVE_USER) {
                             viewModel.addBlacklist(fUserId, tUserId, roomId, fNickName, tNickName);
                         } else if (operateType == OPERATE_REMOVE_BLACKLIST) {
                             viewModel.removeBlacklist(fUserId, tUserId, roomId, fNickName, tNickName);

@@ -45,9 +45,9 @@ public class WebSocketManager implements ISocket, IWebSocketListener {
 
         @Override
         public void onBecameForeground(Activity activity) {
-            if (webSocketImpl != null) {
-                webSocketImpl.sendMsg(pingString);
-            }
+//            if (webSocketImpl != null) {
+//                webSocketImpl.sendMsg(pingString);
+//            }
         }
 
         @Override

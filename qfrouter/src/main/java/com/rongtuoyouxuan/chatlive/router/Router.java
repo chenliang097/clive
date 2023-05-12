@@ -125,9 +125,9 @@ public class Router {
 
 
     //充值dialog
-    public static void toGoldToBuyDialog(String fromSource) {
+    public static void toGoldToBuyDialog(int fromSource) {
         ARouter.getInstance().build(RouterConstant.PATH_BUY_GOLD_DIALOG)
-                .withString("fromSource", fromSource)
+                .withInt("fromSource", fromSource)
                 .navigation();
     }
 

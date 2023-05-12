@@ -30,6 +30,7 @@ class ReportDialog: Dialog{
     private var lists: MutableList<ReportBean> = ArrayList()
     private var map:MutableMap<Int,Boolean>? = HashMap()
     private var reportTypePressed = 1
+    private var isClick = false
 
     constructor(mContext: Context, roomId:String?, tUserId:String?, tNickName:String?, reportBarrage:String?):super(mContext, R.style.commenDialogStyle){
         this.mContext = mContext
@@ -74,6 +75,7 @@ class ReportDialog: Dialog{
 
         adapter.setOnReportReasonListener(object :ReportReasonAdapter.OnReportReasonListener{
             override fun onClick(item: ReportBean) {
+                isClick = true
                 lists.forEach {
                     if(item.data.report_type == it.data.report_type){
                         map?.put(item.data.report_type, true)
@@ -91,6 +93,10 @@ class ReportDialog: Dialog{
         reportContentTxt.text = reportBarrage
 
         reportResonBtn.setOnClickListener {
+            if(!isClick){
+                LaToastUtil.showShort(mContext?.getString(R.string.stream_report_type))
+                return@setOnClickListener
+            }
             sendReportData(reportTypePressed)
         }
     }

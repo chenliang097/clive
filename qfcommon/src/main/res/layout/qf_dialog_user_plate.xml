@@ -75,8 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="1dp"
                 android:textColor="@color/c_20_black"
-                android:textSize="10sp"
-                android:text="@string/stream_user_card_female"/>
+                android:textSize="10sp"/>
 
             <TextView
                 android:id="@+id/userCardLocationTxt"
@@ -84,8 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:textColor="@color/c_20_black"
-                android:textSize="10sp"
-                android:text="@string/stream_unknown_location1"/>
+                android:textSize="10sp"/>
         </LinearLayout>
 
         <LinearLayout

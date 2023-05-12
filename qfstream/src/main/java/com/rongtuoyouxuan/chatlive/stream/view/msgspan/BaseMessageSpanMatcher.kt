@@ -80,10 +80,12 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
     /**
      * 添加nickname
      */
-    open fun addNickName(textView: TextView, common:BaseRoomMessage, spanString: SpannableStringBuilder, nameColor: Int, addMaohao: Boolean) {
+    open fun addNickName(textView: TextView, common:BaseRoomMessage, spanString: SpannableStringBuilder, nameColor: Int, addMaohao: Boolean, isClick:Boolean) {
         addTextSpan(spanString, textView, common.userName + if (addMaohao) ": " else " ", nameColor, ClickiTextSpan.SpanClick {
-            LiveRoomHelper.openUserCardVM.post(common.userIdStr)
-            ULog.d("clll", "addNickName")
+            if(isClick) {
+                LiveRoomHelper.openUserCardVM.post(common.userIdStr)
+                ULog.d("clll", "addNickName")
+            }
         })
     }
 

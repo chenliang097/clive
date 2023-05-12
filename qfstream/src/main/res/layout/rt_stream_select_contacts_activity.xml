@@ -16,7 +16,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="12dp"
         android:layout_below="@id/visibleRangeTitle"
-        android:text="@string/rt_stream_visible_range_txt"
         android:textColor="@color/c_40_white"
         android:textSize="12sp"/>
 

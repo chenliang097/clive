@@ -61,8 +61,13 @@ open class SetMaskWordsView @JvmOverloads constructor(context: Context, attrs: A
                 var deleteImg = convertView.findViewById<ImageView>(R.id.setMaskWordDeleteImg)
 
                 if(index == 0){
-                    addMaskWordsLayout.visibility = View.VISIBLE
-                    showMaskWordsLayout.visibility = View.VISIBLE
+                    if(list.size == 10){
+                        addMaskWordsLayout.visibility = View.GONE
+                        showMaskWordsLayout.visibility = View.VISIBLE
+                    }else {
+                        addMaskWordsLayout.visibility = View.VISIBLE
+                        showMaskWordsLayout.visibility = View.VISIBLE
+                    }
                 }else{
                     addMaskWordsLayout.visibility = View.GONE
                     showMaskWordsLayout.visibility = View.VISIBLE

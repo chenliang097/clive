@@ -45,6 +45,8 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
     private var anchorImageUrl //主播封面
             : String? = null
 
+    private var CBFlag: MutableMap<Int, Boolean>? = HashMap()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.rt_stream_select_contacts_activity)
@@ -98,16 +100,12 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
             }
         })
         mSelectContactsAdapter?.setOnSelectContactsListener(object : OnSelectContactsListener {
-            override fun onItemCheck(position: Int, item: FansItemBean?, isAdd: Boolean) {
-                if(isAdd){
-                    item?.id?.let { mSelectList.add(it) }
-                }else{
-                    mSelectList.forEach { s ->
-                        if(s == item?.id){
-                            mSelectList.remove(s)
-                        }
-                    }
-                }
+            override fun onItemCheck(mCBFlag: MutableMap<Int, Boolean>) {
+                CBFlag = mCBFlag
+            }
+
+            override fun updateList(mCBFlag: MutableMap<Int, Boolean>) {
+
             }
         })
         mSelectContactsAdapter?.setOnItemClickListener { adapter, view, position ->
@@ -174,6 +172,11 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
         when (id) {
             R.id.iv_top_back->finish()
             R.id.visibleRangeBtn->{
+                CBFlag?.forEach { (key, value)->
+                    if(value){
+                        mSelectList.add(key.toString())
+                    }
+                }
                 if(mSelectList.size > 0) {
                     intent.getStringExtra("type")?.toInt()?.let {
                         mViewModel?.setUserAllowRange(

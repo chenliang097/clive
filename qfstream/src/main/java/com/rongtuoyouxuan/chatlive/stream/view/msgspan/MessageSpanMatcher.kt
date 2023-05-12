@@ -36,7 +36,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                         mContext.resources.getColor(R.color.c_stream_live_convention)
                 } else {
                     addCommonIcons(textView, txtMsg, spanString, fontHeight)
-                    addNickName(textView, txtMsg, spanString, mContext.resources.getColor(R.color.c_stream_msg_nick_name), true)
+                    addNickName(textView, txtMsg, spanString, mContext.resources.getColor(R.color.c_stream_msg_nick_name), true, true)
                     contentColor = mContext.resources.getColor(R.color.white)
                 }
                 if (isSelf(message)) {
@@ -68,7 +68,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                 val enterMsg: RTEnterRoomMsg = message as RTEnterRoomMsg
                 var contentColor =
                     mContext.resources.getColor(R.color.c_stream_msg_nick_name)
-                addNickName(textView, enterMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false)
+                addNickName(textView, enterMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false, false)
                 if (isSelf(message)) {
                     addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_enter_room), contentColor)
                 } else {
@@ -82,7 +82,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                 val leaveRoomMsg: RTLeaveRoomMsg = message as RTLeaveRoomMsg
                 var contentColor =
                     mContext.resources.getColor(R.color.c_stream_msg_nick_name)
-                addNickName(textView, leaveRoomMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false)
+                addNickName(textView, leaveRoomMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false, false)
                 if (isSelf(message)) {
                     addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_out_room), contentColor)
                 } else {
@@ -97,7 +97,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                 var contentColor =
                     mContext.resources.getColor(R.color.c_stream_msg_nick_name)
                 followMsg.userName = followMsg.fromNickName
-                addNickName(textView, followMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false)
+                addNickName(textView, followMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false, false)
                 if (isSelf(message)) {
                     addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_follow_anchor), contentColor)
                 } else {
@@ -170,45 +170,45 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
         this.callBack = callBack
     }
 
-    private fun createBannedMsg(
-        textView: TextView,
-        message: BaseRoomMessage,
-        spanString: SpannableStringBuilder,
-    ) {
-        val bannedMsg: BannedMsg = message as BannedMsg
-        when (bannedMsg.bannedType) {//1-全员禁言 2-解除全员禁言 3-单用户禁言 4-单用户解除禁言
-            1 -> {
-                addNickName(textView, message, spanString, 0, false)
-                addKnownContent(textView,
-                    R.string.stream_setting_all_banned,
-                    spanString,
-                    R.color.white)
-            }
-            2 -> {
-                addNickName(textView, message, spanString, 0, false)
-                addKnownContent(textView,
-                    R.string.stream_setting_all_banned_no,
-                    spanString,
-                    R.color.white)
-            }
-            3 -> {
-                addKnownContent(textView,
-                    mContext.getString(R.string.stream_setting_single_banned,
-                        bannedMsg.bannedUsers[0].nickname,
-                        mContext.getString(R.string.stream_anchor)),
-                    spanString,
-                    R.color.white)
-            }
-            4 -> {
-                addKnownContent(textView,
-                    mContext.getString(R.string.stream_setting_single_banned_no,
-                        bannedMsg.bannedUsers[0].nickname,
-                        mContext.getString(R.string.stream_anchor)),
-                    spanString,
-                    R.color.white)
-            }
-        }
-    }
+//    private fun createBannedMsg(
+//        textView: TextView,
+//        message: BaseRoomMessage,
+//        spanString: SpannableStringBuilder,
+//    ) {
+//        val bannedMsg: BannedMsg = message as BannedMsg
+//        when (bannedMsg.bannedType) {//1-全员禁言 2-解除全员禁言 3-单用户禁言 4-单用户解除禁言
+//            1 -> {
+//                addNickName(textView, message, spanString, 0, false)
+//                addKnownContent(textView,
+//                    R.string.stream_setting_all_banned,
+//                    spanString,
+//                    R.color.white)
+//            }
+//            2 -> {
+//                addNickName(textView, message, spanString, 0, false)
+//                addKnownContent(textView,
+//                    R.string.stream_setting_all_banned_no,
+//                    spanString,
+//                    R.color.white)
+//            }
+//            3 -> {
+//                addKnownContent(textView,
+//                    mContext.getString(R.string.stream_setting_single_banned,
+//                        bannedMsg.bannedUsers[0].nickname,
+//                        mContext.getString(R.string.stream_anchor)),
+//                    spanString,
+//                    R.color.white)
+//            }
+//            4 -> {
+//                addKnownContent(textView,
+//                    mContext.getString(R.string.stream_setting_single_banned_no,
+//                        bannedMsg.bannedUsers[0].nickname,
+//                        mContext.getString(R.string.stream_anchor)),
+//                    spanString,
+//                    R.color.white)
+//            }
+//        }
+//    }
 
 }
 

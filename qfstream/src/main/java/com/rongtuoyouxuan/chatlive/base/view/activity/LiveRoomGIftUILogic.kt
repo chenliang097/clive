@@ -182,19 +182,19 @@ class LiveRoomGIftUILogic(
         }
 
         IMSocketBase.instance().room(roomId).likeMsg.observe(lifecycleOwner){
-//                if ((it?.from?.userId?.toLongOrNull() ?: 0L) != DataBus.instance().USER_ID) {
-            val total = it.likeCount
-            val num = total - currentStarTotal
-            if (num > 0) {
-                for (i in 0 until num) {
-                    activity.lifecycleScope.launch {
-                        delay(300 * i)
-                        liveBottomStarView?.addChildView()
+                if ((it?.userId?.toString() ?: "0") != DataBus.instance().USER_ID) {
+                    val total = it.likeCount
+                    val num = total - currentStarTotal
+                    if (num > 0) {
+                        for (i in 0 until num) {
+                            activity.lifecycleScope.launch {
+                                delay(300 * i)
+                                liveBottomStarView?.addChildView()
+                            }
+                        }
                     }
                 }
-            }
-//                }
-            currentStarTotal = it.likeCount
+                currentStarTotal = it.likeCount
         }
 
 

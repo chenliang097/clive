@@ -105,7 +105,8 @@ class GiftDialogActivity : SimpleActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun initListener() {
         ivBox?.setOnClickListener {
-            Router.toPersonalCenterActivity(DataBus.instance().USER_ID)
+            GiftHelper.openUserCardVM.post(DataBus.instance().USER_ID)
+            finish()
         }
 
         tvCoin?.setOnClickListener {
@@ -248,14 +249,8 @@ class GiftDialogActivity : SimpleActivity() {
 
                 override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
                     when (errCode) {
-                        "13331000" -> {
+                        "40001" -> {
                             LaToastUtil.showShort(R.string.gift_panel_check_gift_amount_empty)
-                            GiftHelper.isRechargeOpen = true
-                            GiftHelper.clickGiftRecharge.post(1)
-                            finish()
-                        }
-                        "13334000" -> {
-                            LaToastUtil.showShort(R.string.gift_panel_check_gift_jindou_empty)
                             GiftHelper.isRechargeOpen = true
                             GiftHelper.clickGiftRecharge.post(2)
                             finish()

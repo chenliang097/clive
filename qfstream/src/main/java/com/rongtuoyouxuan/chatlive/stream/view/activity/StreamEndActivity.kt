@@ -55,8 +55,8 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
     private fun updateData(streamEndBean: StreamEndBean){
         GlideUtils.loadImage(this, coverUrl, coverBg, R.drawable.rt_default_avatar)
         streamEndHotTxt.text = "" + streamEndBean.data?.max_fire
-        streamEndFansIncreaseNumTxt.text = "" + streamEndBean.data?.fans_count
-        streamEndSeePerNumTxt.text = "" + streamEndBean.data?.view_count
+        streamEndFansIncreaseNumTxt.text = "" + streamEndBean.data?.scene_fans
+        streamEndSeePerNumTxt.text = "" + streamEndBean.data?.max_user_count
         streamEndSeeFansNumTxt.text = "" + streamEndBean.data?.medium_fans_view_count
         streamEndZanNumTxt.text = "" + streamEndBean.data?.liking_count
         streamEndGiftNumTxt.text = "" + streamEndBean.data?.gift_income

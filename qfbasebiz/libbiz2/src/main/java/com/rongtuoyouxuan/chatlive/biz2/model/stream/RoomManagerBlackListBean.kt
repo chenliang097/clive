@@ -19,7 +19,7 @@ class RoomManagerBlackListBean: BaseListModel<RoomManagerBlackListBean.ItemBean>
 
     class ItemBean {
         var user_id = ""
-        var nick_name = 0
+        var nick_name = ""
         var avatar = ""
     }
 }

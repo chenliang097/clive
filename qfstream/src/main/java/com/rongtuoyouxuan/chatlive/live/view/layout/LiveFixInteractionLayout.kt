@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.dialog.RecommendDialog
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
@@ -37,7 +38,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
     var observer: Observer<RTHotChangeMsg> = Observer<RTHotChangeMsg> {
         if (it.roomIdStr == mControllerViewModel?.roomId) {
             liveRoomInfoAnchorLayout?.setCurrentDiamond(it.fire)
-            tvOnline4?.text = "" + it.userCount
+            tvOnline4?.text = RoomDegreeUtils.getDegree(it.userCount)
         }
     }
 

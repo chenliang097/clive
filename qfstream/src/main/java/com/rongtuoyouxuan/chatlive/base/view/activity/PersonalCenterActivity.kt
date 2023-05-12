@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.PersonalCenterViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoBean
+import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
@@ -35,6 +36,13 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
             updateInfo(it)
         }
         userId?.let { personalCenterViewModel?.getPersonalCenterInfo(it) }
+        if(userId == DataBus.instance().USER_ID){
+            centerEditTxt.visibility = View.VISIBLE
+            centerTabWalletLayout.visibility = View.VISIBLE
+        }else{
+            centerEditTxt.visibility = View.GONE
+            centerTabWalletLayout.visibility = View.INVISIBLE
+        }
     }
 
     override fun initListener() {

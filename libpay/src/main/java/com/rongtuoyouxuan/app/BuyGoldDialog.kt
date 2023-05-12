@@ -14,6 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
 import com.rongtuoyouxuan.libuikit.LanguageActivity
+import kotlinx.android.synthetic.main.rt_dialog_buy_gold.*
 
 @Route(path = RouterConstant.PATH_BUY_GOLD_DIALOG)
 class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
@@ -23,7 +24,7 @@ class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
     private var goldBuyGridAdapter: GoldBuyGridAdapter? = null
     private var buyGoldViewModel: BuyGoldViewModel? = null
     private var curPosition = 0
-    private var fromSource: String? = null
+    private var fromSource = 1
     private val rechargeCoins = intArrayOf(10, 60, 300, 980, 2980, 5180)
     private val rechargeRmb = intArrayOf(1, 6, 30, 98, 298, 518)
     private var payDatas: MutableList<RechargeInfoBean> = ArrayList()
@@ -32,7 +33,7 @@ class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setTheme(R.style.commenDialogStyle)
         setContentView(R.layout.rt_dialog_buy_gold)
-        fromSource = intent.getStringExtra("fromSource")
+        fromSource = intent.getIntExtra("fromSource", 1)
         setWindowLocation()
         initView()
         initListener()
@@ -58,6 +59,13 @@ class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
         recyclerView = findViewById(R.id.buyGoldRecyclerView)
         banlanceTxt = findViewById(R.id.buyGoldBanlanceTxt)
         btn = findViewById(R.id.buyGoldBtn)
+        when(fromSource){
+            1->buyGoldTitle.text = resources.getString(R.string.pay_panel_recharge_title)
+            2->buyGoldTitle.text = resources.getString(R.string.rt_recharge_dialog_title)
+            else->{
+                buyGoldTitle.text = resources.getString(R.string.pay_panel_recharge_title)
+            }
+        }
     }
 
     private fun initListener() {
@@ -67,6 +75,10 @@ class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
     private fun initObserver() {
         buyGoldViewModel = obtainStreamViewModel()
         buyGoldViewModel!!.initContext(this)
+        buyGoldViewModel?.balanceLiveData?.observe(this){
+            banlanceTxt?.text = resources.getString(R.string.rt_recharge_dialog_balance, it)
+        }
+        buyGoldViewModel?.getBalance()
     }
 
     private fun initData() {

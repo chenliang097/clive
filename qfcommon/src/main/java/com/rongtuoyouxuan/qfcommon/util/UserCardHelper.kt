@@ -25,4 +25,7 @@ object UserCardHelper {
 
     //关注主播
     val followAnchorVM: Observable<Boolean> = LiveEventBus.get("LIVE_FOLLOW_ANCHOR")
+
+    //关注
+    val clickfollowAnchorVM: Observable<Boolean> = LiveEventBus.get("LIVE_FOLLOW_ANCHOR_CLICK")
 }

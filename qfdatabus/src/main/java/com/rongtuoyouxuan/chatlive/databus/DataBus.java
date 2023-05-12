@@ -35,8 +35,8 @@ public class DataBus {
 //    15363
 //    优选用户_3584
     private static final int MAX_LOG_RETRY = 3;
-    public String USER_ID = "13652";
-    public String USER_NAME = "你猜我猜不猜";
+    public String USER_ID = "15363";
+    public String USER_NAME = "优选用户_3584";
 
     public final String AVATAR = "http://rtyx-bosstest.oss-cn-shanghai.aliyuncs.com/img/head_pic/%E5%B0%8F%E8%9E%8D%E5%A4%B4%E5%83%8F.png";
     private static volatile DataBus sDataBus;

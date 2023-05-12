@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         pushStreamBtn.setOnClickListener {
-            if(!TextUtils.isEmpty(etUserId.text.toString().trim()) && !TextUtils.isEmpty(etUserName.text.toString().trim())){
-                Router.toStreamActivity(etUserId.text.toString().trim(), etUserName.text.toString().trim())
+            if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
+                Router.toStreamActivity(etUserId.text.toString().trim(), DataBus.instance().USER_NAME)
             }else{
                 Router.toStreamActivity()
             }
@@ -86,9 +86,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getMainLiveEnter(){
-        if(!TextUtils.isEmpty(etUserId.text.toString().trim()) && !TextUtils.isEmpty(etUserName.text.toString().trim())){
+        if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
             DataBus.instance().USER_ID = etUserId.text.toString().trim()
-            DataBus.instance().USER_NAME = etUserName.text.toString().trim()
         }
         StreamBiz.mainLiveEnter(DataBus.instance().USER_ID, object :RequestListener<MainLiveEnterBean>{
             override fun onSuccess(reqId: String?, result: MainLiveEnterBean?) {

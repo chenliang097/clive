@@ -29,12 +29,16 @@
         android:textColor="@color/white"
         android:textSize="16sp"/>
 
-    <ImageView
+    <TextView
         android:id="@+id/itemBtn"
         android:layout_width="72dp"
         android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="12dp"
-        android:src="@drawable/rt_common_btn"/>
+        android:gravity="center"
+        android:background="@drawable/rt_common_btn"
+        android:text="@string/stream_manager_remove"
+        android:textSize="14sp"
+        android:textColor="@color/white"/>
 </RelativeLayout>

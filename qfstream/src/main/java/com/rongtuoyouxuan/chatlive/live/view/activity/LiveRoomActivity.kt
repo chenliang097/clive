@@ -67,6 +67,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
     private var fragmentId = 0
     private var isPageScrolled = false
     private var isResetOpen = false
+    private var mLiveRoomFragment:LiveRoomFragment? = null
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -163,7 +164,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
         }
 
         GiftHelper.clickGiftRecharge.observe(this) {
-            Router.toGoldToBuyDialog("1")
+            Router.toGoldToBuyDialog(it)
         }
     }
 
@@ -276,7 +277,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
                         }
                         val item = list[pageScrolledItem]
 
-                        val fragment = LiveRoomFragment.newInstance(
+                        mLiveRoomFragment = LiveRoomFragment.newInstance(
                             "${item.scene_id_str}",
                             "${item.room_id_str}",
                             "${item.anchor_id}",
@@ -286,12 +287,14 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
                             1
                         )
                         pagerItemView?.id?.let {
-                            supportFragmentManager.beginTransaction().add(it, fragment)
-                                .show(fragment)
+                            supportFragmentManager.beginTransaction().add(it,
+                                mLiveRoomFragment!!
+                            )
+                                .show(mLiveRoomFragment!!)
                                 .commitAllowingStateLoss()
                             viewGroup.addView(pagerItemView)
                             liveCurrentItem = pageScrolledItem
-                            fragmentId = fragment.id
+                            fragmentId = mLiveRoomFragment!!.id
                         }
                         vpPager.canSwipe = true
                     }
@@ -380,6 +383,9 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
 
     override fun finish() {
         KeyBoardUtils.hideSoftInput(this)
+        if(isResetOpen){
+            mLiveRoomFragment?.onDestroyView()
+        }
         super.finish()
     }
 }

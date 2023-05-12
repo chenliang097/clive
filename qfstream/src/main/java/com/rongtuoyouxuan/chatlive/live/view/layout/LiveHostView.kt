@@ -68,7 +68,7 @@ class LiveHostView @JvmOverloads constructor(
         LiveDataBus.getInstance().with(LiveDataBusConstants.EVENT_KEY_TO_FOLLOW_GONE)
             .observe((context as LifecycleOwner)) {
 //                follows!!.visibility = GONE
-                updateFollowStatus(true)
+                updateFollowStatus(it as Boolean)
             }
     }
 

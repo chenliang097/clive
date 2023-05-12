@@ -19,8 +19,13 @@ import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.qfcommon.util.UserCardHelper
 import com.hbb20.Country
 import com.lxj.xpopup.core.BottomPopupView
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowStatusBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
+import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
+import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.qfcommon.viewmodel.CommonViewModel
 import kotlinx.android.synthetic.main.qf_dialog_user_plate.view.*
@@ -43,7 +48,6 @@ class UserCardDialog(
     BottomPopupView(activity) {
 
     private var isFollow = false
-    private var mCommonViewModel:CommonViewModel? = null
 
     override fun getImplLayoutId(): Int = R.layout.qf_dialog_user_plate
 
@@ -56,43 +60,39 @@ class UserCardDialog(
     var handler1 = object :Handler(Looper.getMainLooper()){
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-
+            completeData(msg.obj as UserCardInfoBean.DataBean)
         }
     }
 
     fun initObserver(){
-        mCommonViewModel = ViewModelProvider(activity).get(CommonViewModel::class.java)
         var request = UserCardInfoRequest(tUserId, roomId, sceneId, DataBus.instance().USER_ID)
-        mCommonViewModel?.userInfoLiveData?.observe(activity){
-            completeData(it.data)
-        }
-        mCommonViewModel?.addFollowLiveData?.observe(activity){
-            if(it.errCode == 0){
-                updateFollowUI(true)
-            }
-            LaToastUtil.showShort(it?.errMsg)
+        UserCardBiz.getLiveUserCardInfo(
+            request,
+            null,
+            object : RequestListener<UserCardInfoBean?> {
+                override fun onSuccess(reqId: String, result: UserCardInfoBean?) {
+                    result?.data?.let {
+                        var msg = Message()
+                        msg.obj = result.data
+                        handler1.sendMessageDelayed(msg, 200)
+                    }
+                }
 
-        }
-        mCommonViewModel?.cancelFollowLiveData?.observe(activity){
-            if(it.errCode == 0){
-                updateFollowUI(false)
-            }
-            LaToastUtil.showShort(it?.errMsg)
-        }
+                override fun onFailure(reqId: String, errCode: String, msg: String) {}
+            })
 
-        mCommonViewModel?.getUserInfo(request)
     }
 
     fun updateFollowUI(followStatus:Boolean){
         when(followStatus){
-            true->{//添加关注
+            true->{//已关注
                 isFollow = true
                 userCardFollowBtn.setBackgroundResource(R.drawable.bg_btn_followed)
                 userCardFollowAddBtn.text = context.getString(R.string.stream_follow_cancel)
                 userCardFollowAddBtn.setTextColor(context.resources.getColor(R.color.c_333333))
                 userCardFollowIcon.visibility = View.GONE
             }
-            false->{//取消关注
+            false->{//未关注
                 isFollow = false
                 userCardFollowBtn.setBackgroundResource(R.drawable.bg_btn_follow)
                 userCardFollowAddBtn.text = context.getString(R.string.stream_follow)
@@ -127,25 +127,24 @@ class UserCardDialog(
         userCardFansTxt?.text = context.resources.getString(R.string.stream_user_card_fans,result.fans_count)
         userCardFollowTxt?.text = context.resources.getString(R.string.stream_user_card_follow,result.follow_count)
 
-        isFollow = result.is_follow
-        updateFollowUI(isFollow)
+        updateFollowUI(result.is_follow)
         userCardFollowBtn?.setOnClickListener {
             //关注
             if(isFollow){
-                mCommonViewModel?.cancelFollow(tUserId, roomId, sceneId)
+                cancelFollow(DataBus.instance().USER_ID, tUserId)
             }else{
-                mCommonViewModel?.addFollow(tUserId, roomId, sceneId)
+                addFollow(DataBus.instance().USER_ID, tUserId)
             }
 
         }
 
-        if(isSuperManager){
+        if(isSuperManager && DataBus.instance().USER_ID != result.follow_id){
             userCardRightTxt.visibility = View.VISIBLE
             userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
-        }else if(DataBus.instance().USER_ID == anchorId){
+        }else if(DataBus.instance().USER_ID == anchorId && DataBus.instance().USER_ID != result.follow_id){
             userCardRightTxt.visibility = View.VISIBLE
             userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
-        }else if(isRoomManger){
+        }else if(isRoomManger && DataBus.instance().USER_ID != result.follow_id){
             userCardRightTxt.visibility = View.VISIBLE
             userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
         }else{
@@ -185,6 +184,47 @@ class UserCardDialog(
             viewBottom1.visibility = View.VISIBLE
         }
 
+    }
+
+    fun addFollow(fUserId:String,tUserId:String){
+        UserRelationBiz.instance?.addFollow(null, fUserId, tUserId, object : RequestListener<FollowStatusBean?> {
+            override fun onSuccess(reqId: String, result: FollowStatusBean?) {
+                if(result?.errCode == 0) {
+                    updateFollowUI(true)
+                    if(tUserId == anchorId){
+                        UserCardHelper.followAnchorVM.post(true)
+                    }
+                }
+            }
+
+            override fun onFailure(reqId: String, errCode: String, msg: String) {
+                try {
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
+    }
+
+    fun cancelFollow(fUserId:String,tUserId:String){
+        UserRelationBiz.instance?.cancelFollow(null, fUserId, tUserId, object : RequestListener<FollowStatusBean?> {
+            override fun onSuccess(reqId: String, result: FollowStatusBean?) {
+                if(result?.errCode == 0) {
+                    updateFollowUI(false)
+                    if(tUserId == anchorId){
+                        UserCardHelper.followAnchorVM.post(false)
+                    }
+                }
+            }
+
+            override fun onFailure(reqId: String, errCode: String, msg: String) {
+
+            }
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 }

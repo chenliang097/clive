@@ -148,6 +148,6 @@ public interface RouterConstant {
     /**
      * 我的钱包页面
      */
-    String PATH_MY_WALLET = "/boboo_pay/gold/dialog";
+    String PATH_MY_WALLET = "/boboo_pay/my/wallet";
 
 }

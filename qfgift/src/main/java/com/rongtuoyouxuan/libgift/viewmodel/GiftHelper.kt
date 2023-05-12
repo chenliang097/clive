@@ -45,6 +45,8 @@ object GiftHelper {
     val clickGiftRecharge: Observable<Int> = LiveEventBus.get("KEY_GIFT_RECHARGE")
     var isRechargeOpen = true
 
+    val openUserCardVM: Observable<String> = LiveEventBus.get("LIVE_USER_CARD_DIALOG")
+
     const val luckyNum = 10
     val giftLuckyVM: Observable<GiftEntity> = LiveEventBus.get("GIFT_LUCKY_IM")
     const val luckyMarqueeNum = 5000

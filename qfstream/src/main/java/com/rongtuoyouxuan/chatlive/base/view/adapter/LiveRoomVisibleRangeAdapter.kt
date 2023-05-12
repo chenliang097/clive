@@ -17,7 +17,7 @@ class LiveRoomVisibleRangeAdapter:
 
     //用于存储CheckBox选中状态
     private var mCBFlag: MutableMap<Int, Boolean>? = HashMap()
-    private var isShowCheckbox = true
+    private var isShowFist = true
     private var type = ""
 
     constructor(layoutResId: Int, type:String?):super(layoutResId){
@@ -40,24 +40,19 @@ class LiveRoomVisibleRangeAdapter:
         val checkBox = helper.getView<CheckBox>(R.id.itemCheck)
         val avatar = helper.getView<RoundedImageView>(R.id.itemAvatar)
         helper.getView<TextView>(R.id.itemName).text = item.nick_name
-        if (isShowCheckbox) {
-            checkBox.visibility = View.VISIBLE
-        } else {
-            checkBox.visibility = View.GONE
-        }
-        when(type){
-            "1"->{
-                if(item.allow){
+        checkBox.visibility = View.VISIBLE
+
+        when (type) {
+            "1" -> {
+                if (item.allow) {
                     checkBox.isChecked = true
                     mCBFlag?.set(item.id.toInt(), true)
-                    mOnSelectContactsListener!!.onItemCheck(position, item, true)
                 }
             }
-            "2"->{
-                if(!item.allow){
+            "2" -> {
+                if (!item.allow) {
                     checkBox.isChecked = true
                     mCBFlag?.set(item.id.toInt(), true)
-                    mOnSelectContactsListener!!.onItemCheck(position, item, true)
                 }
             }
         }
@@ -65,11 +60,11 @@ class LiveRoomVisibleRangeAdapter:
             if (checkBox.isChecked) {
                 checkBox.isChecked = true
                 mCBFlag?.set(item.id.toInt(), true)
-                mOnSelectContactsListener!!.onItemCheck(position, item, true)
+                mCBFlag?.let { it1 -> mOnSelectContactsListener!!.onItemCheck(it1) }
             } else {
                 checkBox.isChecked = false
                 mCBFlag?.set(item.id.toInt(), false)
-                mOnSelectContactsListener!!.onItemCheck(position, item, false)
+                mCBFlag?.let { it1 -> mOnSelectContactsListener!!.onItemCheck(it1) }
             }
         }
     }
@@ -84,7 +79,6 @@ class LiveRoomVisibleRangeAdapter:
     }
 
     fun setShowCheckbox(isShowCheckbox: Boolean) {
-        this.isShowCheckbox = isShowCheckbox
         notifyDataSetChanged()
     }
 
@@ -93,6 +87,7 @@ class LiveRoomVisibleRangeAdapter:
     }
 
     interface OnSelectContactsListener {
-        fun onItemCheck(position: Int, item: LiveRoomVisibleRangeListBean.FansItemBean?, isAdd: Boolean)
+        fun onItemCheck(mCBFlag: MutableMap<Int, Boolean>)
+        fun updateList(mCBFlag: MutableMap<Int, Boolean>)
     }
 }

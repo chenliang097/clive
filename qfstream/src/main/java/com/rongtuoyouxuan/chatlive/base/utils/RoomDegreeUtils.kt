@@ -12,7 +12,7 @@ object RoomDegreeUtils {
             var cDegree = (degree.toDouble()/10000)
             val b = BigDecimal(cDegree)
             val f1: Float = b.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
-            return ("" + f1).plus("W")
+            return ("" + f1).plus("万")
         }
     }
 }

@@ -5,13 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/core_util_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginTop="44dp" />
-
     <RelativeLayout
         android:id="@+id/centerUserCoverLayout"
         android:layout_width="match_parent"
@@ -257,6 +250,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="4dp"
                     android:gravity="center"
+                    android:visibility="invisible"
                     android:background="@drawable/btn_center_edit">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -316,6 +310,11 @@
             android:text="@string/stream_center_no_data"/>
 
     </LinearLayout>
-
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/core_util_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="44dp" />
 
 </RelativeLayout>

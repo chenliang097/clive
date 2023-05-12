@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerListBean
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerMuteListBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
+import com.rongtuoyouxuan.chatlive.stream.view.adapter.MuteListAdapter
 import com.rongtuoyouxuan.chatlive.stream.view.adapter.SetManagerListAdapter
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorManagerMuteListViewModel
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.SetManagerListViewModel
@@ -18,7 +20,7 @@ import com.rongtuoyouxuan.libuikit.layout.CommonStatusView
 import com.rongtuoyouxuan.libuikit.layout.IStatusView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
-class AnchorManagerMuteListFragment:BaseRefreshListFragment<AnchorManagerMuteListViewModel, RoomManagerListBean>() {
+class AnchorManagerMuteListFragment:BaseRefreshListFragment<AnchorManagerMuteListViewModel, RoomManagerMuteListBean>() {
 
     private var mViewModel: AnchorManagerMuteListViewModel? = null
     private var roomId:String? = ""
@@ -61,8 +63,8 @@ class AnchorManagerMuteListFragment:BaseRefreshListFragment<AnchorManagerMuteLis
         return R.layout.qf_stream_fragment_set_manager_list
     }
 
-    override fun createAdapter(): BaseQuickAdapter<RoomManagerListBean.ItemBean, BaseViewHolder> {
-        var adapter = SetManagerListAdapter(R.layout.qf_stream_adapter_item_set_manager, 1);
+    override fun createAdapter(): BaseQuickAdapter<RoomManagerMuteListBean.ItemBean, BaseViewHolder> {
+        var adapter = MuteListAdapter(R.layout.qf_stream_adapter_item_set_manager, 1);
         adapter.addChildClickViewIds(R.id.itemBtn)
         adapter.setOnItemChildClickListener { adapter, view, position ->
             var bean = adapter.data[position] as RoomManagerListBean.ItemBean

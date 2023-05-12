@@ -6,7 +6,6 @@ import com.rongtuoyouxuan.chatlive.net2.NetWorks
 import retrofit2.Retrofit
 import com.rongtuoyouxuan.chatlive.biz2.ReqId
 import com.rongtuoyouxuan.chatlive.biz2.constanst.UrlConstanst
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveUserData
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
@@ -42,7 +41,7 @@ object UserCardBiz {
     fun getLiveUserCardInfo(
         userCardInfoRequest: UserCardInfoRequest,
         lifecycleOwner: LifecycleOwner? = null,
-        listener: RequestListener<UserCardInfoBean>
+        listener: RequestListener<UserCardInfoBean?>
     ) {
         object : NetWorks<UserCardInfoBean>(lifecycleOwner, listener) {
             override fun createCall(retrofit: Retrofit): Call<UserCardInfoBean> {

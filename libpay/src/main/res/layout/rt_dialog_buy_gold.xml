@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/buyGoldTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -31,8 +32,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:textColor="@color/c_40_white"
-            android:textSize="12sp"
-            android:text="@string/rt_recharge_dialog_balance"/>
+            android:textSize="12sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/buyGoldRecyclerView"
