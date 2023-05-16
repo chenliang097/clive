@@ -23,6 +23,7 @@ class AnchorManagerDialog : LanguageActivity(), View.OnClickListener {
     private var anchorManagerViewModel: AnchorManagerViewModel? = null
     private var roomId = ""
     private var sceneId = ""
+    private var type = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class AnchorManagerDialog : LanguageActivity(), View.OnClickListener {
         setContentView(R.layout.rt_dialog_anchor_manager)
         roomId = intent.getStringExtra("roomId").toString()
         sceneId = intent.getStringExtra("sceneId").toString()
+        type = intent.getIntExtra("type", 1)
         setWindowLocation()
         initView()
         initListener()
@@ -52,6 +54,14 @@ class AnchorManagerDialog : LanguageActivity(), View.OnClickListener {
     }
 
     private fun initView() {
+        when(type){
+            1->{
+                anchorManagerSetManagerLayout.visibility = View.VISIBLE
+            }
+            2->{
+                anchorManagerSetManagerLayout.visibility = View.GONE
+            }
+        }
     }
 
     private fun initListener() {

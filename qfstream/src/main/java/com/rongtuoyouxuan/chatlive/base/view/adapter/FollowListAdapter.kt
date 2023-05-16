@@ -7,15 +7,18 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowListBean
+import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 
 class FollowListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>, LoadMoreModule {
     private var type:Int = 0
     private var onFollowStatus:OnFollowStatus? = null
-    constructor(layoutId:Int, type:Int):super(layoutId){
+    private var userId:String? = ""
+    constructor(layoutId:Int, type:Int, userId:String?):super(layoutId){
         this.type =type
         this.onFollowStatus = onFollowStatus
+        this.userId = userId
     }
 
     override fun convert(holder: BaseViewHolder, item: FansListBean.ItemBean) {
@@ -24,12 +27,22 @@ class FollowListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>
         var btn1 = holder.getView<TextView>(R.id.itemBtn)
         GlideUtils.loadImage(context, item.avatar, avatar, R.drawable.rt_default_avatar)
         name.text = item.nick_name
-        if(item.status){
-            btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
-            btn1.text = context.resources.getString(R.string.stream_center_followed)
+        if(userId == DataBus.instance().USER_ID) {
+            if (item.status) {
+                btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                btn1.text = context.resources.getString(R.string.stream_center_followed)
+            } else {
+                btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                btn1.text = context.resources.getString(R.string.stream_center_add_follow)
+            }
         }else{
-            btn1.setBackgroundResource(R.drawable.rt_common_btn)
-            btn1.text = context.resources.getString(R.string.stream_center_add_follow)
+            if (item.status) {
+                btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                btn1.text = context.resources.getString(R.string.stream_user_card_delete_folowed)
+            } else {
+                btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                btn1.text = context.resources.getString(R.string.stream_follow)
+            }
         }
 //        btn1.setOnClickListener {
 //            onFollowStatus?.onFollowStatus(item.status)

@@ -105,7 +105,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
             }
 
             override fun updateList(mCBFlag: MutableMap<Int, Boolean>) {
-
+                CBFlag = mCBFlag
             }
         })
         mSelectContactsAdapter?.setOnItemClickListener { adapter, view, position ->

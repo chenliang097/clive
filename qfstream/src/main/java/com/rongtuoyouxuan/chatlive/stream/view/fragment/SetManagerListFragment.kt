@@ -1,12 +1,14 @@
 package com.rongtuoyouxuan.chatlive.stream.view.fragment
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.rongtuoyouxuan.chatlive.biz2.model.list.LoadEvent
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerListBean
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.adapter.SetManagerListAdapter
@@ -35,7 +37,13 @@ class SetManagerListFragment:BaseRefreshListFragment<SetManagerListViewModel, Ro
     override fun initdata() {
         roomId = arguments?.get("roomId") as String?
         viewModel.data.observe(this) { it ->
-            setManagerInsTxt.text = (context?.resources?.getString(R.string.stream_anchor_manager_set_manager_ins, it.data?.room_admin_list?.size))
+            if(it.event == LoadEvent.EVENT_LOAD_INIT_OR_RETRY) {
+                setManagerInsTxt.visibility = View.VISIBLE
+                setManagerInsTxt.text = (context?.resources?.getString(
+                    R.string.stream_anchor_manager_set_manager_ins,
+                    it.data?.room_admin_list?.size
+                ))
+            }
         }
     }
 

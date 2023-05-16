@@ -61,7 +61,7 @@
                     android:hint="@string/stream_input_hit"
                     android:textColorHint="@color/c_20_black"
                     android:inputType="text"
-                    android:maxLength="100"
+                    android:maxLength="51"
                     android:padding="5dp"
                     android:textSize="14sp" />
 

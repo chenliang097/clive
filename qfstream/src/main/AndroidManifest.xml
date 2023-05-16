@@ -62,6 +62,7 @@
 
         <activity
             android:name="com.rongtuoyouxuan.chatlive.stream.view.activity.AnchorManagerDialog"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTask"
             android:theme="@style/commenDialogStyle" />
 

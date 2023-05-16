@@ -79,10 +79,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout
-        android:id="@+id/room_message_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
-
 </FrameLayout>

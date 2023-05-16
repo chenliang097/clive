@@ -6,6 +6,7 @@ import android.view.View.OnClickListener
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
+import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.PersonalCenterViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
@@ -80,9 +81,9 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
             centerLocationTxt.text = resources.getString(R.string.stream_prepare_empty_location)
         }
 
-        centerFansNumTxt.text = "" + bean?.data?.fans_count
-        centerFollowNumTxt.text = "" + bean?.data?.follow_count
-        centerLikeNumTxt.text = "" + bean?.data?.like_count
+        centerFansNumTxt.text = bean?.data?.fans_count?.let { RoomDegreeUtils.getDegree(it) }
+        centerFollowNumTxt.text = bean?.data?.follow_count?.let { RoomDegreeUtils.getDegree(it) }
+        centerLikeNumTxt.text = bean?.data?.like_count?.let { RoomDegreeUtils.getDegree(it) }
 
     }
 
@@ -95,10 +96,10 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
                 Router.toWalletActivity("")
             }
             R.id.centerFansLayout->{
-                Router.toFansAndFollowListActivity(userId)
+                Router.toFansAndFollowListActivity(userId, 1)
             }
             R.id.centerFollowNumTxt->{
-                Router.toFansAndFollowListActivity(userId)
+                Router.toFansAndFollowListActivity(userId, 2)
             }
             R.id.centerEditTxt->{
                 LaToastUtil.showShort("编辑资料")

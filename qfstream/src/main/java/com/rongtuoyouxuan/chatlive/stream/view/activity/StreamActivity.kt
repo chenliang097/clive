@@ -13,6 +13,8 @@ import android.widget.*
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.StringUtils
+import com.lxj.xpopup.XPopup
+import com.makeramen.roundedimageview.RoundedImageView
 import com.rongtuoyouxuan.chatlive.base.DialogUtils
 import com.rongtuoyouxuan.chatlive.base.utils.CameraAndMicPermissonUtlils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
@@ -25,14 +27,20 @@ import com.rongtuoyouxuan.chatlive.base.view.layout.RoomSendMessageLayout
 import com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
 import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.im.constants.ConversationTypes.TYPE_CHATROOM
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.*
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo
+import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService
 import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
+import com.rongtuoyouxuan.chatlive.stream.view.beauty.BeautifyBottomFragment
+import com.rongtuoyouxuan.chatlive.stream.view.beauty.BeautifyBottomFragmentViewModel
+import com.rongtuoyouxuan.chatlive.stream.view.beauty.BottomFragmentViewModel
+import com.rongtuoyouxuan.chatlive.stream.view.beauty.listener.OnClickListener
+import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
 import com.rongtuoyouxuan.chatlive.stream.view.dialog.HostExitDialog
 import com.rongtuoyouxuan.chatlive.stream.view.layout.*
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout.StartLiveListener
@@ -40,20 +48,12 @@ import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamViewModel
 import com.rongtuoyouxuan.chatlive.streaming.BaseStreamView
 import com.rongtuoyouxuan.chatlive.util.ScreenCapture
+import com.rongtuoyouxuan.libsocket.base.IMSocketBase
 import com.rongtuoyouxuan.qfcommon.dialog.CommonBottomDialog
 import com.rongtuoyouxuan.qfcommon.dialog.UserCardDialog
+import com.rongtuoyouxuan.qfcommon.share.RxUmengSocial
 import com.rongtuoyouxuan.qfcommon.util.*
 import com.rongtuoyouxuan.qfzego.ZegoStreamView
-import com.lxj.xpopup.XPopup
-import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
-import com.rongtuoyouxuan.chatlive.stream.view.beauty.BeautifyBottomFragment
-import com.rongtuoyouxuan.chatlive.stream.view.beauty.BeautifyBottomFragmentViewModel
-import com.rongtuoyouxuan.chatlive.stream.view.beauty.BottomFragmentViewModel
-import com.rongtuoyouxuan.chatlive.stream.view.beauty.listener.OnClickListener
-import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
-import com.rongtuoyouxuan.qfcommon.share.RxUmengSocial
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zhihu.matisse.dialog.DiySystemDialog
 import kotlinx.android.synthetic.main.qf_stream_activity_stream.*
@@ -215,7 +215,7 @@ class StreamActivity : BaseLiveStreamActivity() {
         mControllerViewModel!!.mOutDialog.observeOnce(this) { showOutDialog() }
 
         mControllerViewModel!!.anchorSettingLiveEvent.observeOnce(this) {
-            Router.toAnchorManagerDialog(roomID, roomInfoBean?.data?.scene_id_str)
+            Router.toAnchorManagerDialog(roomID, roomInfoBean?.data?.scene_id_str, 1)
         }
 
         mIMViewModel!!.showTransteDialog.observeOnce(this) { msg ->
@@ -303,6 +303,9 @@ class StreamActivity : BaseLiveStreamActivity() {
             anchorInfo.nickname = roomInfoBean?.data?.anchor_name.toString()
             anchorInfo.likeNum = it?.data?.liking_count!!
             mControllerViewModel?.mHostInfo?.value = anchorInfo
+        }
+        IMSocketBase.instance().room(DataBus.instance().USER_ID).anchorLiveEndMsg.observe{
+            intentStreamEnd()
         }
 //        IMSocketImpl.getInstance().chatRoom(DataBus.instance().uid).liveLockMsgLiveCallback.observe(
 //            liveLockObserver

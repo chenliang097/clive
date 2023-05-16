@@ -13,6 +13,7 @@ import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout.OnSetMaskWordListener
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorManagerViewModel
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import kotlinx.android.synthetic.main.qf_stream_layout_set_mask_word.view.*
 
 open class SetMaskWordsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -33,7 +34,11 @@ open class SetMaskWordsView @JvmOverloads constructor(context: Context, attrs: A
     fun initObserver(){
         anchorManagerViewModel = ViewModelProvider(context as FragmentActivity).get(AnchorManagerViewModel::class.java)
         anchorManagerViewModel?.setRoomMaskWordsLiveData?.observe(context as FragmentActivity){
-            anchorManagerViewModel?.getRoomMaskWords(roomId)
+            if(it.errCode == 0) {
+                anchorManagerViewModel?.getRoomMaskWords(roomId)
+            }else{
+                LaToastUtil.showShort(it.errMsg)
+            }
         }
         anchorManagerViewModel?.roomMaskWordsLiveData?.observe(context as FragmentActivity){
             anchorManagerMaskWordNumTxt.text = resources.getString(R.string.stream_anchor_manager_mask_work_num, it.data?.words?.size, 10)

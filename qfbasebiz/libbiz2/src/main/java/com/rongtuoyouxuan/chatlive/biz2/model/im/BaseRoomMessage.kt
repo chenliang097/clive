@@ -11,6 +11,7 @@ abstract class BaseRoomMessage : MultiItemEntity {
         const val TYPE_ANNOUNCE = 2002
         const val TYPE_LIVE_END = 2004
         const val TYPE_LIKE = 2005
+        const val TYPE_ANCHOR_LIVE_END = 2006
         const val TYPE_ENTER_ROOM = 2007
         const val TYPE_OUT_ROOM = 2008
         const val TYPE_FOLLOW = 2010

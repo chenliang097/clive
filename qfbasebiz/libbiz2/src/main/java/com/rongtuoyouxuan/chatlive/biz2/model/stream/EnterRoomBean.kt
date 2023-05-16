@@ -1,5 +1,6 @@
 package com.rongtuoyouxuan.chatlive.biz2.model.stream
 
+import com.google.gson.annotations.SerializedName
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 
 class EnterRoomBean: BaseModel() {
@@ -23,8 +24,12 @@ class EnterRoomBean: BaseModel() {
         var is_follow = false
         var is_super_admin = false
         var is_anchor = false
+        @SerializedName("anchor_avatar")
         var user_avatar = ""
         var user_id = ""
         var user_name = ""
+        var is_black = false
+        var is_live = false
+        var gift_switch = false
     }
 }

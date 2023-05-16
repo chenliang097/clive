@@ -116,32 +116,32 @@ public class BottomDialogViewModel extends AndroidViewModel {
             ChatIMBiz.INSTANCE.cancelMute(muteRequest, new RequestListener<OperateResultModel>() {
                 @Override
                 public void onSuccess(String reqId, OperateResultModel result) {
-                    if (!TextUtils.isEmpty(result.errMsg)) {
-                        LaToastUtil.showShort(result.errMsg);
+                    if (result.errCode == 0) {
+                        LaToastUtil.showShort(StringUtils.getString(R.string.mine_userinfo_remove_block_success));
                     } else {
-                        LaToastUtil.showShort(StringUtils.getString(R.string.chat_operate_remove_success));
+                        LaToastUtil.showShort(StringUtils.getString(R.string.mine_userinfo_remove_block_fail));
                     }
                 }
 
                 @Override
                 public void onFailure(String reqId, String errCode, String msg) {
-                    LaToastUtil.showShort(msg);
+                    LaToastUtil.showShort(StringUtils.getString(R.string.stream_mute_fail));
                 }
             });
         } else {
             ChatIMBiz.INSTANCE.mute(muteRequest, new RequestListener<OperateResultModel>() {
                 @Override
                 public void onSuccess(String reqId, OperateResultModel result) {
-                    if (!TextUtils.isEmpty(result.errMsg)) {
-                        LaToastUtil.showShort(result.errMsg);
+                    if (result.errCode == 0) {
+                        LaToastUtil.showShort(StringUtils.getString(R.string.stream_mute_suc));
                     } else {
-                        LaToastUtil.showShort(StringUtils.getString(R.string.stream_banned));
+                        LaToastUtil.showShort(StringUtils.getString(R.string.stream_mute_fail));
                     }
                 }
 
                 @Override
                 public void onFailure(String reqId, String errCode, String msg) {
-                    LaToastUtil.showShort(msg);
+                    LaToastUtil.showShort(StringUtils.getString(R.string.stream_mute_fail));
                 }
             });
         }
@@ -155,16 +155,16 @@ public class BottomDialogViewModel extends AndroidViewModel {
         ChatIMBiz.INSTANCE.addBlacklist(addBlacklistRequest, new RequestListener<BaseModel>() {
             @Override
             public void onSuccess(String reqId, BaseModel result) {
-                if (!TextUtils.isEmpty(result.errMsg)) {
-                    LaToastUtil.showShort(result.errMsg);
-                } else {
+                if (result.errCode == 0) {
                     LaToastUtil.showShort(StringUtils.getString(R.string.chat_operate_pullblack_success));
+                }else{
+                    LaToastUtil.showShort(StringUtils.getString(R.string.chat_operate_pullblack_fail));
                 }
             }
 
             @Override
             public void onFailure(String reqId, String errCode, String msg) {
-                LaToastUtil.showShort(msg);
+                LaToastUtil.showShort(StringUtils.getString(R.string.chat_operate_pullblack_fail));
             }
         });
     }
@@ -177,16 +177,17 @@ public class BottomDialogViewModel extends AndroidViewModel {
         ChatIMBiz.INSTANCE.removeBlacklist(addBlacklistRequest, new RequestListener<OperateResultModel>() {
             @Override
             public void onSuccess(String reqId, OperateResultModel result) {
-                if (!TextUtils.isEmpty(result.errMsg)) {
-                    LaToastUtil.showShort(result.errMsg);
-                } else {
-                    LaToastUtil.showShort(R.string.mine_userinfo_remove_block_success);
+                if (result.errCode == 0) {
+                    LaToastUtil.showShort(StringUtils.getString(R.string.mine_userinfo_remove_block_success));
+                }else{
+                    LaToastUtil.showShort(StringUtils.getString(R.string.mine_userinfo_remove_block_fail));
                 }
             }
 
             @Override
             public void onFailure(String reqId, String errCode, String msg) {
-                LaToastUtil.showShort(msg);
+                LaToastUtil.showShort(StringUtils.getString(R.string.mine_userinfo_remove_block_success));
+
             }
         });
     }
@@ -194,7 +195,7 @@ public class BottomDialogViewModel extends AndroidViewModel {
     /**
      * 举报
      *
-     * @param content 举报内容
+     * @param 举报内容
      */
     public void setRoomAdmin(String userId, String roomId,String roomAdminId, String uNickName,String rNickName, boolean isRoomManager) {
         SetRoomManagerRequest request = new SetRoomManagerRequest(userId, roomId, roomAdminId, uNickName, rNickName);
@@ -203,7 +204,11 @@ public class BottomDialogViewModel extends AndroidViewModel {
             StreamBiz.INSTANCE.deleteRoomManagerList(request1, new RequestListener<BaseModel>() {
                 @Override
                 public void onSuccess(String reqId, BaseModel result) {
-                    LaToastUtil.showShort(result.errMsg);
+                    if (result.errCode == 0) {
+                        LaToastUtil.showShort(StringUtils.getString(R.string.mine_userinfo_remove_block_success));
+                    }else{
+                        LaToastUtil.showShort(StringUtils.getString(R.string.mine_userinfo_remove_block_fail));
+                    }
                 }
 
                 @Override
@@ -215,12 +220,16 @@ public class BottomDialogViewModel extends AndroidViewModel {
             ChatIMBiz.INSTANCE.setRoomManager(request, new RequestListener<BaseModel>() {
                 @Override
                 public void onSuccess(String reqId, BaseModel result) {
-                    LaToastUtil.showShort(result.errMsg);
+                    if (result.errCode == 0) {
+                        LaToastUtil.showShort(StringUtils.getString(R.string.stream_room_manager_suc));
+                    }else{
+                        LaToastUtil.showShort(StringUtils.getString(R.string.stream_room_manager_fail));
+                    }
                 }
 
                 @Override
                 public void onFailure(String reqId, String errCode, String msg) {
-                    LaToastUtil.showShort(msg);
+                    LaToastUtil.showShort(StringUtils.getString(R.string.stream_room_manager_fail));
                 }
             });
         }
@@ -236,7 +245,7 @@ public class BottomDialogViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(String reqId, String errCode, String msg) {
-                LaToastUtil.showShort(msg);
+                LaToastUtil.showShort(StringUtils.getString(R.string.stream_report_fail));
             }
         });
     }

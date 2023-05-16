@@ -290,7 +290,7 @@ public class CommonBottomDialog {
                             viewModel.saveReportSuccess.observe(getLifecycleOwner(context), new Observer<Boolean>() {
                                 @Override
                                 public void onChanged(Boolean aBoolean) {
-                                    ULog.d(TAG, "saveReportSuccess ---> " + aBoolean);
+                                    LaToastUtil.showShort(StringUtils.getString(R.string.stream_report_suc));
                                     KeyboardUtils.hideSoftInput(input);
                                 }
                             });

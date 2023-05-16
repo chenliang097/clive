@@ -27,7 +27,7 @@ public class ControllerViewModel extends LiveBaseViewModel {
 
     public LiveEvent<ActivityResult> ActivityResultEvent = new LiveEvent<>();
 
-
+    public LiveEvent<Void> anchorSettingLiveEvent = new LiveEvent<>();
     public ControllerViewModel(LiveStreamInfo liveStreamInfo) {
         super(liveStreamInfo);
     }

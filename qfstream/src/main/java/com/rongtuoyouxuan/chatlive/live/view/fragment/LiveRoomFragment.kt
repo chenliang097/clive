@@ -86,7 +86,6 @@ class LiveRoomFragment : SimpleFragment() {
     private var isPageScrolled: Boolean = false
     private var streamType: String = ""
     private var liveStreamcontainer: FrameLayout? = null
-    private var liveStreamCovercontainer: ImageView? = null
     private var isHide = false
 
     private var groupId = 0L
@@ -195,7 +194,6 @@ class LiveRoomFragment : SimpleFragment() {
 
     private fun initView() {
         liveStreamcontainer = mRootView.findViewById(R.id.liveStreamcontainer)
-        liveStreamCovercontainer = mRootView.findViewById(R.id.liveStreamCovercontainer)
         live_clear_layout?.setScrollView(ll_controllerview)
         live_clear_layout.setHideListener {
             isHide = it
@@ -404,13 +402,11 @@ class LiveRoomFragment : SimpleFragment() {
         }
         imViewModel?.showPanel?.observe(this) {
             if (it) {
-                liveAdslayout?.visibility = View.GONE
                 ll_room_bottom_tools?.visibility = View.GONE
             } else {
                 var handler1: Handler = object : Handler(Looper.getMainLooper()) {
                     override fun handleMessage(msg: Message) {
                         super.handleMessage(msg)
-                        liveAdslayout?.visibility = View.VISIBLE
                         ll_room_bottom_tools?.visibility = View.VISIBLE
                     }
                 }
@@ -437,6 +433,10 @@ class LiveRoomFragment : SimpleFragment() {
 
         imViewModel?.minLiveEvent?.observe(this) {
             LiveRoomHelper.liveFloatingWindow.post(0L)
+        }
+
+        mLiveControllerViewModel!!.anchorSettingLiveEvent.observeOnce(this) {
+            Router.toAnchorManagerDialog(roomId, roomInfoBean?.data?.scene_id_str, 2)
         }
     }
 
@@ -523,6 +523,7 @@ class LiveRoomFragment : SimpleFragment() {
 
     override fun onDestroyView() {
         LiveManager.instance().setLiveStatusNull()
+        exitRequest()
         viewModel?.onDestroy()
         if (viewModel?.liveStatus != "floatWindow") {
             imViewModel!!.onDestroy()

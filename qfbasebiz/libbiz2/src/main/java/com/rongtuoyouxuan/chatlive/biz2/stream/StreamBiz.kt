@@ -537,7 +537,7 @@ object StreamBiz {
             override fun createCall(retrofit: Retrofit): Call<RoomManagerMuteListBean> {
                 return retrofit.create(StreamServer::class.java).getManagerMuteList(
                     UrlConstanst.BASE_URL_MUTE_LIST_API_BOBOO_COM + "?page=$page&size=$size",
-                        AnchorRoomMuteListRequest(sceneId, roomId)
+                        AnchorRoomMuteListRequest(roomId, sceneId)
                 )
             }
 

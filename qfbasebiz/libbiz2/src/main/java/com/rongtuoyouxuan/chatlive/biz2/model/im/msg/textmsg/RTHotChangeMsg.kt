@@ -5,7 +5,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
 
 class RTHotChangeMsg: BaseRoomMessage() {
     @SerializedName("scene_id")
-    var sceneId = ""
+    var sceneId = 0
     @SerializedName("scene_id_str")
     var sceneIdStr = ""
     @SerializedName("fire")

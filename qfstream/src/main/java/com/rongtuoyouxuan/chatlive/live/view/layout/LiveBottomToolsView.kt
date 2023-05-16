@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerAddMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerRelieveMsg
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
@@ -21,6 +24,7 @@ import com.rongtuoyouxuan.chatlive.live.view.dialog.LiveToolsDialog
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveRoomViewModel
 import com.rongtuoyouxuan.chatlive.stream.R
+import com.rongtuoyouxuan.libsocket.base.IMSocketBase
 import kotlinx.android.synthetic.main.qf_stream_live_layout_bottom_tools.view.*
 
 class LiveBottomToolsView @JvmOverloads constructor(
@@ -59,6 +63,10 @@ class LiveBottomToolsView @JvmOverloads constructor(
         val zanImg = findViewById<ImageView>(R.id.liveRoomBottomZanImg)
         bottomLayout = findViewById(R.id.liveRoomBottomLayout)
 
+        liveRoomSettingBtn.setOnClickListener {
+            mLiveControllerViewModel?.anchorSettingLiveEvent?.call()
+        }
+
         liveRoomBottomChatLayout?.setOnClickListener{
             //聊天
             if (DataBus.instance().isVisitor) {
@@ -83,16 +91,11 @@ class LiveBottomToolsView @JvmOverloads constructor(
         mLiveControllerViewModel?.roomInfoLiveData?.observe((context as LifecycleOwner)) {
             if (it != null) {
                 visibility = VISIBLE
-//                if (it.data.permissions.room_forbidden_speaking) {
-//                    messageBanned(false)
-//                } else {
-//                    if (it.data.permissions.forbidden_speaking) {
-//                        messageBanned(false)
-//                    } else {
-//                        messageBanned(true)
-//
-//                    }
-//                }
+                if(it.data?.is_room_admin == true){
+                    liveRoomSettingBtn.visibility = View.VISIBLE
+                }else{
+                    liveRoomSettingBtn.visibility = View.GONE
+                }
             }
         }
 
@@ -128,44 +131,26 @@ class LiveBottomToolsView @JvmOverloads constructor(
         init(context)
     }
 
-    private var bannedObserver: Observer<BannedMsg> = Observer {
-        when (it.bannedType) {
-            1 -> {
-                mIMViewModel?.hideInputViewLiveEvent?.value = true
-                messageBanned(false)
-            }
-            2 -> {
-                messageBanned(true)
-
-            }
-            3 -> {
-                it.bannedUsers.forEach { bannedUsersBean ->
-                    if (bannedUsersBean.userId == DataBus.instance().userInfo.value?.user_info?.userId) {
-                        mIMViewModel?.hideInputViewLiveEvent?.value = true
-                        messageBanned(false)
-                    }
-                }
-
-            }
-            4 -> {
-                it.bannedUsers.forEach { bannedUsersBean ->
-                    if (bannedUsersBean.userId == DataBus.instance().userInfo.value?.user_info?.userId) {
-                        messageBanned(true)
-                    }
-                }
-
-            }
-        }
+    private var addManagerObserver: Observer<RTRoomManagerAddMsg> = Observer {
+        liveRoomSettingBtn.visibility = View.VISIBLE
     }
 
-    private fun registerObserver(streamId: String?) {
-//        IMSocketImpl.getInstance().chatRoom(streamId).bannedCallback.observe(bannedObserver)
-        var userId = DataBus.instance().userInfo.value?.user_info?.userId
+    private var relieveManagerObserver: Observer<RTRoomManagerRelieveMsg> = Observer {
+        liveRoomSettingBtn.visibility = View.GONE
     }
 
-    private fun unRegisterObserver(streamId: String?) {
-//        IMSocketImpl.getInstance().chatRoom(streamId).bannedCallback.removeObserver(bannedObserver)
-        var userId = DataBus.instance().userInfo.value?.user_info?.userId
+    private fun registerObserver(roomId: String?) {
+        var userId = DataBus.instance().USER_ID
+        IMSocketBase.instance().room(userId).roomManagerAddMsg.observe(addManagerObserver)
+        IMSocketBase.instance().room(userId).roomManagerRelieveMsg.observe(relieveManagerObserver)
+
+    }
+
+    private fun unRegisterObserver(roomId: String?) {
+        var userId = DataBus.instance().USER_ID
+        IMSocketBase.instance().room(userId).roomManagerAddMsg.removeObserver(addManagerObserver)
+        IMSocketBase.instance().room(userId).roomManagerRelieveMsg.removeObserver(relieveManagerObserver)
+
     }
 
 

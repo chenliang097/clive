@@ -71,7 +71,8 @@ class FollowListFragment:BaseRefreshListFragment<FollowListViewModel, FollowList
     }
 
     override fun createAdapter(): BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder> {
-        var adapter = FollowListAdapter(R.layout.qf_stream_adapter_item_fans, 1)
+        userId = arguments?.get("userId") as String?
+        var adapter = FollowListAdapter(R.layout.qf_stream_adapter_item_fans, 1, userId)
         adapter.addChildClickViewIds(R.id.itemBtn)
         adapter.setOnItemChildClickListener { adapter, view, position ->
             var bean = adapter.data[position] as FansListBean.ItemBean

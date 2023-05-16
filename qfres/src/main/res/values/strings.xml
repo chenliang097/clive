@@ -330,9 +330,11 @@
     <string name="user_card_dialog_send_gift_tip">送礼物</string>
     <string name="chat_group_all_banned">全员禁言中</string>
     <string name="chat_operate_pullblack_success">拉黑成功</string>
+    <string name="chat_operate_pullblack_fail">拉黑失败</string>
     <string name="chat_operate_remove_success">操作成功</string>
     <string name="stream_audience_status_exception">嘉宾状态异常</string>
     <string name="stream_visitor">游客</string>
+
 
     <string name="live_start_notice">你关注的主播</string>
     <string name="bbl_can_not_send_msg">不可发送消息</string>
@@ -352,7 +354,8 @@
     <string name="live_public_chat_area_share">分享直播间</string>
     <string name="mine_userinfo_cancel_block_tv">取消拉黑</string>
     <string name="mine_userinfo_add_block_tv">确定将该用户移除黑名单？</string>
-    <string name="mine_userinfo_remove_block_success">已移出黑名单</string>
+    <string name="mine_userinfo_remove_block_success">移除成功</string>
+    <string name="mine_userinfo_remove_block_fail">移除失败</string>
     <string name="live_anim_config_dialog_title">特效设置</string>
     <string name="live_anim_config_dialog_gift">礼物特效</string>
     <string name="live_anim_config_dialog_car">座驾特效</string>
@@ -573,7 +576,7 @@
     <string name="share_to_content">%1$s邀请您观看直播</string>
     <string name="stream_msg_enter_room">来了</string>
     <string name="stream_report_reson">选择原因</string>
-    <string name="stream_report_suc">成功</string>
+    <string name="stream_report_suc">举报成功</string>
     <string name="stream_report_reson_1">垃圾广告营销</string>
     <string name="stream_report_reson_2">侮辱谩骂</string>
     <string name="stream_report_reson_3">违法反动</string>
@@ -594,4 +597,13 @@
     <string name="stream_mask_words_tip">最多支持10个字符</string>
     <string name="stream_manager_remove">移除</string>
     <string name="stream_report_type">请选择举报类型</string>
+    <string name="stream_follow_cancel_tip">你确定要取消关注主播吗？</string>
+    <string name="stream_fans_remove_tip_title">移除粉丝</string>
+    <string name="stream_fans_remove_tip_content">对方将不再关注你，且不会收到通知</string>
+    <string name="stream_room_manager_suc">房管设置成功</string>
+    <string name="stream_room_manager_fail">房管设置失败</string>
+    <string name="stream_report_fail">举报失败</string>
+    <string name="stream_mute_suc">禁言成功</string>
+    <string name="stream_mute_fail">禁言失败</string>
+    <string name="stream_room_send_msg_tip">最多输入50个文字</string>
 </resources>

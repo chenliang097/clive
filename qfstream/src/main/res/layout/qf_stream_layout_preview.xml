@@ -61,7 +61,7 @@
                         android:layout_height="60dp"
                         android:src="@drawable/rt_default_avatar"
                         android:scaleType="centerCrop"
-                        app:riv_corner_radius="@dimen/dp_10"
+                        app:riv_corner_radius="10dp"
                         app:riv_mutate_background="true" />
 
                     <ImageView

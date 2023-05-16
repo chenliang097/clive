@@ -123,14 +123,16 @@ public class LivePublicChatAreaListLayout extends RelativeLayout {
     private Observer<RTBannedMsg> bannedObserver = new Observer<RTBannedMsg>() {
         @Override
         public void onChanged(@Nullable RTBannedMsg bannedMsg) {
-            addMessageToList(bannedMsg);
+            LaToastUtil.showShort(mContext.getString(R.string.stream_msg_banner));
+//            addMessageToList(bannedMsg);
         }
     };
 
     private Observer<RTBannedRelieveMsg> bannedRelieveObserver = new Observer<RTBannedRelieveMsg>() {
         @Override
         public void onChanged(@Nullable RTBannedRelieveMsg bannedRelieveMsg) {
-            addMessageToList(bannedRelieveMsg);
+            LaToastUtil.showShort(mContext.getString(R.string.stream_msg_banner_relieve));
+//            addMessageToList(bannedRelieveMsg);
         }
     };
 

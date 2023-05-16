@@ -67,6 +67,9 @@ class LiveRoomVisibleRangeAdapter:
                 mCBFlag?.let { it1 -> mOnSelectContactsListener!!.onItemCheck(it1) }
             }
         }
+        if(helper.adapterPosition == (data.size - 1)){
+            mCBFlag?.let { mOnSelectContactsListener?.updateList(it) }
+        }
     }
 
     fun updateItemCheckBox(uid: String, isAdd: Boolean) {

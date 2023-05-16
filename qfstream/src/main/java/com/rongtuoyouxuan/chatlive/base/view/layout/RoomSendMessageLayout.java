@@ -40,6 +40,7 @@ import com.rongtuoyouxuan.chatlive.stream.R;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 import com.rongtuoyouxuan.chatlive.stream.view.layout.BackPressListener;
 import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils;
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil;
 import com.rongtuoyouxuan.chatlive.util.StringUtils;
 import com.rongtuoyouxuan.qfcommon.widget.GifPannelView;
 
@@ -171,6 +172,15 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
             }
         });
 
+        imViewModel.getRoomManagerLiveData().observe((LifecycleOwner) getContext(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean dataBean) {
+                if(roomInfoBean != null) {
+                    roomInfoBean.set_room_admin(dataBean);
+                }
+            }
+        });
+
         LiveDataBus.getInstance().with(LiveDataBusConstants.EVENT_KEY_TO_ADJUST_PUBLIC_CHAT).observe((LifecycleOwner) getContext(), new Observer<Object>() {
             @Override
             public void onChanged(Object o) {
@@ -212,6 +222,11 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
                 }else{
                     roomMessageSent.setTextColor(context.getResources().getColor(R.color.c_20_black));
                     roomMessageSent.setEnabled(false);
+                }
+
+                if (s.length() > 50) {
+                    LaToastUtil.showShort(context.getString(R.string.stream_room_send_msg_tip));
+                    roomMessageInput.setText(s.toString().substring(0,50));
                 }
             }
         });

@@ -20,5 +20,7 @@ public class StartStreamInfoBean extends BaseModel {
         public String scene_id_str = "";
         public boolean is_access = false;
         public String cdn_url = "";
+        public String anchor_avatar = "";
+        public String last_cover_image = "";
     }
 }

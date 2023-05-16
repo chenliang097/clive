@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.rongtuoyouxuan.chatlive.arch.LiveCallback;
 import com.rongtuoyouxuan.chatlive.biz2.model.config.MsgConfigModel;
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.RTAnchorLiveEndMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTAnnounceMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedMsg;
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedRelieveMsg;
@@ -460,6 +461,9 @@ public class IMSocketBase implements ISocket {
             case 2005:
                 room(roomId).likeMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTLikeMsg.class));
                 break;
+            case 2006:
+                room(userId).anchorLiveEndMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTAnchorLiveEndMsg.class));
+                break;
             case 2007:
                 room(roomId).enterRoomMsg.setValue(GsonSafetyUtils.getInstance().fromJson(rawMsg, RTEnterRoomMsg.class));
                 break;
@@ -622,6 +626,7 @@ public class IMSocketBase implements ISocket {
         public LiveCallback<RTRoomBlackMsg>  roomBlackMsg= new LiveCallback<>();//
 
         public LiveCallback<RTLikeMsg> likeMsg = new LiveCallback<>();//
+        public LiveCallback<RTAnchorLiveEndMsg> anchorLiveEndMsg = new LiveCallback<>();//主播退出房间
         public LiveCallback<MsgConfigModel.Item> templatemsg = new LiveCallback<>(); //通用模板消息
     }
 

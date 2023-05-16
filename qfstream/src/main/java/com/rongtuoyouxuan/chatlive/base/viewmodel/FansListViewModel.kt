@@ -18,6 +18,8 @@ open class FansListViewModel(application: Application):BaseListFragmentViewModel
     private var status:Int = 0
     var addFollowLiveData = MutableLiveData<FollowStatusBean?>()
     var cancelFollowLiveData = MutableLiveData<FollowStatusBean?>()
+    var removeFansLiveData = MutableLiveData<FollowStatusBean?>()
+
 
     fun setToUserId(toUserId:String){
         this.toUserId = toUserId
@@ -76,6 +78,27 @@ open class FansListViewModel(application: Application):BaseListFragmentViewModel
                     baseModel.errCode = errCode.toInt()
                     baseModel.errMsg = msg
                     cancelFollowLiveData.setValue(baseModel)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        })
+    }
+
+    fun removeFans(fUserId:String,tUserId:String, position:Int, bean:FansListBean.ItemBean){
+        UserRelationBiz.instance?.cancelFollow(null, fUserId, tUserId, object : RequestListener<FollowStatusBean?> {
+            override fun onSuccess(reqId: String, result: FollowStatusBean?) {
+                result?.data?.position = position
+                result?.data?.followBean = bean
+                removeFansLiveData.value = result
+            }
+
+            override fun onFailure(reqId: String, errCode: String, msg: String) {
+                try {
+                    val baseModel = FollowStatusBean()
+                    baseModel.errCode = errCode.toInt()
+                    baseModel.errMsg = msg
+                    removeFansLiveData.setValue(baseModel)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

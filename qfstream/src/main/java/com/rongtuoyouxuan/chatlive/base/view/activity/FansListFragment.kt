@@ -1,26 +1,25 @@
 package com.rongtuoyouxuan.chatlive.base.view.activity
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.StringUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rongtuoyouxuan.chatlive.base.view.adapter.FansListAdapter
 import com.rongtuoyouxuan.chatlive.base.viewmodel.FansListViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerListBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.adapter.SetManagerListAdapter
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorManagerBlackListViewModel
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.SetManagerListViewModel
 import com.rongtuoyouxuan.libuikit.BaseRefreshListFragment
 import com.rongtuoyouxuan.libuikit.layout.CommonStatusView
 import com.rongtuoyouxuan.libuikit.layout.IStatusView
+import com.rongtuoyouxuan.qfcommon.dialog.CommonBottomDialog
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.zhihu.matisse.dialog.DiySystemDialog
 
 class FansListFragment:BaseRefreshListFragment<FansListViewModel, FansListBean>() {
 
@@ -57,6 +56,15 @@ class FansListFragment:BaseRefreshListFragment<FansListViewModel, FansListBean>(
                 adapter.setList(adapter.data)
             }
         }
+
+        viewModel.removeFansLiveData.observe(activity as FragmentActivity){
+            if(adapter != null){
+                it?.data?.position?.let { it1 -> adapter.remove(position = it1) }
+                if(adapter.data.size == 0){
+                    showEmpty()
+                }
+            }
+        }
     }
 
     override fun createStatusView(): IStatusView {
@@ -68,8 +76,10 @@ class FansListFragment:BaseRefreshListFragment<FansListViewModel, FansListBean>(
     }
 
     override fun createAdapter(): BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder> {
-        var adapter = FansListAdapter(R.layout.qf_stream_adapter_item_fans, 1)
+        userId = arguments?.get("userId") as String?
+        var adapter = FansListAdapter(R.layout.qf_stream_adapter_item_fans, 1, userId)
         adapter.addChildClickViewIds(R.id.itemBtn)
+        adapter.addChildClickViewIds(R.id.itemRemoveImg)
         adapter.setOnItemChildClickListener { adapter, view, position ->
             var bean = adapter.data[position] as FansListBean.ItemBean
             when(view.id){
@@ -82,10 +92,28 @@ class FansListFragment:BaseRefreshListFragment<FansListViewModel, FansListBean>(
                         viewModel?.addFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
                     }
                 }
+                R.id.itemRemoveImg ->{
+                    showRemoveFansDialog(bean, position)
+                }
 
             }
         }
         return adapter
+    }
+
+    fun showRemoveFansDialog(bean:FansListBean.ItemBean, position:Int){
+        DiySystemDialog.Builder(context)
+            .setTitle(context?.resources?.getString(R.string.stream_fans_remove_tip_title))
+            .setMessage(context?.resources?.getString(R.string.stream_fans_remove_tip_content))
+            .setNegativeButton(R.string.cancel,
+                DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+            .setPositiveButton(
+                StringUtils.getString(R.string.login_ok),
+                DialogInterface.OnClickListener { dialog, which ->
+                    viewModel?.removeFans(bean.id.toString(), DataBus.instance().USER_ID, position, bean)
+                    dialog.dismiss()
+                })
+            .create().show()
     }
 
     override fun createRecyclerView(): RecyclerView {

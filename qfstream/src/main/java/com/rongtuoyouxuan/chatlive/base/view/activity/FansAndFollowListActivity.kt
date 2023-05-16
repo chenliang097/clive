@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.qf_stream_activity_fans_and_follow_list.*
 class FansAndFollowListActivity: LanguageActivity() {
     private val fragments: MutableList<CommonFragmentInfo> = mutableListOf()
     private var userId:String? = null
+    private var type = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,7 @@ class FansAndFollowListActivity: LanguageActivity() {
 
     fun initData() {
         userId = intent.getStringExtra("userId")
+        type  = intent.getIntExtra("type", 1)
         fragments.add(CommonFragmentInfo(getString(R.string.stream_center_fans), FansListFragment.newInstance(userId), "FansListFragment"))
         fragments.add(CommonFragmentInfo(getString(R.string.stream_center_follow), FollowListFragment.newInstance(userId), "FollowListFragment"))
         listViewpager.adapter = CommonViewPagerAdapter(this.supportFragmentManager, fragments)
@@ -62,6 +64,10 @@ class FansAndFollowListActivity: LanguageActivity() {
             .Builder(this, fragments, listViewpager, listMagicindicator)
             .build()
             .show(true)
+        when(type){
+            1->{listViewpager.currentItem = 0}
+            2->{listViewpager.currentItem = 1}
+        }
     }
 
 }

@@ -27,7 +27,9 @@ import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.libuikit.dialog.BottomDialog
 import com.rongtuoyouxuan.qfcommon.viewmodel.CommonViewModel
+import com.zhihu.matisse.MatisseUtil
 import kotlinx.android.synthetic.main.qf_dialog_user_plate.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -110,7 +112,7 @@ class UserCardDialog(
                 userCardGenderImg?.setImageResource(R.drawable.qf_stream_gender_male)
                 userCardGenderTxt?.text = context.getString(R.string.stream_user_card_male)
             }
-            "2" -> {
+            "0" -> {
                 userCardGenderImg?.setImageResource(R.drawable.qf_stream_gender_female)
                 userCardGenderTxt?.text = context.getString(R.string.stream_user_card_female)
             }
@@ -131,7 +133,7 @@ class UserCardDialog(
         userCardFollowBtn?.setOnClickListener {
             //关注
             if(isFollow){
-                cancelFollow(DataBus.instance().USER_ID, tUserId)
+                cancelFollowDialog()
             }else{
                 addFollow(DataBus.instance().USER_ID, tUserId)
             }
@@ -222,6 +224,20 @@ class UserCardDialog(
             }
         })
     }
+
+    private fun cancelFollowDialog(){
+        val builder = BottomDialog.Builder(context)
+        builder.setTitle(context.getString(R.string.stream_follow_cancel_tip))
+        builder.setPositiveButton(context.getString(R.string.confirm),
+            { dialog, p1 ->
+                cancelFollow(DataBus.instance().USER_ID, tUserId)
+                dialog?.dismiss()
+            }, context.resources.getColor(R.color.rt_c_3478F6), R.drawable.bg_page_more_bottom)
+
+        builder.setNegativeButton(R.string.cancel) { dialog, which -> dialog.dismiss() }
+        builder.create().show()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

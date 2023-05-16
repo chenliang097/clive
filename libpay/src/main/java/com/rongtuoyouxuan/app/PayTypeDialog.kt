@@ -27,7 +27,7 @@ class PayTypeDialog : LanguageActivity(), View.OnClickListener {
     private var buyGoldViewModel: BuyGoldViewModel? = null
     private var rtCoin = 0
     private var rtRmb = 0
-    private var payType = 1 //1：支付宝， 2：微信
+    private var payType = 2 //2：支付宝， 1：微信
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,12 +81,12 @@ class PayTypeDialog : LanguageActivity(), View.OnClickListener {
                 doBuy()
             }
             R.id.payTypeAlipayRadioBtn->{
-                payType = 1
+                payType = 2
                 payTypeWeChatRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_normal)
                 payTypeAlipayRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_pressed)
             }
             R.id.payTypeWeChatRadioBtn->{
-                payType = 2
+                payType = 1
                 payTypeWeChatRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_pressed)
                 payTypeAlipayRadioBtn.setImageResource(R.drawable.rt_icon_pay_type_radio_normal)
             }
@@ -98,11 +98,11 @@ class PayTypeDialog : LanguageActivity(), View.OnClickListener {
         val payInfo = PayInfoRequest(payType, 1, DataBus.instance().USER_ID, 2)
         getPayOrderInfo(payInfo, object : RequestListener<PayInfoBean> {
             override fun onSuccess(reqId: String, result: PayInfoBean) {
-                if (payType == 1) {
+                if (payType == 2) {
                     val aliPayUtil: AliPayUtil = AliPayUtil().getInstance()
                     aliPayUtil.aliPayInit(this@PayTypeDialog)
                     aliPayUtil.startAliPay(result.data.pay_info.order_str)
-                } else if (payType == 2) {
+                } else if (payType == 1) {
                     WeChatPayUtil.startWeChatPay(
                         this@PayTypeDialog,
                         WXPayEntryActivity.APP_ID,

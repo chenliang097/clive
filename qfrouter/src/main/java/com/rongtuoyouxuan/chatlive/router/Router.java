@@ -262,10 +262,11 @@ public class Router {
     }
 
     //主播管理
-    public static void toAnchorManagerDialog(String roomId,String sceneId) {
+    public static void toAnchorManagerDialog(String roomId,String sceneId, int type) {
         ARouter.getInstance().build(RouterConstant.PATH_ANCHOE_MANAGER)
                 .withString("roomId", roomId)
                 .withString("sceneId", sceneId)
+                .withInt("type", type)
                 .navigation();
     }
 
@@ -300,9 +301,10 @@ public class Router {
     }
 
     //粉丝与关注
-    public static void toFansAndFollowListActivity(String userId) {
+    public static void toFansAndFollowListActivity(String userId, int type) {
         ARouter.getInstance().build(RouterConstant.PATH_FANS_AND_FOLLOW_LIST)
                 .withString("userId", userId)
+                .withInt("type", type)
                 .navigation();
     }
 

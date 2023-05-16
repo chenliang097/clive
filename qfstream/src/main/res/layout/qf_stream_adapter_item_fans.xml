@@ -23,23 +23,41 @@
         android:layout_toEndOf="@id/itemAvatar"
         android:layout_centerVertical="true"
         android:layout_marginStart="12dp"
-        android:layout_toStartOf="@+id/itemBtn"
         android:layout_marginEnd="10dp"
         android:ellipsize="end"
-        android:lines="1"
-        android:text="@string/app_name"
+        android:singleLine="true"
+        android:maxEms="11"
         android:textColor="@color/white"
         android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/itemBtn"
-        android:layout_width="72dp"
-        android:layout_height="24dp"
+    <LinearLayout
+        android:id="@+id/itemBtnLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:gravity="center"
-        android:layout_marginEnd="12dp"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:background="@drawable/rt_common_btn"/>
+        android:gravity="center_vertical"
+        android:layout_marginEnd="12dp">
+
+        <TextView
+            android:id="@+id/itemBtn"
+            android:layout_width="72dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:background="@drawable/rt_common_btn"/>
+
+        <ImageView
+            android:id="@+id/itemRemoveImg"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:src="@drawable/qf_stream_icon_close_gray"
+            android:visibility="gone"/>
+    </LinearLayout>
+
 </RelativeLayout>

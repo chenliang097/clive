@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         pushStreamBtn.setOnClickListener {
             if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
-                Router.toStreamActivity(etUserId.text.toString().trim(), DataBus.instance().USER_NAME)
+                DataBus.instance().USER_ID = etUserId.text.toString().trim()
+                Router.toStreamActivity(DataBus.instance().USER_ID, DataBus.instance().USER_NAME)
             }else{
                 Router.toStreamActivity()
             }

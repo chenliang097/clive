@@ -85,13 +85,13 @@ class StarManager {
         if (null == item) {
             return
         }
-        starList.offer(item)
-        updateStarCount()
+//        starList.offer(item)
+        updateStarCount(item)
     }
 
-    private fun updateStarCount() {
+    private fun updateStarCount(item: LikeLiveReq?) {
         ThreadUtils.runOnUiThreadDelayed(Runnable {
-            StreamBiz.liveLike(starList[0].roomId, starList[0].sceneIdStr, starList[0].userIdStr, starList[0].anchorIdStr, 1, null, object :
+            StreamBiz.liveLike(item?.roomId, item?.sceneIdStr, item?.userIdStr, item?.anchorIdStr, 1, null, object :
                 RequestListener<LikeLiveData> {
                 override fun onSuccess(reqId: String?, result: LikeLiveData?) {
                     starList.clear()

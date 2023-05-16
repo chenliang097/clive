@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.location.*
 import android.net.Uri
@@ -27,6 +28,7 @@ import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartPushStreamRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartStreamInfoBean
 import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
@@ -148,6 +150,12 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
         mStreamViewModel.startPushStreamInfoLiveData.observe(context){
             startStreamInfoBean = it
+            if(TextUtils.isEmpty(it.data.last_cover_image)){
+                setPhoto(it.data.anchor_avatar)
+            }else{
+                setPhoto(it.data.last_cover_image)
+            }
+
         }
     }
 
@@ -165,9 +173,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
     private fun setPhoto(url: String?) {
         addPhotoPath = url
         streamPreviewChangeCoverImg.visibility = View.GONE
-        Glide.with(context).load(url).apply(RequestOptions()
-                .dontAnimate())
-            .into(streamPreviewImgCover!!)
+        GlideUtils.loadImage(context, url, streamPreviewImgCover, R.drawable.rt_default_avatar)
         ULog.e("clll", "setPhotofullPath:$url")
     }
 
@@ -285,10 +291,11 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     private fun showBottomDialog() {
         val builder = BottomDialog.Builder(context)
-        builder.setPositiveButton(R.string.album) { dialog, which ->
-            requestPermission(MatisseUtil.ALBUM)
-            dialog.dismiss()
-        }
+        builder.setPositiveButton(context.getString(R.string.album),
+            { dialog, p1 ->
+                requestPermission(MatisseUtil.ALBUM)
+                dialog?.dismiss()
+            }, context.resources.getColor(R.color.qf_libutils_color_333333), R.drawable.bg_page_more_top)
         builder.setPositiveButtonTwo(R.string.camera) { dialog, which ->
             requestPermission(MatisseUtil.CAMERA)
             dialog.dismiss()

@@ -22,8 +22,8 @@
         android:layout_toEndOf="@id/itemAvatar"
         android:layout_marginStart="12dp"
         android:ellipsize="end"
-        android:lines="1"
-        android:maxLength="32"
+        android:singleLine="true"
+        android:maxEms="11"
         android:textSize="16sp"
         android:layout_centerVertical="true"
         android:textColor="@color/white"/>

@@ -35,6 +35,14 @@
             android:layout_alignParentEnd="true">
 
             <ImageView
+                android:id="@+id/liveRoomSettingBtn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/rt_stream_icon_stream_setting"
+                android:visibility="gone"/>
+
+            <ImageView
                 android:id="@+id/liveRoomBottomGiftImg"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
