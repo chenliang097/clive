@@ -29,13 +29,13 @@ object GiftNewBiz {
             .create(GiftNewServer::class.java)
     }
 
-    fun getPanel(listener: RequestListener<GiftPanelResData>) {
+    fun getPanel(userId: String, listener: RequestListener<GiftPanelResData>) {
         newNetworkForGift(
             null,
             listener,
             "",
         ) {
-            it.create(GiftNewServer::class.java).getPanel()
+            it.create(GiftNewServer::class.java).getPanel(userId)
         }
     }
 

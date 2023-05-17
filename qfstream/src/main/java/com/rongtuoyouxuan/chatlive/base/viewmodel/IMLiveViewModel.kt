@@ -333,14 +333,4 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         })
 
     }
-
-    fun getUserInfo(request: UserCardInfoRequest?) {
-        getLiveUserCardInfo(request!!, null, object : RequestListener<UserCardInfoBean?> {
-            override fun onSuccess(reqId: String, result: UserCardInfoBean?) {
-                userInfoLiveData.setValue(result)
-            }
-
-            override fun onFailure(reqId: String, errCode: String, msg: String) {}
-        })
-    }
 }

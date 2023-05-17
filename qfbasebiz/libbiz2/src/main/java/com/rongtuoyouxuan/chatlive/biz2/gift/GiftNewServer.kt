@@ -13,7 +13,7 @@ import retrofit2.http.*
 interface GiftNewServer {
 
     @GET("/gift/v1/gift/list")
-    fun getPanel(): Call<GiftPanelResData>
+    fun getPanel(@Query("anchor_id") userId: String): Call<GiftPanelResData>
 
     //礼物资源全量/增量接口
     @GET("/gift/resource")

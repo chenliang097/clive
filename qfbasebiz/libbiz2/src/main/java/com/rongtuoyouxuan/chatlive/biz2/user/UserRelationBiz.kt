@@ -101,6 +101,7 @@ class UserRelationBiz {
         tUserId: String,
         listener: RequestListener<FollowStatusBean?>
     ) {
+
         object : NetWorks<FollowStatusBean?>(lifecycleOwner, listener) {
             override fun createCall(retrofit: Retrofit): Call<FollowStatusBean?>? {
                 return retrofit.create(UserRelationServer::class.java).followDel(FollowRequest(fUserId, tUserId))

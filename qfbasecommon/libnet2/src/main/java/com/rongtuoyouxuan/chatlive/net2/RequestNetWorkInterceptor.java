@@ -1,24 +1,36 @@
 package com.rongtuoyouxuan.chatlive.net2;
 
 import android.content.Context;
+import android.net.Uri;
 
+import com.blankj.utilcode.util.JsonUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.rongtuoyouxuan.chatlive.log.upload.ULog;
 import com.rongtuoyouxuan.chatlive.util.EnvUtils;
+import com.rongtuoyouxuan.chatlive.util.Md5Utils;
+import com.rongtuoyouxuan.chatlive.util.UUIDUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
 
 /**
  * Created by jinqinglin on 2018/5/10.
@@ -64,34 +76,86 @@ public class RequestNetWorkInterceptor implements Interceptor {
         HttpUrl.Builder urlBuilder = request.url().newBuilder();
         urlBuilder.scheme(request.url().scheme())
                 .host(request.url().host());
-        Request.Builder newRequest = request.newBuilder()
-                .addHeader("User-Agent", userAgent)
-                .addHeader("Connection", "keep-alive")
-                .addHeader("atom", getHeaderData())
-                .method(request.method(), request.body())
-                .url(urlBuilder.build());
-        if (!StringUtils.isTrimEmpty(token)) {
-            newRequest.addHeader("Authorization", "Bearer " + token);
-        }
+
+        Request.Builder newRequest = request.newBuilder();
+        addHeaderData(request, newRequest);
+        newRequest.addHeader("User-Agent", userAgent);
+        newRequest.addHeader("Connection", "keep-alive");
+        getHeaderData(newRequest);
+        newRequest.method(request.method(), request.body());
+        newRequest.url(urlBuilder.build());
         return chain.proceed(newRequest.build());
     }
 
-    public String getHeaderData() {
+    private void addHeaderData(Request request, Request.Builder newRequest){
+        String uuid = UUIDUtil.getUUID();
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        TreeMap<String, String> map = new TreeMap<>();
+        Uri url = Uri.parse(request.url().url().toString());
+        ULog.e("clll", "requestString:" + request.url().url().toString());
+        Set<String> param = url.getQueryParameterNames();
+        for (String key: param) {
+            String value = url.getQueryParameter(key);
+            newRequest.addHeader(key, value);
+            map.put(key, value);
+            ULog.e("clll", "requestString:" + key + "--" + value);
+        }
+
+        RequestBody requestBody = request.body();
+        if(requestBody != null) {
+            Set<String> paramNames = url.getQueryParameterNames();
+            for (String key : paramNames) {
+                String value = url.getQueryParameter(key);
+            }
+            Buffer buffer = new Buffer();
+            try {
+                requestBody.writeTo(buffer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //编码设为UTF-8
+            Charset charset = Charset.forName("UTF-8");
+            MediaType contentType = requestBody.contentType();
+            if (contentType != null) {
+                charset = contentType.charset(Charset.forName("UTF-8"));
+            }
+            String requestString = buffer.readString(charset);
+            try {
+                JSONObject jsonObject = new JSONObject(requestString);
+                Iterator iterator = jsonObject.keys();
+                while (iterator.hasNext()) {
+                    String key = (String) iterator.next();
+                    String value = jsonObject.optString(key);
+                    map.put(key, value);
+                    ULog.e("clll", "requestString:" + key);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            map.put("nonce", uuid);
+            map.put("timestamp", timestamp);
+            newRequest.addHeader("sign", BaseNetImpl.getInstance().treeMap(map));
+            newRequest.addHeader("scbuid", BaseNetImpl.USER_ID);
+            newRequest.addHeader("nonce", uuid);
+            newRequest.addHeader("timestamp", timestamp);
+            newRequest.addHeader("token", Md5Utils.getMD5("appid=" + BaseNetImpl.APPID + "&user_id="+ BaseNetImpl.USER_ID + "&shijian=" + timestamp));
+            newRequest.addHeader("client", EnvUtils.getAppPlat());//软件平台
+            newRequest.addHeader("appid", BaseNetImpl.APPID);//device token
+            newRequest.addHeader("version", "1.0.0");
+        }
+
+
+    }
+
+    public void getHeaderData(Request.Builder newRequest) {
         if (headerParams != null && !headerParams.isEmpty()) {
             Iterator<Map.Entry<String, String>> iterator = headerParams.entrySet().iterator();
-            try {
-                JSONObject jsonObject = new JSONObject();
-                while (iterator.hasNext()) {
-                    Map.Entry<String, String> entry = iterator.next();
-                    jsonObject.put(entry.getKey(), entry.getValue());
-                }
-                return jsonObject.toString();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> entry = iterator.next();
+                newRequest.addHeader(entry.getKey(), entry.getValue());
             }
 
         }
-        return "";
 
     }
 }

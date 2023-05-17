@@ -98,7 +98,7 @@ class GiftDialogActivity : SimpleActivity() {
         giftVm?.balanceLiveData?.observe(this){
             tvCoin.text = "" + it
         }
-        giftVm?.getPanel()
+        giftVm?.getPanel(anchorId)
         giftVm?.getBalance()
     }
 

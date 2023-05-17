@@ -26,8 +26,8 @@ class GiftVM(application: Application) : AndroidViewModel(application) {
     val balanceLiveData: MutableLiveData<Int> = MutableLiveData()
 
 
-    fun getPanel() {
-        GiftNewBiz.getPanel(object : RequestListener<GiftPanelResData> {
+    fun getPanel(userId:String) {
+        GiftNewBiz.getPanel(userId, object : RequestListener<GiftPanelResData> {
             override fun onSuccess(reqId: String?, result: GiftPanelResData?) {
                 if (null != result?.data) {
                     giftSucVM.value = result.data

@@ -42,6 +42,7 @@ open class FollowListViewModel(application: Application):BaseListFragmentViewMod
         UserRelationBiz.instance?.addFollow(null, fUserId, tUserId, object : RequestListener<FollowStatusBean?> {
             override fun onSuccess(reqId: String, result: FollowStatusBean?) {
                 result?.data?.position = position
+                bean.isClick = true
                 result?.data?.followBean = bean
                 addFollowLiveData.value = result
             }
@@ -63,6 +64,7 @@ open class FollowListViewModel(application: Application):BaseListFragmentViewMod
         UserRelationBiz.instance?.cancelFollow(null, fUserId, tUserId, object : RequestListener<FollowStatusBean?> {
             override fun onSuccess(reqId: String, result: FollowStatusBean?) {
                 result?.data?.position = position
+                bean.isClick = true
                 result?.data?.followBean = bean
                 cancelFollowLiveData.value = result
             }

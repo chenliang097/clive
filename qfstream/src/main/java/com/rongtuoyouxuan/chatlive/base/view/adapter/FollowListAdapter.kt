@@ -29,11 +29,23 @@ class FollowListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>
         name.text = item.nick_name
         if(userId == DataBus.instance().USER_ID) {
             if (item.status) {
-                btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
-                btn1.text = context.resources.getString(R.string.stream_center_followed)
+                if(item.isClick){
+                    btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                    btn1.text = context.resources.getString(R.string.stream_center_add_follow)
+                }else {
+                    btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                    btn1.text = context.resources.getString(R.string.stream_center_followed)
+                }
             } else {
-                btn1.setBackgroundResource(R.drawable.rt_common_btn)
-                btn1.text = context.resources.getString(R.string.stream_center_add_follow)
+                if(item.isClick) {
+                    btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                    btn1.text =
+                        context.resources.getString(R.string.stream_follow)
+                }else{
+                    btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                    btn1.text =
+                        context.resources.getString(R.string.stream_user_card_delete_folowed)
+                }
             }
         }else{
             if (item.status) {

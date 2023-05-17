@@ -12,13 +12,13 @@ interface PayServer {
     /**
      * 获取订单信息
      */
-    @POST("/order/v1/pay/order")
+    @POST("/wallet/v1/pay/recharge")
     fun getOrderInfo(@Body request:PayInfoRequest): Call<PayInfoBean>
 
     @GET("/wallet/v1/wallet/my")
     fun getMyWallet(@Query("user_id") userId:String): Call<WalletBean>
 
-    @GET("/wallet/v1/wallet/balance")
+    @GET("/wallet/v1/user/balance")
     fun getBalance(@Query("user_id") userId:String): Call<WalletBean>
 
 }

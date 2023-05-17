@@ -12,8 +12,10 @@ import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -242,6 +244,27 @@ class BeautifyBottomFragment : DialogFragment() {
         returnSecond.setOnClickListener {
             beautifyFragmentViewModel.setShowSecondMenu(false)
         }
+
+        bottomFragmentViewModel.dialogProducer =
+            { title: String, msg: String, positiveButtonClicked: () -> Unit, negativeButtonClicked: () -> Unit ->
+                // 弹出dialog
+                val mAlertDialog = AlertDialog.Builder(context as FragmentActivity)
+                    .setTitle(title)
+                    .setMessage(msg)
+                    .setPositiveButton("确定") { _: DialogInterface, _: Int ->
+                        positiveButtonClicked()
+                    }.setNegativeButton("取消") { _, _ ->
+                        negativeButtonClicked()
+                    }
+                    .show()
+
+                if (mAlertDialog.getWindow() != null) {
+                    val lp = mAlertDialog.getWindow()!!.getAttributes();
+                    lp.width = (context as FragmentActivity).getWindowManager().getDefaultDisplay().getWidth() / 10 * 9; // 宽度，可根据屏幕宽度进行计算
+                    lp.gravity = Gravity.CENTER;
+                    mAlertDialog.getWindow()!!.setAttributes(lp);
+                }
+            }
 
     }
 

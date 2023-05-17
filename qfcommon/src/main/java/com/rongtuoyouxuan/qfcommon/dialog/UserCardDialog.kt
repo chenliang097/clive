@@ -5,35 +5,26 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import com.rongtuoyouxuan.chatlive.biz2.stream.UserCardBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.qfcommon.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.qfcommon.util.UserCardHelper
-import com.hbb20.Country
 import com.lxj.xpopup.core.BottomPopupView
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowStatusBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
+import com.rongtuoyouxuan.chatlive.biz2.stream.UserCardBiz
 import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.net2.BaseNetImpl
+import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.util.Md5Utils
+import com.rongtuoyouxuan.chatlive.util.UUIDUtil
 import com.rongtuoyouxuan.libuikit.dialog.BottomDialog
-import com.rongtuoyouxuan.qfcommon.viewmodel.CommonViewModel
-import com.zhihu.matisse.MatisseUtil
+import com.rongtuoyouxuan.qfcommon.R
+import com.rongtuoyouxuan.qfcommon.util.UserCardHelper
 import kotlinx.android.synthetic.main.qf_dialog_user_plate.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import java.util.*
 
 @SuppressLint("ViewConstructor")
 class UserCardDialog(
@@ -68,7 +59,7 @@ class UserCardDialog(
 
     fun initObserver(){
         var request = UserCardInfoRequest(tUserId, roomId, sceneId, DataBus.instance().USER_ID)
-        UserCardBiz.getLiveUserCardInfo(
+        UserCardBiz.getLiveUserCardInfo(DataBus.instance().USER_ID,
             request,
             null,
             object : RequestListener<UserCardInfoBean?> {

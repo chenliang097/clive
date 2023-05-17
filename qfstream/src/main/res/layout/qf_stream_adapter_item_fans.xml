@@ -24,6 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/itemBtnLayout"
         android:ellipsize="end"
         android:singleLine="true"
         android:maxEms="11"

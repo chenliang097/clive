@@ -104,8 +104,7 @@ public class AndroidInterfacePlugin {
             }
         }
         callJs(data.getJsCallback(),
-                new Pair<>("languageType", result),
-                new Pair<>("atom", BaseNetImpl.getInstance().getAtomHeaderData())
+                new Pair<>("languageType", result)
         );
     }
 
