@@ -343,8 +343,9 @@ class LiveRoomFragment : SimpleFragment() {
             CommonBottomDialog(
                 mContext,
                 roomId,
-                sceneId,DataBus.instance().USER_ID, DataBus.instance().USER_ID,
-                DataBus.instance().USER_NAME, it.follow_id, it.nick_name, it.is_forbid_speak, it.is_room_admin, it.is_super_admin
+                sceneId, anchorId, DataBus.instance().USER_ID,
+                DataBus.instance().USER_NAME, it.follow_id, it.nick_name, it.is_forbid_speak, it.is_room_admin, it.is_super_admin,
+                imViewModel?.roomManagerLiveData?.value!!
             )
                 .showManagerDialog("", true)
         }
@@ -425,6 +426,7 @@ class LiveRoomFragment : SimpleFragment() {
 
         IMSocketBase.instance().room(roomId).liveEndMsg.observe(liveEndObserver)
         IMSocketBase.instance().room(DataBus.instance().USER_ID).roomBlackMsg.observe{
+            LaToastUtil.showShort(mContext.getString(R.string.stream_black_tip))
             (mContext as LiveRoomActivity)?.finish()
         }
 //        IMSocketImpl.getInstance().chatRoom(streamID).liveAudiecneNotifyMsgLiveCallback.observe(

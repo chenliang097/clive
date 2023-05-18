@@ -55,6 +55,8 @@ public class CommonBottomDialog {
     private boolean isSuperManager;
     private boolean isRoomManager;
 
+    private boolean isCurRoomManager;
+
     private boolean isAnchor;
     private String roomId;
     private String sceneId;
@@ -95,6 +97,23 @@ public class CommonBottomDialog {
         this.isSuperManager = isSuperManager;
         this.isAnchor = anchorId==fUserId;
         viewModel = new BottomDialogViewModel(Utils.getApp());
+    }
+
+    public CommonBottomDialog(Context context, String roomId, String sceneId, String anchorId, String fUserId, String fNickName,String tUserId,String tNickName,boolean isSpeak, boolean isRoomManager, boolean isSuperManager, boolean isCurRoomManager) {
+        this.context = context;
+        this.anchorId = anchorId;
+        this.roomId = roomId;
+        this.sceneId = sceneId;
+        this.fUserId = fUserId;
+        this.fNickName = fNickName;
+        this.tUserId = tUserId;
+        this.tNickName = tNickName;
+        this.isMute = isSpeak;
+        this.isRoomManager = isRoomManager;
+        this.isSuperManager = isSuperManager;
+        this.isAnchor = anchorId==fUserId;
+        viewModel = new BottomDialogViewModel(Utils.getApp());
+        this.isCurRoomManager = isCurRoomManager;
     }
 
     private LifecycleOwner getLifecycleOwner(Context context) {
@@ -223,7 +242,7 @@ public class CommonBottomDialog {
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                dialogInterface.dismiss();
             }
         });
         builder.create().show();

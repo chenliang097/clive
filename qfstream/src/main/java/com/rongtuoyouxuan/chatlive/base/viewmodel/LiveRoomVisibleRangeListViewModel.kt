@@ -3,6 +3,7 @@ package com.rongtuoyouxuan.chatlive.base.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
@@ -11,6 +12,8 @@ import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
 import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
 import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
 
 class LiveRoomVisibleRangeListViewModel(application: Application) : AndroidViewModel(application) {
     private val PAGE_NUM = 10
@@ -51,6 +54,7 @@ class LiveRoomVisibleRangeListViewModel(application: Application) : AndroidViewM
             object : RequestListener<BaseModel> {
                 override fun onSuccess(reqId: String, result: BaseModel) {
                     setUserAllowRangLiveData.value = result
+                    MLiveEventBus.get(LiveEventData.LIVE_ALLOW_RANGE).post(ruleType.toString())
                 }
 
                 override fun onFailure(reqId: String, errCode: String, msg: String) {

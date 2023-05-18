@@ -59,7 +59,7 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
         streamEndSeePerNumTxt.text = "" + streamEndBean.data?.max_user_count
         streamEndSeeFansNumTxt.text = "" + streamEndBean.data?.medium_fans_view_count
         streamEndZanNumTxt.text = "" + streamEndBean.data?.liking_count
-        streamEndGiftNumTxt.text = "" + streamEndBean.data?.gift_income
+        streamEndGiftNumTxt.text = "" + streamEndBean.data?.income
         streamEndTimeTxt.text =
             streamEndBean.data?.living_start_time?.toLong()
                 ?.let { ChatTimeUtil.getHourAndMin(it*1000).plus("~")

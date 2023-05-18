@@ -42,7 +42,7 @@ class AnchorCenterFragment:SimpleFragment() {
         anchorCenterSeePerNumTxt.text = "" + data.data?.view_count
         anchorCenterSeeFansNumTxt.text = "" + data.data?.fans_count
         anchorCenterZanNumTxt.text = "" + data.data?.like_count
-        anchorCenterGiftNumTxt.text = "" + data.data?.gift_income
+        anchorCenterGiftNumTxt.text = "" + data.data?.income
         anchorCenterCoinTxt.text = "" + "0"
     }
 

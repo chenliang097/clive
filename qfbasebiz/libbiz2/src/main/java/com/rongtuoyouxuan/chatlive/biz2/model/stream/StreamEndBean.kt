@@ -21,6 +21,6 @@ class StreamEndBean : BaseModel() {
         var fans_count = 0//历史观看人数
         var like_count = 0
         var hot_degree = 0
-        var gift_income = 0
+        var income = 0
     }
 }

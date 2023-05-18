@@ -34,6 +34,7 @@ import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean;
 import com.rongtuoyouxuan.chatlive.databus.DataBus;
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus;
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants;
+import com.rongtuoyouxuan.chatlive.net2.BaseModel;
 import com.rongtuoyouxuan.chatlive.router.Router;
 import com.rongtuoyouxuan.chatlive.router.bean.ISource;
 import com.rongtuoyouxuan.chatlive.stream.R;
@@ -188,6 +189,12 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
                 imViewModel.showPanel.setValue(false);
             }
         });
+        imViewModel.getSendTxtLiveData().observe((LifecycleOwner) getContext(), new Observer<BaseModel>() {
+            @Override
+            public void onChanged(BaseModel baseModel) {
+                hidePanelAndKeyboard();
+            }
+        });
     }
 
     public abstract void initViewModel(Context context);
@@ -227,6 +234,7 @@ public abstract class RoomSendMessageLayout extends RelativeLayout implements Vi
                 if (s.length() > 50) {
                     LaToastUtil.showShort(context.getString(R.string.stream_room_send_msg_tip));
                     roomMessageInput.setText(s.toString().substring(0,50));
+                    roomMessageInput.setSelection(s.length() - 1);
                 }
             }
         });

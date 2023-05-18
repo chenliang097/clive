@@ -67,7 +67,7 @@ class AnchorManagerMuteListFragment:BaseRefreshListFragment<AnchorManagerMuteLis
         var adapter = MuteListAdapter(R.layout.qf_stream_adapter_item_set_manager, 1);
         adapter.addChildClickViewIds(R.id.itemBtn)
         adapter.setOnItemChildClickListener { adapter, view, position ->
-            var bean = adapter.data[position] as RoomManagerListBean.ItemBean
+            var bean = adapter.data[position] as RoomManagerMuteListBean.ItemBean
             when(view.id){
                 R.id.itemBtn -> viewModel?.deleteRoomMute(DataBus.instance().USER_ID, bean.user_id, position)
 

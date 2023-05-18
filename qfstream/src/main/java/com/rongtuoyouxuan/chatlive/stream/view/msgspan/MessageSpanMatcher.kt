@@ -68,7 +68,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                 val enterMsg: RTEnterRoomMsg = message as RTEnterRoomMsg
                 var contentColor =
                     mContext.resources.getColor(R.color.c_stream_msg_nick_name)
-                addNickName(textView, enterMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false, false)
+                addNickName(textView, enterMsg, spanString, mContext.resources.getColor(R.color.c_stream_enter_msg_nick_name), false, true)
                 if (isSelf(message)) {
                     addTextSpan(spanString, textView, mContext.getString(R.string.stream_msg_enter_room), contentColor)
                 } else {

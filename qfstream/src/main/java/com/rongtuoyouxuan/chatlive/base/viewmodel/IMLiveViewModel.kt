@@ -52,7 +52,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     var roomInfoLiveData = MutableLiveData<EnterRoomBean?>() //房间信息
     var roomInfoExtraLiveData = MutableLiveData<RoomInfoExtraBean?>() //房间额外信息
     var roomManagerLiveData = MutableLiveData<Boolean>() //房管
-    var userInfoLiveData = MutableLiveData<UserCardInfoBean>()
+    var sendTxtLiveData = MutableLiveData<BaseModel?>()
 
 
     @JvmField
@@ -187,6 +187,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         ChatIMBiz.sendTextMsg(rtTxtMsgRequest, object :RequestListener<BaseModel>{
             override fun onSuccess(reqId: String?, result: BaseModel?) {
 //                LaToastUtil.showShort("发送成功")
+                sendTxtLiveData.value = result
             }
 
             override fun onFailure(reqId: String?, errCode: String?, msg: String?) {

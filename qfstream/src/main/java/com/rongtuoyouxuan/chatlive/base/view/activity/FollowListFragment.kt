@@ -79,11 +79,23 @@ class FollowListFragment:BaseRefreshListFragment<FollowListViewModel, FollowList
             when(view.id){
                 R.id.itemBtn -> {
                     if(bean.status){
-                        bean.status = !bean.status
-                        viewModel?.cancelFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
+                        if(DataBus.instance().USER_ID != userId) {
+                            bean.status = !bean.status
+                        }
+                        if(bean.isFollow){
+                            viewModel?.cancelFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
+                        }else{
+                            viewModel?.addFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
+                        }
                     }else{
-                        bean.status = !bean.status
-                        viewModel?.addFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
+                        if(DataBus.instance().USER_ID != userId) {
+                            bean.status = !bean.status
+                        }
+                        if(bean.isFollow){
+                            viewModel?.cancelFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
+                        }else{
+                            viewModel?.addFollow(DataBus.instance().USER_ID, bean.id.toString(), position, bean)
+                        }
                     }
                 }
 

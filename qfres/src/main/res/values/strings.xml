@@ -597,7 +597,7 @@
     <string name="stream_mask_words_tip">最多支持10个字符</string>
     <string name="stream_manager_remove">移除</string>
     <string name="stream_report_type">请选择举报类型</string>
-    <string name="stream_follow_cancel_tip">你确定要取消关注主播吗？</string>
+    <string name="stream_follow_cancel_tip">您确认要取消关注吗？</string>
     <string name="stream_fans_remove_tip_title">移除粉丝</string>
     <string name="stream_fans_remove_tip_content">对方将不再关注你，且不会收到通知</string>
     <string name="stream_room_manager_suc">房管设置成功</string>
@@ -606,4 +606,7 @@
     <string name="stream_mute_suc">禁言成功</string>
     <string name="stream_mute_fail">禁言失败</string>
     <string name="stream_room_send_msg_tip">最多输入50个文字</string>
+    <string name="stream_black_tip">你已被移除直播间</string>
+    <string name="stream_allow_ranage">仅特定用户可见</string>
+    <string name="stream_allow_ranage_no">特定用户不可见</string>
 </resources>

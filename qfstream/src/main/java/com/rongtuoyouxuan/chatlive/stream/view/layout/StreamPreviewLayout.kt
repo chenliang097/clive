@@ -42,6 +42,8 @@ import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libuikit.TransferLoadingUtil
 import com.rongtuoyouxuan.libuikit.dialog.BottomDialog
 import com.rongtuoyouxuan.qfcommon.dialog.ShareBottomDialog
+import com.rongtuoyouxuan.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
@@ -108,7 +110,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
         titleEdit = findViewById(R.id.streamPreviewEditTitle)
     }
 
-    private fun initListener(context: LifecycleOwner) {
+    private fun initListener(lifecycleOwner: LifecycleOwner) {
         streamPreviewBeautyTxt?.setOnClickListener(this)
         streamPreviewBtnStart?.setOnClickListener(this)
         streamPreviewTurnCameraTxt?.setOnClickListener(this)
@@ -117,17 +119,17 @@ class StreamPreviewLayout @JvmOverloads constructor(
         streamPreviewLocationTxt?.setOnClickListener(this)
         streamPreviewKeijianTxt?.setOnClickListener(this)
         streamPreviewShareTxt?.setOnClickListener(this)
-        mStreamViewModel.startStreamEvent.observe(context) {
+        mStreamViewModel.startStreamEvent.observe(lifecycleOwner) {
             streamPreviewBtnStart?.isEnabled = true
             visibility = GONE
         }
-        mStreamViewModel.showReconnectEvent.observe(context) { s ->
+        mStreamViewModel.showReconnectEvent.observe(lifecycleOwner) { s ->
             streamPreviewBtnStart!!.isEnabled = true
             streamPreviewLayout.visibility = VISIBLE
             LaToastUtil.showShort(s)
         }
 
-        controllerViewModel.mControllerVisibility.observe(context) { aBoolean ->
+        controllerViewModel.mControllerVisibility.observe(lifecycleOwner) { aBoolean ->
             if (popupWindow != null && !aBoolean!!) {
                 popupWindow!!.dismiss()
             } else {
@@ -136,19 +138,19 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 }
             }
         }
-        mStreamViewModel.setCover.observe(context) { streamPreviewImgCoverLayout!!.performClick() }
+        mStreamViewModel.setCover.observe(lifecycleOwner) { streamPreviewImgCoverLayout!!.performClick() }
 
-        controllerViewModel.uploadLiveData.observe(context) { t ->
-            TransferLoadingUtil.dismissDialogLoading(getContext())
+        controllerViewModel.uploadLiveData.observe(lifecycleOwner) { t ->
+            TransferLoadingUtil.dismissDialogLoading(context)
             setPhoto(t)
         }
 
-        controllerViewModel.ActivityResultEvent.observe(context) { activityResult ->
+        controllerViewModel.ActivityResultEvent.observe(lifecycleOwner) { activityResult ->
             onActivityResult(activityResult!!.requestCode, activityResult.resultCode,
                 activityResult.data)
         }
 
-        mStreamViewModel.startPushStreamInfoLiveData.observe(context){
+        mStreamViewModel.startPushStreamInfoLiveData.observe(lifecycleOwner){
             startStreamInfoBean = it
             if(TextUtils.isEmpty(it.data.last_cover_image)){
                 setPhoto(it.data.anchor_avatar)
@@ -156,6 +158,17 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 setPhoto(it.data.last_cover_image)
             }
 
+        }
+
+        MLiveEventBus.get(LiveEventData.LIVE_ALLOW_RANGE).observe(lifecycleOwner){
+            when(it){
+                "1"->{
+                    streamPreviewKeijianTxt.text = context.getString(R.string.stream_allow_ranage).plus(">")
+                }
+                "2"->{
+                    streamPreviewKeijianTxt.text = context.getString(R.string.stream_allow_ranage_no).plus(">")
+                }
+            }
         }
     }
 

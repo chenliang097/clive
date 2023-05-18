@@ -26,5 +26,6 @@ class FansListBean:BaseListModel<FansListBean.ItemBean>() {
         var avatar = ""
         var status = false  // 关注状态
         var isClick = false  // 是否点击
+        var isFollow = false  // 是否关注
     }
 }

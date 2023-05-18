@@ -155,13 +155,13 @@ class UserCardDialog(
         }
 
         userCardRightTxt?.setOnClickListener {
-            if(DataBus.instance().USER_ID == anchorId){
+            if(DataBus.instance().USER_ID == anchorId && DataBus.instance().USER_ID != result.follow_id){
                 UserCardHelper.managerVM.post(UserCardInfoBean.ProfileUserData(result.follow_id, result.nick_name,
                     result.is_super_admin, result.is_room_admin, result.is_forbid_speak))
-            }else if(result.is_super_admin){//超管
+            }else if(isSuperManager && DataBus.instance().USER_ID != result.follow_id){//超管
                 UserCardHelper.managerVM.post(UserCardInfoBean.ProfileUserData(result.follow_id, result.nick_name,
                     result.is_super_admin, result.is_room_admin, result.is_forbid_speak))
-            }else if(result.is_room_admin){//房管
+            }else if(isRoomManger && DataBus.instance().USER_ID != result.follow_id){//房管
                 UserCardHelper.managerVM.post(UserCardInfoBean.ProfileUserData(result.follow_id, result.nick_name,
                     result.is_super_admin, result.is_room_admin, result.is_forbid_speak))
             }else{

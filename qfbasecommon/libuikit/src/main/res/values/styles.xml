@@ -99,6 +99,26 @@
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
+    <style name="commenDialogStyleNoDim" parent="Theme.AppCompat.Light.Dialog">
+        <!--没有标题-->
+        <item name="windowNoTitle">true</item>
+        <!--背景透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--是否有覆盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--是否浮动-->
+        <item name="android:windowIsFloating">true</item>
+        <!--边框-->
+        <item name="android:windowFrame">@null</item>
+        <!-- 点击空白部分activity消失 -->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <!--背景-->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!--背景模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <!--自定义圆形ImageView样式-->
     <declare-styleable name="CircleImageView">
         <attr name="civ_border_width" format="dimension" />
