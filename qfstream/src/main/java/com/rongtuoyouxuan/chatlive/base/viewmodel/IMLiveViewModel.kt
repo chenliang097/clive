@@ -53,6 +53,8 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     var roomInfoExtraLiveData = MutableLiveData<RoomInfoExtraBean?>() //房间额外信息
     var roomManagerLiveData = MutableLiveData<Boolean>() //房管
     var sendTxtLiveData = MutableLiveData<BaseModel?>()
+    var zegoUserRepeatLiveData = MutableLiveData<Boolean>()
+
 
 
     @JvmField
@@ -301,7 +303,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         WebSocketManager._getInstance().initIM("", true, "", "")
         IMSocketBase.instance().login(object : EventCallback {
             override fun Success() {
-                LaToastUtil.showShort("socket成功-------")
+//                LaToastUtil.showShort("socket成功-------")
                 GlobalScope.launch(Dispatchers.Main) {
                     IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
                         override fun sendSuccess(msg: String?) {

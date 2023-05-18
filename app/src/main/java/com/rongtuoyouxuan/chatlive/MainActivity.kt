@@ -31,9 +31,14 @@ class MainActivity : AppCompatActivity() {
         pushStreamBtn.setOnClickListener {
             if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
                 DataBus.instance().USER_ID = etUserId.text.toString().trim()
+                if(TextUtils.isEmpty(etUserName.text.toString().trim())){
+                    DataBus.instance().USER_NAME = "1111111"
+                }else{
+                    DataBus.instance().USER_NAME = etUserName.text.toString().trim()
+                }
                 Router.toStreamActivity(DataBus.instance().USER_ID, DataBus.instance().USER_NAME)
             }else{
-                Router.toStreamActivity()
+                LaToastUtil.showShort("先输入id")
             }
 
 //            IMSocketBase.instance().init(this)
@@ -89,6 +94,14 @@ class MainActivity : AppCompatActivity() {
     fun getMainLiveEnter(){
         if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
             DataBus.instance().USER_ID = etUserId.text.toString().trim()
+            if(TextUtils.isEmpty(etUserName.text.toString().trim())){
+                DataBus.instance().USER_NAME = "1111111"
+            }else{
+                DataBus.instance().USER_NAME = etUserName.text.toString().trim()
+            }
+        }else{
+            LaToastUtil.showShort("先输入id")
+            return
         }
         StreamBiz.mainLiveEnter(DataBus.instance().USER_ID, object :RequestListener<MainLiveEnterBean>{
             override fun onSuccess(reqId: String?, result: MainLiveEnterBean?) {

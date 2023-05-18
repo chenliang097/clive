@@ -11,6 +11,7 @@ import com.rongtuoyouxuan.chatlive.live.view.layout.BasePlayerView
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveRoomViewModel
 import com.rongtuoyouxuan.chatlive.log.upload.ULog
 import com.rongtuoyouxuan.chatlive.stream.R
+import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
 import com.rongtuoyouxuan.qfzego.KeyCenter
 import im.zego.zegoexpress.ZegoExpressEngine
 import im.zego.zegoexpress.callback.IZegoEventHandler
@@ -56,7 +57,9 @@ open class ZegoLiveplay {
         override fun onPlayerStateUpdate(streamID: String, state: ZegoPlayerState, errorCode: Int, jsonObject: JSONObject) {
             super.onPlayerStateUpdate(streamID, state, errorCode, jsonObject)
             if (errorCode != 0 && state == ZegoPlayerState.NO_PLAY) {
-                //todo 未播放
+                if(errorCode == 1002050){
+                    imLiveViewModel?.zegoUserRepeatLiveData?.value = true
+                }
                 ToastUtils.showLong(R.string.stream_live_fail)
             } else {
                 if(errorCode == 0 && state == ZegoPlayerState.PLAYING){

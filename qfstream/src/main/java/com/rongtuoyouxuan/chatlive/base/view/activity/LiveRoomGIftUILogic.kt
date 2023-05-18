@@ -136,6 +136,7 @@ class LiveRoomGIftUILogic(
                     //普通礼物
                         val entity = GiftEntity(
                             userHead = giftMsg.avatar,
+                            userId = giftMsg.userId.toString(),
                             userName = giftMsg.userName,
                             giftName = giftMsg.giftName,
                             giftNum = giftMsg.num,

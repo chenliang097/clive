@@ -128,7 +128,7 @@ public class WebSocketImpl {
             byte[] inBuffer = bytes.toByteArray();
             Long operation = BruteForceCoding.decodeIntBigEndian(inBuffer, 8, 4);
 
-//            Log.e(getTAG(), "onMessage: " + bytes.hex() + "--operation:" + operation);
+            Log.e(getTAG(), "onMessage: " + inBuffer.length + "--operation:" + operation);
             if (3 == operation) {
                 Log.e(getTAG(), "onMessage: " + "heartBeatReceived---");
             } else if (8 == operation) {
@@ -140,7 +140,7 @@ public class WebSocketImpl {
             } else if (5 == operation) {
                 byte[] result = BruteForceCoding.tail(inBuffer, inBuffer.length);
                 String resultInfo = new String(result).trim();
-                ULog.e("clll", "onMessage: " + "5---" + resultInfo);
+                ULog.e(getTAG(), "onMessage: " + "5---" + resultInfo);
 //                if (mWebSocketListener != null) {
 //                    mWebSocketListener.onMessage(webSocket, bytes, op);
 //                }
@@ -150,7 +150,7 @@ public class WebSocketImpl {
                 Long headLength = BruteForceCoding.decodeIntBigEndian(inBuffer, 4, 2);
                 Long version = BruteForceCoding.decodeIntBigEndian(inBuffer, 6, 2);
                 Long sequenceId = BruteForceCoding.decodeIntBigEndian(inBuffer, 12, 4);
-                ULog.e("clll", "onMessage: " + "packageLength:" + packageLength + "--headLength:" + headLength + "--version:" + version + "--sequenceId:" + sequenceId  + "--operation:" + operation + "--inBuffer:" + inBuffer.length);
+                ULog.e(getTAG(), "onMessage: " + "packageLength:" + packageLength + "--headLength:" + headLength + "--version:" + version + "--sequenceId:" + sequenceId  + "--operation:" + operation + "--inBuffer:" + inBuffer.length);
 
                 for(int offset = headLength.intValue(); offset < inBuffer.length; offset+=packageLength){
                     Long packetLen1 = BruteForceCoding.decodeIntBigEndian(inBuffer, offset, 4);
@@ -158,10 +158,10 @@ public class WebSocketImpl {
                     Long version1 = BruteForceCoding.decodeIntBigEndian(inBuffer, offset + 6, 2);
                     Long operation1 = BruteForceCoding.decodeIntBigEndian(inBuffer, offset + 8, 4);
                     Long sequenceId1 = BruteForceCoding.decodeIntBigEndian(inBuffer, offset + 12, 4);
-                    byte[] result = BruteForceCoding.tail(inBuffer,(int)(offset + headLength1), (int)(packageLength -(offset + headLength1)));
-                    ULog.e("clll", "onMessage: " + "packetLen1:" + packetLen1 + "--headLength1:" + headLength1 + "--version1:" + version1 + "--sequenceId1:" + sequenceId1  + "--operation1:" + operation1);
+                    byte[] result = BruteForceCoding.tail(inBuffer,(int)(offset + headLength1), (int)(packetLen1 -headLength1));
+                    ULog.e(getTAG(), "onMessage: " + "packetLen1:" + packetLen1 + "--headLength1:" + headLength1 + "--version1:" + version1 + "--sequenceId1:" + sequenceId1  + "--operation1:" + operation1);
                     String resultInfo = new String(result).trim();
-                    ULog.e("clll", "onMessage: " + "9---" + resultInfo);
+                    ULog.e(getTAG(), "onMessage: " + "9---" + resultInfo);
                     if (mWebSocketListener != null) {
                         mWebSocketListener.onMessage(webSocket, resultInfo, operation1);
                     }

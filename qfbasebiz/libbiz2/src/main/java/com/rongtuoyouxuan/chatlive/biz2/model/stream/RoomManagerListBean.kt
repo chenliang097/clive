@@ -14,6 +14,7 @@ class RoomManagerListBean: BaseListModel<RoomManagerListBean.ItemBean>() {
     }
 
     class DataBean{
+        var total = 0
         var room_admin_list:MutableList<ItemBean> = ArrayList()
     }
 

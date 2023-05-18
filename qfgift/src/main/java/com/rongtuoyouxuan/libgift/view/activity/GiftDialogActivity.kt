@@ -163,7 +163,7 @@ class GiftDialogActivity : SimpleActivity() {
                 finish()
                 return@setOnClickListener
             }
-            if (!DebouncingUtils.isValid(it)) return@setOnClickListener
+//            if (!DebouncingUtils.isValid(it)) return@setOnClickListener
 
             sendGift()
         }

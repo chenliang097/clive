@@ -22,6 +22,7 @@ data class GiftEntity(
     var userName: String? = "",
     var giftNum: Int? = 1,
     val mark: ArrayList<Int>? = null,
+    var userId: String? = "",
 
     @SerializedName("url_1x")
     var giftUrl1X: String? = "",

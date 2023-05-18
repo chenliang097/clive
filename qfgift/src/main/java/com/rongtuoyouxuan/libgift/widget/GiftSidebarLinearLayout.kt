@@ -14,7 +14,7 @@ import com.rongtuoyouxuan.libgift.R
 class GiftSidebarLinearLayout : LinearLayout {
 
     //通道数量
-    private var sidebarNum = 3
+    private var sidebarNum = 2
 
     constructor(context: Context) : super(context)
 
@@ -34,7 +34,7 @@ class GiftSidebarLinearLayout : LinearLayout {
     private fun initAttrs(context: Context, attrs: AttributeSet) {
         val typedArray =
             context.obtainStyledAttributes(attrs, R.styleable.widget_GiftSidebarLaneLayout)
-        sidebarNum = typedArray.getInt(R.styleable.widget_GiftSidebarLaneLayout_wgl_side_num, 3)
+        sidebarNum = typedArray.getInt(R.styleable.widget_GiftSidebarLaneLayout_wgl_side_num, 2)
 
         typedArray.recycle()
     }

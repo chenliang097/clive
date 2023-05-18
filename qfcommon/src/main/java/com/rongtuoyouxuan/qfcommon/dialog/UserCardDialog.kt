@@ -124,7 +124,7 @@ class UserCardDialog(
         userCardFollowBtn?.setOnClickListener {
             //关注
             if(isFollow){
-                cancelFollowDialog()
+                cancelFollowDialog(result.follow_id)
             }else{
                 addFollow(DataBus.instance().USER_ID, tUserId)
             }
@@ -216,9 +216,15 @@ class UserCardDialog(
         })
     }
 
-    private fun cancelFollowDialog(){
+    private fun cancelFollowDialog(followId:String){
         val builder = BottomDialog.Builder(context)
-        builder.setTitle(context.getString(R.string.stream_follow_cancel_tip))
+        var content = context.getString(R.string.stream_follow_cancel_tip)
+        if(anchorId == followId){
+            builder.setTitle(context.getString(R.string.stream_follow_cancel_anchor_tip))
+        }else{
+            builder.setTitle(context.getString(R.string.stream_follow_cancel_tip))
+
+        }
         builder.setPositiveButton(context.getString(R.string.confirm),
             { dialog, p1 ->
                 cancelFollow(DataBus.instance().USER_ID, tUserId)

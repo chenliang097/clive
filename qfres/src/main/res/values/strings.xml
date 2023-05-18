@@ -598,6 +598,7 @@
     <string name="stream_manager_remove">移除</string>
     <string name="stream_report_type">请选择举报类型</string>
     <string name="stream_follow_cancel_tip">您确认要取消关注吗？</string>
+    <string name="stream_follow_cancel_anchor_tip">你确定要取消关注主播吗？</string>
     <string name="stream_fans_remove_tip_title">移除粉丝</string>
     <string name="stream_fans_remove_tip_content">对方将不再关注你，且不会收到通知</string>
     <string name="stream_room_manager_suc">房管设置成功</string>

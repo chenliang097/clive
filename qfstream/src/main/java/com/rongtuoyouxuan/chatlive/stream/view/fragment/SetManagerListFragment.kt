@@ -41,7 +41,7 @@ class SetManagerListFragment:BaseRefreshListFragment<SetManagerListViewModel, Ro
                 setManagerInsTxt.visibility = View.VISIBLE
                 setManagerInsTxt.text = (context?.resources?.getString(
                     R.string.stream_anchor_manager_set_manager_ins,
-                    it.data?.room_admin_list?.size
+                    it.data?.total
                 ))
             }
         }

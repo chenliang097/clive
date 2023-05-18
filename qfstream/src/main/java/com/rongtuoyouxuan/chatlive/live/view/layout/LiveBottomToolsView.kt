@@ -15,6 +15,8 @@ import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedRelieveMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerAddMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerRelieveMsg
 import com.rongtuoyouxuan.chatlive.databus.DataBus
@@ -96,6 +98,7 @@ class LiveBottomToolsView @JvmOverloads constructor(
                 }else{
                     liveRoomSettingBtn.visibility = View.GONE
                 }
+                it.data?.is_ban_chat?.let { it1 -> messageBanned(!it1) }
             }
         }
 
@@ -139,18 +142,28 @@ class LiveBottomToolsView @JvmOverloads constructor(
         liveRoomSettingBtn.visibility = View.GONE
     }
 
+    private var bannerObserver: Observer<RTBannedMsg> = Observer {
+        messageBanned(false)
+    }
+
+    private var relieveBannerObserver: Observer<RTBannedRelieveMsg> = Observer {
+        messageBanned(true)
+    }
+
     private fun registerObserver(roomId: String?) {
         var userId = DataBus.instance().USER_ID
         IMSocketBase.instance().room(userId).roomManagerAddMsg.observe(addManagerObserver)
         IMSocketBase.instance().room(userId).roomManagerRelieveMsg.observe(relieveManagerObserver)
-
+        IMSocketBase.instance().room(userId).bannerMsg.observe(bannerObserver)
+        IMSocketBase.instance().room(userId).bannerRelieveMsg.observe(relieveBannerObserver)
     }
 
     private fun unRegisterObserver(roomId: String?) {
         var userId = DataBus.instance().USER_ID
         IMSocketBase.instance().room(userId).roomManagerAddMsg.removeObserver(addManagerObserver)
         IMSocketBase.instance().room(userId).roomManagerRelieveMsg.removeObserver(relieveManagerObserver)
-
+        IMSocketBase.instance().room(userId).bannerMsg.removeObserver(bannerObserver)
+        IMSocketBase.instance().room(userId).bannerRelieveMsg.removeObserver(relieveBannerObserver)
     }
 
 
@@ -162,11 +175,11 @@ class LiveBottomToolsView @JvmOverloads constructor(
                 liveRoomBottomChatTxt.text = context.getString(R.string.stream_bottom_input_hint)
             }
             false->{
-
                 liveRoomBottomChatLayout.setBackgroundResource(R.drawable.bg_input_banned_bg)
                 liveRoomBottomChatLayout.isEnabled = false
                 liveRoomBottomChatTxt.text = context.getString(R.string.stream_bottom_input_banned_hint)
             }
         }
     }
+
 }

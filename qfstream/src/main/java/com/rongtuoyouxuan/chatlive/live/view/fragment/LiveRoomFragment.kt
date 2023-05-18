@@ -440,6 +440,9 @@ class LiveRoomFragment : SimpleFragment() {
         mLiveControllerViewModel!!.anchorSettingLiveEvent.observeOnce(this) {
             Router.toAnchorManagerDialog(roomId, roomInfoBean?.data?.scene_id_str, 2)
         }
+        imViewModel?.zegoUserRepeatLiveData?.observe(this){
+            (mContext as LiveRoomActivity).finish()
+        }
     }
 
     private fun reloadPlayer(
