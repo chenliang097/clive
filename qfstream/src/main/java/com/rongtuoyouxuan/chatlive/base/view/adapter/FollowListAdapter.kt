@@ -1,5 +1,6 @@
 package com.rongtuoyouxuan.chatlive.base.view.adapter
 
+import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
@@ -28,39 +29,50 @@ class FollowListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>
         GlideUtils.loadImage(context, item.avatar, avatar, R.drawable.rt_default_avatar)
         name.text = item.nick_name
         if(userId == DataBus.instance().USER_ID) {
-            if (item.status) {
-                if(item.isClick){
-                    btn1.setBackgroundResource(R.drawable.rt_common_btn)
-                    btn1.text = context.resources.getString(R.string.stream_center_add_follow)
-                    item.isFollow = false
-                }else {
-                    btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
-                    btn1.text = context.resources.getString(R.string.stream_center_followed)
-                    item.isFollow = true
+            if(item.id.toString() != DataBus.instance().USER_ID) {
+                btn1.visibility = View.VISIBLE
+                if (item.status) {
+                    if (item.isClick) {
+                        btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                        btn1.text = context.resources.getString(R.string.stream_center_add_follow)
+                        item.isFollow = false
+                    } else {
+                        btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                        btn1.text = context.resources.getString(R.string.stream_center_followed)
+                        item.isFollow = true
+                    }
+                } else {
+                    if (item.isClick) {
+                        btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                        btn1.text =
+                            context.resources.getString(R.string.stream_follow)
+                        item.isFollow = false
+                    } else {
+                        btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                        btn1.text =
+                            context.resources.getString(R.string.stream_user_card_delete_folowed)
+                        item.isFollow = true
+
+                    }
                 }
-            } else {
-                if(item.isClick) {
-                    btn1.setBackgroundResource(R.drawable.rt_common_btn)
-                    btn1.text =
-                        context.resources.getString(R.string.stream_follow)
-                    item.isFollow = false
-                }else{
+            }else{
+                btn1.visibility = View.GONE
+            }
+        }else{
+            if(item.id.toString() != DataBus.instance().USER_ID) {
+                btn1.visibility = View.VISIBLE
+                if (item.status) {
                     btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
                     btn1.text =
                         context.resources.getString(R.string.stream_user_card_delete_folowed)
                     item.isFollow = true
-
+                } else {
+                    btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                    btn1.text = context.resources.getString(R.string.stream_follow)
+                    item.isFollow = false
                 }
-            }
-        }else{
-            if (item.status) {
-                btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
-                btn1.text = context.resources.getString(R.string.stream_user_card_delete_folowed)
-                item.isFollow = true
-            } else {
-                btn1.setBackgroundResource(R.drawable.rt_common_btn)
-                btn1.text = context.resources.getString(R.string.stream_follow)
-                item.isFollow = false
+            }else{
+                btn1.visibility = View.GONE
             }
         }
 //        btn1.setOnClickListener {

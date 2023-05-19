@@ -27,22 +27,35 @@ class FansListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>, 
         var avatar = holder.getView<RoundedImageView>(R.id.itemAvatar)
         var btn1 = holder.getView<TextView>(R.id.itemBtn)
         if(DataBus.instance().USER_ID == userId){
-            holder.getView<ImageView>(R.id.itemRemoveImg).visibility = View.VISIBLE
-            if(item.status){
-                btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
-                btn1.text = context.resources.getString(R.string.stream_center_followed)
+            if(DataBus.instance().USER_ID != item.id.toString()) {
+                holder.getView<ImageView>(R.id.itemRemoveImg).visibility = View.VISIBLE
+                btn1.visibility = View.VISIBLE
+                if (item.status) {
+                    btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                    btn1.text = context.resources.getString(R.string.stream_center_followed)
+                } else {
+                    btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                    btn1.text = context.resources.getString(R.string.stream_center_add_follow)
+                }
             }else{
-                btn1.setBackgroundResource(R.drawable.rt_common_btn)
-                btn1.text = context.resources.getString(R.string.stream_center_add_follow)
+                holder.getView<ImageView>(R.id.itemRemoveImg).visibility = View.GONE
+                btn1.visibility = View.GONE
             }
         }else{
-            holder.getView<ImageView>(R.id.itemRemoveImg).visibility = View.GONE
-            if(item.status){
-                btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
-                btn1.text = context.resources.getString(R.string.stream_user_card_delete_folowed)
+            if(DataBus.instance().USER_ID != item.id.toString()) {
+                holder.getView<ImageView>(R.id.itemRemoveImg).visibility = View.GONE
+                btn1.visibility = View.VISIBLE
+                if (item.status) {
+                    btn1.setBackgroundResource(R.drawable.rt_common_gray_btn)
+                    btn1.text =
+                        context.resources.getString(R.string.stream_user_card_delete_folowed)
+                } else {
+                    btn1.setBackgroundResource(R.drawable.rt_common_btn)
+                    btn1.text = context.resources.getString(R.string.stream_follow)
+                }
             }else{
-                btn1.setBackgroundResource(R.drawable.rt_common_btn)
-                btn1.text = context.resources.getString(R.string.stream_follow)
+                holder.getView<ImageView>(R.id.itemRemoveImg).visibility = View.GONE
+                btn1.visibility = View.GONE
             }
         }
         GlideUtils.loadImage(context, item.avatar, avatar, R.drawable.rt_default_avatar)
