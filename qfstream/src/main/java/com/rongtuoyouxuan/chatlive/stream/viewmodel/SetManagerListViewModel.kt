@@ -20,7 +20,7 @@ open class SetManagerListViewModel(application: Application):BaseListFragmentVie
         this.roomId = roomId
     }
     override fun doLoadData(mPage: Int, event: LoadEvent?) {
-        StreamBiz.getRoomManagerList(roomId, mPage, 30, object :RequestListener<RoomManagerListBean>{
+        StreamBiz.getRoomManagerList(roomId, mPage, 100, object :RequestListener<RoomManagerListBean>{
             override fun onSuccess(reqId: String?, result: RoomManagerListBean?) {
                 result?.event = event
                 _getData().value = result

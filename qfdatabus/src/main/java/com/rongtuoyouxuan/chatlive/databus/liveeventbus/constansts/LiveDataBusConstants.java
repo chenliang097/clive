@@ -9,8 +9,6 @@ public interface LiveDataBusConstants {
     String EVENT_KEY_TO_FOLLOW_GONE = "follow_gone";
     //游客跳转登录弹窗
     String EVENT_KEY_TO_SHOW_LOGIN_DIALOG = "show_login_dilog";
-    //关播 IM gif发送成功回调
-    String EVENT_KEY_TO_SEND_IM_GIF_SUC = "im_gif_suc";
     // 私聊、群聊发送gif点击回调
     String EVENT_KEY_TO_SEND_IM_GIF_CLICK = "im_gif_click";
     //关播 finish gif和gift面板

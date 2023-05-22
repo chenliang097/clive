@@ -86,11 +86,10 @@
 
                 <EditText
                     android:id="@+id/streamPreviewEditTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_toEndOf="@id/streamPreviewImgCoverLayout"
                     android:background="@drawable/transparent"
                     android:maxLength="12"
@@ -98,6 +97,15 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/streamPreviewEditIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/streamPreviewEditTitle"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/rt_stream_icon_edit"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"

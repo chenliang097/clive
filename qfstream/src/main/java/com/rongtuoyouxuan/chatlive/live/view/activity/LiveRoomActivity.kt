@@ -39,6 +39,8 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.gson.reflect.TypeToken
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomListBean
+import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.bean.ISource
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
@@ -80,8 +82,9 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
             var liveData = intent.getStringExtra("liveData")
             if (theuid != streamID) {
                 isResetOpen = true
+                ZegoLiveplay.instance.onIsResetOpen(isResetOpen)
                 finish()
-                Router.toLiveRoomActivity(liveData, roomId, streamId, sceneId, anchorId, ISource.FROM_LIVE_ROOM)
+                startActivity(intent)
             }else{
                 LaToastUtil.showShort("您已在当前直播间")
             }
@@ -386,6 +389,8 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
         if(isResetOpen){
             mLiveRoomFragment?.onDestroyView()
         }
+        LiveDataBus.getInstance()
+            .with(LiveDataBusConstants.EVENT_KEY_TO_FINISH_ROOM_ACTIVITY).value = true
         super.finish()
     }
 }

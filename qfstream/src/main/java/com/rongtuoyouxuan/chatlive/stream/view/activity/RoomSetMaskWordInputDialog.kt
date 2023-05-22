@@ -6,10 +6,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
-import cn.dreamtobe.kpswitch.util.KeyboardUtil
+import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout.OnSetMaskWordListener
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorManagerViewModel
@@ -55,10 +57,25 @@ class RoomSetMaskWordInputDialog : Dialog, View.OnClickListener {
     }
 
     private fun initView() {
+//        room_message_input.postDelayed(Runnable { KeyBoardUtils.showSoftInput(room_message_input) }, 200)
     }
 
     private fun initListener() {
         room_message_sent.setOnClickListener(this)
+        room_message_input.setOnEditorActionListener(OnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val msg: String = room_message_input.getText().toString()
+                if (StringUtils.isEmpty(msg)) {
+                    Toast.makeText(context, R.string.message_room_chat_empty, Toast.LENGTH_SHORT)
+                        .show()
+                    return@OnEditorActionListener true
+                }
+                onSetMaskWordListener?.onSetMaskWord(msg)
+                clearMessage()
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     private fun initObserver() {
@@ -88,7 +105,6 @@ class RoomSetMaskWordInputDialog : Dialog, View.OnClickListener {
         //清除缓存的聊天内容
         room_message_input.setText("")
         ll_msg_container.visibility = View.GONE
-        KeyboardUtil.hideKeyboard(room_message_input)
     }
 
     private fun obtainStreamViewModel(): AnchorManagerViewModel {

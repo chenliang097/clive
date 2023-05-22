@@ -160,6 +160,8 @@ class LiveRoomFragment : SimpleFragment() {
         recoverIs = arguments?.get("recoverIs") as Boolean
         isPageScrolled = arguments?.get("position") as Boolean
         var streamTypeInt = arguments?.get("streamType") as Int
+        (mContext as LiveRoomActivity).updateLiveRoomID(roomId!!)
+
         when (streamTypeInt) {
             1 -> {
                 (mContext as LiveRoomActivity).updateStreamType(StreamPreviewLayout.TYPE_LIVE)
@@ -529,7 +531,7 @@ class LiveRoomFragment : SimpleFragment() {
     override fun onDestroyView() {
         LiveManager.instance().setLiveStatusNull()
         exitRequest()
-        viewModel?.onDestroy()
+        streamId?.let { roomId?.let { it1 -> viewModel?.onDestroy(it1, it) } }
         if (viewModel?.liveStatus != "floatWindow") {
             imViewModel!!.onDestroy()
         }

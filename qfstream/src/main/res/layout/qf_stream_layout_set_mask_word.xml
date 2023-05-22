@@ -53,7 +53,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/rt_icon_stream_arrow_right"/>
+                android:src="@drawable/rt_icon_stream_arrow_right"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
         <com.rongtuoyouxuan.libuikit.widget.FlowLayout

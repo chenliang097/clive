@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="3dp"
+                android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/iv_close_master_play" />
 
             <ImageView
@@ -140,6 +140,13 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <com.rongtuoyouxuan.chatlive.base.view.layout.BaseLiveGiftView
+            android:id="@+id/livegiftview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom"/>
 
         <com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
             android:id="@+id/bcLayout"

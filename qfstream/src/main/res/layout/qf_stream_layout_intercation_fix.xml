@@ -33,7 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"/>
 
         </RelativeLayout>
 
@@ -96,6 +97,13 @@
 
             </LinearLayout>
         </RelativeLayout>
+
+        <com.rongtuoyouxuan.chatlive.base.view.layout.BaseLiveGiftView
+            android:id="@+id/livegiftview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom"/>
 
         <com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
             android:id="@+id/bcLayout"

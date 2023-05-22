@@ -71,6 +71,7 @@ class FixInteractionLayout @JvmOverloads constructor(
             ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
         mControllerViewModel = ViewModelUtils.get(context as FragmentActivity?, StreamControllerViewModel::class.java)
         imViewModel?.roomInfoExtraLiveData?.observe(context as FragmentActivity){
+            livegiftview.setHostId(imViewModel?.roomId)
             tvOnline4.text = "" + it?.data?.scene_user_count
             roomId = it?.data?.room_id_str
             it?.data?.room_id_str?.let { it1 -> registerObserver(it1) }

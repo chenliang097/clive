@@ -131,28 +131,28 @@ class LiveRoomGIftUILogic(
             }
             giftLargerAnimManager.init(lifecycle)
 
-            roomId?.let { roomId ->
-                IMSocketBase.instance().room(roomId).giftMsg.observe(lifecycleOwner) { giftMsg ->
-                    //普通礼物
-                        val entity = GiftEntity(
-                            userHead = giftMsg.avatar,
-                            userId = giftMsg.userId.toString(),
-                            userName = giftMsg.userName,
-                            giftName = giftMsg.giftName,
-                            giftNum = giftMsg.num,
-                            thumbnail = giftMsg.url_1x)
-                        if (!isPlayGift) {
-                            return@observe
-                        }
-                        if (giftMsg.userId.toString() == DataBus.instance().USER_ID) {
-                            giftSideManager.addChildGiftFirst(entity)
-                        } else {
-                            giftSideManager.addChildGift(entity)
-                        }
-                    }
-
-                clickMarquee(lifecycleOwner, roomId)
-            }
+//            roomId?.let { roomId ->
+//                IMSocketBase.instance().room(roomId).giftMsg.observe(lifecycleOwner) { giftMsg ->
+//                    //普通礼物
+//                        val entity = GiftEntity(
+//                            userHead = giftMsg.avatar,
+//                            userId = giftMsg.userId.toString(),
+//                            userName = giftMsg.userName,
+//                            giftName = giftMsg.giftName,
+//                            giftNum = giftMsg.num,
+//                            thumbnail = giftMsg.url_1x)
+//                        if (!isPlayGift) {
+//                            return@observe
+//                        }
+//                        if (giftMsg.userId.toString() == DataBus.instance().USER_ID) {
+//                            giftSideManager.addChildGiftFirst(entity)
+//                        } else {
+//                            giftSideManager.addChildGift(entity)
+//                        }
+//                    }
+//
+//                clickMarquee(lifecycleOwner, roomId)
+//            }
         }
 
         starImg?.let {

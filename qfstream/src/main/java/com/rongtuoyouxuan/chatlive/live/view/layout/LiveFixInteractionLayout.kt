@@ -50,6 +50,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
         initViewModel(context)
         inflate(context, R.layout.qf_stream_live_layout_intercation_fix, this)
         fix_layout = findViewById(R.id.fix_layout)
+        livegiftview.setHostId(mIMLiveViewModel?.roomId)
         initView()
         initListener(context)
         initData(context)

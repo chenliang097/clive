@@ -1,6 +1,7 @@
 package com.rongtuoyouxuan.qfzego;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.rongtuoyouxuan.chatlive.log.upload.ULog;
 import com.rongtuoyouxuan.chatlive.streaming.BaseStreamView;
+import com.rongtuoyouxuan.chatlive.util.MyLifecycleHandler;
 import com.rongtuoyouxuan.qfpushstreamer.R;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -74,12 +76,12 @@ public class ZegoStreamView extends BaseStreamView {
     private String roomID = "0001";
     private String pushToken = "";
     private int captureOrigin = 0;
+    private boolean isBackGround = false;
 
     private StreamStateChangedListener mStreamStateChangedListener;
     private ZegoExpressEngine mZegoEngine;
     private ZegoCanvas mZegoCanvas;
     private ZegoVideoConfig mZegoVideoConfig;
-    private MyHandler handler = null;
 
     private TextureView mPreviewView;
     private ZegoCustomVideoProcessConfig mZegoCustomVideoCaptureConfig;
@@ -138,7 +140,9 @@ public class ZegoStreamView extends BaseStreamView {
 
     private void init(Context context) {
         mContext = context;
-        handler = new MyHandler(Looper.getMainLooper());
+//        handler = new MyHandler(Looper.getMainLooper());
+        MyLifecycleHandler.getInstance().removeListener(appLifecycleListener);
+        MyLifecycleHandler.getInstance().addListener(appLifecycleListener);
     }
 
     @SuppressLint("WrongViewCast")
@@ -174,18 +178,18 @@ public class ZegoStreamView extends BaseStreamView {
 
             ULog.d(TAG, "onPublisherStateUpdate:" + "开始推流" + "--errorCode:" + errorCode + "--state：" + state);
             logs.append("onPublisherStateUpdate---" + "streamID:" + streamID + "--state:" + state + "--errorCode:" + errorCode + "\n");
-            if (null != handler){
-                Message message = Message.obtain();
-                message.what = 0;
-                message.obj = logs.toString();
-                handler.sendMessageDelayed(message,5000);
-//                handler.sendEmptyMessageDelayed(0, 5000);
-            }
-            if(errorCode != 0) {
-                if (mStreamStateChangedListener != null) {
-                    mStreamStateChangedListener.pushStreamStatus(streamID);
-                }
-            }
+//            if (null != handler){
+//                Message message = Message.obtain();
+//                message.what = 0;
+//                message.obj = logs.toString();
+//                handler.sendMessageDelayed(message,5000);
+////                handler.sendEmptyMessageDelayed(0, 5000);
+//            }
+//            if(errorCode != 0) {
+//                if (mStreamStateChangedListener != null) {
+//                    mStreamStateChangedListener.pushStreamStatus(streamID);
+//                }
+//            }
         }
 
         @Override
@@ -225,6 +229,7 @@ public class ZegoStreamView extends BaseStreamView {
             super.onPublisherQualityUpdate(streamID, zegoPublishStreamQuality);
             logs.append("onPublisherQualityUpdate---" + "streamID:" + streamID + "--level:" + zegoPublishStreamQuality.level + "\n");
             ULog.d(TAG, "onPublisherQualityUpdate:" + "streamID:"+streamID + "--level:" + zegoPublishStreamQuality.level);
+            if(isBackGround)return;
             if (pushHeartbeatCount < MAX_RETRY) {
                 pushHeartbeatCount++;
             }else{
@@ -335,9 +340,9 @@ public class ZegoStreamView extends BaseStreamView {
     @Override
     public void setStreamStateListener(StreamStateChangedListener listener) {
         mStreamStateChangedListener = listener;
-        if (null != handler) {
-            handler.setStreamStateListener(mStreamStateChangedListener);
-        }
+//        if (null != handler) {
+//            handler.setStreamStateListener(mStreamStateChangedListener);
+//        }
     }
 
     @Override
@@ -464,10 +469,10 @@ public class ZegoStreamView extends BaseStreamView {
             logoutLiveRoom();
 //            SDKManager.sharedInstance().stopCamera();
         }
-        if (null != handler) {
-            handler.removeCallbacksAndMessages(null);
-            handler = null;
-        }
+//        if (null != handler) {
+//            handler.removeCallbacksAndMessages(null);
+//            handler = null;
+//        }
     }
 
     public void logoutLiveRoom() {
@@ -590,6 +595,19 @@ public class ZegoStreamView extends BaseStreamView {
 
 
     }
+
+    private MyLifecycleHandler.Listener appLifecycleListener = new MyLifecycleHandler.Listener() {
+
+        @Override
+        public void onBecameForeground(Activity activity) {
+            isBackGround = false;
+        }
+
+        @Override
+        public void onBecameBackground(Activity activity) {
+            isBackGround = true;
+        }
+    };
 
 
 }

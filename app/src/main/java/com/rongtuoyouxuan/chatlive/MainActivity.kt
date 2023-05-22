@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         pushStreamBtn.setOnClickListener {
             if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
-                DataBus.instance().USER_ID = etUserId.text.toString().trim()
+                DataBus.instance().setUSER_ID(etUserId.text.toString().trim())
                 if(TextUtils.isEmpty(etUserName.text.toString().trim())){
                     DataBus.instance().USER_NAME = "1111111"
                 }else{
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getMainLiveEnter(){
         if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
-            DataBus.instance().USER_ID = etUserId.text.toString().trim()
+            DataBus.instance().setUSER_ID(etUserId.text.toString().trim())
             if(TextUtils.isEmpty(etUserName.text.toString().trim())){
                 DataBus.instance().USER_NAME = "1111111"
             }else{

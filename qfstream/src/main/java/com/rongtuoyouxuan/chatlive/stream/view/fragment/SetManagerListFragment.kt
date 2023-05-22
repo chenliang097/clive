@@ -53,6 +53,10 @@ class SetManagerListFragment:BaseRefreshListFragment<SetManagerListViewModel, Ro
         viewModel.delManagerLiveData.observe(activity as FragmentActivity){
             if(adapter != null){
                 adapter.remove(position = it)
+                setManagerInsTxt.text = (context?.resources?.getString(
+                    R.string.stream_anchor_manager_set_manager_ins,
+                    adapter.data.size
+                ))
                 if(adapter.data.size == 0){
                     showEmpty()
                 }

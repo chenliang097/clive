@@ -65,8 +65,8 @@ class LiveRoomViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(live
        ZegoLiveplay.instance.setStatus(liveStatus)
     }
 
-    fun onDestroy() {
-        ZegoLiveplay.instance.onDestroy()
+    fun onDestroy(roomId: String, streamId: String) {
+        ZegoLiveplay.instance.onDestroy(roomId, streamId)
     }
 
     fun onStop() {}

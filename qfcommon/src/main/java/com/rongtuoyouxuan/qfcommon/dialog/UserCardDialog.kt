@@ -130,18 +130,23 @@ class UserCardDialog(
             }
 
         }
-
-        if(isSuperManager && DataBus.instance().USER_ID != result.follow_id){
-            userCardRightTxt.visibility = View.VISIBLE
-            userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
-        }else if(DataBus.instance().USER_ID == anchorId && DataBus.instance().USER_ID != result.follow_id){
-            userCardRightTxt.visibility = View.VISIBLE
-            userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
-        }else if(isRoomManger && DataBus.instance().USER_ID != result.follow_id){
-            userCardRightTxt.visibility = View.VISIBLE
-            userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
-        }else{
+        if(result.is_super_admin || result.follow_id == anchorId){
             userCardRightTxt.visibility = View.GONE
+        }else {
+            if (isSuperManager && DataBus.instance().USER_ID != result.follow_id) {
+                userCardRightTxt.visibility = View.VISIBLE
+                userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
+            } else if (DataBus.instance().USER_ID == anchorId && DataBus.instance().USER_ID != result.follow_id) {
+                userCardRightTxt.visibility = View.VISIBLE
+                userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
+            } else if (isRoomManger && DataBus.instance().USER_ID != result.follow_id) {
+                userCardRightTxt.visibility = View.VISIBLE
+                userCardRightTxt.text = context.getString(R.string.stream_user_card_manager)
+            }  else if (isRoomManger && result.is_room_admin) {
+                userCardRightTxt.visibility = View.GONE
+            } else {
+                userCardRightTxt.visibility = View.GONE
+            }
         }
 
         userCardWindowBtn.setOnClickListener {

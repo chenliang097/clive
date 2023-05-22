@@ -170,6 +170,10 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 }
             }
         }
+        titleEdit?.setOnTouchListener { view, motionEvent ->
+            streamPreviewEditIcon.visibility = View.GONE
+            false
+        }
     }
 
     fun setParams(w: Int, h: Int) {
@@ -489,6 +493,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
         if (ev?.action === MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候
             if (KeyBoardUtils.isShouldHideKeyboard(titleEdit, ev)) { //判断用户点击的是否是输入框以外的区域
                 KeyBoardUtils.hiddenSoftInput(titleEdit)
+                streamPreviewEditIcon.visibility = View.VISIBLE
             }
         }
         return super.dispatchTouchEvent(ev)

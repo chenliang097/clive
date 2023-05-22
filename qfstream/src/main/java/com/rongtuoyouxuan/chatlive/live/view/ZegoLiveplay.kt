@@ -147,10 +147,11 @@ open class ZegoLiveplay {
         zegoCanvas?.viewMode = ZegoViewMode.ASPECT_FILL
         mZegoExpressEngine = ZegoExpressEngine.createEngine(profile, mIZegoEventHandler)
 //        mZegoExpressEngine?.setVideoMirrorMode(ZegoVideoMirrorMode.ONLY_PUBLISH_MIRROR)
-        val zegoUser = ZegoUser(DataBus.instance().uid)
+        val zegoUser = ZegoUser(DataBus.instance().USER_ID)
         mZegoExpressEngine?.startEffectsEnv();
-        if(isScroll){
+        if(isScroll || isResetOpen){
             mZegoExpressEngine?.logoutRoom()
+            isResetOpen = false
         }
         mZegoExpressEngine?.loginRoom(roomId, zegoUser, null, IZegoRoomLoginCallback { code, _ ->
             ULog.d("clll", "onRoomLoginResult:$code")
@@ -213,19 +214,30 @@ open class ZegoLiveplay {
         this.setupVideo = setupVideo
     }
 
-    fun onDestroy() {
-        ULog.d("clll", "zegoliveplay----------onDestroy")
+    fun onDestroy(roomIdPre: String, streamIdPre: String) {
+        ULog.d("clll", "zegoliveplay----------onDestroy--$streamId1")
         if (liveStatus == "floatWindow"){
             ULog.d("clll", "floatWindow")
         }else{
-            if (mZegoExpressEngine != null) {
-                mZegoExpressEngine?.logoutRoom(streamId1)
+            if (mZegoExpressEngine != null && streamIdPre == streamId1) {
+                mZegoExpressEngine?.logoutRoom(roomId)
                 mZegoExpressEngine?.stopPlayingStream(streamId1)
+                ZegoExpressEngine.destroyEngine(null)
+            }else{
+                if(mZegoExpressEngine != null ) {
+                    mZegoExpressEngine?.logoutRoom(roomIdPre)
+                    mZegoExpressEngine?.stopPlayingStream(streamIdPre)
+                }
             }
-            ZegoExpressEngine.destroyEngine(null)
+
             ULog.d("clll", "zegoliveplay----------onDestroy1")
         }
         isFirstEnter = true
+    }
+
+    var isResetOpen = false
+    fun onIsResetOpen(isResetOpen: Boolean){
+        this.isResetOpen = isResetOpen
     }
 
     fun onFloatViewDestroy(){

@@ -75,6 +75,7 @@ public class RoomSetMaskInputLayout extends RelativeLayout {
                 }
             }
         });
+
     }
 
     public interface OnSetMaskWordListener{
