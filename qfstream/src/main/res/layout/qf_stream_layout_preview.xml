@@ -93,7 +93,6 @@
                     android:layout_toEndOf="@id/streamPreviewImgCoverLayout"
                     android:background="@drawable/transparent"
                     android:maxLength="12"
-                    android:hint="@string/stream_prepare_edit_title"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="14sp" />

@@ -467,12 +467,14 @@ class StreamPreviewLayout @JvmOverloads constructor(
     fun initLoacation(){
         var rxPermissions = RxPermissions(context as FragmentActivity)
         if (rxPermissions != null && rxPermissions?.isGranted(Manifest.permission.ACCESS_COARSE_LOCATION)){
+            ULog.e("clll", "initLoacation---isGranted")
             try{
                 getLocation()
             }catch (e:Exception){
                 e.printStackTrace()
             }
         }else{
+            ULog.e("clll", "initLoacation---requestEach")
             rxPermissions?.requestEach(Manifest.permission.ACCESS_COARSE_LOCATION)?.subscribe(){
                 if (it.granted) {
                     getLocation()
@@ -485,11 +487,14 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     }
 
+    private var location:Location? = null
     @SuppressLint("MissingPermission", "CheckResult")
     fun getLocation(){
         try{
-            locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
-            var location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if(location == null) {
+                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            }
             if(location == null){
                 location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             }
