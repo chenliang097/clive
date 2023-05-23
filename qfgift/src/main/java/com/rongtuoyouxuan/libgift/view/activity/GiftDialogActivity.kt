@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -277,5 +278,23 @@ class GiftDialogActivity : SimpleActivity() {
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.common_bottom_dialog_in, R.anim.common_bottom_dialog_out)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startWakeLock()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopWakeLock()
+    }
+
+    protected fun startWakeLock() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+
+    protected fun stopWakeLock() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 }

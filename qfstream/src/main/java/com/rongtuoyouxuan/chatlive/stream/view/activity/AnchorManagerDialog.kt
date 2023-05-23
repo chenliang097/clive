@@ -97,4 +97,22 @@ class AnchorManagerDialog : LanguageActivity(), View.OnClickListener {
         super.finish()
         overridePendingTransition(0, 0)
     }
+
+    override fun onResume() {
+        super.onResume()
+        startWakeLock()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopWakeLock()
+    }
+
+    protected fun startWakeLock() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+
+    protected fun stopWakeLock() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
 }

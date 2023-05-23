@@ -82,8 +82,11 @@ class StreamPreviewLayout @JvmOverloads constructor(
     private var addPhotoPath:String? = "";
     private var curIndex: Int = 0
     private var startStreamInfoBean:StartStreamInfoBean? = null
+    private var locationSwitch = false
+    private var isFrontCamera = false
 
-    private var handler = object :Handler(Looper.getMainLooper()){
+    @SuppressLint("HandlerLeak")
+    private var handler = object :Handler(){
         override fun handleMessage(msg: Message) {
             initLoacation()
         }
@@ -157,6 +160,24 @@ class StreamPreviewLayout @JvmOverloads constructor(
             }else{
                 setPhoto(it.data.last_cover_image)
             }
+            if(!TextUtils.isEmpty(it.data.scene_title)) {
+                getLocalHostInfo(it.data.scene_title)
+            }
+            if(it.data.back_video) {
+                isFrontCamera = false
+                mStreamViewModel.onSwitchCameraEnd(StreamViewModel.CAMERA_BACK)
+            }else{
+                isFrontCamera = true
+                mStreamViewModel.onSwitchCameraEnd(StreamViewModel.CAMERA_FRONT)
+            }
+            mStreamViewModel.switchCamera()
+            if(it.data.position_switch){
+                locationSwitch = true
+                handler.sendEmptyMessageDelayed(0, 500)
+            }else{
+                locationSwitch = false
+                streamPreviewLocationTxt?.text = StringUtils.getString(R.string.stream_unknown_location)
+            }
 
         }
 
@@ -172,6 +193,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
         }
         titleEdit?.setOnTouchListener { view, motionEvent ->
             streamPreviewEditIcon.visibility = View.GONE
+            titleEdit?.isCursorVisible = true
             false
         }
     }
@@ -212,6 +234,11 @@ class StreamPreviewLayout @JvmOverloads constructor(
             }
             R.id.streamPreviewTurnCameraTxt -> {
 //                mStreamViewModel.setUseFrontCamera(isUserFrontCamera)
+                if(mStreamViewModel.cameraId.value == StreamViewModel.CAMERA_FRONT){
+                    mStreamViewModel.onSwitchCameraEnd(StreamViewModel.CAMERA_BACK)
+                }else{
+                    mStreamViewModel.onSwitchCameraEnd(StreamViewModel.CAMERA_FRONT)
+                }
                 mStreamViewModel?.switchCamera()
             }
             R.id.streamPreviewLocationTxt ->{
@@ -275,16 +302,18 @@ class StreamPreviewLayout @JvmOverloads constructor(
         if(TextUtils.isEmpty(title)){
             title = DataBus.instance().USER_NAME
         }
+        isFrontCamera = mStreamViewModel.cameraId.value == StreamViewModel.CAMERA_BACK
         if(startStreamInfoBean != null && !TextUtils.isEmpty(startStreamInfoBean?.data?.token)
             && !TextUtils.isEmpty(startStreamInfoBean?.data?.stream_id)
             && !TextUtils.isEmpty(startStreamInfoBean?.data?.room_id_str)){
-            var request = StartPushStreamRequest(addPhotoPath, title, streamPreviewLocationTxt.text.toString(), longitude, latitude)
+
+            var request = StartPushStreamRequest(addPhotoPath, title, streamPreviewLocationTxt.text.toString(), longitude, latitude, locationSwitch, isFrontCamera)
             mStreamViewModel.uploadAnchorInfo(startStreamInfoBean!!, request)
         }else {
             mStreamViewModel.startRequestPullUrl(
                 title, addPhotoPath, longitude, latitude,
                 streamPreviewLocationTxt.text.toString(),
-                DataBus.instance().USER_ID, DataBus.instance().USER_NAME
+                DataBus.instance().USER_ID, DataBus.instance().USER_NAME, locationSwitch, isFrontCamera
             )
         }
     }
@@ -294,11 +323,13 @@ class StreamPreviewLayout @JvmOverloads constructor(
         builder.setTitle(R.string.rt_stream_location_dialog_ins)
         builder.setPositiveButton(StringUtils.getString(R.string.rt_stream_show_loacation),
             { dialog, p1 ->
+                locationSwitch = true
                 handler.sendEmptyMessageDelayed(0, 500)
                 dialog.dismiss()
             }, R.color.rt_c_3478F6)
         builder.setPositiveButtonTwo(StringUtils.getString(R.string.rt_stream_hide_loacation),
             { dialog, p1 ->
+                locationSwitch = false
                 streamPreviewLocationTxt?.text = StringUtils.getString(R.string.stream_unknown_location)
                 dialog.dismiss()
             }, R.color.rt_c_3478F6)
@@ -494,6 +525,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
             if (KeyBoardUtils.isShouldHideKeyboard(titleEdit, ev)) { //判断用户点击的是否是输入框以外的区域
                 KeyBoardUtils.hiddenSoftInput(titleEdit)
                 streamPreviewEditIcon.visibility = View.VISIBLE
+                titleEdit?.isCursorVisible = false
             }
         }
         return super.dispatchTouchEvent(ev)
@@ -506,12 +538,17 @@ class StreamPreviewLayout @JvmOverloads constructor(
         if (!TextUtils.isEmpty(userName)) {
             DataBus.instance().USER_NAME = userName!!
         }
-        getLocalHostInfo()
+        getLocalHostInfo("")
     }
 
-    private fun getLocalHostInfo(){
-        var title = DataBus.instance().USER_NAME + StringUtils.getString(R.string.stream_prepare_edit_title_default)
-        titleEdit?.setText(title)
+    private fun getLocalHostInfo(title:String){
+        if(TextUtils.isEmpty(title)) {
+            var title =
+                DataBus.instance().USER_NAME + StringUtils.getString(R.string.stream_prepare_edit_title_default)
+            titleEdit?.setText(title)
+        }else{
+            titleEdit?.setText(title)
+        }
 
     }
 

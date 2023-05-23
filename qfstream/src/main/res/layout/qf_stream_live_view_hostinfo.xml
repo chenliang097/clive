@@ -7,6 +7,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:gravity="center"
+        android:scaleType="centerCrop"
         app:riv_oval="true"
         android:src="@drawable/rt_default_avatar"/>
 
@@ -44,7 +45,6 @@
                 android:id="@+id/hostCurrentDiamondTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"

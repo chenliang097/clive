@@ -10,10 +10,12 @@ import com.lxj.xpopup.core.BottomPopupView
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowStatusBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
 import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
+import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
 import com.rongtuoyouxuan.chatlive.biz2.stream.UserCardBiz
 import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.net2.BaseModel
 import com.rongtuoyouxuan.chatlive.net2.BaseNetImpl
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.router.Router
@@ -126,7 +128,11 @@ class UserCardDialog(
             if(isFollow){
                 cancelFollowDialog(result.follow_id)
             }else{
-                addFollow(DataBus.instance().USER_ID, tUserId)
+                if(anchorId == result.follow_id){
+                    addFollowAnchor(result.follow_id, DataBus.instance().USER_ID, 1)
+                }else {
+                    addFollow(DataBus.instance().USER_ID, tUserId)
+                }
             }
 
         }
@@ -238,6 +244,31 @@ class UserCardDialog(
 
         builder.setNegativeButton(R.string.cancel) { dialog, which -> dialog.dismiss() }
         builder.create().show()
+    }
+
+
+    fun addFollowAnchor(
+        followId: String,
+        userId: String,
+        status: Int? = null,
+    ) {
+        StreamBiz.liveFollows(
+            followId, userId, roomId, sceneId, status, null,
+            object : RequestListener<BaseModel> {
+                override fun onSuccess(reqId: String?, result: BaseModel?) {
+                    if (result?.errCode == 0) {
+                        updateFollowUI(true)
+                        if(tUserId == anchorId){
+                            UserCardHelper.followAnchorVM.post(true)
+                        }
+
+                    }
+                }
+
+                override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
+                }
+
+            })
     }
 
 

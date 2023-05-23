@@ -98,7 +98,7 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     }
 
     companion object {
-        private const val MAX_RETRY = 10
+        const val MAX_RETRY = 10
     }
 
     fun isHostId(host: Int): Boolean {

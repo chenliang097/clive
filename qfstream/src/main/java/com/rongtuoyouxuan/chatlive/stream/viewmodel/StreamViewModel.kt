@@ -78,7 +78,7 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     }
 
     init {
-        cameraId.value = CAMERA_FRONT
+//        cameraId.value = CAMERA_FRONT
         netSpeed.value = 0
         isPreviewVisible.value = true
         mAppDataFilePath = application.applicationContext.getExternalFilesDir(null).toString() + File.separator
@@ -200,10 +200,10 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         })
     }
 
-    fun startRequestPullUrl(title: String?, coverImg: String?, longitude:Double?, latitude:Double?, location: String?, userId: String?, userName: String?) {
+    fun startRequestPullUrl(title: String?, coverImg: String?, longitude:Double?, latitude:Double?, location: String?, userId: String?, userName: String?, locationSwitch: Boolean?, isFrontCamera: Boolean?) {
         PLog.d(TAG, "startRequestPullUrl")
         streamType = StreamPreviewLayout.TYPE_LIVE
-        var request = StartPushStreamRequest(coverImg, title, location, longitude, latitude)
+        var request = StartPushStreamRequest(coverImg, title, location, longitude, latitude,locationSwitch, isFrontCamera)
         StreamBiz.startlive(null, userId, userName, object : RequestListener<StartStreamInfoBean?> {
             override fun onFailure(reqId: String, errCode: String, msg: String) {
                 showReconnectEvent.value = msg
@@ -278,16 +278,16 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
             return
         }
         if (cameraId.value == CAMERA_FRONT){
-            mStreamApi?.setUseFrontCamera(false)
-            onSwitchCameraEnd(CAMERA_BACK)
-        }else{
             mStreamApi?.setUseFrontCamera(true)
             onSwitchCameraEnd(CAMERA_FRONT)
+        }else{
+            mStreamApi?.setUseFrontCamera(false)
+            onSwitchCameraEnd(CAMERA_BACK)
         }
         mStreamApi?.switchCamera()
     }
 
-    private fun onSwitchCameraEnd(cameraId:Int) {
+    public fun onSwitchCameraEnd(cameraId:Int) {
         if (mStreamApi == null) {
             return;
         }

@@ -480,7 +480,7 @@
     <string name="stream_preview_beauty">美颜</string>
     <string name="stream_preview_share">分享</string>
     <string name="stream_prepare_live_start">开始视频直播</string>
-    <string name="stream_host_click_zan_num">%1$s+本场点赞</string>
+    <string name="stream_host_click_zan_num">%1$s本场点赞</string>
     <string name="stream_host_goods_raning">带货榜</string>
     <string name="stream_host_persion_raning">人气榜</string>
     <string name="stream_end_anchor_center">主播中心</string>

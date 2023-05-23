@@ -130,7 +130,7 @@ public class WebSocketManager implements ISocket, IWebSocketListener {
         }
         String enterString = String.format(enterRoomString, groupId);
         ULog.e("websocket", enterString);
-        webSocketImpl.sendMsg(enterString);
+//        webSocketImpl.sendMsg(enterString);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class WebSocketManager implements ISocket, IWebSocketListener {
         }
         String leave = String.format(leaveRoomString, groupId);
         ULog.e("websocket", leave);
-        webSocketImpl.sendMsg(leave);
+//        webSocketImpl.sendMsg(leave);
     }
 
     @Override

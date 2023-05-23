@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Pair
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -78,6 +79,7 @@ class StreamActivity : BaseLiveStreamActivity() {
     private val mBackPressListeners: MutableList<BackPressListener?>? = ArrayList() //存放onBack回调
     private val handler = Handler(Looper.getMainLooper())
     private var rxPermissions: RxPermissions? = null
+    private val handlerSocket = Handler(Looper.getMainLooper())
 
     private var isDestroy = false
 
@@ -87,6 +89,7 @@ class StreamActivity : BaseLiveStreamActivity() {
     private var roomInfoBean:EnterRoomBean? = null
     private val bottomFragmentViewModel = BottomFragmentViewModel
     private val beautifyFragmentViewModel = BeautifyBottomFragmentViewModel
+    private var retryJoinGroupCount = 0
 
     private var liveLockObserver: Observer<LiveLockMsg> = Observer {
         showForbidDialog(it.endType)
@@ -377,6 +380,26 @@ class StreamActivity : BaseLiveStreamActivity() {
                 .showManagerDialog("", true)
         }
 
+        IMSocketBase.instance().getSocketConnectStatus().observe(this){
+            ULog.e("clll", "socketConnect---${it.msg}---${it.code}---${it.step}---${it.success}")
+            if (IMSocketBase.ERROR_SOKET == it.code) {
+                if (retryJoinGroupCount < IMLiveViewModel.MAX_RETRY) {
+                    retryJoinGroupCount++
+                    handlerSocket.postDelayed(
+                        { roomInfoBean?.data?.room_id_str?.let { it1 ->
+                            roomInfoBean?.data?.scene_id_str?.let { it2 ->
+                                mIMViewModel?.initIM(this, "re_enter_room",
+                                    it1,
+                                    it2, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
+                            }
+                        } },
+                        (retryJoinGroupCount * 2 * 1000).toLong()
+                    )
+                }
+
+            }
+        }
+
     }
 
     private fun showForbidRoomDialog() {
@@ -427,6 +450,7 @@ class StreamActivity : BaseLiveStreamActivity() {
     }
 
     private fun intentStreamEnd() {
+        ULog.e("clll", "intentStreamEnd--------")
         Router.toStreamEndActivity(
             this@StreamActivity,
             liveStreamInfo?.roomId,
@@ -490,8 +514,10 @@ class StreamActivity : BaseLiveStreamActivity() {
      */
     private fun destroy() {
         if (isDestroy) return
+        retryJoinGroupCount
         hideSoftInputFromWindow()
         handler.removeCallbacksAndMessages(null)
+        handlerSocket.removeCallbacksAndMessages(null)
         streamContainer!!.removeAllViews()
         if (mStreamViewModel != null) {
             mStreamViewModel!!.onDestroy()

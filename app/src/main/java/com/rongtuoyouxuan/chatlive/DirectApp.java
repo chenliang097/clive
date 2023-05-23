@@ -37,7 +37,6 @@ public class DirectApp extends Application {
         APIEnvironment.INSTANCE.initEnvironment();
         //注册Activity生命周期
         registerActivityLifecycleCallbacks(new AppLifecycleCallback());
-        initChat(this);
         Live.init(this);
     }
 }

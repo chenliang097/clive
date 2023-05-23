@@ -65,6 +65,7 @@
                     android:id="@+id/recommondAvatar"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
+                    android:scaleType="centerCrop"
                     app:riv_oval="true"
                     app:riv_border_color="@color/white"
                     app:riv_border_width="1dp"/>

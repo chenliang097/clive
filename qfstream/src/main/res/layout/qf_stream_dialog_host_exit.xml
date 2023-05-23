@@ -21,6 +21,7 @@
             android:layout_height="40dp"
             android:background="@drawable/bg_host_avatar"
             android:padding="2dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/icon_default_live_common"
             app:riv_oval="true" />
         <com.makeramen.roundedimageview.RoundedImageView

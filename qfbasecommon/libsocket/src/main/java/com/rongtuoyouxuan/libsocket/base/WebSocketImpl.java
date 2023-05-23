@@ -1,7 +1,12 @@
 package com.rongtuoyouxuan.libsocket.base;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.google.gson.Gson;
@@ -38,6 +43,7 @@ public class WebSocketImpl {
 
     private EventCallback mEventCallback;
     private ChatSendCallback chatSendCallback;
+    private boolean isReceiveHeat = false;
 
     private WebSocketImpl(Builder builder, EventCallback eventCallback) {
         mBuilder = builder;
@@ -131,6 +137,7 @@ public class WebSocketImpl {
             Log.e(getTAG(), "onMessage: " + inBuffer.length + "--operation:" + operation);
             if (3 == operation) {
                 Log.e(getTAG(), "onMessage: " + "heartBeatReceived---");
+                isReceiveHeat = true;
             } else if (8 == operation) {
                 Log.e(getTAG(), "onMessage: " + "authSuccess---");
                 if (mEventCallback != null) {
@@ -264,9 +271,27 @@ public class WebSocketImpl {
         offset = BruteForceCoding.encodeIntBigEndian(message, 1, offset, 4 * BruteForceCoding.BSIZE);
         ULog.e(getTAG(), "heartBeatWrite---" + contentStr);
         webSocket.send(ByteString.of(BruteForceCoding.add(message, contentStr.getBytes())));
-//        return ;
-
+        isReceiveHeat = false;
+        handler.sendEmptyMessageDelayed(0, 3000);
     }
+
+    private static final int MAX_RETRY = 3;
+    private int retryConnectCount = 0;
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (retryConnectCount < MAX_RETRY) {
+                retryConnectCount++;
+                if (!isReceiveHeat) {
+                    if (mWebSocket != null) {
+                        heartBeat(mWebSocket);
+                    }
+                }
+            }
+        }
+    };
 
 
     public void setWebSocketListener(IWebSocketListener webSocketListener) {

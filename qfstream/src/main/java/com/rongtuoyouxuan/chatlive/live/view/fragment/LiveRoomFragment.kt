@@ -1,5 +1,6 @@
 package com.rongtuoyouxuan.chatlive.live.view.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -43,7 +44,6 @@ import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
 import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
 import com.rongtuoyouxuan.chatlive.live.view.ZegoLiveplay
 import com.rongtuoyouxuan.chatlive.live.view.activity.LiveRoomActivity
-import com.rongtuoyouxuan.chatlive.live.view.dialog.AudienceExitDialog
 import com.rongtuoyouxuan.chatlive.live.view.dialog.LiveLightBoardDialog
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatingWindowHelper
@@ -56,10 +56,13 @@ import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.layout.LivePublicChatAreaListLayout
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.util.MyLifecycleHandler
 import com.rongtuoyouxuan.libsocket.base.IMSocketBase
 import com.rongtuoyouxuan.libuikit.SimpleFragment
 import com.rongtuoyouxuan.qfcommon.dialog.CommonBottomDialog
 import com.rongtuoyouxuan.qfcommon.dialog.UserCardDialog
+import com.rongtuoyouxuan.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
 import com.rongtuoyouxuan.qfcommon.util.UserCardHelper
 import com.zhihu.matisse.dialog.DiySystemDialog
 import kotlinx.android.synthetic.main.qf_stream_live_fragment_live_room.*
@@ -87,8 +90,9 @@ class LiveRoomFragment : SimpleFragment() {
     private var streamType: String = ""
     private var liveStreamcontainer: FrameLayout? = null
     private var isHide = false
-
+    private var retryJoinGroupCount = 0
     private var groupId = 0L
+    private val handlerSocket = Handler(Looper.getMainLooper())
 
     var observer: Observer<String> = Observer { msg -> LaToastUtil.showShort(msg) }
 
@@ -250,45 +254,59 @@ class LiveRoomFragment : SimpleFragment() {
             dismissDialogLoading()
             if (roomInfoModel?.errCode == 0) {
                 roomInfoBean = roomInfoModel
-                imViewModel!!.roomManagerLiveData.value = roomInfoModel.data?.is_room_admin
-                viewModel?.setStatus("living")
-                roomInfoModel.data?.scene_id_str?.let {
-                    roomInfoModel.data?.room_id_str?.let { it1 ->
-                        imViewModel?.initIM(mContext, "enter_room", it1,
-                            it, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
+                if(roomInfoBean?.data?.is_live == false){
+                    notifyNextPager()
+                }else {
+                    imViewModel!!.roomManagerLiveData.value = roomInfoModel.data?.is_room_admin
+                    viewModel?.setStatus("living")
+                    roomInfoModel.data?.scene_id_str?.let {
+                        roomInfoModel.data?.room_id_str?.let { it1 ->
+                            imViewModel?.initIM(
+                                mContext, "enter_room", it1,
+                                it, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true
+                            )
+                        }
                     }
-                }
-                anchorAvatar = roomInfoModel?.data?.anchor_pic
-                anchorCoverImg = roomInfoModel?.data?.anchor_pic
-                sceneId = roomInfoModel?.data?.scene_id_str
-                roomId = roomInfoModel?.data?.room_id_str
-                streamId = roomInfoModel?.data?.stream_id
-                anchorId = roomInfoModel?.data?.anchor_id
-                isFollow = roomInfoModel?.data?.is_follow
-                roomInfoModel?.data?.anchor_id?.let {
-                    (mContext as LiveRoomActivity).updateAnchorId(it)
-                }
-                roomInfoModel?.data?.stream_id?.let {
-                    (mContext as LiveRoomActivity).updateLiveStreamID(it)
-                }
-                roomInfoModel?.data?.room_id_str?.let {
-                    (mContext as LiveRoomActivity).updateLiveRoomID(it)
-                }
-                roomInfoModel?.data?.stream_id?.let {
-                    roomInfoModel?.data?.room_id_str?.let { it1 -> reloadPlayer("", "", it, it1) }
-                }
-                imViewModel?.roomInfoLiveEvent?.value = roomInfoModel?.data
-                imViewModel?.followStateLiveData?.value = roomInfoModel.data?.is_follow
-                imViewModel?.streamIdLiveEvent?.value = roomInfoModel.data?.room_id_str
-                roomInfoModel.data?.room_id_str?.let {
-                    roomInfoModel.data?.scene_id_str?.let { it1 ->
-                        mLiveControllerViewModel?.getRoomInfoExtra(
-                            it, it1, DataBus.instance().USER_ID, true)
+                    anchorAvatar = roomInfoModel?.data?.anchor_pic
+                    anchorCoverImg = roomInfoModel?.data?.anchor_pic
+                    sceneId = roomInfoModel?.data?.scene_id_str
+                    roomId = roomInfoModel?.data?.room_id_str
+                    streamId = roomInfoModel?.data?.stream_id
+                    anchorId = roomInfoModel?.data?.anchor_id
+                    isFollow = roomInfoModel?.data?.is_follow
+                    roomInfoModel?.data?.anchor_id?.let {
+                        (mContext as LiveRoomActivity).updateAnchorId(it)
+                    }
+                    roomInfoModel?.data?.stream_id?.let {
+                        (mContext as LiveRoomActivity).updateLiveStreamID(it)
+                    }
+                    roomInfoModel?.data?.room_id_str?.let {
+                        (mContext as LiveRoomActivity).updateLiveRoomID(it)
+                    }
+                    roomInfoModel?.data?.stream_id?.let {
+                        roomInfoModel?.data?.room_id_str?.let { it1 ->
+                            reloadPlayer(
+                                "",
+                                "",
+                                it,
+                                it1
+                            )
+                        }
+                    }
+                    imViewModel?.roomInfoLiveEvent?.value = roomInfoModel?.data
+                    imViewModel?.followStateLiveData?.value = roomInfoModel.data?.is_follow
+                    imViewModel?.streamIdLiveEvent?.value = roomInfoModel.data?.room_id_str
+                    roomInfoModel.data?.room_id_str?.let {
+                        roomInfoModel.data?.scene_id_str?.let { it1 ->
+                            mLiveControllerViewModel?.getRoomInfoExtra(
+                                it, it1, DataBus.instance().USER_ID, true
+                            )
+                        }
                     }
                 }
             } else {
                 LaToastUtil.showShort(roomInfoModel?.errMsg)
-                notifyNextPager()
+
             }
         }
 
@@ -445,6 +463,9 @@ class LiveRoomFragment : SimpleFragment() {
         imViewModel?.zegoUserRepeatLiveData?.observe(this){
             (mContext as LiveRoomActivity).finish()
         }
+
+        MyLifecycleHandler.getInstance().removeListener(appLifecycleListener)
+        MyLifecycleHandler.getInstance().addListener(appLifecycleListener)
     }
 
     private fun reloadPlayer(
@@ -526,6 +547,26 @@ class LiveRoomFragment : SimpleFragment() {
 //            )
 //        }
 //        onlineLogic?.init(this)
+
+        IMSocketBase.instance().getSocketConnectStatus().observe(this){
+            ULog.e("clll", "socketConnect---${it.msg}---${it.code}---${it.step}---${it.success}")
+            if (IMSocketBase.ERROR_SOKET == it.code) {
+                if (retryJoinGroupCount < IMLiveViewModel.MAX_RETRY) {
+                    retryJoinGroupCount++
+                    handlerSocket.postDelayed(
+                        { roomInfoBean?.data?.room_id_str?.let { it1 ->
+                            roomInfoBean?.data?.scene_id_str?.let { it2 ->
+                                imViewModel?.initIM(mContext, "re_enter_room",
+                                    it1,
+                                    it2, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
+                            }
+                        } },
+                        (retryJoinGroupCount * 2 * 1000).toLong()
+                    )
+                }
+
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -537,7 +578,7 @@ class LiveRoomFragment : SimpleFragment() {
         }
         liveStreamcontainer?.removeAllViews()
         IMSocketBase.instance().room(roomId).liveEndMsg.removeObserver(liveEndObserver)
-
+        handlerSocket.removeCallbacksAndMessages(null)
 //        IMSocketImpl.getInstance()
 //            .chatRoom(streamID).liveAudiecneNotifyMsgLiveCallback.removeObserver(liveNotifyCallback)
 
@@ -704,7 +745,31 @@ class LiveRoomFragment : SimpleFragment() {
 
     private fun notifyNextPager() {
         viewLifecycleOwner.lifecycleScope.launch {
-            delay(300)
+            delay(3000)
+            MLiveEventBus.get(LiveEventData.LIVE_NEXT_PAGER).post(roomInfoBean)
         }
     }
+
+    private val appLifecycleListener: MyLifecycleHandler.Listener =
+        object : MyLifecycleHandler.Listener {
+            override fun onBecameForeground(activity: Activity) {
+                ULog.e("clll", "LiveRoomFragment----onBecameForeground")
+                roomId?.let {
+                    sceneId?.let { it1 ->
+                        imViewModel?.initIM(mContext, "re_enter_room", it,
+                            it1, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
+                    }
+                }
+            }
+
+            override fun onBecameBackground(activity: Activity) {
+                ULog.e("clll", "LiveRoomFragment----onBecameBackground")
+                roomId?.let {
+                    sceneId?.let { it1 ->
+                        imViewModel?.initIM(mContext, "leave_room", it,
+                            it1, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
+                    }
+                }
+            }
+        }
 }

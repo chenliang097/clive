@@ -217,7 +217,7 @@ public class SDKManager {
 
             @Override
             public void onCapturedUnprocessedTextureData(int textureID, int width, int height, long referenceTimeMillisecond, ZegoPublishChannel channel) {
-                Log.e("ZEGO", "[Express] [onCapturedUnprocessedTextureData] textureID: " + textureID + ", width: " + width + ", height: " + height + ", ts: " + referenceTimeMillisecond);
+//                Log.e("ZEGO", "[Express] [onCapturedUnprocessedTextureData] textureID: " + textureID + ", width: " + width + ", height: " + height + ", ts: " + referenceTimeMillisecond);
                 // Receive texture from ZegoExpressEngine
 //                super.onCapturedUnprocessedTextureData(textureID, width, height, referenceTimeMillisecond, channel);
 

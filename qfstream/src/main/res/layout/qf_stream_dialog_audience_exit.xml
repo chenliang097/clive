@@ -26,6 +26,7 @@
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
             android:background="@drawable/bg_host_avatar"
+            android:scaleType="centerCrop"
             android:padding="2dp"
             app:riv_border_color="@color/c_stream_avatar_border"
             app:riv_border_width="@dimen/dp_1"

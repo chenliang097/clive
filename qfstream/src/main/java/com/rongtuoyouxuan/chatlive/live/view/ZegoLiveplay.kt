@@ -60,7 +60,13 @@ open class ZegoLiveplay {
                 if(errorCode == 1002050){
                     imLiveViewModel?.zegoUserRepeatLiveData?.value = true
                 }
-                ToastUtils.showLong(R.string.stream_live_fail)
+                if (retryCount < MAX_RETRY) {
+                    retryCount++
+                    mZegoExpressEngine?.startPlayingStream(streamId1, zegoCanvas, mZegoPlayerConfig)
+                }else{
+                    mZegoExpressEngine?.stopPlayingStream(streamID)
+                }
+//                ToastUtils.showLong(R.string.stream_live_fail)
             } else {
                 if(errorCode == 0 && state == ZegoPlayerState.PLAYING){
                     if(isFirstEnter) {
@@ -70,13 +76,13 @@ open class ZegoLiveplay {
                 }
 
             }
-            if(errorCode == 1004020){
-                if (retryCount < MAX_RETRY) {
-                    retryCount++
-                }else{
-                    mZegoExpressEngine?.stopPlayingStream(streamID)
-                }
-            }
+//            if(errorCode == 1004020){
+//                if (retryCount < MAX_RETRY) {
+//                    retryCount++
+//                }else{
+//                    mZegoExpressEngine?.stopPlayingStream(streamID)
+//                }
+//            }
             liveRoomViewModel?.playerComplete?.value = null
             ULog.d("clll", "streamId:$streamID--errodCode：--$errorCode +---状态： ${state.value()}")
         }
