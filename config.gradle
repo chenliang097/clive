@@ -103,7 +103,7 @@ ext {
             "umshare-sina"                        : "com.umeng.umsdk:share-sina:7.3.2",
             "sina-share"                          : "io.github.sinaweibosdk:core:12.5.0@aar",
             "umshare-qq"                          : "com.umeng.umsdk:share-qq:7.3.2",
-            "oss"                                 : 'com.aliyun.dpa:oss-android-sdk:2.9.13'
+            "oss"                                 : 'com.aliyun.dpa:oss-android-sdk:2.9.13',
 
 
 

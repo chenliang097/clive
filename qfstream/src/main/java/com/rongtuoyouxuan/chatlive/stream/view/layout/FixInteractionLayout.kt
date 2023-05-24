@@ -9,6 +9,7 @@ import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLikeMsg
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
@@ -30,8 +31,13 @@ class FixInteractionLayout @JvmOverloads constructor(
 
     var observer: Observer<RTHotChangeMsg> = Observer<RTHotChangeMsg> {
         if (it.roomIdStr == mControllerViewModel?.roomId) {
-            rl_master_room_info?.setCurrentDiamond(it.fire)
             tvOnline4?.text = RoomDegreeUtils.getDegree(it.userCount)
+        }
+    }
+
+    var likeObserver: Observer<RTLikeMsg> = Observer<RTLikeMsg> {
+        if (it.roomIdStr == mControllerViewModel?.roomId) {
+            rl_master_room_info?.setCurrentDiamond(it.likeCount.toInt())
         }
     }
     init {
@@ -84,10 +90,12 @@ class FixInteractionLayout @JvmOverloads constructor(
 
     private fun registerObserver(roomId: String) {
         IMSocketBase.instance().room(roomId).hotChangeMsg.observe(observer)
+        IMSocketBase.instance().room(roomId).likeMsg.observe(likeObserver)
     }
 
     override fun onDetachedFromWindow() {
         IMSocketBase.instance().room(roomId).hotChangeMsg.removeObserver(observer)
+        IMSocketBase.instance().room(roomId).likeMsg.removeObserver(likeObserver)
         super.onDetachedFromWindow()
     }
 }

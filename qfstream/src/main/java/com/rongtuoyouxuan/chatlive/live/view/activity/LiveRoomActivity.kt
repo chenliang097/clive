@@ -181,6 +181,8 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
                     }
                     isLoadMoreData = true
                     vpPager.adapter?.notifyDataSetChanged()
+                }else{
+                    LaToastUtil.showShort(R.string.main_list_no_more)
                 }
             }
         }
@@ -286,7 +288,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
                             }
                             jobToast = lifecycleScope.launch(Dispatchers.Main) {
                                 delay(100)
-                                LaToastUtil.showShort(R.string.main_list_no_more)
+                                vm?.getLiveRoomMore(DataBus.instance().USER_ID, SPUtils.getInstance().getString("recomond_base_scene_id"))
                             }
                         }
                         isPageScrollToast = true
@@ -361,9 +363,9 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
                             fragmentId = mLiveRoomFragment!!.id
                         }
                         vpPager.canSwipe = true
-                        if(pageScrolledItem == 4){
-                            vm?.getLiveRoomMore(DataBus.instance().USER_ID, "")
-                        }
+//                        if(pageScrolledItem == 4){
+//                            vm?.getLiveRoomMore(DataBus.instance().USER_ID, "")
+//                        }
                     }
                 }
             }

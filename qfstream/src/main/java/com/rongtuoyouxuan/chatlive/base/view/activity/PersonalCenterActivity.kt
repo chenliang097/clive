@@ -1,11 +1,20 @@
 package com.rongtuoyouxuan.chatlive.base.view.activity
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.renderscript.Allocation
+import android.renderscript.RenderScript
+import android.renderscript.ScriptIntrinsicBlur
 import android.text.TextUtils
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ConvertUtils
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.PersonalCenterViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoBean
@@ -16,6 +25,7 @@ import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import com.rongtuoyouxuan.libuikit.SimpleActivity
+import jp.wasabeef.glide.transformations.internal.FastBlur
 import kotlinx.android.synthetic.main.rt_activity_personal_center.*
 
 
@@ -50,7 +60,7 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
         centerTabProductLayout.setOnClickListener(this)
         centerTabWalletLayout.setOnClickListener(this)
         centerFansLayout.setOnClickListener(this)
-        centerFollowNumTxt.setOnClickListener(this)
+        centerFollowLayout.setOnClickListener(this)
         centerEditTxt.setOnClickListener(this)
     }
 
@@ -98,7 +108,7 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
             R.id.centerFansLayout->{
                 Router.toFansAndFollowListActivity(userId, 1)
             }
-            R.id.centerFollowNumTxt->{
+            R.id.centerFollowLayout->{
                 Router.toFansAndFollowListActivity(userId, 2)
             }
             R.id.centerEditTxt->{
@@ -112,4 +122,5 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
         BarUtils.transparentStatusBar(this)
         BarUtils.setStatusBarLightMode(this, true)
     }
+
 }

@@ -51,6 +51,7 @@ import com.zhihu.matisse.MatisseUtil
 import com.zhihu.matisse.MatisseUtil.onPermissionListener
 import kotlinx.android.synthetic.main.qf_stream_layout_preview.view.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
@@ -196,6 +197,15 @@ class StreamPreviewLayout @JvmOverloads constructor(
             titleEdit?.isCursorVisible = true
             false
         }
+
+        streamPreviewEditTitleLayout.setOnClickListener {
+            streamPreviewEditIcon.visibility = View.GONE
+            titleEdit?.isCursorVisible = true
+            if(!TextUtils.isEmpty(titleEdit?.text.toString())) {
+                titleEdit?.setSelection(titleEdit?.text.toString().length)
+            }
+            KeyBoardUtils.showSoftInput(titleEdit)
+        }
     }
 
     fun setParams(w: Int, h: Int) {
@@ -300,7 +310,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
         }
         var title = titleEdit?.text.toString();
         if(TextUtils.isEmpty(title)){
-            title = DataBus.instance().USER_NAME
+            title = DataBus.instance().USER_NAME + StringUtils.getString(R.string.stream_prepare_edit_title_default)
         }
         isFrontCamera = mStreamViewModel.cameraId.value == StreamViewModel.CAMERA_BACK
         if(startStreamInfoBean != null && !TextUtils.isEmpty(startStreamInfoBean?.data?.token)
@@ -491,22 +501,28 @@ class StreamPreviewLayout @JvmOverloads constructor(
     @SuppressLint("MissingPermission", "CheckResult")
     fun getLocation(){
         try{
-            locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if(location == null) {
-                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            GlobalScope.launch(Dispatchers.IO) {
+                locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                if(location == null) {
+                    location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                }
+                if(location == null){
+                    location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                }
+                longitude  = location?.longitude
+                latitude = location?.latitude
+                var list = getAddress(context, location);
+                GlobalScope.launch(Dispatchers.Main) {
+                    if(list != null && list?.size!! > 0 && !TextUtils.isEmpty(list?.get(0)?.adminArea)){
+                        streamPreviewLocationTxt?.text = list?.get(0)?.adminArea.plus(" >")
+                    }else{
+                        longitude = 0.00
+                        latitude = 0.00
+                        streamPreviewLocationTxt?.text = StringUtils.getString(R.string.stream_unknown_location)
+                    }
+                }
             }
-            if(location == null){
-                location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            }
-            longitude  = location?.longitude
-            latitude = location?.latitude
-            if(getAddress(context, location) != null && getAddress(context, location)?.size!! > 0 && !TextUtils.isEmpty(getAddress(context, location)?.get(0)?.adminArea)){
-                streamPreviewLocationTxt?.text = getAddress(context, location)?.get(0)?.adminArea.plus(" >")
-            }else{
-                longitude = 0.00
-                latitude = 0.00
-                streamPreviewLocationTxt?.text = StringUtils.getString(R.string.stream_unknown_location)
-            }
+
         }catch (e:Exception){
             e.printStackTrace()
         }
@@ -528,9 +544,9 @@ class StreamPreviewLayout @JvmOverloads constructor(
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (ev?.action === MotionEvent.ACTION_DOWN) {  //把操作放在用户点击的时候
             if (KeyBoardUtils.isShouldHideKeyboard(titleEdit, ev)) { //判断用户点击的是否是输入框以外的区域
-                KeyBoardUtils.hiddenSoftInput(titleEdit)
-                streamPreviewEditIcon.visibility = View.VISIBLE
                 titleEdit?.isCursorVisible = false
+                KeyBoardUtils.hideSoftInput(context as FragmentActivity)
+                streamPreviewEditIcon.visibility = View.VISIBLE
             }
         }
         return super.dispatchTouchEvent(ev)

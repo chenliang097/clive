@@ -13,12 +13,6 @@ import com.rongtuoyouxuan.qfcommon.util.APIEnvironment;
 public class DirectApp extends Application {
     private static final String TAG = "DirectApp";
 
-    private static void initChat(Context context) {
-//        IMSocketImpl.getInstance().initIM();
-//        ImHelper.Companion.getInstance().init();
-//        IMManager.getInstance().init(Utils.getApp());
-    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

@@ -11,6 +11,7 @@ import com.rongtuoyouxuan.chatlive.base.view.dialog.RecommendDialog
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveHotMsg
 import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg
+import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLikeMsg
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.stream.R
@@ -37,8 +38,12 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
 
     var observer: Observer<RTHotChangeMsg> = Observer<RTHotChangeMsg> {
         if (it.roomIdStr == mControllerViewModel?.roomId) {
-            liveRoomInfoAnchorLayout?.setCurrentDiamond(it.fire)
             tvOnline4?.text = RoomDegreeUtils.getDegree(it.userCount)
+        }
+    }
+    var likeObserver: Observer<RTLikeMsg> = Observer<RTLikeMsg> {
+        if (it.roomIdStr == mControllerViewModel?.roomId) {
+            liveRoomInfoAnchorLayout?.setCurrentDiamond(it.likeCount.toInt())
         }
     }
 
@@ -77,6 +82,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
 
     private fun initData(context: Context) {
         mControllerViewModel?.roomInfoLiveData?.observe((context as LifecycleOwner)) {
+            visibility = VISIBLE
             anchorName = it?.data?.anchor_name
             roomId = it?.data?.room_id_str
             it?.data?.room_id_str?.let { it1 -> registerObserver(it1) }
@@ -105,10 +111,12 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
 
     private fun registerObserver(roomId: String) {
         IMSocketBase.instance().room(roomId).hotChangeMsg.observe(observer)
+        IMSocketBase.instance().room(roomId).likeMsg.observe(likeObserver)
     }
 
     override fun onDetachedFromWindow() {
         IMSocketBase.instance().room(roomId).hotChangeMsg.removeObserver(observer)
+        IMSocketBase.instance().room(roomId).likeMsg.removeObserver(likeObserver)
         super.onDetachedFromWindow()
     }
 

@@ -24,7 +24,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/shape_room_top_info_master"
-                android:minWidth="96dp" />
+                android:minWidth="96dp"
+                android:visibility="gone"/>
 
             <include
                 layout="@layout/item_layout_online"

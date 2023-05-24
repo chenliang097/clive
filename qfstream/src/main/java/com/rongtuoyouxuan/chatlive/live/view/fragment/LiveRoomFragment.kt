@@ -93,6 +93,8 @@ class LiveRoomFragment : SimpleFragment() {
     private var retryJoinGroupCount = 0
     private var groupId = 0L
     private val handlerSocket = Handler(Looper.getMainLooper())
+    private var isDestroy = false
+    private var liveRoomAction = "leave_room"
 
     var observer: Observer<String> = Observer { msg -> LaToastUtil.showShort(msg) }
 
@@ -103,6 +105,7 @@ class LiveRoomFragment : SimpleFragment() {
             roomInfoBean?.data?.user_avatar,
             roomInfoBean?.data?.anchor_name
         )
+        liveRoomAction = "close_room"
         LiveDataBus.getInstance()
             .with(LiveDataBusConstants.EVENT_KEY_TO_FINISH_ROOM_ACTIVITY).value = true
         (mContext as LiveRoomActivity)?.finish()
@@ -548,28 +551,43 @@ class LiveRoomFragment : SimpleFragment() {
 //        }
 //        onlineLogic?.init(this)
 
-        IMSocketBase.instance().getSocketConnectStatus().observe(this){
-            ULog.e("clll", "socketConnect---${it.msg}---${it.code}---${it.step}---${it.success}")
-            if (IMSocketBase.ERROR_SOKET == it.code) {
-                if (retryJoinGroupCount < IMLiveViewModel.MAX_RETRY) {
-                    retryJoinGroupCount++
-                    handlerSocket.postDelayed(
-                        { roomInfoBean?.data?.room_id_str?.let { it1 ->
-                            roomInfoBean?.data?.scene_id_str?.let { it2 ->
-                                imViewModel?.initIM(mContext, "re_enter_room",
-                                    it1,
-                                    it2, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
-                            }
-                        } },
-                        (retryJoinGroupCount * 2 * 1000).toLong()
-                    )
-                }
+        IMSocketBase.instance().getSocketConnectStatus().observe(this) {
+            ULog.e("clll", "socketConnect---1111")
+            if (IMSocketBase.ERROR_SOKET == it.code && !IMSocketBase.instance().isConnected && !isDestroy) {
+                ULog.e("clll", "socketConnect222---${it.msg}---${it.code}---${it.step}---${it.success}")
+                handlerSocket.postDelayed({
+                    if (retryJoinGroupCount < IMLiveViewModel.MAX_RETRY) {
+                        retryJoinGroupCount++
+                        handlerSocket.postDelayed(
+                            {
+                                roomInfoBean?.data?.room_id_str?.let { it1 ->
+                                    roomInfoBean?.data?.scene_id_str?.let { it2 ->
+                                        imViewModel?.initIM(
+                                            mContext,
+                                            "re_enter_room",
+                                            it1,
+                                            it2,
+                                            DataBus.instance().USER_ID,
+                                            DataBus.instance().USER_NAME,
+                                            true
+                                        )
+                                    }
+                                }
+                            },
+                            (retryJoinGroupCount * 2 * 1000).toLong()
+                        )
+                    }
 
+
+                }, 500)
             }
+
         }
     }
 
     override fun onDestroyView() {
+        isDestroy = true
+        handlerSocket.removeCallbacksAndMessages(null)
         LiveManager.instance().setLiveStatusNull()
         exitRequest()
         streamId?.let { roomId?.let { it1 -> viewModel?.onDestroy(it1, it) } }
@@ -578,7 +596,6 @@ class LiveRoomFragment : SimpleFragment() {
         }
         liveStreamcontainer?.removeAllViews()
         IMSocketBase.instance().room(roomId).liveEndMsg.removeObserver(liveEndObserver)
-        handlerSocket.removeCallbacksAndMessages(null)
 //        IMSocketImpl.getInstance()
 //            .chatRoom(streamID).liveAudiecneNotifyMsgLiveCallback.removeObserver(liveNotifyCallback)
 
@@ -737,7 +754,7 @@ class LiveRoomFragment : SimpleFragment() {
     private fun exitRequest() {
         roomInfoBean?.data?.room_id_str?.let {
             roomInfoBean?.data?.scene_id_str?.let { it1 ->
-                imViewModel?.imOutRoom("leave_room", it, it1, DataBus.instance().USER_ID,
+                imViewModel?.imOutRoom(liveRoomAction, it, it1, DataBus.instance().USER_ID,
                     DataBus.instance().USER_NAME, true)
             }
         }

@@ -14,11 +14,16 @@
             android:id="@+id/bg"
             android:layout_width="match_parent"
             android:layout_height="360dp"
-            tools:src="@drawable/rt_default_avatar" />
+            tools:src="@drawable/rt_icon_default" />
 
-        <View
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="360dp"
+            android:background="@color/c_40_black"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:alpha="0.5"
             android:background="@drawable/rt_stream_bg_shade_person"/>
         <RelativeLayout
             android:id="@+id/centerUserInfoLayout"

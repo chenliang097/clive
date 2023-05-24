@@ -55,6 +55,7 @@ class LiveHostView @JvmOverloads constructor(
 
     private fun initData(context: Context) {
         mControllerViewModel!!.mHostInfo.observe((context as LifecycleOwner)) { it ->
+            visibility = View.VISIBLE
             name?.text = it.nickname
             val coverImg = it.avatar
             GlideUtils.loadImage(context, coverImg, roundedImageView, R.drawable.rt_default_avatar)

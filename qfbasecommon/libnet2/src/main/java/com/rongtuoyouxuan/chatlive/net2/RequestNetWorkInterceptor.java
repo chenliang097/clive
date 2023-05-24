@@ -43,7 +43,7 @@ public class RequestNetWorkInterceptor implements Interceptor {
     private String token;
 
     public RequestNetWorkInterceptor(Context mContext, Map<String, String> params) {
-        userAgent = EnvUtils.getAppVersion(mContext);
+//        userAgent = EnvUtils.getAppVersion(mContext);
         addHeaderParam(params);
     }
 
@@ -79,7 +79,7 @@ public class RequestNetWorkInterceptor implements Interceptor {
 
         Request.Builder newRequest = request.newBuilder();
         addHeaderData(request, newRequest);
-        newRequest.addHeader("User-Agent", userAgent);
+//        newRequest.addHeader("User-Agent", userAgent);
         newRequest.addHeader("Connection", "keep-alive");
         getHeaderData(newRequest);
         newRequest.method(request.method(), request.body());

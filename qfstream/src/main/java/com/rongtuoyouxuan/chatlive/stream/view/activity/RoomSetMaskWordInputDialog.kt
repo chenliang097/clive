@@ -105,6 +105,7 @@ class RoomSetMaskWordInputDialog : Dialog, View.OnClickListener {
         //清除缓存的聊天内容
         room_message_input.setText("")
         ll_msg_container.visibility = View.GONE
+        dismiss()
     }
 
     private fun obtainStreamViewModel(): AnchorManagerViewModel {

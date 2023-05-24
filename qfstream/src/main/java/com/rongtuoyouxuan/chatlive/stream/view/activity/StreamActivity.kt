@@ -381,8 +381,9 @@ class StreamActivity : BaseLiveStreamActivity() {
         }
 
         IMSocketBase.instance().getSocketConnectStatus().observe(this){
-            ULog.e("clll", "socketConnect---${it.msg}---${it.code}---${it.step}---${it.success}")
-            if (IMSocketBase.ERROR_SOKET == it.code) {
+            ULog.e("clll", "socketConnect---111")
+            if (IMSocketBase.ERROR_SOKET == it.code && !IMSocketBase.instance().isConnected && !isDestroy) {
+                ULog.e("clll", "socketConnect222---${it.msg}---${it.code}---${it.step}---${it.success}")
                 if (retryJoinGroupCount < IMLiveViewModel.MAX_RETRY) {
                     retryJoinGroupCount++
                     handlerSocket.postDelayed(

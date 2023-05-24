@@ -64,7 +64,8 @@
                 <com.rongtuoyouxuan.chatlive.live.view.layout.LiveFixInteractionLayout
                     android:id="@+id/lc_livefixintercation"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
 
                 <!--最高层级-->
                 <com.rongtuoyouxuan.chatlive.live.view.layout.LiveSendMessageLayout
