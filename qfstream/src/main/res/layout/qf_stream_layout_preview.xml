@@ -57,10 +57,12 @@
                     android:layout_height="60dp">
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/streamPreviewImgCover"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="2dp"
                         android:src="@drawable/rt_default_avatar"
                         android:scaleType="centerCrop"
+                        android:layout_centerVertical="true"
                         app:riv_corner_radius="10dp"
                         app:riv_mutate_background="true" />
 
@@ -73,8 +75,10 @@
 
                     <TextView
                         android:id="@+id/streamPreviewChangeCoverTxt"
-                        android:layout_width="match_parent"
+                        android:layout_width="56dp"
                         android:layout_height="18dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
                         android:layout_alignParentBottom="true"
                         android:gravity="center"
                         android:textColor="@color/white"

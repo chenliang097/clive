@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.GsonUtils
 import com.rongtuoyouxuan.app.Open3rdpayActivity
 import com.rongtuoyouxuan.chatlive.biz2.model.im.request.EnterRoomMsgRequest
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        check_update_tv.text = "V" + AppUtils.getAppVersionName()
         pushStreamBtn.setOnClickListener {
             if(!TextUtils.isEmpty(etUserId.text.toString().trim())){
                 DataBus.instance().setUSER_ID(etUserId.text.toString().trim())

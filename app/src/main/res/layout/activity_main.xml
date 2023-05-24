@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/check_update_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/boboo_regular"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="V1.0.0" />
+
     <LinearLayout
         android:id="@+id/pushStreamLayout"
         android:layout_width="wrap_content"
