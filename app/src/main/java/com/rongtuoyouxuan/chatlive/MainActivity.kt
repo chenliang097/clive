@@ -133,6 +133,8 @@ class MainActivity : AppCompatActivity() {
                     arrayOf<String>(POST_NOTIFICATIONS),
                     100
                 )
+            }else{
+                getMainLiveEnter()
             }
         } else {
             val enabled: Boolean =
@@ -141,6 +143,8 @@ class MainActivity : AppCompatActivity() {
                 NotificationSetUtil.OpenNotificationSetting(this){
                     getMainLiveEnter()
                 }
+            }else{
+                getMainLiveEnter()
             }
         }
     }
