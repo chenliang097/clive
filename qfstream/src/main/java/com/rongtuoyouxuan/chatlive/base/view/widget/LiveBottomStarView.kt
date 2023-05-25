@@ -142,7 +142,7 @@ class LiveBottomStarView : RelativeLayout {
 //            )
 //        objectAnimator.duration = 2000
 //        objectAnimator.addListener(object : AnimatorListenerAdapter() {
-//            override fun onAnimationEnd(animation: Animator?) {
+//            override fun onAnimationEnd(animation: Animator) {
 //                removeView(view)
 //                objectAnimator.removeListener(this)
 //            }
@@ -169,7 +169,7 @@ class LiveBottomStarView : RelativeLayout {
         animatorSet.setTarget(view)
         animatorSet.duration = 2000
         animatorSet.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 removeView(view)
                 animatorSet.removeListener(this)
             }

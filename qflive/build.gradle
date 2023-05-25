@@ -40,9 +40,11 @@ dependencies {
     implementation rootProject.ext.dependencies["smartrefreshlayout"]
 
     implementation project(':qfbasebiz:basebizwrapper')
-    implementation project(':qfcommon')
-    implementation project(':qfrouter')
-    implementation project(':qfdatabus')
+    api project(':qfcommon')
+    api project(':qfrouter')
+    api project(':qfdatabus')
+    api project(':qfstream')
+    api project(':libpay')
     implementation rootProject.ext.dependencies["lifecycle-extensions"]
 
 }

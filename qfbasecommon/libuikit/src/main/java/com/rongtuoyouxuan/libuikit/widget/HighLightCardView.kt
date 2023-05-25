@@ -20,17 +20,18 @@ class HighLightCardView @JvmOverloads constructor(
         animator = ObjectAnimator.ofFloat(highLight, "translationX", -highLight.width.toFloat(), width.toFloat())
         animator?.duration = 1000
         animator?.addListener(object : Animator.AnimatorListener{
-            override fun onAnimationStart(animation: Animator?) {
+
+            override fun onAnimationStart(p0: Animator) {
             }
 
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(p0: Animator) {
                 animator?.start()
             }
 
-            override fun onAnimationCancel(animation: Animator?) {
+            override fun onAnimationCancel(p0: Animator) {
             }
 
-            override fun onAnimationRepeat(animation: Animator?) {
+            override fun onAnimationRepeat(p0: Animator) {
             }
 
         })

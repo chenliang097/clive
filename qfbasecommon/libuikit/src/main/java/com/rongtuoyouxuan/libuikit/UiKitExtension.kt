@@ -40,18 +40,19 @@ fun ViewPager2.setCurrentItemFixDuration(
         previousValue = currentValue
     }
     animator.addListener(object : Animator.AnimatorListener {
-        override fun onAnimationStart(animation: Animator?) {
+
+        override fun onAnimationStart(p0: Animator) {
             beginFakeDrag()
         }
 
-        override fun onAnimationEnd(animation: Animator?) {
+        override fun onAnimationEnd(p0: Animator) {
             endFakeDrag()
         }
 
-        override fun onAnimationCancel(animation: Animator?) { /* Ignored */
+        override fun onAnimationCancel(p0: Animator) {
         }
 
-        override fun onAnimationRepeat(animation: Animator?) { /* Ignored */
+        override fun onAnimationRepeat(p0: Animator) {
         }
     })
     animator.interpolator = interpolator

@@ -1,29 +1,31 @@
 package com.rongtuoyouxuan.chatlive
 
+import android.Manifest.permission.POST_NOTIFICATIONS
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
 import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.GsonUtils
+import com.blankj.utilcode.util.NotificationUtils
 import com.rongtuoyouxuan.app.Open3rdpayActivity
-import com.rongtuoyouxuan.chatlive.biz2.model.im.request.EnterRoomMsgRequest
 import com.rongtuoyouxuan.chatlive.biz2.model.stream.MainLiveEnterBean
 import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
 import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.router.Router
 import com.rongtuoyouxuan.chatlive.router.bean.ISource
-import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
 import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libsocket.WebSocketManager
-import com.rongtuoyouxuan.libsocket.base.ChatSendCallback
-import com.rongtuoyouxuan.libsocket.base.EventCallback
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.util.NotificationSetUtil
+import com.rongtuoyouxuan.chatlive.util.NotificationUtil
 import kotlinx.android.synthetic.main.activity_main.*
-import java.net.InetAddress
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         pullLiveBtn.setOnClickListener {
-            getMainLiveEnter()
+            requestNotificationPermission(this)
         }
 
         payBtn.setOnClickListener {
@@ -117,4 +119,47 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
+    fun requestNotificationPermission(activity: Activity?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    POST_NOTIFICATIONS
+                ) === PackageManager.PERMISSION_DENIED
+            ) {
+                // 如果上次申请权限被用户选择了禁止
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf<String>(POST_NOTIFICATIONS),
+                    100
+                )
+            }
+        } else {
+            val enabled: Boolean =
+                NotificationManagerCompat.from(this).areNotificationsEnabled()
+            if (!enabled) {
+                NotificationSetUtil.OpenNotificationSetting(this){
+                    getMainLiveEnter()
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            100->{
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getMainLiveEnter()
+                } else {
+
+                }
+            }
+        }
+    }
+
 }

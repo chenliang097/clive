@@ -29,6 +29,7 @@ import com.rongtuoyouxuan.libuikit.UiKitConfig;
 import com.rongtuoyouxuan.libuikit.loadsir.callbacks.EmptyCallback;
 import com.rongtuoyouxuan.libuikit.loadsir.callbacks.ErrorCallback;
 import com.rongtuoyouxuan.libuikit.loadsir.callbacks.LoadingCallback;
+import com.rongtuoyouxuan.qfcommon.notification.AppLifecycleCallback;
 import com.rongtuoyouxuan.qfcommon.util.APIEnvironment;
 import com.just.agentweb.AgentWebConfig;
 import com.kingja.loadsir.core.LoadSir;
@@ -117,6 +118,7 @@ public class Live {
     }
 
     public static void init(Application app) {
+        Live.getLocalContext(app, app);
         //log工具类初始化
         LogUtils.getConfig()
                 .setLogSwitch(!APIEnvironment.INSTANCE.isProductEnvironment())
@@ -241,6 +243,8 @@ public class Live {
     }
 
     public static Context getLocalContext(Context base, Application app) {
+        //注册Activity生命周期
+        app.registerActivityLifecycleCallbacks(new AppLifecycleCallback());
         initDataBus(base);
         return DataBus.instance().getLocaleManager().setLocale(base);
     }

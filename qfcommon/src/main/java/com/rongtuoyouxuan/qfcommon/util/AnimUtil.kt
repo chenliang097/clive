@@ -29,20 +29,20 @@ object AnimUtil {
         animatorSet.play(objectAnimator)
         animatorSet.duration = duration
         animatorSet.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {
-
+            override fun onAnimationStart(p0: Animator) {
             }
 
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(p0: Animator) {
                 onCallAnimationEnd()
                 animatorSet.removeListener(this)
             }
 
-            override fun onAnimationCancel(animation: Animator?) {
+            override fun onAnimationCancel(p0: Animator) {
             }
 
-            override fun onAnimationRepeat(animation: Animator?) {
+            override fun onAnimationRepeat(p0: Animator) {
             }
+
         })
         animatorSet.start()
     }
@@ -67,7 +67,7 @@ object AnimUtil {
         )
         animator.duration = 500L
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 end()
                 animator.removeListener(this)
             }
@@ -85,7 +85,7 @@ object AnimUtil {
         )
         animator.duration = 500L
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 end()
                 animator.removeListener(this)
             }
@@ -103,7 +103,7 @@ object AnimUtil {
         )
         animator.duration = 600L
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 end()
                 animator.removeListener(this)
             }
@@ -121,7 +121,7 @@ object AnimUtil {
         )
         animator.duration = 600L
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 end()
                 animator.removeListener(this)
             }
@@ -160,7 +160,7 @@ object AnimUtil {
 
     fun startAnim(animator: ObjectAnimator?, end: () -> Unit) {
         animator?.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 end()
             }
         })

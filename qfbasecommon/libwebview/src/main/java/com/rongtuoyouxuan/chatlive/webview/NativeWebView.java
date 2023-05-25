@@ -47,7 +47,6 @@ public class NativeWebView extends _webview {
 		WebSettings settings = getSettings();
 		settings.setJavaScriptCanOpenWindowsAutomatically(true);
 		settings.setJavaScriptEnabled(true);
-		settings.setAppCacheEnabled(true);
 		/**
 		 * 这一行引起悬浮窗webview再次打开后滑动奔溃，貌似ontouch与缩放冲突，坑爹啊==
 		 */
@@ -78,7 +77,6 @@ public class NativeWebView extends _webview {
 		String dir = MyApplication.getInstance().getDir("database", Context.MODE_PRIVATE).getPath();
 		settings.setDatabasePath(dir);*/
 		String appCachePath = getContext().getCacheDir().getAbsolutePath();
-		settings.setAppCachePath(appCachePath);
 		settings.setDatabasePath("/data/data/" + getContext().getPackageName() + "/databases/");
 
 		setScrollbarFadingEnabled(true);

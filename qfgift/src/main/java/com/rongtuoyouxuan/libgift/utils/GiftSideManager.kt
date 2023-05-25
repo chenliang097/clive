@@ -221,7 +221,7 @@ class GiftSideManager {
         animator.duration = 1000
         animator.addUpdateListener { animation -> tv.text = animation?.values?.toString() }
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 animator.removeListener(this)
             }
         })

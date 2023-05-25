@@ -14,23 +14,8 @@ public class DirectApp extends Application {
     private static final String TAG = "DirectApp";
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Live.onConfigurationChanged(this);
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(Live.getLocalContext(base, this));
-        MultiDex.install(this);
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
-        APIEnvironment.INSTANCE.initEnvironment();
-        //注册Activity生命周期
-        registerActivityLifecycleCallbacks(new AppLifecycleCallback());
         Live.init(this);
     }
 }
