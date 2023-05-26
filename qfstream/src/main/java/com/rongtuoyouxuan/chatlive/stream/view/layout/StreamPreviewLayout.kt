@@ -4,16 +4,12 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.location.*
 import android.net.Uri
 import android.os.Handler
-import android.os.Looper
 import android.os.Message
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Log
 import android.view.*
@@ -22,33 +18,29 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.StringUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartPushStreamRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StartStreamInfoBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.StartPushStreamRequest
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.StartStreamInfoBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamViewModel
-import com.rongtuoyouxuan.chatlive.util.DirectoryUtils
-import com.rongtuoyouxuan.chatlive.util.DirectoryUtils.getCacheFilesDirFile
-import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libuikit.TransferLoadingUtil
-import com.rongtuoyouxuan.libuikit.dialog.BottomDialog
-import com.rongtuoyouxuan.qfcommon.dialog.ShareBottomDialog
-import com.rongtuoyouxuan.qfcommon.eventbus.LiveEventData
-import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
+import com.rongtuoyouxuan.chatlive.crtutil.util.DirectoryUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.DirectoryUtils.getCacheFilesDirFile
+import com.rongtuoyouxuan.chatlive.crtutil.util.KeyBoardUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.TransferLoadingUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.dialog.BottomDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.dialog.ShareBottomDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.yalantis.ucrop.UCrop
-import com.zhihu.matisse.Matisse
-import com.zhihu.matisse.MatisseUtil
-import com.zhihu.matisse.MatisseUtil.onPermissionListener
+import com.rongtuoyouxuan.chatlive.crturop.UCrop
+import com.rongtuoyouxuan.chatlive.crtmatisse.Matisse
+import com.rongtuoyouxuan.chatlive.crtmatisse.MatisseUtil
+import com.rongtuoyouxuan.chatlive.crtmatisse.MatisseUtil.onPermissionListener
 import kotlinx.android.synthetic.main.qf_stream_layout_preview.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -74,7 +66,7 @@ class StreamPreviewLayout @JvmOverloads constructor(
     private var mTips = 0
     private var startLiveListener: StartLiveListener? = null
 
-    private val controllerViewModel: StreamControllerViewModel
+    private val controllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
     private val mStreamViewModel: StreamViewModel
 
     protected var locationManager: LocationManager? = null
@@ -103,8 +95,8 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     init {
         initView()
-        controllerViewModel = ViewModelUtils.get(mContext as FragmentActivity, StreamControllerViewModel::class.java)
-        mStreamViewModel = ViewModelUtils.get(mContext, StreamViewModel::class.java)
+        controllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(mContext as FragmentActivity, com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel::class.java)
+        mStreamViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(mContext, StreamViewModel::class.java)
         initListener(mContext as LifecycleOwner)
         mStreamViewModel.getStreamRoomInfo(DataBus.instance().USER_ID, DataBus.instance().USER_NAME)
     }
@@ -575,8 +567,9 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
     private fun showShareDialog(){
         var title = titleEdit?.text.toString()
-       var shareBottomDialog:ShareBottomDialog.Builder = ShareBottomDialog.Builder(context)
-        shareBottomDialog.setEventListener(object :ShareBottomDialog.Builder.EventListener{
+       var shareBottomDialog: ShareBottomDialog.Builder = ShareBottomDialog.Builder(context)
+        shareBottomDialog.setEventListener(object :
+            ShareBottomDialog.Builder.EventListener{
             override fun onSuccess(type: String?) {
             }
 

@@ -186,9 +186,9 @@ public static final int *;
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { *; }
--keep class com.rongtuoyouxuan.chatlive.biz2.model.**{*;}
+-keep class com.rongtuoyouxuan.chatlive.crtbiz2.model.**{*;}
 -keep class com.rongtuoyouxuan.chatlive.model.**{*;}
--keep class * implements com.rongtuoyouxuan.chatlive.net2.BaseModel{*;}
+-keep class * implements com.rongtuoyouxuan.chatlive.crtnet.BaseModel{*;}
 -keep class com.google.gson.**{*;}
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
@@ -238,7 +238,7 @@ public static final int *;
 
 #Google支付-------------------------------------------
 -keep class com.android.vending.billing.**
--keep public class com.rongtuoyouxuan.app.Bean.PurchaseBean.**{ *;}
+-keep public class com.rongtuoyouxuan.chatlive.crtpay.Bean.PurchaseBean.**{ *;}
 #Google支付-------------------------------------------
 
 -keep class com.google.android.gms.ads.identifier.AdvertisingIdClient {

@@ -11,10 +11,10 @@ import androidx.lifecycle.Observer;
 
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg;
-import com.rongtuoyouxuan.chatlive.stream.R;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.ntfmsg.BannedMsg;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
-import com.rongtuoyouxuan.chatlive.util.UIUtils;
+import com.rongtuoyouxuan.chatlive.stream.R;
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils;
 
 public class LiveCommonInteractionLayout extends RelativeLayout {
     private LinearLayout.LayoutParams layoutParams;

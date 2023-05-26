@@ -8,10 +8,9 @@ import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.PopolarityRankBean
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.PopolarityRankBean
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
-import java.math.BigDecimal
 
 class PopularityRankAdapter: BaseQuickAdapter<PopolarityRankBean.ItemBean, BaseViewHolder>, LoadMoreModule {
     private var type:Int = 0

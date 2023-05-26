@@ -8,16 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.adapter.LiveRoomVisibleRangeAdapter
 import com.rongtuoyouxuan.chatlive.base.view.adapter.LiveRoomVisibleRangeAdapter.OnSelectContactsListener
 import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveRoomVisibleRangeListViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean.FansItemBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveRoomVisibleRangeListBean.FansItemBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -82,7 +81,8 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
                 ++pageNo
                 roomId?.let {
                     sceneId?.let { it1 ->
-                        mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID,
+                        mViewModel!!.getStartLiveFansList(
+                            DataBus.instance().USER_ID,
                             it, it1, pageNo)
                     }
                 }
@@ -93,7 +93,8 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
                 mSelectList = ArrayList()
                 roomId?.let {
                     sceneId?.let { it1 ->
-                        mViewModel!!.getStartLiveFansList(DataBus.instance().USER_ID,
+                        mViewModel!!.getStartLiveFansList(
+                            DataBus.instance().USER_ID,
                             it, it1, pageNo)
                     }
                 }
@@ -116,10 +117,11 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
     }
 
     private fun initObserver() {
-        mViewModel = ViewModelUtils.get(this, LiveRoomVisibleRangeListViewModel::class.java)
+        mViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(this, LiveRoomVisibleRangeListViewModel::class.java)
         roomId?.let {
             sceneId?.let { it1 ->
-                mViewModel?.getStartLiveFansList(DataBus.instance().USER_ID,
+                mViewModel?.getStartLiveFansList(
+                    DataBus.instance().USER_ID,
                     it, it1, pageNo)
             }
         }

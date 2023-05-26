@@ -69,14 +69,14 @@
             android:textSize="16sp"/>
     </LinearLayout>
 
-    <net.lucode.hackware.magicindicator.MagicIndicator
+    <com.rongtuoyouxuan.chatlive.crtmagicindicator.MagicIndicator
         android:id="@+id/anchorCenterMagicindicator"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="5dp"/>
 
-    <com.rongtuoyouxuan.libuikit.layout.rtlviewpager.RtlViewPager
+    <com.rongtuoyouxuan.chatlive.crtuikit.layout.rtlviewpager.RtlViewPager
         android:id="@+id/anchorCenterViewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

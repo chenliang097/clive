@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.util.Pair
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -16,26 +15,22 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.StringUtils
 import com.lxj.xpopup.XPopup
 import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.base.DialogUtils
 import com.rongtuoyouxuan.chatlive.base.utils.CameraAndMicPermissonUtlils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.activity.BaseLiveStreamActivity
 import com.rongtuoyouxuan.chatlive.base.view.activity.LiveRoomGIftUILogic
 import com.rongtuoyouxuan.chatlive.base.view.activity.LiveRoomOnlineLogic
 import com.rongtuoyouxuan.chatlive.base.view.dialog.AnchorBlockedTipDialog
-import com.rongtuoyouxuan.chatlive.base.view.layout.RoomSendMessageLayout
 import com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
-import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.*
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.cmdMsg.*
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.AnchorInfo
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.EnterRoomBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.BeautifyBottomFragment
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.BeautifyBottomFragmentViewModel
@@ -45,18 +40,18 @@ import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
 import com.rongtuoyouxuan.chatlive.stream.view.dialog.HostExitDialog
 import com.rongtuoyouxuan.chatlive.stream.view.layout.*
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout.StartLiveListener
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamViewModel
-import com.rongtuoyouxuan.chatlive.streaming.BaseStreamView
-import com.rongtuoyouxuan.chatlive.util.ScreenCapture
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase
-import com.rongtuoyouxuan.qfcommon.dialog.CommonBottomDialog
-import com.rongtuoyouxuan.qfcommon.dialog.UserCardDialog
-import com.rongtuoyouxuan.qfcommon.share.RxUmengSocial
-import com.rongtuoyouxuan.qfcommon.util.*
-import com.rongtuoyouxuan.qfzego.ZegoStreamView
+import com.rongtuoyouxuan.chatlive.rtstream.streaming.BaseStreamView
+import com.rongtuoyouxuan.chatlive.crtutil.util.ScreenCapture
+import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.qfcommon.dialog.CommonBottomDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.dialog.UserCardDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.share.RxUmengSocial
+import com.rongtuoyouxuan.chatlive.qfcommon.util.DiySystemDialogUtil
+import com.rongtuoyouxuan.chatlive.qfcommon.util.UserCardHelper
+import com.rongtuoyouxuan.chatlive.rtstream.qfzego.ZegoStreamView
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.zhihu.matisse.dialog.DiySystemDialog
+import com.rongtuoyouxuan.chatlive.crtmatisse.dialog.DiySystemDialog
 import kotlinx.android.synthetic.main.qf_stream_activity_stream.*
 import java.util.*
 
@@ -70,13 +65,13 @@ class StreamActivity : BaseLiveStreamActivity() {
     private var ivClose: ImageView? = null
     private var mMeasuredView: View? = null
     private var screenCapture: ScreenCapture? = null
-    private var messageLayout: RoomSendMessageLayout? = null
+    private var messageLayout: com.rongtuoyouxuan.chatlive.base.view.layout.RoomSendMessageLayout? = null
     private var networkErrorView: View? = null
     private var mInteractionLayout: InteractionLayout? = null
     private var mfaceLayout: RelativeLayout? = null
     private var gameAndStreamView: StreamAndOtherView? = null
 
-    private val mBackPressListeners: MutableList<BackPressListener?>? = ArrayList() //存放onBack回调
+    private val mBackPressListeners: MutableList<com.rongtuoyouxuan.chatlive.stream.view.layout.BackPressListener?>? = ArrayList() //存放onBack回调
     private val handler = Handler(Looper.getMainLooper())
     private var rxPermissions: RxPermissions? = null
     private val handlerSocket = Handler(Looper.getMainLooper())
@@ -84,7 +79,7 @@ class StreamActivity : BaseLiveStreamActivity() {
     private var isDestroy = false
 
     private var mStreamViewModel: StreamViewModel? = null
-    private var mControllerViewModel: StreamControllerViewModel? = null
+    private var mControllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel? = null
     private var mIMViewModel: IMLiveViewModel? = null
     private var roomInfoBean:EnterRoomBean? = null
     private val bottomFragmentViewModel = BottomFragmentViewModel
@@ -127,9 +122,9 @@ class StreamActivity : BaseLiveStreamActivity() {
     }
 
     private fun initViewModel() {
-        mStreamViewModel = ViewModelUtils.get(this, StreamViewModel::class.java)
-        mControllerViewModel = ViewModelUtils.get(this, StreamControllerViewModel::class.java)
-        mIMViewModel = ViewModelUtils.get(this, IMLiveViewModel::class.java)
+        mStreamViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(this, StreamViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(this, com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel::class.java)
+        mIMViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(this, IMLiveViewModel::class.java)
 
     }
 
@@ -308,7 +303,7 @@ class StreamActivity : BaseLiveStreamActivity() {
             mControllerViewModel?.mHostInfo?.value = anchorInfo
         }
         IMSocketBase.instance().room(DataBus.instance().USER_ID).anchorLiveEndMsg.observe{
-            intentStreamEnd()
+            intentStreamEnd(2)
         }
 //        IMSocketImpl.getInstance().chatRoom(DataBus.instance().uid).liveLockMsgLiveCallback.observe(
 //            liveLockObserver
@@ -347,7 +342,10 @@ class StreamActivity : BaseLiveStreamActivity() {
 
         UserCardHelper.atUserVM.observe(this) {
             mControllerViewModel?.mMessageButton?.value =
-                SendEvent(SendEvent.TYPE_AITE, "@${it.userName}".plus(" "))
+                com.rongtuoyouxuan.chatlive.base.view.model.SendEvent(
+                    com.rongtuoyouxuan.chatlive.base.view.model.SendEvent.TYPE_AITE,
+                    "@${it.userName}".plus(" ")
+                )
         }
 
         LiveRoomHelper.openUserCardVM.observe(this) {
@@ -374,8 +372,15 @@ class StreamActivity : BaseLiveStreamActivity() {
             CommonBottomDialog(
                 this,
                 roomID,
-                sceneId,DataBus.instance().USER_ID, DataBus.instance().USER_ID,
-                DataBus.instance().USER_NAME, it.follow_id, it.nick_name, it.is_forbid_speak, it.is_room_admin, it.is_super_admin
+                sceneId,
+                DataBus.instance().USER_ID,
+                DataBus.instance().USER_ID,
+                DataBus.instance().USER_NAME,
+                it.follow_id,
+                it.nick_name,
+                it.is_forbid_speak,
+                it.is_room_admin,
+                it.is_super_admin
             )
                 .showManagerDialog("", true)
         }
@@ -438,31 +443,35 @@ class StreamActivity : BaseLiveStreamActivity() {
     }
 
     private fun showOutDialog() {
-        DialogUtils.createHostExitDialog(
+        com.rongtuoyouxuan.chatlive.base.DialogUtils.createHostExitDialog(
             this,
             streamID,
             anchorId,
             object : HostExitDialog.HostExitDialogListener {
                 override fun onHostExitDialog() {
-                    intentStreamEnd()
+                    intentStreamEnd(1)
                 }
 
             }).show()
     }
 
-    private fun intentStreamEnd() {
+    private fun intentStreamEnd(isFrom:Int) {
         ULog.e("clll", "intentStreamEnd--------")
         Router.toStreamEndActivity(
             this@StreamActivity,
             liveStreamInfo?.roomId,
             roomInfoBean?.data?.scene_id_str,
-            roomInfoBean?.data?.user_avatar
+            roomInfoBean?.data?.user_avatar,
+            isFrom
         )
         finish()
     }
 
     private fun createDefaultStreamView() {
-        mStreamView = ZegoStreamView(this, mMeasuredView)
+        mStreamView = ZegoStreamView(
+            this,
+            mMeasuredView
+        )
         gameAndStreamView = StreamAndOtherView(this)
         gameAndStreamView?.setZegoView(mStreamView as ZegoStreamView)
         streamContainer?.addView(gameAndStreamView)
@@ -618,7 +627,7 @@ class StreamActivity : BaseLiveStreamActivity() {
         }
     }
     private fun completeImCallBack() {
-        val chatLayout = findViewById<LivePublicChatAreaListLayout>(R.id.danmaku_list)
+        val chatLayout = findViewById<com.rongtuoyouxuan.chatlive.stream.view.layout.LivePublicChatAreaListLayout>(R.id.danmaku_list)
 //        IMSocketImpl.getInstance()
 //            .chatRoom(streamID).joinLiveRoomCallback?.observe(this) { entity ->
 //                //插入一条加入直播间消息并播放座驾
@@ -701,12 +710,12 @@ class StreamActivity : BaseLiveStreamActivity() {
             }
             2 -> {
                 if (this != null && !isDestroyed && !isFinishing) {
-                    DialogUtils.createAnchorBlockedTipDialog(
+                    com.rongtuoyouxuan.chatlive.base.DialogUtils.createAnchorBlockedTipDialog(
                         this,
                         1,
                         object : AnchorBlockedTipDialog.AnchorBlockedTipDialogListener {
                             override fun onConfirm() {
-                                intentStreamEnd()
+                                intentStreamEnd(10)
                                 finish()
                             }
 
@@ -721,12 +730,12 @@ class StreamActivity : BaseLiveStreamActivity() {
         when (type) {
             2 -> {
                 if (this != null && !isDestroyed && !isFinishing) {
-                    DialogUtils.createAnchorBlockedTipDialog(
+                    com.rongtuoyouxuan.chatlive.base.DialogUtils.createAnchorBlockedTipDialog(
                         this,
                         1,
                         object : AnchorBlockedTipDialog.AnchorBlockedTipDialogListener {
                             override fun onConfirm() {
-                                intentStreamEnd()
+                                intentStreamEnd(100)
                                 finish()
                             }
 

@@ -4,19 +4,10 @@ import android.content.Context
 import android.text.SpannableStringBuilder
 import android.widget.ImageView
 import android.widget.TextView
-import com.rongtuoyouxuan.chatlive.base.DialogUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.MessageContent
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LikeAnchorMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveJoinRoomMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveKickPeopleMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.*
-import com.rongtuoyouxuan.chatlive.image.ImgLoader
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.BaseRoomMessage
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.*
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.widget.ClickiTextSpan
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.ClickiTextSpan
 
 class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
     private var callBack: MessageCallBack? = null
@@ -43,7 +34,7 @@ class MessageSpanMatcher(context: Context) : BaseMessageSpanMatcher(context) {
                     addTextSpan(spanString, textView, message.content, contentColor)
                 } else {
                     addTextSpan(spanString, textView, message.content, contentColor, ClickiTextSpan.SpanClick {
-                        DialogUtils.createReportDialog(mContext, message.roomIdStr, message.userIdStr, message.userName, message.content).show()
+                        com.rongtuoyouxuan.chatlive.base.DialogUtils.createReportDialog(mContext, message.roomIdStr, message.userIdStr, message.userName, message.content).show()
                     })
                 }
                 createMsgBackground(textView, txtMsg)

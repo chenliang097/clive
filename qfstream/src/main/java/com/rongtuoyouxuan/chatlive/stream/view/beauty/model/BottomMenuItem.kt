@@ -2,10 +2,8 @@ package com.rongtuoyouxuan.chatlive.stream.view.beauty.model
 
 import android.content.res.ColorStateList
 import androidx.core.content.ContextCompat
-import com.blankj.utilcode.util.AppUtils
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.EnvUtils
 
 /**
  * 底部弹窗的菜单元素

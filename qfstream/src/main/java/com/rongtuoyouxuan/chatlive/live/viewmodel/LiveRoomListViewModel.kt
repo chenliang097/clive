@@ -3,9 +3,9 @@ package com.rongtuoyouxuan.chatlive.live.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomListBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveRoomListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 
 class LiveRoomListViewModel(application: Application) : AndroidViewModel(application) {
     val liveVM: MutableLiveData<LiveRoomListBean> = MutableLiveData()
@@ -13,7 +13,7 @@ class LiveRoomListViewModel(application: Application) : AndroidViewModel(applica
 
 
     fun getLiveRoomLists(userId:String, secenId:String) {
-        StreamBiz.getLiveRoomLists(userId, secenId, object : RequestListener<LiveRoomListBean>{
+        StreamBiz.getLiveRoomLists(userId, secenId, object : RequestListener<LiveRoomListBean> {
             override fun onSuccess(reqId: String?, result: LiveRoomListBean?) {
                 liveVM.value = result
             }
@@ -33,7 +33,7 @@ class LiveRoomListViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun getLiveRoomMore(userId:String, secenId:String) {
-        StreamBiz.getLiveRoomLists(userId, secenId, object : RequestListener<LiveRoomListBean>{
+        StreamBiz.getLiveRoomLists(userId, secenId, object : RequestListener<LiveRoomListBean> {
             override fun onSuccess(reqId: String?, result: LiveRoomListBean?) {
                 liveMoreVM.value = result
             }

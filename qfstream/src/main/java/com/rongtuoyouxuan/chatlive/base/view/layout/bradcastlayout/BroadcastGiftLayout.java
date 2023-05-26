@@ -15,13 +15,13 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.SizeUtils;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.BaseBroadcastGiftModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.BlastBroadcastGiftModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.BroadcastType;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.LuckyBroadcastModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomBannerGift;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.SuperLuckyMoneyBroadcastModel;
-import com.rongtuoyouxuan.chatlive.log.upload.ULog;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.BaseBroadcastGiftModel;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.BlastBroadcastGiftModel;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.BroadcastType;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.LuckyBroadcastModel;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.RoomBannerGift;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.SuperLuckyMoneyBroadcastModel;
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog;
 import com.rongtuoyouxuan.chatlive.stream.R;
 
 import java.util.concurrent.ConcurrentLinkedQueue;

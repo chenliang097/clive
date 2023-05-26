@@ -28,7 +28,7 @@
         android:layout_below="@+id/setManagerInsTxt"
         android:layout_above="@id/setManagerBottomLayout">
 
-        <com.rongtuoyouxuan.libuikit.layout.refreshheader.WaterDropHeader
+        <com.rongtuoyouxuan.chatlive.crtuikit.layout.refreshheader.WaterDropHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"

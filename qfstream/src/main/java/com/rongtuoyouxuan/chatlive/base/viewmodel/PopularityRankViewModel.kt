@@ -2,20 +2,17 @@ package com.rongtuoyouxuan.chatlive.base.viewmodel
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.biz2.model.list.LoadEvent
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorRoomSettingRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.PopolarityRankBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerListBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtcommonbiz.model.list.LoadEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.PopolarityRankBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libuikit.viewmodel.BaseListFragmentViewModel
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.viewmodel.BaseListFragmentViewModel
 
-open class PopularityRankViewModel(application: Application):BaseListFragmentViewModel<PopolarityRankBean>(application) {
+open class PopularityRankViewModel(application: Application):
+    BaseListFragmentViewModel<PopolarityRankBean>(application) {
 
     private var roomId:String = ""
     private var userId:String = ""
@@ -28,7 +25,8 @@ open class PopularityRankViewModel(application: Application):BaseListFragmentVie
 
     }
     override fun doLoadData(mPage: Int, event: LoadEvent?) {
-        StreamBiz.getPopularityRank(roomId, mPage, 20, object :RequestListener<PopolarityRankBean>{
+        StreamBiz.getPopularityRank(roomId, mPage, 20, object :
+            RequestListener<PopolarityRankBean> {
             override fun onSuccess(reqId: String?, result: PopolarityRankBean?) {
                 result?.event = event
                 _getData().value = result

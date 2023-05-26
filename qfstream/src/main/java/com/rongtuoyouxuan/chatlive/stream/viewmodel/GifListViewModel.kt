@@ -3,26 +3,22 @@ package com.rongtuoyouxuan.chatlive.stream.viewmodel
 import android.app.Application
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.biz2.model.gif.GifListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.im.ImErrorCode
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.GifMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.list.LoadEvent
-import com.rongtuoyouxuan.chatlive.biz2.stream.GifListBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.chatlive.router.bean.ISource
-import com.rongtuoyouxuan.libuikit.viewmodel.BaseListFragmentViewModel
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.gif.GifListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.GifMsg
+import com.rongtuoyouxuan.chatlive.crtcommonbiz.model.list.LoadEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.GifListBiz
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.crtrouter.bean.ISource
+import com.rongtuoyouxuan.chatlive.crtuikit.viewmodel.BaseListFragmentViewModel
 
-class GifListViewModel(application: Application):BaseListFragmentViewModel<GifListBean>(application) {
+class GifListViewModel(application: Application): BaseListFragmentViewModel<GifListBean>(application) {
 
 
     var sendLiveData:MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
     override fun doLoadData(mPage: Int, event: LoadEvent?) {
-        GifListBiz.getGifList(mPage, 2000, object :RequestListener<GifListBean>{
+        GifListBiz.getGifList(mPage, 2000, object : RequestListener<GifListBean> {
             override fun onSuccess(reqId: String?, result: GifListBean?) {
                 result?.event = event
                 _getData().value = result

@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/dp_9"
         android:layout_marginEnd="@dimen/dp_6" />
 
-    <com.rongtuoyouxuan.libuikit.layout.MarqueeTextListenerView
+    <com.rongtuoyouxuan.chatlive.crtuikit.layout.MarqueeTextListenerView
         android:id="@+id/tv_room_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

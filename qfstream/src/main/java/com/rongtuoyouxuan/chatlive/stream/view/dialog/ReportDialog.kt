@@ -6,15 +6,14 @@ import com.rongtuoyouxuan.chatlive.stream.R
 import android.os.Bundle
 import android.view.*
 import androidx.recyclerview.widget.GridLayoutManager
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.user.ReportBean
-import com.rongtuoyouxuan.chatlive.biz2.model.user.ReportRequest
-import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.user.ReportBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.user.ReportRequest
+import com.rongtuoyouxuan.chatlive.crtbiz2.user.UserRelationBiz
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.live.view.adapter.ReportReasonAdapter
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtnet.BaseModel
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import kotlinx.android.synthetic.main.qf_stream_dialog_report.*
 
 class ReportDialog: Dialog{
@@ -107,7 +106,8 @@ class ReportDialog: Dialog{
                 reportBarrage?.let { it1 ->
                     tNickName?.let { it2 ->
                         roomId?.let { it3 ->
-                            ReportRequest(DataBus.instance().USER_ID, it, it1, reportType,
+                            ReportRequest(
+                                DataBus.instance().USER_ID, it, it1, reportType,
                                 "", DataBus.instance().USER_NAME, it2, it3
                             )
                         }
@@ -115,7 +115,8 @@ class ReportDialog: Dialog{
                 }
             }
         if (request != null) {
-            UserRelationBiz.instance?.reportUser(null, request, object :RequestListener<BaseModel?>{
+            UserRelationBiz.instance?.reportUser(null, request, object :
+                RequestListener<BaseModel?> {
                 override fun onSuccess(reqId: String?, result: BaseModel?) {
                     LaToastUtil.showShort(R.string.stream_report_suc)
                     dismiss()

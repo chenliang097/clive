@@ -11,10 +11,10 @@ import androidx.fragment.app.FragmentActivity;
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper;
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveMarqueeEntity;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.SuperLuckyMoneyBroadcastModel;
-import com.rongtuoyouxuan.chatlive.stream.R;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveMarqueeEntity;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.SuperLuckyMoneyBroadcastModel;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
+import com.rongtuoyouxuan.chatlive.stream.R;
 
 public class SuperLuckyMoneyBroadcastLayout extends BaseBroadcastItemLayout implements IBaseBradcastGiftLayout {
 

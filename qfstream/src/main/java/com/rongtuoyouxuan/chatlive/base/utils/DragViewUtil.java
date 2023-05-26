@@ -3,7 +3,7 @@ package com.rongtuoyouxuan.chatlive.base.utils;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.rongtuoyouxuan.chatlive.log.upload.ULog;
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog;
 
 /**
  * 这个工具可以使任何一个view进行拖动。

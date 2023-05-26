@@ -2,7 +2,7 @@ package com.rongtuoyouxuan.chatlive.live.view.activity
 
 import android.os.Bundle
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.SimpleFragment
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleFragment
 import kotlinx.android.synthetic.main.fragment_contribution_tab.*
 
 /**

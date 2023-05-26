@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
-import com.rongtuoyouxuan.chatlive.router.bean.ISource
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtrouter.bean.ISource
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.fragment.GifListFragment
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.GifListViewModel
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import com.rongtuoyouxuan.libuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
 
 @Route(path = RouterConstant.PATH_DIALOG_GIF_PANEL)
 class GifListDialog: LanguageActivity() {

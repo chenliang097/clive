@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveMarqueeEntity;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomBannerGift;
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveMarqueeEntity;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.RoomBannerGift;
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils;
 import com.rongtuoyouxuan.chatlive.stream.R;
 
 /**

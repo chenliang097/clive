@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,27 +26,23 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
-import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.ControllerViewModel;
+import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean;
-import com.rongtuoyouxuan.chatlive.databus.DataBus;
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus;
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants;
-import com.rongtuoyouxuan.chatlive.net2.BaseModel;
-import com.rongtuoyouxuan.chatlive.router.Router;
-import com.rongtuoyouxuan.chatlive.router.bean.ISource;
-import com.rongtuoyouxuan.chatlive.stream.R;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.EnterRoomBean;
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus;
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus;
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants;
+import com.rongtuoyouxuan.chatlive.crtnet.BaseModel;
+import com.rongtuoyouxuan.chatlive.crtrouter.Router;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 import com.rongtuoyouxuan.chatlive.stream.view.layout.BackPressListener;
-import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils;
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil;
-import com.rongtuoyouxuan.chatlive.util.StringUtils;
-import com.rongtuoyouxuan.qfcommon.widget.GifPannelView;
+import com.rongtuoyouxuan.chatlive.stream.R;
+import com.rongtuoyouxuan.chatlive.crtutil.util.KeyBoardUtils;
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil;
+import com.rongtuoyouxuan.chatlive.crtutil.util.StringUtils;
 
-import cn.dreamtobe.kpswitch.util.KPSwitchConflictUtil;
-import cn.dreamtobe.kpswitch.util.KeyboardUtil;
-import cn.dreamtobe.kpswitch.widget.KPSwitchPanelLinearLayout;
+import com.rongtuoyouxuan.chatlive.crtkpswitch.util.KeyboardUtil;
 
 public abstract class RoomSendMessageLayout extends RelativeLayout implements View.OnClickListener, BackPressListener {
 

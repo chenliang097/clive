@@ -33,7 +33,7 @@
 
         </LinearLayout>
 
-        <com.rongtuoyouxuan.libuikit.widget.banner.BannerView
+        <com.rongtuoyouxuan.chatlive.crtuikit.widget.banner.BannerView
             android:id="@+id/vp_float_msg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,7 +42,7 @@
 
     </LinearLayout>
 
-    <com.rongtuoyouxuan.libuikit.layout.CommonStatusView
+    <com.rongtuoyouxuan.chatlive.crtuikit.layout.CommonStatusView
         android:id="@+id/status_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -2,11 +2,9 @@ package com.rongtuoyouxuan.chatlive.live.view.dialog
 
 import android.annotation.SuppressLint
 import androidx.fragment.app.FragmentActivity
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import com.rongtuoyouxuan.qfcommon.util.APIEnvironment
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import com.lxj.xpopup.core.BottomPopupView
 import kotlinx.android.synthetic.main.qf_stream_layout_live_h5_half_screen.view.*
 

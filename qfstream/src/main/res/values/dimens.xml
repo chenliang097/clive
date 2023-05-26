@@ -2,4 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="live_game_height">110dp</dimen>
     <dimen name="live_game_width">180dp</dimen>
+    <dimen name="min_panel_height">220dp</dimen>
+    <dimen name="max_panel_height">380dp</dimen>
+
+    <dimen name="min_keyboard_height">80dp</dimen>
 </resources>

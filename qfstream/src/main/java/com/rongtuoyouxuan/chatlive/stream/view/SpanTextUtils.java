@@ -9,9 +9,9 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.widget.TextView;
 
-import com.rongtuoyouxuan.libuikit.widget.CustomClickSpan;
-import com.rongtuoyouxuan.libuikit.widget.SpanSetting;
-import com.rongtuoyouxuan.libuikit.widget.VerticalImageSpan;
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.CustomClickSpan;
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.SpanSetting;
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.VerticalImageSpan;
 
 import java.util.ArrayList;
 import java.util.List;

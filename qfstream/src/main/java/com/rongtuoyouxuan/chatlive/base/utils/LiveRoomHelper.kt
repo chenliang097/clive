@@ -1,7 +1,7 @@
 package com.rongtuoyouxuan.chatlive.base.utils
 
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveMarqueeEntity
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveStickPoint
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveMarqueeEntity
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveStickPoint
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jeremyliao.liveeventbus.core.Observable
 

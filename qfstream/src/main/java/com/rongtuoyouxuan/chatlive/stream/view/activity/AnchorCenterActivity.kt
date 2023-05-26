@@ -1,24 +1,18 @@
 package com.rongtuoyouxuan.chatlive.stream.view.activity
 
-import android.os.Bundle
-import android.view.Gravity
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.app.hubert.guide.listener.OnPageChangedListener
 import com.blankj.utilcode.util.BarUtils
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.fragment.AnchorCenterFragment
-import com.rongtuoyouxuan.libuikit.LanguageActivity
-import com.rongtuoyouxuan.libuikit.SimpleActivity
-import com.rongtuoyouxuan.libuikit.fragment.CommonFragmentInfo
-import com.rongtuoyouxuan.libuikit.fragment.CommonMagicIndicatorHelper
-import com.rongtuoyouxuan.libuikit.fragment.CommonViewPagerAdapter
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
+import com.rongtuoyouxuan.chatlive.crtuikit.fragment.CommonFragmentInfo
+import com.rongtuoyouxuan.chatlive.crtuikit.fragment.CommonMagicIndicatorHelper
+import com.rongtuoyouxuan.chatlive.crtuikit.fragment.CommonViewPagerAdapter
 import kotlinx.android.synthetic.main.qf_stream_activity_anchor_center.*
-import kotlinx.android.synthetic.main.qf_stream_activity_end.*
 import kotlinx.android.synthetic.main.qf_stream_activity_end.streamEndCloseImg
-import net.lucode.hackware.magicindicator.MagicIndicator
 
 @Route(path = RouterConstant.PATH_ANHOR_CENTER)
 class AnchorCenterActivity: SimpleActivity() {

@@ -2,8 +2,7 @@ package com.rongtuoyouxuan.chatlive.stream.view.msgspan
 
 import android.widget.ImageView
 import android.widget.TextView
-import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.BaseRoomMessage
 
 interface IMessageSpanMatcher {
 

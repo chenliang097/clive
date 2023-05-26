@@ -8,12 +8,12 @@ import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveRoomVisibleRangeListViewModel
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
 import kotlinx.android.synthetic.main.rt_dialog_start_live_visible_range.*
 
 @Route(path = RouterConstant.PATH_START_LIVE_VISIBLE_RANGE)

@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
-import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.image.ImgLoader
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.chatlive.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.live.StreamOnlineModel
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtimage.ImgLoader
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.android.synthetic.main.qf_stream_dialog_host_exit.*
 

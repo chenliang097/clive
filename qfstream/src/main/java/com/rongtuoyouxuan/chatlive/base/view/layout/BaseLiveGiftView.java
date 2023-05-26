@@ -1,28 +1,27 @@
 package com.rongtuoyouxuan.chatlive.base.view.layout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
+
 import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo;
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.view.activity.BaseLiveStreamActivity;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTGiftMsg;
-import com.rongtuoyouxuan.chatlive.log.upload.ULog;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTGiftMsg;
+import com.rongtuoyouxuan.chatlive.crtgift.interfaces.IGiftShowManager;
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog;
 import com.rongtuoyouxuan.chatlive.stream.R;
-import com.rongtuoyouxuan.libgift.GiftShowManagerV2;
-import com.rongtuoyouxuan.libgift.interfaces.IGiftShowManager;
-import com.rongtuoyouxuan.libgift.view.layout.GiftShowView;
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase;
+import com.rongtuoyouxuan.chatlive.crtgift.GiftShowManagerV2;
+import com.rongtuoyouxuan.chatlive.crtgift.view.layout.GiftShowView;
+import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase;
 
 import java.util.LinkedList;
 

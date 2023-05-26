@@ -6,12 +6,10 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveEndMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.cmdMsg.LiveEndMsg
 import com.rongtuoyouxuan.chatlive.live.view.ZegoLiveplay
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowManager
 import com.rongtuoyouxuan.chatlive.live.view.layout.BasePlayerView
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.bean.ISource
 import com.rongtuoyouxuan.chatlive.stream.R
 import kotlinx.android.synthetic.main.qf_stream_layout_float_window.view.*
 

@@ -285,7 +285,7 @@ android {
 
     repositories {
         flatDir {
-            dirs 'libs' ,'../qfcommon/libs'
+            dirs 'libs' ,'../qfstream/libs'
         }
     }
 }
@@ -311,13 +311,7 @@ dependencies {
     kapt(rootProject.ext.dependencies["com.alibaba:arouter-compiler"]) {
         exclude module: 'support-v4'
     }
-    implementation project(':qflive')
-//    implementation project(':qfrouter')
-//    implementation project(':qfdatabus')
-//    implementation project(':qfcommon')
-//    implementation project(':qfstream')
-//    implementation project(':libpay')
-
+    implementation project(':qfstream')
     debugImplementation rootProject.ext.dependencies["debug-db"]
 }
 

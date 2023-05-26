@@ -1,31 +1,21 @@
 package com.rongtuoyouxuan.chatlive.base.view.activity
 
-import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.renderscript.Allocation
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
 import android.text.TextUtils
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ConvertUtils
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.PersonalCenterViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.user.PersonalCenterInfoBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.user.PersonalCenterInfoBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libuikit.SimpleActivity
-import jp.wasabeef.glide.transformations.internal.FastBlur
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
 import kotlinx.android.synthetic.main.rt_activity_personal_center.*
 
 

@@ -1,22 +1,20 @@
 package com.rongtuoyouxuan.chatlive.stream.view.adapter;
 
 import android.content.Context;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.BaseRoomMessage;
+import com.rongtuoyouxuan.chatlive.stream.view.msgspan.IMessageSpanMatcher;
 import com.rongtuoyouxuan.chatlive.stream.view.msgspan.MessageCallBack;
+import com.rongtuoyouxuan.chatlive.stream.view.msgspan.MessageSpanMatcher;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rongtuoyouxuan.chatlive.stream.R;
-import com.rongtuoyouxuan.chatlive.stream.view.msgspan.IMessageSpanMatcher;
-import com.rongtuoyouxuan.chatlive.stream.view.msgspan.MessageSpanMatcher;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 public class LivePublicChatAreaListAdapter extends BaseMultiItemQuickAdapter<BaseRoomMessage, BaseViewHolder> {
 

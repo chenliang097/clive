@@ -10,19 +10,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rongtuoyouxuan.chatlive.base.view.adapter.PopularityRankAdapter
 import com.rongtuoyouxuan.chatlive.base.viewmodel.PopularityRankViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.PopolarityRankBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerListBean
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.PopolarityRankBean
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.adapter.SetManagerListAdapter
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.SetManagerListViewModel
-import com.rongtuoyouxuan.libuikit.BaseRefreshListFragment
-import com.rongtuoyouxuan.libuikit.layout.CommonStatusView
-import com.rongtuoyouxuan.libuikit.layout.IStatusView
+import com.rongtuoyouxuan.chatlive.crtuikit.BaseRefreshListFragment
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.CommonStatusView
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.IStatusView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.qf_stream_fragment_set_manager_list.*
 
-class PopolarityRankFragment:BaseRefreshListFragment<PopularityRankViewModel, PopolarityRankBean>() {
+class PopolarityRankFragment: BaseRefreshListFragment<PopularityRankViewModel, PopolarityRankBean>() {
 
     private var popularityRankViewModel: PopularityRankViewModel? = null
     private var roomId:String? = ""

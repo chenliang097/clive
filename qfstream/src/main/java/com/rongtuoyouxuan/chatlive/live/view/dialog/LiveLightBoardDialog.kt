@@ -5,13 +5,13 @@ import android.text.TextUtils
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveJoinGroupResData
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveJoinGroupResData
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.TransferLoadingUtil
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.TransferLoadingUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import com.lxj.xpopup.core.BottomPopupView
 import kotlinx.android.synthetic.main.dialog_light_board.view.*
 
@@ -79,7 +79,7 @@ class LiveLightBoardDialog(
                             TransferLoadingUtil.dismissDialogLoading(activity)
                             if (errCode == "13331000") {
                                 dismiss()
-                                LaToastUtil.showShort(com.rongtuoyouxuan.libgift.R.string.gift_panel_check_gift_amount_empty)
+                                LaToastUtil.showShort(R.string.gift_panel_check_gift_amount_empty)
                             } else if (msg?.isNotEmpty() == true) {
                                 LaToastUtil.showShort(msg)
                             }

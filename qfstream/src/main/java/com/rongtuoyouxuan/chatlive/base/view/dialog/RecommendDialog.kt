@@ -6,25 +6,23 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.rongtuoyouxuan.chatlive.base.view.adapter.RecommendAdapter
 import com.rongtuoyouxuan.chatlive.base.view.viewmodel.RecommendViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.main.LiveItemEntity
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.bean.ISource
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.bean.ISource
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.qfcommon.util.LaViewModelUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.DrawerPopupView
 import com.lxj.xpopup.enums.PopupPosition
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RecommenListRequestBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveRoomListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.RecommenListRequestBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.qfcommon.util.LaViewModelUtil
 import kotlinx.android.synthetic.main.layout_recomend.view.*
 
 @SuppressLint("ViewConstructor")

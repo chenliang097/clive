@@ -1,16 +1,14 @@
 package com.rongtuoyouxuan.chatlive.live.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.arch.LiveEvent
-import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
-import com.rongtuoyouxuan.chatlive.base.viewmodel.ControllerViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomInfoExtraBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtutil.arch.LiveEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.EnterRoomBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.RoomInfoExtraBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 
-class LiveControllerViewModel(liveStreamInfo: LiveStreamInfo) :
-    ControllerViewModel(liveStreamInfo) {
+class LiveControllerViewModel(liveStreamInfo: com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo) :
+    com.rongtuoyouxuan.chatlive.base.viewmodel.ControllerViewModel(liveStreamInfo) {
     var mGiftDialog = LiveEvent<Void>()
     var fromSource: String? = null
     var roomInfoLiveData = MutableLiveData<EnterRoomBean?>() //房间信息

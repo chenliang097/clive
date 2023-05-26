@@ -23,48 +23,42 @@ import com.blankj.utilcode.util.DebouncingUtils
 import com.blankj.utilcode.util.StringUtils
 import com.lxj.xpopup.XPopup
 import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.base.DialogUtils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
-import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.activity.LiveRoomGIftUILogic
 import com.rongtuoyouxuan.chatlive.base.view.activity.LiveRoomOnlineLogic
 import com.rongtuoyouxuan.chatlive.base.view.dialog.AnchorBlockedTipDialog
 import com.rongtuoyouxuan.chatlive.base.view.dialog.RecommendDialog
 import com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
-import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveAudienceNotificationMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLiveEndMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.live.LiveManager
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.cmdMsg.LiveAudienceNotificationMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTLiveEndMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.AnchorInfo
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.EnterRoomBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.live.LiveManager
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants
 import com.rongtuoyouxuan.chatlive.live.view.ZegoLiveplay
 import com.rongtuoyouxuan.chatlive.live.view.activity.LiveRoomActivity
 import com.rongtuoyouxuan.chatlive.live.view.dialog.LiveLightBoardDialog
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService
-import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatingWindowHelper
 import com.rongtuoyouxuan.chatlive.live.view.layout.BasePlayerView
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveRoomViewModel
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.layout.LivePublicChatAreaListLayout
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.chatlive.util.MyLifecycleHandler
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase
-import com.rongtuoyouxuan.libuikit.SimpleFragment
-import com.rongtuoyouxuan.qfcommon.dialog.CommonBottomDialog
-import com.rongtuoyouxuan.qfcommon.dialog.UserCardDialog
-import com.rongtuoyouxuan.qfcommon.eventbus.LiveEventData
-import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
-import com.rongtuoyouxuan.qfcommon.util.UserCardHelper
-import com.zhihu.matisse.dialog.DiySystemDialog
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.MyLifecycleHandler
+import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleFragment
+import com.rongtuoyouxuan.chatlive.qfcommon.dialog.CommonBottomDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.dialog.UserCardDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus
+import com.rongtuoyouxuan.chatlive.qfcommon.util.UserCardHelper
+import com.rongtuoyouxuan.chatlive.crtmatisse.dialog.DiySystemDialog
 import kotlinx.android.synthetic.main.qf_stream_live_fragment_live_room.*
 import kotlinx.android.synthetic.main.qf_stream_live_layout_intercation_fix.*
 import kotlinx.coroutines.delay
@@ -151,7 +145,7 @@ class LiveRoomFragment : SimpleFragment() {
     }
 
     override fun onAttach(context: Context) {
-        ViewModelUtils.setLiveFragment(this)
+        com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.setLiveFragment(this)
         super.onAttach(context)
     }
 
@@ -196,9 +190,9 @@ class LiveRoomFragment : SimpleFragment() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelUtils.getLive(LiveRoomViewModel::class.java)
-        imViewModel = ViewModelUtils.getLive(IMLiveViewModel::class.java)
-        mLiveControllerViewModel = ViewModelUtils.getLive(LiveControllerViewModel::class.java)
+        viewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(LiveRoomViewModel::class.java)
+        imViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
+        mLiveControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(LiveControllerViewModel::class.java)
     }
 
     private fun initView() {
@@ -366,8 +360,15 @@ class LiveRoomFragment : SimpleFragment() {
             CommonBottomDialog(
                 mContext,
                 roomId,
-                sceneId, anchorId, DataBus.instance().USER_ID,
-                DataBus.instance().USER_NAME, it.follow_id, it.nick_name, it.is_forbid_speak, it.is_room_admin, it.is_super_admin,
+                sceneId,
+                anchorId,
+                DataBus.instance().USER_ID,
+                DataBus.instance().USER_NAME,
+                it.follow_id,
+                it.nick_name,
+                it.is_forbid_speak,
+                it.is_room_admin,
+                it.is_super_admin,
                 imViewModel?.roomManagerLiveData?.value!!
             )
                 .showManagerDialog("", true)
@@ -385,7 +386,10 @@ class LiveRoomFragment : SimpleFragment() {
 
         UserCardHelper.atUserVM.observe(this) {
             mLiveControllerViewModel!!.mMessageButton.setValue(
-                SendEvent(SendEvent.TYPE_AITE, "@${it.userName}".plus(" "))
+                com.rongtuoyouxuan.chatlive.base.view.model.SendEvent(
+                    com.rongtuoyouxuan.chatlive.base.view.model.SendEvent.TYPE_AITE,
+                    "@${it.userName}".plus(" ")
+                )
             )
         }
 
@@ -418,7 +422,7 @@ class LiveRoomFragment : SimpleFragment() {
 
         LiveRoomHelper.liveFloatingWindow.observe(this) {
             viewModel?.setStatus("floatWindow")
-            if (!FloatingWindowHelper.canDrawOverlays(mContext, true)) {
+            if (!com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatingWindowHelper.canDrawOverlays(mContext, true)) {
                 return@observe
             }
             openFloatingWindow()
@@ -655,7 +659,7 @@ class LiveRoomFragment : SimpleFragment() {
     private fun completeImCallBack() {
         val loginUID = DataBus.instance().userInfo.value?.user_info?.userId ?: 0L
 
-        val chatLayout = mRootView.findViewById<LivePublicChatAreaListLayout>(R.id.danmaku_list)
+        val chatLayout = mRootView.findViewById<com.rongtuoyouxuan.chatlive.stream.view.layout.LivePublicChatAreaListLayout>(R.id.danmaku_list)
 //        IMSocketImpl.getInstance()
 //            .chatRoom(streamID).joinLiveRoomCallback?.observe(this) { entity ->
 //                //插入一条加入直播间消息并播放座驾
@@ -724,7 +728,7 @@ class LiveRoomFragment : SimpleFragment() {
         (mContext as LiveRoomActivity)?.finish()
     }
 
-    fun getLiveStreamInfo(): LiveStreamInfo? {
+    fun getLiveStreamInfo(): com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo? {
         return (mContext as LiveRoomActivity).liveStreamInfo
     }
 
@@ -732,7 +736,7 @@ class LiveRoomFragment : SimpleFragment() {
         when (it.type) {
             1 -> {
                 if (this != null && !(mContext as LiveRoomActivity).isDestroyed && !(mContext as LiveRoomActivity).isFinishing) {
-                    DialogUtils.createAnchorBlockedTipDialog(
+                    com.rongtuoyouxuan.chatlive.base.DialogUtils.createAnchorBlockedTipDialog(
                         mContext,
                         2,
                         object : AnchorBlockedTipDialog.AnchorBlockedTipDialogListener {
@@ -773,7 +777,7 @@ class LiveRoomFragment : SimpleFragment() {
                 ULog.e("clll", "LiveRoomFragment----onBecameForeground")
                 roomId?.let {
                     sceneId?.let { it1 ->
-                        imViewModel?.initIM(mContext, "re_enter_room", it,
+                        imViewModel?.sendCommonMsg("re_enter_room", it,
                             it1, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
                     }
                 }
@@ -783,7 +787,7 @@ class LiveRoomFragment : SimpleFragment() {
                 ULog.e("clll", "LiveRoomFragment----onBecameBackground")
                 roomId?.let {
                     sceneId?.let { it1 ->
-                        imViewModel?.initIM(mContext, "leave_room", it,
+                        imViewModel?.sendCommonMsg("leave_room", it,
                             it1, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, true)
                     }
                 }

@@ -27,7 +27,7 @@ object DialogUtils {
         return AnchorBlockedTipDialog(context, type, mAnchorBlockedTipDialogListener)
     }
 
-    fun createRoomSetMaskWordInputDialog(context: Context, onSetMaskWordListener: RoomSetMaskInputLayout.OnSetMaskWordListener):RoomSetMaskWordInputDialog{
+    fun createRoomSetMaskWordInputDialog(context: Context, onSetMaskWordListener: com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout.OnSetMaskWordListener):RoomSetMaskWordInputDialog{
         return RoomSetMaskWordInputDialog(context, onSetMaskWordListener)
     }
 

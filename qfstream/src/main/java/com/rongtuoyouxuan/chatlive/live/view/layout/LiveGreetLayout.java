@@ -12,13 +12,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomTempActionInfo;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.RoomTempActionInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.rongtuoyouxuan.chatlive.live.view.adapter.LiveGreetAdapter;
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
-import com.rongtuoyouxuan.chatlive.live.view.adapter.LiveGreetAdapter;
-import com.rongtuoyouxuan.chatlive.stream.R;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
+import com.rongtuoyouxuan.chatlive.stream.R;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import java.util.List;

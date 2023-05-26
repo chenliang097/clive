@@ -2,14 +2,14 @@ package com.rongtuoyouxuan.chatlive.stream.view.fragment
 import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamEndBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.StreamEndBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorCenterViewModel
-import com.rongtuoyouxuan.libuikit.SimpleFragment
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleFragment
 import kotlinx.android.synthetic.main.qf_stream_fragment_anchor_center.*
 
-class AnchorCenterFragment:SimpleFragment() {
+class AnchorCenterFragment: SimpleFragment() {
 
     companion object{
         fun newInstance(type:Int): AnchorCenterFragment {

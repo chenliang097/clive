@@ -3,7 +3,7 @@ package com.rongtuoyouxuan.chatlive.base.view.dialog
 import android.annotation.SuppressLint
 import androidx.fragment.app.FragmentActivity
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libgift.viewmodel.GiftHelper
+import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftHelper
 import com.lxj.xpopup.core.BottomPopupView
 import kotlinx.android.synthetic.main.dialog_live_anim_config.view.*
 

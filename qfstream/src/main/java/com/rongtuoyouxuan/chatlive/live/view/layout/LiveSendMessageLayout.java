@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentActivity;
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.view.layout.RoomSendMessageLayout;
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel;
+import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel;
+import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 
 public class LiveSendMessageLayout extends RoomSendMessageLayout {

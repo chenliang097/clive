@@ -5,13 +5,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.BottomMenuItem
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.BottomSecondMenu
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.util.*
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.util.ZegoUtil
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.util.ZegoUtil
 import java.io.File
 
 object BeautifyBottomFragmentViewModel : ViewModel() {

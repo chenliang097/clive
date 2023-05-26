@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.rongtuoyouxuan.chatlive.stream">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <queries>
+        <package android:name="com.tencent.mm" />
+        <package android:name="com.tencent.mobileqq" />
+        <package android:name="com.sina.weibo" />
+        <package android:name="com.qzone" />
+
+    </queries>
+    <uses-sdk tools:overrideLibrary="com.tencent.wwapi, com.honor.openSdk" />
     <application>
         <activity
             android:name="com.rongtuoyouxuan.chatlive.live.view.activity.LiveRoomActivity"
@@ -34,12 +46,12 @@
             android:theme="@style/commenDialogStyle"/>
 
         <activity
-            android:name="com.rongtuoyouxuan.app.BuyGoldDialog"
+            android:name="com.rongtuoyouxuan.chatlive.crtpay.BuyGoldDialog"
             android:launchMode="singleTask"
             android:theme="@style/commenDialogStyle" />
 
         <activity
-            android:name="com.rongtuoyouxuan.app.PayTypeDialog"
+            android:name="com.rongtuoyouxuan.chatlive.crtpay.PayTypeDialog"
             android:launchMode="singleTask"
             android:theme="@style/commenDialogStyle" />
 
@@ -94,13 +106,119 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rongtuoyouxuan.app.WalletActivity"
+            android:name="com.rongtuoyouxuan.chatlive.crtpay.WalletActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <service android:name="com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService"/>
+        <!--礼物-->
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtgift.view.activity.GiftDialogActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@style/dialog_activity_styles"/>
 
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtgift.view.activity.GiftDescActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/dialog_activity_styles"/>
+
+        <!--COMMON-->
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.qfcommon.webview.web.WebActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.qfcommon.webview.cocos.CocosActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.qfcommon.webview.developer.JsTestActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.qfcommon.webview.web.WebDialogActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@style/dialog_activity_styles"/>
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.qfcommon.tface.UserIdentificationActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <!--        友盟分享-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="tencent1107995764"/>
+            </intent-filter>
+        </activity>
+        <provider
+            android:authorities="${applicationId}.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"/>
+        </provider>
+
+        <!--pay-->
+        <activity
+            android:name="com.rongtuoyouxuan.app.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wx9ccc2d5883fae2a7" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtpay.Open3rdpayActivity"
+            android:exported="false" >
+        </activity>
+
+        <activity
+            android:name="com.rongtuoyouxuan.app.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+<!--        matisse-->
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtmatisse.ui.MatisseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtmatisse.internal.ui.AlbumPreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtmatisse.internal.ui.SelectedPreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtmatisse.ui.ZhiJiSelectorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yalantis.ucrop.com.rongtuoyouxuan.chatlive.crturop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.rongtuoyouxuan.chatlive.crtutil.permission.ProcessPhoenix"
+            android:process=":phoenix"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>

@@ -6,10 +6,9 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveRoomVisibleRangeListBean
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.NumUtils
-import kotlinx.android.synthetic.main.rt_libstream_select_common_title.*
+import com.rongtuoyouxuan.chatlive.crtutil.util.NumUtils
 
 class LiveRoomVisibleRangeAdapter:
     BaseQuickAdapter<LiveRoomVisibleRangeListBean.FansItemBean, BaseViewHolder> {

@@ -8,7 +8,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.rongtuoyouxuan.libuikit.widget.ClickiTextSpan;
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.ClickiTextSpan;
 
 /**
  * 描述：

@@ -1,14 +1,13 @@
 package com.rongtuoyouxuan.chatlive.live.view.layout
 
 import android.widget.RelativeLayout
-import com.rongtuoyouxuan.chatlive.util.DisplayUtil
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AdsBean
+import com.rongtuoyouxuan.chatlive.crtutil.util.DisplayUtil
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.AdsBean
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils.OnSoftKeyboardStateChangedListener
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.KeyBoardUtils.OnSoftKeyboardStateChangedListener
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.KeyBoardUtils
 import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
@@ -61,10 +60,10 @@ class LiveExtraWidgetLayout : RelativeLayout {
     private fun initViewModel(context: Context) {
         if(context as FragmentActivity is StreamActivity){
             mIMLiveViewModel =
-                ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
+                com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
         }else{
             mIMLiveViewModel =
-                ViewModelUtils.getLive(IMLiveViewModel::class.java)
+                com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
         }
 
 

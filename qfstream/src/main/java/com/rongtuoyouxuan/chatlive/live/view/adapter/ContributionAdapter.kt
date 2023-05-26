@@ -10,13 +10,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.StringUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.CmMultiEntity
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveAudienceRankEntity
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.CmMultiEntity
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveAudienceRankEntity
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.databinding.ItemDialogContributionBinding
 import com.rongtuoyouxuan.chatlive.stream.databinding.ItemDialogContributionTop0Binding
-import com.rongtuoyouxuan.chatlive.util.BigDecimalUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.BigDecimalUtil
 
 /**
  *

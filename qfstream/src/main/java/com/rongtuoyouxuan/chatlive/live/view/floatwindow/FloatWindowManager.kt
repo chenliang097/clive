@@ -2,12 +2,12 @@ package com.rongtuoyouxuan.chatlive.live.view.floatwindow
 
 import android.content.Context
 import android.content.Intent
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.R
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.live.view.ZegoLiveplay
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.view.AbstractFloatWindowView
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.view.VideoFloatWindow
-import com.rongtuoyouxuan.chatlive.util.DisplayUtil
+import com.rongtuoyouxuan.chatlive.stream.R
+import com.rongtuoyouxuan.chatlive.crtutil.util.DisplayUtil
 
 object FloatWindowManager {
 
@@ -21,7 +21,9 @@ object FloatWindowManager {
     }
     private var floatWindowView: AbstractFloatWindowView? = null
     private val floatingWindowHelper by lazy {
-        FloatingWindowHelper(DataBus.instance().appContext)
+        com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatingWindowHelper(
+            DataBus.instance().appContext
+        )
     }
 
     /**

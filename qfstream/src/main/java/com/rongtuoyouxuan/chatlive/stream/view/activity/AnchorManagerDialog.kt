@@ -8,12 +8,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorManagerViewModel
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import com.rongtuoyouxuan.libuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
 import kotlinx.android.synthetic.main.rt_dialog_anchor_manager.*
 
 @Route(path = RouterConstant.PATH_ANCHOE_MANAGER)

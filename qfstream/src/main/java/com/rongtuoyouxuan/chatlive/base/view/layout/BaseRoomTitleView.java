@@ -13,9 +13,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 
 import com.rongtuoyouxuan.chatlive.stream.R;
-import com.rongtuoyouxuan.libuikit.layout.MarqueeTextListenerView;
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.MarqueeTextListenerView;
 
-import static com.rongtuoyouxuan.libuikit.layout.MarqueeTextListenerView.MARQUEE_STOPPED;
+import static com.rongtuoyouxuan.chatlive.crtuikit.layout.MarqueeTextListenerView.MARQUEE_STOPPED;
 
 public abstract class BaseRoomTitleView extends RelativeLayout {
 

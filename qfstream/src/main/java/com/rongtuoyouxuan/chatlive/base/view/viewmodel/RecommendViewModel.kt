@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.biz2.model.main.LiveResponse
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RecommenListRequestBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.main.LiveResponse
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.RecommenListRequestBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,7 +22,8 @@ class RecommendViewModel(application: Application) : AndroidViewModel(applicatio
         page: Int,
         isRefresh: Boolean = true
     ) {
-        StreamBiz.getRecommendList(lifecycleCoroutineScope, request, object : RequestListener<LiveResponse> {
+        StreamBiz.getRecommendList(lifecycleCoroutineScope, request, object :
+            RequestListener<LiveResponse> {
             override fun onSuccess(reqId: String?, result: LiveResponse?) {
                 lifecycleCoroutineScope.launch(Dispatchers.Main) {
                     if (null != result?.data) {

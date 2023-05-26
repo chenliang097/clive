@@ -1,14 +1,12 @@
 package com.rongtuoyouxuan.chatlive.stream.view.adapter
 
-import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerBlackListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerListBean
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.RoomManagerBlackListBean
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 
 class BlackListAdapter: BaseQuickAdapter<RoomManagerBlackListBean.ItemBean, BaseViewHolder>, LoadMoreModule {

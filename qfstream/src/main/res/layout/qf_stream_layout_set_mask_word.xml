@@ -57,7 +57,7 @@
                 android:visibility="invisible"/>
 
         </RelativeLayout>
-        <com.rongtuoyouxuan.libuikit.widget.FlowLayout
+        <com.rongtuoyouxuan.chatlive.crtuikit.widget.FlowLayout
             android:id="@+id/setMaskWordFlowLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

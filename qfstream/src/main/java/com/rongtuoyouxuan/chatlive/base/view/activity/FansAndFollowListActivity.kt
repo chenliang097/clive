@@ -1,21 +1,14 @@
 package com.rongtuoyouxuan.chatlive.base.view.activity
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.WindowManager
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.BarUtils
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.fragment.AnchorManagerBlackListFragment
-import com.rongtuoyouxuan.chatlive.stream.view.fragment.AnchorManagerMuteListFragment
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import com.rongtuoyouxuan.libuikit.LanguageActivity
-import com.rongtuoyouxuan.libuikit.SimpleActivity
-import com.rongtuoyouxuan.libuikit.fragment.CommonFragmentInfo
-import com.rongtuoyouxuan.libuikit.fragment.CommonMagicIndicatorHelper
-import com.rongtuoyouxuan.libuikit.fragment.CommonViewPagerAdapter
+import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtuikit.fragment.CommonFragmentInfo
+import com.rongtuoyouxuan.chatlive.crtuikit.fragment.CommonMagicIndicatorHelper
+import com.rongtuoyouxuan.chatlive.crtuikit.fragment.CommonViewPagerAdapter
 import kotlinx.android.synthetic.main.qf_stream_activity_fans_and_follow_list.*
 
 @Route(path = RouterConstant.PATH_FANS_AND_FOLLOW_LIST)

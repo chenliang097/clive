@@ -4,11 +4,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveChatRoomUserData
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveChatRoomUserEntity
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveChatRoomUserEntity
 import com.rongtuoyouxuan.chatlive.live.view.dialog.ContributionMemberDialog
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.lxj.xpopup.XPopup
 import kotlinx.coroutines.*
@@ -49,32 +46,32 @@ class LiveRoomOnlineLogic(
     fun initData(fragment: Fragment? = null) {
         val lifecycleOwner = fragment ?: activity
 
-        if (streamID?.isNotEmpty() == true && anchorId?.isNotEmpty() == true) {
-            StreamBiz.liveChatroomUsers(streamID, 1, 5, anchorId, activity, object :
-                RequestListener<LiveChatRoomUserData> {
-                override fun onSuccess(reqId: String?, result: LiveChatRoomUserData?) {
-                    if (null != result?.data) {
-                        val list = result.data.list
-                        if (list?.isNotEmpty() == true) {
-                            allList.clear()
-                            allList.addAll(list.filter {
-                                it.userId != (anchorId.toLongOrNull() ?: 0L)
-                            })
-                            total = "${result.data.total}"
-                            sort()
-                        } else {
-                            sort()
-                        }
-                    } else {
-                        sort()
-                    }
-                }
-
-                override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-                    sort()
-                }
-            })
-        }
+//        if (streamID?.isNotEmpty() == true && anchorId?.isNotEmpty() == true) {
+//            StreamBiz.liveChatroomUsers(streamID, 1, 5, anchorId, activity, object :
+//                RequestListener<LiveChatRoomUserData> {
+//                override fun onSuccess(reqId: String?, result: LiveChatRoomUserData?) {
+//                    if (null != result?.data) {
+//                        val list = result.data.list
+//                        if (list?.isNotEmpty() == true) {
+//                            allList.clear()
+//                            allList.addAll(list.filter {
+//                                it.userId != (anchorId.toLongOrNull() ?: 0L)
+//                            })
+//                            total = "${result.data.total}"
+//                            sort()
+//                        } else {
+//                            sort()
+//                        }
+//                    } else {
+//                        sort()
+//                    }
+//                }
+//
+//                override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
+//                    sort()
+//                }
+//            })
+//        }
     }
 
     fun refresh(

@@ -7,18 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.NetworkUtils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveChatRoomUserData
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveChatRoomUserEntity
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveChatRoomUserEntity
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.live.view.adapter.MemberAdapter
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.SimpleFragment
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleFragment
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import kotlinx.android.synthetic.main.fragment_contribution_member_1.*
 
 /**
@@ -112,50 +106,50 @@ class MemberFragment : SimpleFragment() {
     }
 
     private fun loadData(isRefresh: Boolean) {
-        if (isRefresh) {
-            page = 1
-            refresh?.setEnableLoadMore(true)
-        }
-        StreamBiz.liveChatroomUsers(liveId, page, 20, anchorId, null, object :
-            RequestListener<LiveChatRoomUserData> {
-            override fun onSuccess(reqId: String?, result: LiveChatRoomUserData?) {
-                if (null != result?.data) {
-                    val list = result.data.list
-                    if (isRefresh) {
-                        LiveRoomHelper.cmMemberTabVM.post(result.data.total)
-                        if (list?.isNotEmpty() == true) {
-                            page += 1
-
-                            if ((flEmpty?.childCount ?: 0) > 0) {
-                                flEmpty?.removeAllViews()
-                            }
-
-                            memberAdapter.setNewInstance(list)
-                        } else {
-                            memberAdapter.setNewInstance(arrayListOf())
-                            completeEmptyDataBy23()
-                        }
-                    } else {
-                        if (list?.isNotEmpty() == true) {
-                            page += 1
-                            memberAdapter.addData(list)
-                        }
-                    }
-
-                    if (result.data.page == result.data.pageTotal) {
-                        refresh?.setEnableLoadMore(false)
-                    }
-                }
-            }
-
-            override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
-                if (memberAdapter.data.isEmpty()) {
-                    LiveRoomHelper.cmMemberTabVM.post(0)
-
-                    completeEmptyDataBy23(false)
-                }
-            }
-        })
+//        if (isRefresh) {
+//            page = 1
+//            refresh?.setEnableLoadMore(true)
+//        }
+//        StreamBiz.liveChatroomUsers(liveId, page, 20, anchorId, null, object :
+//            RequestListener<LiveChatRoomUserData> {
+//            override fun onSuccess(reqId: String?, result: LiveChatRoomUserData?) {
+//                if (null != result?.data) {
+//                    val list = result.data.list
+//                    if (isRefresh) {
+//                        LiveRoomHelper.cmMemberTabVM.post(result.data.total)
+//                        if (list?.isNotEmpty() == true) {
+//                            page += 1
+//
+//                            if ((flEmpty?.childCount ?: 0) > 0) {
+//                                flEmpty?.removeAllViews()
+//                            }
+//
+//                            memberAdapter.setNewInstance(list)
+//                        } else {
+//                            memberAdapter.setNewInstance(arrayListOf())
+//                            completeEmptyDataBy23()
+//                        }
+//                    } else {
+//                        if (list?.isNotEmpty() == true) {
+//                            page += 1
+//                            memberAdapter.addData(list)
+//                        }
+//                    }
+//
+//                    if (result.data.page == result.data.pageTotal) {
+//                        refresh?.setEnableLoadMore(false)
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(reqId: String?, errCode: String?, msg: String?) {
+//                if (memberAdapter.data.isEmpty()) {
+//                    LiveRoomHelper.cmMemberTabVM.post(0)
+//
+//                    completeEmptyDataBy23(false)
+//                }
+//            }
+//        })
     }
 
     private fun follow(entity: LiveChatRoomUserEntity, position: Int) {

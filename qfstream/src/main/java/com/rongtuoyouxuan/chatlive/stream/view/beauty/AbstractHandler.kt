@@ -5,8 +5,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.TextureView
 import android.widget.ImageView
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.entity.MosaicType
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.entity.PreviewSize
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.entity.MosaicType
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.entity.PreviewSize
 
 /**
  * 美颜、特效等的处理抽象类

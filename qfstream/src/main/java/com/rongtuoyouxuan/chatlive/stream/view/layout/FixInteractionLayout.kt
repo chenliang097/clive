@@ -6,15 +6,13 @@ import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLikeMsg
-import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTHotChangeMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTLikeMsg
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase
 import kotlinx.android.synthetic.main.item_layout_online.view.*
 import kotlinx.android.synthetic.main.qf_stream_layout_intercation_fix.view.*
 
@@ -22,10 +20,10 @@ class FixInteractionLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LockableScrollView(context, attrs, defStyleAttr) {
+) : com.rongtuoyouxuan.chatlive.stream.view.layout.LockableScrollView(context, attrs, defStyleAttr) {
     private var fixLayout: View? = null
     private var imViewModel:IMLiveViewModel? = null
-    var mControllerViewModel: StreamControllerViewModel? = null
+    var mControllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel? = null
     private var roomId: String? = null
 
 
@@ -74,8 +72,8 @@ class FixInteractionLayout @JvmOverloads constructor(
 
     private fun initViewModel(context: Context) {
         imViewModel =
-            ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
-        mControllerViewModel = ViewModelUtils.get(context as FragmentActivity?, StreamControllerViewModel::class.java)
+            com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity?, com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel::class.java)
         imViewModel?.roomInfoExtraLiveData?.observe(context as FragmentActivity){
             livegiftview.setHostId(imViewModel?.roomId)
             tvOnline4.text = "" + it?.data?.scene_user_count

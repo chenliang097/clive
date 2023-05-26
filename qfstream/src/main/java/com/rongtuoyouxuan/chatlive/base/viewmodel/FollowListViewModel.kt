@@ -2,19 +2,17 @@ package com.rongtuoyouxuan.chatlive.base.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.biz2.model.list.LoadEvent
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowStatusBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz.liveFollows
-import com.rongtuoyouxuan.chatlive.biz2.user.UserBiz
-import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.libuikit.viewmodel.BaseListFragmentViewModel
+import com.rongtuoyouxuan.chatlive.crtcommonbiz.model.list.LoadEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.FansListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.FollowListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.FollowStatusBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.user.UserBiz
+import com.rongtuoyouxuan.chatlive.crtbiz2.user.UserRelationBiz
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.crtuikit.viewmodel.BaseListFragmentViewModel
 
-open class FollowListViewModel(application: Application):BaseListFragmentViewModel<FollowListBean>(application) {
+open class FollowListViewModel(application: Application): BaseListFragmentViewModel<FollowListBean>(application) {
 
     private var toUserId:String = ""
     var delManagerLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
@@ -25,7 +23,8 @@ open class FollowListViewModel(application: Application):BaseListFragmentViewMod
         this.toUserId = toUserId
     }
     override fun doLoadData(mPage: Int, event: LoadEvent?) {
-        UserBiz.getFollowList(mPage, 20, DataBus.instance().USER_ID, toUserId, object :RequestListener<FollowListBean>{
+        UserBiz.getFollowList(mPage, 20, DataBus.instance().USER_ID, toUserId, object :
+            RequestListener<FollowListBean> {
             override fun onSuccess(reqId: String?, result: FollowListBean?) {
                 result?.event = event
                 _getData().value = result
@@ -39,7 +38,8 @@ open class FollowListViewModel(application: Application):BaseListFragmentViewMod
     }
 
     fun addFollow(fUserId:String,tUserId:String, position:Int, bean: FansListBean.ItemBean){
-        UserRelationBiz.instance?.addFollow(null, fUserId, tUserId, object : RequestListener<FollowStatusBean?> {
+        UserRelationBiz.instance?.addFollow(null, fUserId, tUserId, object :
+            RequestListener<FollowStatusBean?> {
             override fun onSuccess(reqId: String, result: FollowStatusBean?) {
                 result?.data?.position = position
                 bean.isClick = true
@@ -61,7 +61,8 @@ open class FollowListViewModel(application: Application):BaseListFragmentViewMod
     }
 
     fun cancelFollow(fUserId:String,tUserId:String, position:Int, bean: FansListBean.ItemBean){
-        UserRelationBiz.instance?.cancelFollow(null, fUserId, tUserId, object : RequestListener<FollowStatusBean?> {
+        UserRelationBiz.instance?.cancelFollow(null, fUserId, tUserId, object :
+            RequestListener<FollowStatusBean?> {
             override fun onSuccess(reqId: String, result: FollowStatusBean?) {
                 result?.data?.position = position
                 bean.isClick = true

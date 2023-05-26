@@ -11,7 +11,7 @@ import com.rongtuoyouxuan.chatlive.stream.view.beauty.listener.OnItemClickListen
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.BottomMenuItem
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.widget.MenuItemButton
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 
 /**
  * the bottom menu item adapter

@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.rongtuoyouxuan.chatlive.biz2.model.list.LoadEvent
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomManagerListBean
+import com.rongtuoyouxuan.chatlive.crtcommonbiz.model.list.LoadEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.RoomManagerListBean
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.adapter.SetManagerListAdapter
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.SetManagerListViewModel
-import com.rongtuoyouxuan.libuikit.BaseRefreshListFragment
-import com.rongtuoyouxuan.libuikit.layout.CommonStatusView
-import com.rongtuoyouxuan.libuikit.layout.IStatusView
+import com.rongtuoyouxuan.chatlive.crtuikit.BaseRefreshListFragment
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.CommonStatusView
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.IStatusView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.main.qf_stream_fragment_set_manager_list.*
 
-class SetManagerListFragment:BaseRefreshListFragment<SetManagerListViewModel, RoomManagerListBean>() {
+class SetManagerListFragment: BaseRefreshListFragment<SetManagerListViewModel, RoomManagerListBean>() {
 
     private var setManagerListViewModel: SetManagerListViewModel? = null
     private var roomId:String? = ""

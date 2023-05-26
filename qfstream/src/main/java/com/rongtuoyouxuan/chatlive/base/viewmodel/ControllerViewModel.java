@@ -3,15 +3,15 @@ package com.rongtuoyouxuan.chatlive.base.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import android.content.Intent;
 
-import com.rongtuoyouxuan.chatlive.arch.LiveEvent;
+import com.rongtuoyouxuan.chatlive.crtutil.arch.LiveEvent;
 import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo;
 import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AnchorInfo;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.UserCardModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.translate.RoomTranslateResponse;
-import com.rongtuoyouxuan.chatlive.biz2.translate.TranslateBiz;
-import com.rongtuoyouxuan.chatlive.databus.DataBus;
-import com.rongtuoyouxuan.chatlive.net2.RequestListener;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.AnchorInfo;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.UserCardModel;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.translate.RoomTranslateResponse;
+import com.rongtuoyouxuan.chatlive.crtbiz2.translate.TranslateBiz;
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus;
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener;
 import com.rongtuoyouxuan.chatlive.stream.view.model.ActivityResult;
 
 /**

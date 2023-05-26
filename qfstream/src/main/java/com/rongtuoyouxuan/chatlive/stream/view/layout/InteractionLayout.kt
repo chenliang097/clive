@@ -16,13 +16,13 @@ class InteractionLayout @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : RelativeLayout(context, attrs, defStyleAttr) {
-    private val mControllerViewModel: StreamControllerViewModel
+    private val mControllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
     private val mStreamViewModel: StreamViewModel
     private var fixInteractionLayout: FixInteractionLayout? = null
 
     init {
-        mControllerViewModel = ViewModelUtils.get(context as FragmentActivity, StreamControllerViewModel::class.java)
-        mStreamViewModel = ViewModelUtils.get(context, StreamViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity, com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel::class.java)
+        mStreamViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context, StreamViewModel::class.java)
         init(context)
     }
 

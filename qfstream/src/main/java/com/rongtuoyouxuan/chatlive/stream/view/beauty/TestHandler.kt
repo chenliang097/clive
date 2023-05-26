@@ -6,13 +6,13 @@ import android.graphics.Bitmap
 import android.view.TextureView
 import android.view.View
 import android.widget.ImageView
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.ImageTextureView
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.SDKManager
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.callback.FaceDetectionCallback
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.entity.MosaicType
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.entity.PreviewSize
-import com.rongtuoyouxuan.zegoeffectsexample.sdkmanager.util.ZegoUtil
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.ImageTextureView
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.SDKManager
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.callback.FaceDetectionCallback
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.entity.MosaicType
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.entity.PreviewSize
+import com.rongtuoyouxuan.chatlive.rtstream.sdkmanager.util.ZegoUtil
 import java.io.File
 import java.util.*
 

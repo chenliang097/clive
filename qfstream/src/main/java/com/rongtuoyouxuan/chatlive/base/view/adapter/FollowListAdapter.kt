@@ -6,10 +6,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FollowListBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.FansListBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 
 class FollowListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>, LoadMoreModule {

@@ -55,7 +55,7 @@ open class BaseHostView @JvmOverloads constructor(
     }
 
     open fun initViewModel(context: Context?) {
-        mIMViewModel = ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
+        mIMViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
     }
 
     override fun onClick(v: View) {

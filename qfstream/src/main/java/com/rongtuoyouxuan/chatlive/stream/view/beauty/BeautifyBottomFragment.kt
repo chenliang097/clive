@@ -30,8 +30,8 @@ import com.rongtuoyouxuan.chatlive.stream.view.beauty.model.MenuItemType
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.util.compareButtonListener
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.widget.SeekBarWithNumber
 import com.rongtuoyouxuan.chatlive.stream.view.beauty.widget.TransparentImageButton
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import net.lucode.hackware.magicindicator.buildins.UIUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtmagicindicator.buildins.UIUtil
 
 /**
  * 底部弹窗页面

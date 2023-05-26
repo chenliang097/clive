@@ -6,18 +6,15 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.dialog.RecommendDialog
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.cmdMsg.LiveHotMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTHotChangeMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTLikeMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTHotChangeMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTLikeMsg
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel
-import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.layout.LockableScrollView
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase
 import kotlinx.android.synthetic.main.item_layout_online.view.*
 import kotlinx.android.synthetic.main.qf_stream_live_layout_intercation_fix.view.*
 
@@ -26,7 +23,7 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-) : LockableScrollView(context, attrs, defStyleAttr) {
+) : com.rongtuoyouxuan.chatlive.stream.view.layout.LockableScrollView(context, attrs, defStyleAttr) {
     private var fix_layout: View? = null
 
     private var mControllerViewModel: LiveControllerViewModel? = null
@@ -76,8 +73,8 @@ class LiveFixInteractionLayout @JvmOverloads constructor(
     }
 
     private fun initViewModel(context: Context) {
-        mControllerViewModel = ViewModelUtils.getLive(LiveControllerViewModel::class.java)
-        mIMLiveViewModel = ViewModelUtils.getLive(IMLiveViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(LiveControllerViewModel::class.java)
+        mIMLiveViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
     }
 
     private fun initData(context: Context) {

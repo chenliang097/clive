@@ -15,21 +15,17 @@ import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.util.ConvertUtils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
-import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.BaseMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.MessageContent
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTGiftMsg
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.BaseRoomMessage
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.BaseMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTGiftMsg
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.qfcommon.widget.UrlDrawableLoader
+import com.rongtuoyouxuan.chatlive.qfcommon.widget.level.LiveUserIconHelper
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.layout.FansLightInflateView
-import com.rongtuoyouxuan.chatlive.stream.view.layout.IdentifyInflateView
-import com.rongtuoyouxuan.chatlive.stream.view.layout.LevelInflateView
-import com.rongtuoyouxuan.libuikit.widget.ClickiTextSpan
-import com.rongtuoyouxuan.libuikit.widget.ClickiTextSpan.SpanClick
-import com.rongtuoyouxuan.libuikit.widget.CustomImageSpan
-import com.rongtuoyouxuan.qfcommon.widget.UrlDrawableLoader
-import com.rongtuoyouxuan.qfcommon.widget.level.LiveUserIconHelper
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.ClickiTextSpan
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.ClickiTextSpan.SpanClick
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.CustomImageSpan
 import kotlin.math.ceil
 
 abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
@@ -105,7 +101,12 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
     @SuppressLint("CheckResult")
     open fun addGiftImg(imgHeight: Int, textView:TextView, spanString: SpannableStringBuilder, giftMsg:RTGiftMsg) {
         val span = SpannableString("$")
-        val urlDrawableLoader = UrlDrawableLoader(mContext, textView, imgHeight, giftMsg.url_1x)
+        val urlDrawableLoader = UrlDrawableLoader(
+            mContext,
+            textView,
+            imgHeight,
+            giftMsg.url_1x
+        )
         val ispan = CustomImageSpan(urlDrawableLoader.drawable)
         span.setSpan(ispan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spanString.append(span)
@@ -173,7 +174,8 @@ abstract class BaseMessageSpanMatcher(context: Context) : IMessageSpanMatcher {
     open fun addTextSpan(builder: SpannableStringBuilder, textView: TextView, text: CharSequence, text_color: Int, click: SpanClick?) {
         val userName = SpannableString(text)
         if (click != null) {
-            userName.setSpan(ClickiTextSpan(text_color, click),
+            userName.setSpan(
+                ClickiTextSpan(text_color, click),
                     0, text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         } else {
             userName.setSpan(ForegroundColorSpan(text_color),

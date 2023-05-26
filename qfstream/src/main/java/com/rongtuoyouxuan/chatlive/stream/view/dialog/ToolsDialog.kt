@@ -9,21 +9,18 @@ import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
-import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
-import com.rongtuoyouxuan.chatlive.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
-import com.rongtuoyouxuan.qfcommon.dialog.ShareDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.dialog.ShareDialog
 import kotlinx.android.synthetic.main.qf_stream_dialog_stream_tools.*
 
 class ToolsDialog: Dialog{
 
     private var mStreamViewModel: StreamViewModel? = null
-    private lateinit var mControllerViewModel: StreamControllerViewModel
+    private lateinit var mControllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
     private lateinit var mIMViewModel: IMLiveViewModel
 
     private var settingLayout:LinearLayout? = null
@@ -78,7 +75,11 @@ class ToolsDialog: Dialog{
         }
         findViewById<View>(R.id.bottomToolMusicLayout).setOnClickListener { dismiss()
             Handler().postDelayed({
-                mControllerViewModel.mMessageButton.value = SendEvent(SendEvent.TYPE_NOTICE, null)
+                mControllerViewModel.mMessageButton.value =
+                    com.rongtuoyouxuan.chatlive.base.view.model.SendEvent(
+                        com.rongtuoyouxuan.chatlive.base.view.model.SendEvent.TYPE_NOTICE,
+                        null
+                    )
             }, 50) //延迟调用，防止软键盘无法弹出
         }
         //设置
@@ -114,9 +115,9 @@ class ToolsDialog: Dialog{
     }
 
     private fun initViewModel(){
-        mStreamViewModel = ViewModelUtils.get(mContext as FragmentActivity, StreamViewModel::class.java)
-        mControllerViewModel = ViewModelUtils.get(mContext as FragmentActivity, StreamControllerViewModel::class.java)
-        mIMViewModel = ViewModelUtils.get(mContext as FragmentActivity, IMLiveViewModel::class.java)
+        mStreamViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(mContext as FragmentActivity, StreamViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(mContext as FragmentActivity, com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel::class.java)
+        mIMViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(mContext as FragmentActivity, IMLiveViewModel::class.java)
 
         mStreamViewModel?.muteEvent?.observe(mContext as FragmentActivity){
             updateMicStatus(it)

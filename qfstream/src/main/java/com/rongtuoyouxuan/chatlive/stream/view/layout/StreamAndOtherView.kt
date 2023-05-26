@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.qfzego.ZegoStreamView
+import com.rongtuoyouxuan.chatlive.rtstream.qfzego.ZegoStreamView
 import kotlinx.android.synthetic.main.qf_stream_layout_game_and_stream.view.*
 
 class StreamAndOtherView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)

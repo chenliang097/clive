@@ -1,7 +1,7 @@
 package com.rongtuoyouxuan.chatlive.live.view.adapter;
 
 
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomTempActionInfo;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.RoomTempActionInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rongtuoyouxuan.chatlive.stream.R;

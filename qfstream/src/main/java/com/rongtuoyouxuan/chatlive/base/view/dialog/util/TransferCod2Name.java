@@ -2,9 +2,9 @@ package com.rongtuoyouxuan.chatlive.base.view.dialog.util;
 
 import android.content.Context;
 
-import com.rongtuoyouxuan.chatlive.biz2.config.EditCountryModel;
-import com.rongtuoyouxuan.chatlive.util.GsonUtils;
-import com.rongtuoyouxuan.chatlive.util.ReadJsonUtil;
+import com.rongtuoyouxuan.chatlive.crtbiz2.config.EditCountryModel;
+import com.rongtuoyouxuan.chatlive.crtutil.util.GsonUtils;
+import com.rongtuoyouxuan.chatlive.crtutil.util.ReadJsonUtil;
 
 
 public class TransferCod2Name {

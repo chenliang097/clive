@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
 
 /**
  * 

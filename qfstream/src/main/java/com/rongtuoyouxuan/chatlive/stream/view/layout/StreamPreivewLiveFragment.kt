@@ -1,7 +1,7 @@
 package com.rongtuoyouxuan.chatlive.stream.view.layout
 
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.SimpleFragment
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleFragment
 
 class StreamPreivewLiveFragment: SimpleFragment() {
     override fun getLayoutResId(): Int {

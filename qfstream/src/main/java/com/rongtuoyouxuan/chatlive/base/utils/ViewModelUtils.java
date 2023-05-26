@@ -4,7 +4,7 @@ import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveBaseViewModel;
 import com.rongtuoyouxuan.chatlive.live.view.activity.LiveRoomActivity;
 import com.rongtuoyouxuan.chatlive.live.view.fragment.LiveRoomFragment;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
-import com.rongtuoyouxuan.libuikit.SimpleFragment;
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;

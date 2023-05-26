@@ -3,9 +3,9 @@ package com.rongtuoyouxuan.chatlive.stream.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamEndBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.StreamEndBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 import java.lang.Exception
 
 class AnchorCenterViewModel(application: Application):AndroidViewModel(application) {
@@ -13,7 +13,7 @@ class AnchorCenterViewModel(application: Application):AndroidViewModel(applicati
     var streamStaticsLiveData:MutableLiveData<StreamEndBean> = MutableLiveData<StreamEndBean>()
 
     fun getStreamStatiscData(userId:String, t:Int){
-        StreamBiz.getStreamStatiscData(null, userId, t, object :RequestListener<StreamEndBean>{
+        StreamBiz.getStreamStatiscData(null, userId, t, object : RequestListener<StreamEndBean> {
             override fun onSuccess(reqId: String?, result: StreamEndBean?) {
                 streamStaticsLiveData.value = result
             }

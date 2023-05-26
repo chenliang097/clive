@@ -13,14 +13,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.makeramen.roundedimageview.RoundedImageView
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomNumber
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.RoomNumber
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.EnterRoomBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 
 class LiveHostView @JvmOverloads constructor(
     context: Context,
@@ -49,8 +48,8 @@ class LiveHostView @JvmOverloads constructor(
     }
 
     fun initViewModel(context: Context?) {
-        mControllerViewModel = ViewModelUtils.getLive(LiveControllerViewModel::class.java)
-        mIMViewModel = ViewModelUtils.getLive(IMLiveViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(LiveControllerViewModel::class.java)
+        mIMViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
     }
 
     private fun initData(context: Context) {

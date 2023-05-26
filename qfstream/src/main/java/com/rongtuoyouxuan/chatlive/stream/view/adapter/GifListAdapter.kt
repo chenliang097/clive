@@ -1,8 +1,8 @@
 package com.rongtuoyouxuan.chatlive.stream.view.adapter
 
 import android.widget.ImageView
-import com.rongtuoyouxuan.chatlive.biz2.model.gif.GifListBean
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.gif.GifListBean
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule

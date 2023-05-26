@@ -11,13 +11,12 @@ import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
-import com.rongtuoyouxuan.chatlive.databus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout.OnSetMaskWordListener
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorManagerViewModel
-import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils
-import com.rongtuoyouxuan.chatlive.util.StringUtils
-import com.rongtuoyouxuan.chatlive.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.KeyBoardUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.StringUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import kotlinx.android.synthetic.main.qf_stream_layout_set_mask_input.*
 
 class RoomSetMaskWordInputDialog : Dialog, View.OnClickListener {

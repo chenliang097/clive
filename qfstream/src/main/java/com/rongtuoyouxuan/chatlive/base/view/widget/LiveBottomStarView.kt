@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.dp
+import com.rongtuoyouxuan.chatlive.crtuikit.dp
 import kotlin.random.Random
 
 /**

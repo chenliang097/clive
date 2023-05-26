@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
+import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 import com.rongtuoyouxuan.chatlive.stream.R;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel;

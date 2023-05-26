@@ -6,16 +6,14 @@ import android.util.AttributeSet
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.layout.BaseHostView
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
 import kotlinx.android.synthetic.main.qf_stream_view_hostinfo.view.*
 
 class StreamHostView : BaseHostView {
 
-    public var mControllerViewModel: StreamControllerViewModel? = null
+    public var mControllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel? = null
 
     constructor(context: Context?) : super(context!!) {}
     constructor(context: Context?, attrs: AttributeSet?) : super(
@@ -26,7 +24,7 @@ class StreamHostView : BaseHostView {
 
     override fun initViewModel(context: Context?) {
         super.initViewModel(context)
-        mControllerViewModel = ViewModelUtils.get(context as FragmentActivity?, StreamControllerViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity?, com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel::class.java)
     }
 
     override fun initData() {

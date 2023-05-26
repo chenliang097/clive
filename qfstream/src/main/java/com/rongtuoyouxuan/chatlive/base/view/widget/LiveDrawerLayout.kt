@@ -3,13 +3,8 @@ package com.rongtuoyouxuan.chatlive.base.view.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View
-import android.widget.RelativeLayout
-import androidx.core.view.children
 import androidx.drawerlayout.widget.DrawerLayout
-import com.rongtuoyouxuan.chatlive.base.utils.LiveRoomHelper
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import kotlin.math.abs
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
 
 /**
  *

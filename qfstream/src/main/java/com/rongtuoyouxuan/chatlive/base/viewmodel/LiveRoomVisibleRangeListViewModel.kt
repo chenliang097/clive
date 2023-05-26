@@ -3,17 +3,14 @@ package com.rongtuoyouxuan.chatlive.base.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.jeremyliao.liveeventbus.LiveEventBus
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeListBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomVisibleRangeRequest
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.biz2.user.UserRelationBiz
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.qfcommon.eventbus.LiveEventData
-import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveRoomVisibleRangeListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveRoomVisibleRangeRequest
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtbiz2.user.UserRelationBiz
+import com.rongtuoyouxuan.chatlive.crtnet.BaseModel
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus
 
 class LiveRoomVisibleRangeListViewModel(application: Application) : AndroidViewModel(application) {
     private val PAGE_NUM = 10
@@ -51,7 +48,8 @@ class LiveRoomVisibleRangeListViewModel(application: Application) : AndroidViewM
     fun setUserAllowRange(ruleType: Int, user_id: String, sceneId: String, userIdList:MutableList<String>) {
         var request = LiveRoomVisibleRangeRequest(ruleType, user_id, sceneId, userIdList)
         StreamBiz.setUserAllowRange(request,
-            object : RequestListener<BaseModel> {
+            object :
+                RequestListener<BaseModel> {
                 override fun onSuccess(reqId: String, result: BaseModel) {
                     setUserAllowRangLiveData.value = result
                     MLiveEventBus.get(LiveEventData.LIVE_ALLOW_RANGE).post(ruleType.toString())
@@ -59,7 +57,8 @@ class LiveRoomVisibleRangeListViewModel(application: Application) : AndroidViewM
 
                 override fun onFailure(reqId: String, errCode: String, msg: String) {
                     try {
-                        var baseModel = BaseModel()
+                        var baseModel =
+                            BaseModel()
                         baseModel.errCode = errCode.toInt()
                         baseModel.errMsg = msg
                         setUserAllowRangLiveData.value = baseModel

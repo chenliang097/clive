@@ -7,13 +7,10 @@ import android.view.View
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
-import com.rongtuoyouxuan.chatlive.base.DialogUtils
-import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.layout.RoomSetMaskInputLayout.OnSetMaskWordListener
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.AnchorManagerViewModel
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import kotlinx.android.synthetic.main.qf_stream_layout_set_mask_word.view.*
 
 open class SetMaskWordsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -84,7 +81,8 @@ open class SetMaskWordsView @JvmOverloads constructor(context: Context, attrs: A
                 }
 
                 deleteImg.setOnClickListener { view ->
-                    anchorManagerViewModel?.deleteRoomMaskWords(roomId,DataBus.instance().USER_ID, data)
+                    anchorManagerViewModel?.deleteRoomMaskWords(roomId,
+                        DataBus.instance().USER_ID, data)
                 }
                 setMaskWordFlowLayout.addView(convertView)
             }
@@ -98,7 +96,7 @@ open class SetMaskWordsView @JvmOverloads constructor(context: Context, attrs: A
     }
 
     fun setMaskWord(){
-        DialogUtils.createRoomSetMaskWordInputDialog(context
+        com.rongtuoyouxuan.chatlive.base.DialogUtils.createRoomSetMaskWordInputDialog(context
         ) {
             anchorManagerViewModel?.setRoomMaskWords(roomId, DataBus.instance().USER_ID, it)
         }.show()

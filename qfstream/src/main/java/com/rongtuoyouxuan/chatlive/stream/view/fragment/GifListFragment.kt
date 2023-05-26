@@ -6,25 +6,25 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.rongtuoyouxuan.chatlive.biz2.model.gif.GifListBean
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
-import com.rongtuoyouxuan.chatlive.router.bean.ISource.FROM_GROUP_CHAT
-import com.rongtuoyouxuan.chatlive.router.bean.ISource.FROM_PRIVATE_CHAT
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.gif.GifListBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtrouter.bean.ISource.FROM_GROUP_CHAT
+import com.rongtuoyouxuan.chatlive.crtrouter.bean.ISource.FROM_PRIVATE_CHAT
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.adapter.GifListAdapter
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.GifListViewModel
-import com.rongtuoyouxuan.libuikit.BaseRefreshListFragment
-import com.rongtuoyouxuan.libuikit.layout.CommonStatusView
-import com.rongtuoyouxuan.libuikit.layout.IStatusView
-import com.rongtuoyouxuan.libuikit.layout.decoration.GridSpaceItemDecoration
+import com.rongtuoyouxuan.chatlive.crtuikit.BaseRefreshListFragment
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.CommonStatusView
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.IStatusView
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.decoration.GridSpaceItemDecoration
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import net.lucode.hackware.magicindicator.buildins.UIUtil
+import com.rongtuoyouxuan.chatlive.crtmagicindicator.buildins.UIUtil
 
-class GifListFragment:BaseRefreshListFragment<GifListViewModel, GifListBean>() {
+class GifListFragment: BaseRefreshListFragment<GifListViewModel, GifListBean>() {
 
     private var gifListViewModel:GifListViewModel? = null
     private var streamId:String? = ""

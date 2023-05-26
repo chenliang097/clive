@@ -8,7 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.view.*
-import com.rongtuoyouxuan.chatlive.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import kotlinx.android.synthetic.main.qf_stream_dialog_anchor_blocked.*
 
 class AnchorBlockedTipDialog: Dialog{

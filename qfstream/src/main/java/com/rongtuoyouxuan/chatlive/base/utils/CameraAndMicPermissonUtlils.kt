@@ -6,16 +6,16 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 
 class CameraAndMicPermissonUtlils {
     private var rxPermissions:RxPermissions? = null
-    private var permissonListener:PermissonListener? = null
+    private var permissonListener: CameraAndMicPermissonUtlils.PermissonListener? = null
 
     companion object{
-        val instance : CameraAndMicPermissonUtlils  by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED){
+        val instance : CameraAndMicPermissonUtlils by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED){
             CameraAndMicPermissonUtlils()
         }
     }
 
     @SuppressLint("CheckResult")
-    fun requestPermisson(rxPermissions: RxPermissions, permissonListener:PermissonListener){
+    fun requestPermisson(rxPermissions: RxPermissions, permissonListener: CameraAndMicPermissonUtlils.PermissonListener){
         if (isHasPermisson(rxPermissions)){
             permissonListener?.onISHaveListener()
         }else{
@@ -38,7 +38,7 @@ class CameraAndMicPermissonUtlils {
         return false
     }
 
-    fun setPermissonListener(permissonListener:PermissonListener){
+    fun setPermissonListener(permissonListener: PermissonListener){
         this.permissonListener = permissonListener
     }
 

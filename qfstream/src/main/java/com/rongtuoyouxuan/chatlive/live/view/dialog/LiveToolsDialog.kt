@@ -7,9 +7,8 @@ import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import android.os.Bundle
 import android.view.*
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import com.rongtuoyouxuan.qfcommon.dialog.ShareDialog
+import com.rongtuoyouxuan.chatlive.qfcommon.dialog.ShareDialog
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import kotlinx.android.synthetic.main.qf_stream_dialog_live_tools.*
 import kotlinx.android.synthetic.main.qf_stream_dialog_stream_tools.bottomToolShareLayout
 import kotlinx.android.synthetic.main.qf_stream_dialog_stream_tools.bottomToolSpecialLayout
@@ -77,7 +76,7 @@ class LiveToolsDialog: Dialog{
     }
 
     private fun initViewModel(){
-        mIMViewModel = ViewModelUtils.getLive(IMLiveViewModel::class.java)
+        mIMViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
     }
 
     private fun shareTo(){

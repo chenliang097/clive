@@ -5,26 +5,16 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.latemeet.liboss.OssUploadManager;
-import com.latemeet.liboss.UploadListener;
-import com.rongtuoyouxuan.chatlive.arch.LiveEvent;
+import com.rongtuoyouxuan.chatlive.crtutil.arch.LiveEvent;
 import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.ControllerViewModel;
-import com.rongtuoyouxuan.chatlive.biz2.user.UserBiz;
-import com.rongtuoyouxuan.chatlive.biz2.model.login.response.UploadFileResponse;
-import com.rongtuoyouxuan.chatlive.log.upload.ULog;
-import com.rongtuoyouxuan.chatlive.net2.RequestListener;
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog;
 import com.rongtuoyouxuan.chatlive.stream.R;
-import com.rongtuoyouxuan.chatlive.stream.view.model.ActivityResult;
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil;
+import com.rongtuoyouxuan.chatlive.crtoss.OssUploadManager;
+import com.rongtuoyouxuan.chatlive.crtoss.UploadListener;
 
-import java.io.File;
 import java.net.FileNameMap;
 import java.net.URLConnection;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 public class StreamControllerViewModel extends ControllerViewModel {
 

@@ -5,7 +5,7 @@ import android.content.Context
 import com.rongtuoyouxuan.chatlive.stream.R
 import android.os.Bundle
 import android.view.*
-import com.rongtuoyouxuan.chatlive.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import kotlinx.android.synthetic.main.qf_stream_dialog_start_stream_level.*
 
 class StartStreamLevelDialog: Dialog{

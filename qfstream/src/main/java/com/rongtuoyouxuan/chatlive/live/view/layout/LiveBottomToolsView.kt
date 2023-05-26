@@ -11,22 +11,19 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
-import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTBannedRelieveMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerAddMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTRoomManagerRelieveMsg
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTBannedMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTBannedRelieveMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTRoomManagerAddMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTRoomManagerRelieveMsg
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants
 import com.rongtuoyouxuan.chatlive.live.view.dialog.LiveToolsDialog
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveControllerViewModel
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveRoomViewModel
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase
 import kotlinx.android.synthetic.main.qf_stream_live_layout_bottom_tools.view.*
 
 class LiveBottomToolsView @JvmOverloads constructor(
@@ -43,9 +40,9 @@ class LiveBottomToolsView @JvmOverloads constructor(
 
     private fun initViewModel(context: Context) {
         mLiveControllerViewModel =
-            ViewModelUtils.getLive(LiveControllerViewModel::class.java)
-        mIMViewModel = ViewModelUtils.getLive(IMLiveViewModel::class.java)
-        mLiveRoomViewModel = ViewModelUtils.getLive(LiveRoomViewModel::class.java)
+            com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(LiveControllerViewModel::class.java)
+        mIMViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
+        mLiveRoomViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(LiveRoomViewModel::class.java)
     }
 
     fun init(context: Context) {
@@ -77,7 +74,10 @@ class LiveBottomToolsView @JvmOverloads constructor(
                 return@setOnClickListener
             }
             mLiveControllerViewModel!!.mMessageButton.setValue(
-                SendEvent(SendEvent.TYPE_MESSAGE, null)
+                com.rongtuoyouxuan.chatlive.base.view.model.SendEvent(
+                    com.rongtuoyouxuan.chatlive.base.view.model.SendEvent.TYPE_MESSAGE,
+                    null
+                )
             )
         }
 

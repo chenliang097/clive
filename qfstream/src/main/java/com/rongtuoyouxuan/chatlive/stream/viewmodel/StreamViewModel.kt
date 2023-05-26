@@ -8,27 +8,23 @@ import android.os.Message
 import android.os.Process
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.arch.LiveEvent
-import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
-import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveBaseViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.*
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamStartInfoRequest
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.log.PLog
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.chatlive.streaming.BaseStreamView
-import com.rongtuoyouxuan.chatlive.streaming.IBaseStreaming.StreamNetworkSpeedListener
-import com.rongtuoyouxuan.chatlive.streaming.IBaseStreaming.StreamStateChangedListener
-import com.rongtuoyouxuan.chatlive.streaming.Sdk.InitParams
-import com.rongtuoyouxuan.chatlive.streaming.Sdk.StreamApi
+import com.rongtuoyouxuan.chatlive.crtutil.arch.LiveEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.*
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtlog.PLog
+import com.rongtuoyouxuan.chatlive.crtnet.BaseModel
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.rtstream.streaming.BaseStreamView
+import com.rongtuoyouxuan.chatlive.rtstream.streaming.IBaseStreaming.StreamNetworkSpeedListener
+import com.rongtuoyouxuan.chatlive.rtstream.streaming.IBaseStreaming.StreamStateChangedListener
+import com.rongtuoyouxuan.chatlive.rtstream.streaming.Sdk.InitParams
+import com.rongtuoyouxuan.chatlive.rtstream.streaming.Sdk.StreamApi
 import com.rongtuoyouxuan.chatlive.stream.view.layout.StreamPreviewLayout
 import java.io.File
 import java.lang.ref.WeakReference
 
-class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveStreamInfo), StreamStateChangedListener, StreamNetworkSpeedListener {
+class StreamViewModel(liveStreamInfo: com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo) : com.rongtuoyouxuan.chatlive.base.viewmodel.LiveBaseViewModel(liveStreamInfo), StreamStateChangedListener, StreamNetworkSpeedListener {
 
     private val logs = StringBuilder()
     private val TAG = "StreamViewModel"
@@ -224,7 +220,8 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
         startPushStreamRequest.anchor_id_str = startStreamBean.data.anchor_id.toString()
         startPushStreamRequest.scene_id_str = startStreamBean.data.scene_id_str
         startPushStreamRequest.room_id_str = startStreamBean.data.room_id_str
-        StreamBiz.uploadAnchorInfo(startPushStreamRequest, object : RequestListener<BaseModel> {
+        StreamBiz.uploadAnchorInfo(startPushStreamRequest, object :
+            RequestListener<BaseModel> {
             override fun onFailure(reqId: String, errCode: String, msg: String) {
                 showReconnectEvent.value = msg
             }
@@ -420,7 +417,8 @@ class StreamViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
 
     override fun pushStreamHeartbeat(id: String, msg:String) {
         var bean = startStreamModel.value
-        StreamBiz.pushStreamHeartbeat(bean.data.room_id_str, bean.data.scene_id_str, DataBus.instance().USER_ID, object :RequestListener<StreamHeartBeatBean>{
+        StreamBiz.pushStreamHeartbeat(bean.data.room_id_str, bean.data.scene_id_str, DataBus.instance().USER_ID, object :
+            RequestListener<StreamHeartBeatBean> {
             override fun onSuccess(reqId: String?, result: StreamHeartBeatBean?) {
                 pushStreamHeartBeatLiveData.value = result!!
 //                ULog.d("clll", "pushStreamHeartbeat----")

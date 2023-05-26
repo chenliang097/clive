@@ -4,17 +4,14 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rongtuoyouxuan.chatlive.stream.R;
-import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils;
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil;
-import com.rongtuoyouxuan.chatlive.util.StringUtils;
+import com.rongtuoyouxuan.chatlive.crtutil.util.KeyBoardUtils;
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil;
 
 public class RoomSetMaskInputLayout extends RelativeLayout {
 

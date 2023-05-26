@@ -9,16 +9,14 @@ import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AdsBean
-import com.rongtuoyouxuan.chatlive.router.Router
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.AdsBean
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity
-import com.rongtuoyouxuan.chatlive.webview.WebViewWrapper
-import com.rongtuoyouxuan.libuikit.widget.banner.BannerView
-import com.rongtuoyouxuan.libuikit.widget.banner.holder.BannerHolderCreator
-import com.rongtuoyouxuan.libuikit.widget.banner.holder.Holder
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.banner.BannerView
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.banner.holder.BannerHolderCreator
+import com.rongtuoyouxuan.chatlive.crtuikit.widget.banner.holder.Holder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.qf_stream_view_banner.view.*
@@ -104,18 +102,17 @@ class LiveBanner : BannerView<AdsBean?> {
     }
     private fun initViewModel(context: Context) {
         if (getContext() as FragmentActivity is StreamActivity) {
-            mIMLiveViewModel = ViewModelUtils.get(
+            mIMLiveViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(
                 getContext() as FragmentActivity,
                 IMLiveViewModel::class.java
             )
         } else {
-            mIMLiveViewModel = ViewModelUtils.getLive(IMLiveViewModel::class.java)
+            mIMLiveViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
         }
     }
 
     inner class LiveBannerHolder : Holder<AdsBean?> {
         private var imageView: ImageView? = null
-        private var webViewWrapper: WebViewWrapper? = null
         override fun createView(context: Context): View {
             var convertView = LayoutInflater.from(context).inflate(R.layout.qf_stream_layout_live_banner, null)
 //            if (imageView == null) {
@@ -127,7 +124,6 @@ class LiveBanner : BannerView<AdsBean?> {
 //                imageView!!.layoutParams = layoutParams
 //            }
             imageView = convertView.findViewById(R.id.liveBannerImg)
-            webViewWrapper = convertView.findViewById(R.id.liveBannerWebView)
             return convertView!!
         }
 
@@ -137,11 +133,8 @@ class LiveBanner : BannerView<AdsBean?> {
             }
             if (context != null) {
                 if(!TextUtils.isEmpty(item.widget_url)){
-                    webViewWrapper?.visibility = View.VISIBLE
                     imageView?.visibility = View.GONE
-                    webViewWrapper?.loadurl(item.widget_url)
                 }else{
-                    webViewWrapper?.visibility = View.GONE
                     imageView?.visibility = View.VISIBLE
                     Glide.with(context).load(item.pic).apply(
                         RequestOptions()

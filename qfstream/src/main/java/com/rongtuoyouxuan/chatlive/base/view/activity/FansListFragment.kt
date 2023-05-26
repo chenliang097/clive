@@ -11,17 +11,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rongtuoyouxuan.chatlive.base.view.adapter.FansListAdapter
 import com.rongtuoyouxuan.chatlive.base.viewmodel.FansListViewModel
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.FansListBean
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.FansListBean
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.libuikit.BaseRefreshListFragment
-import com.rongtuoyouxuan.libuikit.layout.CommonStatusView
-import com.rongtuoyouxuan.libuikit.layout.IStatusView
-import com.rongtuoyouxuan.qfcommon.dialog.CommonBottomDialog
+import com.rongtuoyouxuan.chatlive.crtuikit.BaseRefreshListFragment
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.CommonStatusView
+import com.rongtuoyouxuan.chatlive.crtuikit.layout.IStatusView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.zhihu.matisse.dialog.DiySystemDialog
+import com.rongtuoyouxuan.chatlive.crtmatisse.dialog.DiySystemDialog
 
-class FansListFragment:BaseRefreshListFragment<FansListViewModel, FansListBean>() {
+class FansListFragment: BaseRefreshListFragment<FansListViewModel, FansListBean>() {
 
     private var mViewModel: FansListViewModel? = null
     private var userId:String? = ""

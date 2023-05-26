@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
-import com.rongtuoyouxuan.chatlive.image.ImgLoader
-import com.rongtuoyouxuan.chatlive.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtimage.ImgLoader
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 import kotlinx.android.synthetic.main.qf_stream_dialog_audience_exit.*
 
 class AudienceExitDialog: Dialog{

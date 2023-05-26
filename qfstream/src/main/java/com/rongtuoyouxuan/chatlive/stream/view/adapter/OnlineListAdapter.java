@@ -8,7 +8,7 @@ import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rongtuoyouxuan.chatlive.biz2.model.live.StreamOnlineModel;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.live.StreamOnlineModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rongtuoyouxuan.chatlive.stream.R;

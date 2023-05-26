@@ -18,7 +18,7 @@
         android:textSize="14dp"
         android:visibility="invisible"/>
 
-    <com.rongtuoyouxuan.qfcommon.widget.CustomSmartRefreshLayout
+    <com.rongtuoyouxuan.chatlive.qfcommon.widget.CustomSmartRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +26,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="4dp">
 
-        <com.rongtuoyouxuan.libuikit.layout.refreshheader.CustomRefreshHeader
+        <com.rongtuoyouxuan.chatlive.crtuikit.layout.refreshheader.CustomRefreshHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -41,6 +41,6 @@
             android:layout_height="40dp"
             app:srlAccentColor="@color/white" />
 
-    </com.rongtuoyouxuan.qfcommon.widget.CustomSmartRefreshLayout>
+    </com.rongtuoyouxuan.chatlive.qfcommon.widget.CustomSmartRefreshLayout>
 
 </RelativeLayout>

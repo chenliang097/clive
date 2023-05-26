@@ -3,12 +3,12 @@ package com.rongtuoyouxuan.chatlive.base.view.activity
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
-import com.rongtuoyouxuan.libuikit.LanguageActivity
-import com.rongtuoyouxuan.libuikit.TransferLoadingUtil
+import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtuikit.TransferLoadingUtil
 
 open class BaseLiveStreamActivity : LanguageActivity() {
-    public var liveStreamInfo:LiveStreamInfo?= LiveStreamInfo()
+    public var liveStreamInfo: com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo?=
+        com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo()
     public var anchorId:String? = ""
     public var streamID:String? = ""
     public var streamType:String? = ""

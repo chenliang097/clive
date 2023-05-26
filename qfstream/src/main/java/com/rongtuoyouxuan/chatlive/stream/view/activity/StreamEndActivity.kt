@@ -4,19 +4,14 @@ import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.TimeUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.StreamEndBean
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.StreamEndBean
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamEndViewModel
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libuikit.SimpleActivity
-import com.bumptech.glide.Glide
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.util.ChatTimeUtil
-import com.rongtuoyouxuan.chatlive.util.GsonUtils
+import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
+import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtutil.util.ChatTimeUtil
 import kotlinx.android.synthetic.main.qf_stream_activity_end.*
 
 @Route(path = RouterConstant.PATH_ACTIVITY_STREAM_END)
@@ -26,6 +21,7 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
     private var roomId:String? = ""
     private var sceneId:String? = ""
     private var coverUrl:String? = ""
+    private var type = 1
 
     override fun getLayoutResId(): Int {
         return R.layout.qf_stream_activity_end
@@ -37,15 +33,16 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        roomId = intent.getStringExtra("roomId");
-        sceneId = intent.getStringExtra("sceneId");
-        coverUrl = intent.getStringExtra("coverUrl");
+        roomId = intent.getStringExtra("roomId")
+        sceneId = intent.getStringExtra("sceneId")
+        coverUrl = intent.getStringExtra("coverUrl")
+        type = intent.getIntExtra("type", 1)
         initObserver()
     }
 
     private fun initObserver(){
         roomId?.let {
-            sceneId?.let { it1 -> mStreamEndViewModel?.getStreamEnd(it, it1) }
+            sceneId?.let { it1 -> mStreamEndViewModel?.getStreamEnd(it, it1, type) }
         }
         mStreamEndViewModel?.liveEndLiveData?.observe(this) {
             updateData(it)

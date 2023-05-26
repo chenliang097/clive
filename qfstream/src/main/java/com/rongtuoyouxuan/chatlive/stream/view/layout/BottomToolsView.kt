@@ -14,20 +14,17 @@ import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamViewModel
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
 import com.rongtuoyouxuan.chatlive.stream.view.dialog.ToolsDialog
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
-import com.rongtuoyouxuan.chatlive.base.view.model.SendEvent
-import com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
 import kotlinx.android.synthetic.main.qf_stream_layout_bottom_tools.view.*
 
 class BottomToolsView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr), BackPressListener {
+) : LinearLayout(context, attrs, defStyleAttr),
+    com.rongtuoyouxuan.chatlive.stream.view.layout.BackPressListener {
     private var messageImg: ImageView? = null
     private var mStreamViewModel: StreamViewModel? = null
-    private var mControllerViewModel: StreamControllerViewModel? = null
+    private var mControllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel? = null
     private var mIMViewModel: IMLiveViewModel? = null
     private var toolsDialog: ToolsDialog? = null
     private var shareUrl: String? = ""
@@ -65,9 +62,9 @@ class BottomToolsView @JvmOverloads constructor(
     }
 
     private fun initViewModel() {
-        mControllerViewModel = ViewModelUtils.get(context as FragmentActivity, StreamControllerViewModel::class.java)
-        mStreamViewModel = ViewModelUtils.get(context as FragmentActivity, StreamViewModel::class.java)
-        mIMViewModel = ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
+        mControllerViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity, com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel::class.java)
+        mStreamViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity, StreamViewModel::class.java)
+        mIMViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(context as FragmentActivity, IMLiveViewModel::class.java)
 
         mIMViewModel?.streamIdLiveEvent?.observe((context as LifecycleOwner)
         ) { t ->
@@ -81,7 +78,11 @@ class BottomToolsView @JvmOverloads constructor(
     }
 
     private fun onMessageClick(v: View) {
-        mControllerViewModel!!.mMessageButton.value = SendEvent(SendEvent.TYPE_MESSAGE, null)
+        mControllerViewModel!!.mMessageButton.value =
+            com.rongtuoyouxuan.chatlive.base.view.model.SendEvent(
+                com.rongtuoyouxuan.chatlive.base.view.model.SendEvent.TYPE_MESSAGE,
+                null
+            )
     }
 
     override fun onDetachedFromWindow() {

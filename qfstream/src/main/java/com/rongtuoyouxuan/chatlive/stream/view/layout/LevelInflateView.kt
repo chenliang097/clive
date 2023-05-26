@@ -5,7 +5,7 @@ import android.view.Gravity
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatTextView
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
 
 class LevelInflateView(context: Context) : AppCompatTextView(context) {
     private fun init(context: Context) {

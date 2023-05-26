@@ -4,17 +4,15 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
-import com.rongtuoyouxuan.chatlive.arch.LiveEvent
-import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
-import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveBaseViewModel
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtutil.arch.LiveEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
 import com.rongtuoyouxuan.chatlive.live.view.ZegoLiveplay
 import com.rongtuoyouxuan.chatlive.live.view.layout.BasePlayerView
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtnet.BaseModel
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 
-class LiveRoomViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveStreamInfo) {
+class LiveRoomViewModel(liveStreamInfo: com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo) : com.rongtuoyouxuan.chatlive.base.viewmodel.LiveBaseViewModel(liveStreamInfo) {
 
     var linkMicPushStreamLiveData = MutableLiveData<Boolean>()//观众推流成功
     var anchorMixStreamSucLiveData = MutableLiveData<Int>()//主播混流成功

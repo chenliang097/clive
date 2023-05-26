@@ -4,15 +4,10 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.BarUtils
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.stream.view.fragment.SetManagerListFragment
-import com.rongtuoyouxuan.chatlive.util.UIUtils
-import com.rongtuoyouxuan.libuikit.LanguageActivity
-import com.rongtuoyouxuan.libuikit.SimpleActivity
-import kotlinx.android.synthetic.main.qf_stream_activity_anchor_center.*
-import kotlinx.android.synthetic.main.qf_stream_activity_end.*
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils
+import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
 import kotlinx.android.synthetic.main.rt_activity_set_manager.*
 
 @Route(path = RouterConstant.PATH_POPULATITY_RANK)

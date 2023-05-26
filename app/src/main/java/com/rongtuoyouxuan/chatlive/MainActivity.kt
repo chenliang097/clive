@@ -13,17 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationManagerCompat
 import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.NotificationUtils
-import com.rongtuoyouxuan.app.Open3rdpayActivity
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.MainLiveEnterBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.bean.ISource
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.chatlive.util.NotificationSetUtil
-import com.rongtuoyouxuan.chatlive.util.NotificationUtil
+import com.rongtuoyouxuan.chatlive.crtpay.Open3rdpayActivity
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.MainLiveEnterBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.bean.ISource
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.NotificationSetUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -107,7 +105,8 @@ class MainActivity : AppCompatActivity() {
             LaToastUtil.showShort("先输入id")
             return
         }
-        StreamBiz.mainLiveEnter(DataBus.instance().USER_ID, object :RequestListener<MainLiveEnterBean>{
+        StreamBiz.mainLiveEnter(DataBus.instance().USER_ID, object :
+            RequestListener<MainLiveEnterBean> {
             override fun onSuccess(reqId: String?, result: MainLiveEnterBean?) {
                 Router.toLiveRoomActivity(result?.data?.room_id_str, result?.data?.stream_id, result?.data?.scene_id_str, result?.data?.anchor_id, ISource.FROM_MAIN_TAB)
 

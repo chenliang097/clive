@@ -3,16 +3,12 @@ package com.rongtuoyouxuan.chatlive.live.view
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
-import com.blankj.utilcode.util.ToastUtils
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel
-import com.rongtuoyouxuan.chatlive.databus.DataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.live.view.layout.BasePlayerView
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveRoomViewModel
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
-import com.rongtuoyouxuan.qfzego.KeyCenter
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.rtstream.qfzego.KeyCenter
 import im.zego.zegoexpress.ZegoExpressEngine
 import im.zego.zegoexpress.callback.IZegoEventHandler
 import im.zego.zegoexpress.callback.IZegoRoomLoginCallback
@@ -169,8 +165,8 @@ open class ZegoLiveplay {
     }
 
     fun initObserver(activity: Context){
-        liveRoomViewModel = ViewModelUtils.getLive(LiveRoomViewModel::class.java)
-        imLiveViewModel = ViewModelUtils.getLive(IMLiveViewModel::class.java)
+        liveRoomViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(LiveRoomViewModel::class.java)
+        imLiveViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.getLive(IMLiveViewModel::class.java)
 
         liveRoomViewModel?.anchorMixStreamSucLiveData?.observe(activity as LifecycleOwner
         ) {

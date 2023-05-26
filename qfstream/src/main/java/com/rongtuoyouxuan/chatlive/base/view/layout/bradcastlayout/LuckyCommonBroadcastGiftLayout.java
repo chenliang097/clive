@@ -12,12 +12,12 @@ import android.widget.TextView;
 
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomBannerGift;
-import com.rongtuoyouxuan.chatlive.databus.DataBus;
-import com.rongtuoyouxuan.chatlive.databus.config.ConfigManager;
-import com.rongtuoyouxuan.chatlive.stream.R;
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.RoomBannerGift;
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus;
+import com.rongtuoyouxuan.chatlive.crtdatabus.config.ConfigManager;
 import com.rongtuoyouxuan.chatlive.stream.view.activity.StreamActivity;
-import com.zhihu.matisse.dialog.DiySystemDialog;
+import com.rongtuoyouxuan.chatlive.stream.R;
+import com.rongtuoyouxuan.chatlive.crtmatisse.dialog.DiySystemDialog;
 
 /**
  * 描述：

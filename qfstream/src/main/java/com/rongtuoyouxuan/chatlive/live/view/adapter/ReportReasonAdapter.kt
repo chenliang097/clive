@@ -1,15 +1,11 @@
 package com.rongtuoyouxuan.chatlive.live.view.adapter
 
-import android.net.Uri
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.blankj.utilcode.util.StringUtils
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveChatRoomUserEntity
-import com.rongtuoyouxuan.chatlive.image.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.rongtuoyouxuan.chatlive.biz2.model.user.ReportBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.user.ReportBean
 
 class ReportReasonAdapter : BaseQuickAdapter<ReportBean, BaseViewHolder> {
 

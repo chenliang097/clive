@@ -20,32 +20,30 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.gson.reflect.TypeToken
-import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.activity.BaseLiveStreamActivity
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.LiveRoomListBean
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.databus.live.LiveManager
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.LiveDataBus
-import com.rongtuoyouxuan.chatlive.databus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LiveRoomListBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.live.LiveManager
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus
+import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
+import com.rongtuoyouxuan.chatlive.crtnet.BaseModel
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
+import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterParams
+import com.rongtuoyouxuan.chatlive.stream.R
+import com.rongtuoyouxuan.chatlive.crtutil.util.GsonUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.KeyBoardUtils
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftHelper
 import com.rongtuoyouxuan.chatlive.live.view.ZegoLiveplay
 import com.rongtuoyouxuan.chatlive.live.view.floatwindow.FloatWindowsService
 import com.rongtuoyouxuan.chatlive.live.view.fragment.LiveRoomFragment
 import com.rongtuoyouxuan.chatlive.live.viewmodel.LiveRoomListViewModel
-import com.rongtuoyouxuan.chatlive.log.upload.ULog
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
-import com.rongtuoyouxuan.chatlive.router.Router
-import com.rongtuoyouxuan.chatlive.router.constants.RouterConstant
-import com.rongtuoyouxuan.chatlive.router.constants.RouterParams
-import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.GsonUtils
-import com.rongtuoyouxuan.chatlive.util.KeyBoardUtils
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libgift.viewmodel.GiftHelper
-import com.rongtuoyouxuan.qfcommon.eventbus.LiveEventData
-import com.rongtuoyouxuan.qfcommon.eventbus.MLiveEventBus
-import com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.mContext
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.qf_stream_live_activity_live_room.*
 import kotlinx.coroutines.Dispatchers
@@ -417,7 +415,7 @@ class LiveRoomActivity : BaseLiveStreamActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if (!isResetOpen) {
-            ViewModelUtils.setLiveFragment(null)
+            com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.setLiveFragment(null)
         }
     }
 

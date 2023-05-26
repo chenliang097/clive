@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.rongtuoyouxuan.libuikit.widget.banner.view.BannerViewPager
+    <com.rongtuoyouxuan.chatlive.crtuikit.widget.banner.view.BannerViewPager
         android:id="@+id/bannerViewPager"
         android:layout_width="80dp"
         android:layout_height="80dp" />

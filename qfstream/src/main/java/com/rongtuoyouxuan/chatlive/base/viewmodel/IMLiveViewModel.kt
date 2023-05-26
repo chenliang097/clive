@@ -5,37 +5,33 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.GsonUtils
-import com.rongtuoyouxuan.chatlive.arch.LiveEvent
-import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo
-import com.rongtuoyouxuan.chatlive.biz2.im.ChatIMBiz
-import com.rongtuoyouxuan.chatlive.biz2.model.im.BaseRoomMessage
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.ntfmsg.BannedMsg
-import com.rongtuoyouxuan.chatlive.biz2.model.im.msg.textmsg.RTTxtMsgRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.im.request.BannedRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.im.request.EnterRoomMsgRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.AdsBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.EnterRoomBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.RoomInfoExtraBean
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.ShareLiveRequest
-import com.rongtuoyouxuan.chatlive.biz2.model.stream.im.RoomUserInfo
-import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoBean
-import com.rongtuoyouxuan.chatlive.biz2.model.user.UserCardInfoRequest
-import com.rongtuoyouxuan.chatlive.biz2.stream.StreamBiz
-import com.rongtuoyouxuan.chatlive.biz2.stream.UserCardBiz.getLiveUserCardInfo
-import com.rongtuoyouxuan.chatlive.databus.DataBus
-import com.rongtuoyouxuan.chatlive.net2.BaseModel
-import com.rongtuoyouxuan.chatlive.net2.RequestListener
+import com.rongtuoyouxuan.chatlive.crtutil.arch.LiveEvent
+import com.rongtuoyouxuan.chatlive.crtbiz2.im.ChatIMBiz
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.BaseRoomMessage
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.ntfmsg.BannedMsg
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTTxtMsgRequest
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.request.BannedRequest
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.request.EnterRoomMsgRequest
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.AdsBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.EnterRoomBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.RoomInfoExtraBean
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.ShareLiveRequest
+import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.im.RoomUserInfo
+import com.rongtuoyouxuan.chatlive.crtbiz2.stream.StreamBiz
+import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
+import com.rongtuoyouxuan.chatlive.crtnet.BaseModel
+import com.rongtuoyouxuan.chatlive.crtnet.RequestListener
 import com.rongtuoyouxuan.chatlive.stream.R
-import com.rongtuoyouxuan.chatlive.util.LaToastUtil
-import com.rongtuoyouxuan.libsocket.WebSocketManager
-import com.rongtuoyouxuan.libsocket.base.ChatSendCallback
-import com.rongtuoyouxuan.libsocket.base.EventCallback
-import com.rongtuoyouxuan.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.libsocket.WebSocketManager
+import com.rongtuoyouxuan.chatlive.libsocket.base.ChatSendCallback
+import com.rongtuoyouxuan.chatlive.libsocket.base.EventCallback
+import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveStreamInfo) {
+class IMLiveViewModel(liveStreamInfo: com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo) : com.rongtuoyouxuan.chatlive.base.viewmodel.LiveBaseViewModel(liveStreamInfo) {
     @JvmField
     var showRechargeDialog = LiveEvent<Void>()
     @JvmField
@@ -107,7 +103,8 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
 
     fun shareSuccess(platform: String?) {
         StreamBiz.sharedLive(ShareLiveRequest(anchorId,
-            streamId,platform), listener = object:RequestListener<BaseModel>{
+            streamId,platform), listener = object:
+            RequestListener<BaseModel> {
             override fun onSuccess(reqId: String?, result: BaseModel?) {
             }
 
@@ -126,7 +123,8 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     ) {
         StreamBiz.liveFollows(
             followId, userId, roomId, sceneId, status, null,
-            object : RequestListener<BaseModel> {
+            object :
+                RequestListener<BaseModel> {
             override fun onSuccess(reqId: String?, result: BaseModel?) {
                 if (result?.errCode == 0) {
                     if(status == 0){
@@ -186,7 +184,8 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
                        isAnchor: Boolean, userAvatar: String, userId: String, userName: String) {
 
         var rtTxtMsgRequest = RTTxtMsgRequest(roomId, sceneId, anchorId, content, isSuperAdmin, isRoomAdmin, isAnchor, userAvatar, userId, userName)
-        ChatIMBiz.sendTextMsg(rtTxtMsgRequest, object :RequestListener<BaseModel>{
+        ChatIMBiz.sendTextMsg(rtTxtMsgRequest, object :
+            RequestListener<BaseModel> {
             override fun onSuccess(reqId: String?, result: BaseModel?) {
 //                LaToastUtil.showShort("发送成功")
                 sendTxtLiveData.value = result
@@ -212,7 +211,8 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
             bannedStatus = "unmute"
         }
 
-        ChatIMBiz.bannedChatRoomAllUser(BannedRequest(streamId, anchorId, bannedStatus), object :RequestListener<BaseModel>{
+        ChatIMBiz.bannedChatRoomAllUser(BannedRequest(streamId, anchorId, bannedStatus), object :
+            RequestListener<BaseModel> {
             override fun onSuccess(reqId: String?, result: BaseModel?) {
                 when(banned){
                     true-> {
@@ -234,7 +234,8 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
 
     //暂时不用
     fun getShareInfo() {
-        StreamBiz.getShareInfo(object :RequestListener<BaseModel>{
+        StreamBiz.getShareInfo(object :
+            RequestListener<BaseModel> {
             override fun onSuccess(reqId: String?, result: BaseModel?) {
             }
 
@@ -301,11 +302,13 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     fun initIM(context: Context, action:String, roomId:String, sceneId:String, userId:String, userName: String, isLogin:Boolean){
         IMSocketBase.instance().init(context)
         WebSocketManager._getInstance().initIM("", true, "", "")
-        IMSocketBase.instance().login(object : EventCallback {
+        IMSocketBase.instance().login(object :
+            EventCallback {
             override fun Success() {
 //                LaToastUtil.showShort("socket成功-------")
                 GlobalScope.launch(Dispatchers.Main) {
-                    IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
+                    IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object:
+                        ChatSendCallback {
                         override fun sendSuccess(msg: String?) {
 
                         }
@@ -325,7 +328,22 @@ class IMLiveViewModel(liveStreamInfo: LiveStreamInfo) : LiveBaseViewModel(liveSt
     }
 
     fun imOutRoom(action:String, roomId:String, sceneId:String, userId:String, userName: String, isLogin:Boolean){
-        IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object: ChatSendCallback{
+        IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object:
+            ChatSendCallback {
+            override fun sendSuccess(msg: String?) {
+
+            }
+
+            override fun sendFail(code: Int, desc: String?) {
+            }
+
+        })
+
+    }
+
+    fun sendCommonMsg(action:String, roomId:String, sceneId:String, userId:String, userName: String, isLogin:Boolean){
+        IMSocketBase.instance().sendMessageBySocket(BaseRoomMessage.TYPE_ENTER_ROOM_TO_SERVER.toString(), GsonUtils.toJson(EnterRoomMsgRequest(action, roomId, sceneId, userId, userName, isLogin)), object:
+            ChatSendCallback {
             override fun sendSuccess(msg: String?) {
 
             }

@@ -78,12 +78,12 @@
 
             </RelativeLayout>
 
-            <com.rongtuoyouxuan.qfcommon.player.GiftLargerAnimPlayView
+            <com.rongtuoyouxuan.chatlive.qfcommon.player.GiftLargerAnimPlayView
                 android:id="@+id/giftPlayView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.rongtuoyouxuan.libgift.widget.GiftSidebarLinearLayout
+            <com.rongtuoyouxuan.chatlive.crtgift.widget.GiftSidebarLinearLayout
                 android:id="@+id/giftSide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

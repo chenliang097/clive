@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.rongtuoyouxuan.libgift.view.layout.GiftShowView
+        <com.rongtuoyouxuan.chatlive.crtgift.view.layout.GiftShowView
             android:id="@+id/giftShowView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.rongtuoyouxuan.libgift.view.layout.GiftShowView
+        <com.rongtuoyouxuan.chatlive.crtgift.view.layout.GiftShowView
             android:id="@+id/giftShowView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
