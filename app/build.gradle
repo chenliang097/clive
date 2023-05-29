@@ -178,24 +178,15 @@ android {
         versionCode currentVersionCode
         versionName currentVersionName
         flavorDimensions "versionCode"
+        manifestPlaceholders = [qqappid: "1107995764"]
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi-v7a', 'arm64-v8a'
-        }
-
-        manifestPlaceholders = [qqappid: "1107995764"]
-
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
-                abiFilters "armeabi-v7a", 'arm64-v8a'
-            }
         }
         packagingOptions {
             pickFirst 'lib/armeabi-v7a/libZegoExpressEngine.so'
             pickFirst 'lib/arm64-v8a/libZegoExpressEngine.so'
         }
-
 
         javaCompileOptions {
             annotationProcessorOptions {

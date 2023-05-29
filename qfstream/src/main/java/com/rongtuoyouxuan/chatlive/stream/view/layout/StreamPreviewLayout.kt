@@ -37,7 +37,7 @@ import com.rongtuoyouxuan.chatlive.qfcommon.dialog.ShareBottomDialog
 import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData
 import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.rongtuoyouxuan.chatlive.crturop.UCrop
+import com.yalantis.ucrop.UCrop
 import com.rongtuoyouxuan.chatlive.crtmatisse.Matisse
 import com.rongtuoyouxuan.chatlive.crtmatisse.MatisseUtil
 import com.rongtuoyouxuan.chatlive.crtmatisse.MatisseUtil.onPermissionListener

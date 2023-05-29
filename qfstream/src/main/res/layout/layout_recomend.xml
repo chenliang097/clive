@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.scwang.smart.refresh.footer.ClassicsFooter
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:srlAccentColor="@color/white" />

@@ -25,7 +25,7 @@ import com.rongtuoyouxuan.chatlive.crtutil.util.DirectoryUtils;
 import com.rongtuoyouxuan.chatlive.crtuikit.TransferLoadingUtil;
 import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil;
 import com.just.agentweb.AgentWeb;
-import com.rongtuoyouxuan.chatlive.crturop.UCrop;
+import com.yalantis.ucrop.UCrop;
 import com.rongtuoyouxuan.chatlive.crtmatisse.Matisse;
 import com.rongtuoyouxuan.chatlive.crtmatisse.MatisseUtil;
 

@@ -25,6 +25,8 @@ android {
 
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
+        vectorDrawables.useSupportLibrary = true
+        manifestPlaceholders = [qqappid: "1107995764"]
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -37,12 +39,21 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
-    }
 
-    sourceSets {
-        main {
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
 
-            res.srcDirs = ['src/main/res']
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                abiFilters "armeabi-v7a", 'arm64-v8a'
+            }
+        }
+        packagingOptions {
+            pickFirst 'lib/armeabi-v7a/libZegoExpressEngine.so'
+            pickFirst 'lib/arm64-v8a/libZegoExpressEngine.so'
         }
     }
 
@@ -82,7 +93,6 @@ android {
 
     sourceSets {
         main {
-
             res.srcDirs = ['src/main/res',
                            'src/main/crtres',
                            'src/main/crtgift',
@@ -93,63 +103,64 @@ android {
                            'src/main/crtutil',
                            'src/main/crtuikit',
             ]
+            jniLibs.srcDirs = ['src/main/jniLibs', 'libs']
         }
     }
 }
 dependencies {
     implementation fileTree(include: '*.jar', dir: '../libs')
-    implementation rootProject.ext.dependencies["constraint-layout"]
-    implementation rootProject.ext.dependencies["eventbus"]
-    implementation(rootProject.ext.dependencies["com.alibaba:arouter-api"]) {
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation('com.alibaba:arouter-api:1.5.0') {
         exclude module: 'support-v4'
     }
     implementation files('libs/ZegoEffects.jar')
-    annotationProcessor (rootProject.ext.dependencies["com.alibaba:arouter-compiler"]){
+    annotationProcessor ('com.alibaba:arouter-compiler:1.2.2'){
         exclude module: 'support-v4'
     }
 
-    kapt(rootProject.ext.dependencies["com.alibaba:arouter-compiler"]) {
+    kapt('com.alibaba:arouter-compiler:1.2.2') {
         exclude module: 'support-v4'
     }
-    implementation rootProject.ext.dependencies["support-v4"]
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["smartrefreshlayout"]
-    implementation(rootProject.ext.dependencies["barlibrary"]) {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    implementation('com.gyf.barlibrary:barlibrary:2.3.0') {
         exclude module: 'appcompat-v7'
     }
-    implementation rootProject.ext.dependencies["roundedimageview"]
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
-    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
-    implementation (rootProject.ext.dependencies["rxpermissions"]) {
+    implementation ('com.github.tbruyelle:rxpermissions:0.10.2') {
         exclude module: 'support-fragment'
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
     }
-    implementation rootProject.ext.dependencies["rxjava"]
-    implementation rootProject.ext.dependencies["rxjava2"]
-    implementation rootProject.ext.dependencies["rxandroid"]
-    implementation rootProject.ext.dependencies["glide"]
-    implementation rootProject.ext.dependencies["glide-transformations"]
-    implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["exoplayer"]
-    implementation rootProject.ext.dependencies["exoplayer-ui"]
-    implementation rootProject.ext.dependencies["anko"]
-    implementation rootProject.ext.dependencies["switchbutton"]
+    implementation 'io.reactivex:rxjava:1.1.6'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation "com.google.android.exoplayer:exoplayer-core:2.18.1"
+    implementation "com.google.android.exoplayer:exoplayer-ui:2.18.1"
+    implementation "org.jetbrains.anko:anko:0.10.7"
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
 
 //    gift
-    implementation rootProject.ext.dependencies["cardview"]
-    implementation rootProject.ext.dependencies["viewpager2"]
-    implementation rootProject.ext.dependencies["recyclerview"]
-    api rootProject.ext.dependencies["svgaplayer"]
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    api "com.github.svga:SVGAPlayer-Android:2.5.13"
     //daatbus
-    implementation rootProject.ext.dependencies["gson"]
+    implementation 'com.google.code.gson:gson:2.8.2'
 
 //    common
     implementation 'com.google.android.material:material:1.4.0'
 
 
-    api rootProject.ext.dependencies["workManager"]
+    api 'androidx.work:work-runtime-ktx:2.7.1'
 
     implementation 'com.tencent.tav:libpag:4.0.5.79'
 
@@ -157,55 +168,55 @@ dependencies {
     implementation(name: 'WbCloudFaceLiveSdk-v5.3.0-dcfa6f5f', ext: 'aar')
     //2. 云common SDK
     implementation(name: 'WbCloudNormal-v5.1.7-2c93d01', ext: 'aar')
-    implementation(rootProject.ext.dependencies["rxandroid2"]) {
+    implementation('io.reactivex.rxjava2:rxandroid:2.0.1') {
         exclude module: 'rxjava'
     }
     //友盟分享
     api files('libs/open_sdk_3.5.14.3_rc26220c_lite.jar') //QQ官方依赖库
-    api rootProject.ext.dependencies["umcommon"]
-    api rootProject.ext.dependencies["umams"]
-    api rootProject.ext.dependencies["umshare-core"]
-    api rootProject.ext.dependencies["umshare-board"]
-    api rootProject.ext.dependencies["umshare-wx"]
-    api rootProject.ext.dependencies["weixin"]
-    api rootProject.ext.dependencies["umshare-sina"]
-    api rootProject.ext.dependencies["sina-share"]
-    api rootProject.ext.dependencies["umshare-qq"]
+    api "com.umeng.umsdk:common:9.5.4"
+    api "com.umeng.umsdk:asms:1.6.3"
+    api "com.umeng.umsdk:share-core:7.3.2"
+    api "com.umeng.umsdk:share-board:7.3.2"
+    api "com.umeng.umsdk:share-wx:7.3.2"
+    api "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.7.0"
+    api "com.umeng.umsdk:share-sina:7.3.2"
+    api "io.github.sinaweibosdk:core:12.5.0@aar"
+    api "com.umeng.umsdk:share-qq:7.3.2"
 //    pay
     //支付宝支付
     api 'com.alipay.sdk:alipaysdk-android:+@aar'
-    api rootProject.ext.dependencies["zego"]
+    api 'com.github.zegolibrary:express-video:3.1.1'
     api files('libs/ZegoEffects.jar')
     implementation 'it.sephiroth.android.library.imagezoom:library:1.0.4'
-    implementation rootProject.ext.dependencies["android-gif-drawable"]
-    implementation rootProject.ext.dependencies["exifinterface"]
-    implementation rootProject.ext.dependencies["appcompat"]
-    api rootProject.ext.dependencies["agentweb-webview"]
-    api rootProject.ext.dependencies["oss"]
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    api 'com.github.Justson.AgentWeb:agentweb-core:v5.0.0-alpha.1-androidx'
+    api 'com.aliyun.dpa:oss-android-sdk:2.9.13'
 
-    implementation rootProject.ext.dependencies["gson-convert"]
-    implementation rootProject.ext.dependencies["okhttp-logging-interceptor"]
-    implementation rootProject.ext.dependencies["chuck"]
-    implementation (rootProject.ext.dependencies["retrofit"]){
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation 'com.github.chuckerteam.chucker:library:3.5.2'
+    implementation ('com.squareup.retrofit2:retrofit:2.9.0'){
         exclude module: 'okhttp'
     }
-    implementation rootProject.ext.dependencies["logger"]
-    implementation rootProject.ext.dependencies["room"]
-    annotationProcessor rootProject.ext.dependencies["room-compile"]
-    implementation rootProject.ext.dependencies["androidx-lifecycle-livedata"]
-    api rootProject.ext.dependencies["android-core-ktx"]
-    api rootProject.ext.dependencies["android-fragment-ktx"]
-    api rootProject.ext.dependencies["blankj-util"]
-    api rootProject.ext.dependencies["liveEventBus"]
-    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-    api rootProject.ext.dependencies["smartrefreshlayout-kernel"]
-    api rootProject.ext.dependencies["smartrefreshlayout-classics"]
-    api rootProject.ext.dependencies["smartrefreshlayout-material"]
+    implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'androidx.room:room-runtime:2.4.3'
+    annotationProcessor 'androidx.room:room-compiler:2.4.3'
+    implementation "androidx.lifecycle:lifecycle-livedata:2.3.1"
+    api 'androidx.core:core-ktx:1.6.0'
+    api 'androidx.fragment:fragment-ktx:1.3.5'
+    api 'com.blankj:utilcodex:1.31.0'
+    api 'io.github.jeremyliao:live-event-bus-x:1.8.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
+    api 'io.github.scwang90:refresh-layout-kernel:2.0.5'
+    api 'io.github.scwang90:refresh-layout-kernel:2.0.5'
+    api 'io.github.scwang90:refresh-header-material:2.0.5'
 
-    api rootProject.ext.dependencies["XPopup"]
+    api 'com.github.li-xiaojun:XPopup:2.6.0'
     api 'com.kingja.loadsir:loadsir:1.3.8'
-    api rootProject.ext.dependencies["glide-webpdecoder"]
-    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    api 'com.github.zjupure:webpdecoder:2.1.4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 }
 
