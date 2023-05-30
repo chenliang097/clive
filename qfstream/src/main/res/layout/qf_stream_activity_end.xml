@@ -10,8 +10,7 @@
         android:id="@+id/coverBg"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/rt_default_avatar"/>
+        android:scaleType="centerCrop"/>
 
     <ImageView
         android:layout_width="match_parent"

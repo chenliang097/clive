@@ -59,7 +59,7 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
     }
 
     private fun updateData(streamEndBean: StreamEndBean){
-        coverUrl?.let { updateCoverLayout(it, coverBg) };
+        GlideUtils.loadBlurImage(this, coverUrl, coverBg, 25, R.drawable.rt_icon_default)
 //        GlideUtils.loadImage(this, coverUrl, coverBg, R.drawable.rt_default_avatar)
         streamEndHotTxt.text = "" + streamEndBean.data?.max_fire
         streamEndFansIncreaseNumTxt.text = "" + streamEndBean.data?.scene_fans
@@ -110,28 +110,4 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
         BarUtils.setStatusBarLightMode(this, true)
     }
 
-    private fun updateCoverLayout(url: String, coverLayout: ImageView?) {
-        Glide.with(this).asBitmap().load(url).placeholder(R.drawable.rt_icon_default)
-            .error(R.drawable.rt_icon_default).apply(
-                RequestOptions().transform(
-                    BlurTransformation(25, 1)
-                )
-            ).into(object :
-                SimpleTarget<Bitmap>() {
-                override fun onLoadStarted(placeholder: Drawable?) {
-                    super.onLoadStarted(placeholder)
-                    coverLayout!!.setImageResource(R.drawable.rt_icon_default)
-                }
-
-                override fun onLoadFailed(errorDrawable: Drawable?) {
-                    super.onLoadFailed(errorDrawable)
-                    coverLayout!!.setImageResource(R.drawable.rt_icon_default)
-                }
-
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    coverLayout!!.setImageBitmap(resource)
-                }
-
-            })
-    }
 }

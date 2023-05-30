@@ -128,105 +128,96 @@
     <FrameLayout
         android:id="@+id/flContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="220dp"
+        android:layout_height="300dp"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
-    <TextView
-        android:id="@+id/tvCoin"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="end"
-        android:drawableStart="@drawable/icon_rt_coin"
-        android:drawablePadding="4dp"
-        android:includeFontPadding="false"
-        android:maxWidth="100dp"
-        android:maxLines="1"
-        android:text="0"
-        android:gravity="center_vertical"
-        android:textColor="@color/c_40_white"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flContainer"
-        tools:text="0000000000000" />
 
-    <TextView
-        android:id="@+id/tvRecharge"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/center_account_charge"
-        android:textColor="@color/rt_c_FF2434"
-        android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/tvCoin"
-        app:layout_constraintTop_toBottomOf="@+id/flContainer"/>
-
-    <ImageView
-        android:id="@+id/ivRechargeArrow"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:src="@drawable/rt_icon_red_arrow_right"
-        app:layout_constraintBottom_toBottomOf="@+id/tvRecharge"
-        app:layout_constraintStart_toEndOf="@+id/tvRecharge"
-        app:layout_constraintTop_toTopOf="@+id/tvRecharge" />
-
-    <View
-        android:id="@+id/viewNumBg"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:background="@drawable/gift_panel_num_bg"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCoin"
-        app:layout_constraintEnd_toStartOf="@+id/tvSendGift"
-        app:layout_constraintTop_toTopOf="@+id/tvCoin"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/tvSelectNum"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/flContainerInfo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:text="1"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewNumBg"
-        app:layout_constraintEnd_toStartOf="@+id/ivNumIcon"
-        app:layout_constraintTop_toTopOf="@+id/viewNumBg"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/flContainer">
+        <TextView
+            android:id="@+id/tvCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:layout_marginStart="10dp"
+            android:drawableStart="@drawable/icon_rt_coin"
+            android:layout_centerVertical="true"
+            android:drawablePadding="4dp"
+            android:includeFontPadding="false"
+            android:maxWidth="100dp"
+            android:maxLines="1"
+            android:text="0"
+            android:gravity="center_vertical"
+            android:textColor="@color/c_40_white"
+            android:textSize="13sp"
+            tools:text="0000000000000" />
+        <TextView
+            android:id="@+id/tvRecharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tvCoin"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/center_account_charge"
+            android:textColor="@color/rt_c_FF2434"
+            android:textSize="13sp"/>
 
-    <ImageView
-        android:id="@+id/ivNumIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/icon_gift_white_arrow"
-        app:layout_constraintBottom_toBottomOf="@+id/viewNumBg"
-        app:layout_constraintEnd_toStartOf="@+id/tvSendGift"
-        app:layout_constraintTop_toTopOf="@+id/viewNumBg"
-        android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/ivRechargeArrow"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/tvRecharge"
+            android:src="@drawable/rt_icon_red_arrow_right" />
 
-    <TextView
-        android:id="@+id/tvSendGift"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rt_common_btn"
-        android:gravity="center"
-        android:text="@string/gift_panel_send"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCoin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvCoin" />
+        <View
+            android:id="@+id/viewNumBg"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="@drawable/gift_panel_num_bg"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvSelectNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ivNumIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/icon_gift_white_arrow"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvSendGift"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/rt_common_btn"
+            android:gravity="center"
+            android:text="@string/gift_panel_send"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
 
     <android.widget.Space
         android:id="@+id/space1"
         android:layout_width="0dp"
         android:layout_height="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCoin" />
+        app:layout_constraintTop_toBottomOf="@+id/flContainerInfo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

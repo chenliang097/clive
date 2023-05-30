@@ -25,6 +25,7 @@ import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
 import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.qf_stream_activity_end.*
 import kotlinx.android.synthetic.main.rt_activity_personal_center.*
 
 
@@ -64,9 +65,8 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
     }
 
     fun updateInfo(bean: PersonalCenterInfoBean?){
-        bean?.data?.user_center?.avatar?.let { updateCoverLayout(it, bg) }
+        GlideUtils.loadBlurImage(this, bean?.data?.user_center?.avatar, bg, 25, R.drawable.rt_icon_default)
         GlideUtils.loadImage(this, bean?.data?.user_center?.avatar, centerAvatar, R.drawable.rt_default_avatar)
-
 //        GlideUtils.loadImage(this, bean?.data?.user_center?.avatar, bg, R.drawable.rt_default_avatar)
         centerNickNameTxt.text = bean?.data?.user_center?.user_name
         centerIDTxt.text = "ID:$userId"
