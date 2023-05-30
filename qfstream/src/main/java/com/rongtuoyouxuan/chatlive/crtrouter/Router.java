@@ -130,6 +130,13 @@ public class Router {
                 .navigation();
     }
 
+    public static void toGoldToBuyDialog(int fromSource, int price) {
+        ARouter.getInstance().build(RouterConstant.PATH_BUY_GOLD_DIALOG)
+                .withInt("fromSource", fromSource)
+                .withInt("price", price)
+                .navigation();
+    }
+
     //主播端直播结束
     public static void toStreamEndActivity(Context context, String roomId, String sceneId,String avatar, int type) {
         ARouter.getInstance().build(RouterConstant.PATH_ACTIVITY_STREAM_END)

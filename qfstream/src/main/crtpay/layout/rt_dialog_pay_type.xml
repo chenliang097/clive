@@ -44,8 +44,8 @@
             android:textSize="14sp"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
             <ImageView
                 android:id="@+id/payTypeAlipayImg"
                 android:layout_width="wrap_content"
@@ -83,7 +83,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <ImageView
                 android:id="@+id/payTypeWeChatImg"
@@ -125,7 +126,7 @@
             android:layout_marginBottom="12dp"
             android:background="@drawable/rt_common_btn"
             android:gravity="center"
-            android:text="@string/rt_recharge_dialog_btn"
+            android:text="@string/rt_recharge_dialog_confirm_btn"
             android:textColor="@color/white"
             android:textSize="18sp"/>
     </LinearLayout>

@@ -22,7 +22,6 @@ class BottomToolsView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr),
     com.rongtuoyouxuan.chatlive.stream.view.layout.BackPressListener {
-    private var messageImg: ImageView? = null
     private var mStreamViewModel: StreamViewModel? = null
     private var mControllerViewModel: com.rongtuoyouxuan.chatlive.stream.viewmodel.StreamControllerViewModel? = null
     private var mIMViewModel: IMLiveViewModel? = null
@@ -42,7 +41,6 @@ class BottomToolsView @JvmOverloads constructor(
     }
 
     private fun initView() {
-        messageImg = findViewById(R.id.liveBottomMessageImg)
 
     }
 
@@ -51,7 +49,7 @@ class BottomToolsView @JvmOverloads constructor(
     }
 
     private fun initListener() {
-        messageImg!!.setOnClickListener { v: View -> onMessageClick(v) }
+        bottomChatLayout!!.setOnClickListener { v: View -> onMessageClick(v) }
         streamCloseBtn?.setOnClickListener {
             mControllerViewModel?.mOutDialog?.call()
         }

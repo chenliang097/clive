@@ -1,21 +1,30 @@
 package com.rongtuoyouxuan.chatlive.base.view.activity
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.rongtuoyouxuan.chatlive.base.utils.RoomDegreeUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.PersonalCenterViewModel
 import com.rongtuoyouxuan.chatlive.crtbiz2.model.user.PersonalCenterInfoBean
 import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
+import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog
 import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.rt_activity_personal_center.*
 
 
@@ -55,12 +64,15 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
     }
 
     fun updateInfo(bean: PersonalCenterInfoBean?){
+        bean?.data?.user_center?.avatar?.let { updateCoverLayout(it, bg) }
         GlideUtils.loadImage(this, bean?.data?.user_center?.avatar, centerAvatar, R.drawable.rt_default_avatar)
 
-        GlideUtils.loadImage(this, bean?.data?.user_center?.avatar, bg, R.drawable.rt_default_avatar)
+//        GlideUtils.loadImage(this, bean?.data?.user_center?.avatar, bg, R.drawable.rt_default_avatar)
         centerNickNameTxt.text = bean?.data?.user_center?.user_name
         centerIDTxt.text = "ID:$userId"
-        centerInsTxt.text = bean?.data?.user_center?.describe
+        if(!TextUtils.isEmpty(bean?.data?.user_center?.describe)) {
+            centerInsTxt.text = bean?.data?.user_center?.describe
+        }
         when(bean?.data?.user_center?.sex){
             1->{
                 val drawable = resources.getDrawable(R.drawable.qf_stream_gender_male)
@@ -78,7 +90,7 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
         if(!TextUtils.isEmpty(bean?.data?.user_center?.location)){
             centerLocationTxt.text = bean?.data?.user_center?.location
         }else {
-            centerLocationTxt.text = resources.getString(R.string.stream_prepare_empty_location)
+            centerLocationTxt.text = resources.getString(R.string.stream_unknown_location1)
         }
 
         centerFansNumTxt.text = bean?.data?.fans_count?.let { RoomDegreeUtils.getDegree(it) }
@@ -111,6 +123,31 @@ class PersonalCenterActivity: SimpleActivity(),OnClickListener {
         //设置状态栏 默认为白色
         BarUtils.transparentStatusBar(this)
         BarUtils.setStatusBarLightMode(this, true)
+    }
+
+    private fun updateCoverLayout(url: String, coverLayout: ImageView?) {
+        Glide.with(this).asBitmap().load(url).placeholder(R.drawable.rt_icon_default)
+            .error(R.drawable.rt_icon_default).apply(
+                RequestOptions().transform(
+                    BlurTransformation(25, 1)
+                )
+            ).into(object :
+                SimpleTarget<Bitmap>() {
+                override fun onLoadStarted(placeholder: Drawable?) {
+                    super.onLoadStarted(placeholder)
+                    coverLayout!!.setImageResource(R.drawable.rt_icon_default)
+                }
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    super.onLoadFailed(errorDrawable)
+                    coverLayout!!.setImageResource(R.drawable.rt_icon_default)
+                }
+
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    coverLayout!!.setImageBitmap(resource)
+                }
+
+            })
     }
 
 }

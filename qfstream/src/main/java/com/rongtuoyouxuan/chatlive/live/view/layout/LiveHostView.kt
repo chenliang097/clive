@@ -57,7 +57,7 @@ class LiveHostView @JvmOverloads constructor(
             visibility = View.VISIBLE
             name?.text = it.nickname
             val coverImg = it.avatar
-            GlideUtils.loadImage(context, coverImg, roundedImageView, R.drawable.rt_default_avatar)
+            GlideUtils.loadImage(context, coverImg, roundedImageView, R.drawable.rt_icon_default)
             setCurrentDiamond(it.likeNum)
         }
         mIMViewModel!!.followStateLiveData.observe((context as LifecycleOwner), Observer { aBoolean ->

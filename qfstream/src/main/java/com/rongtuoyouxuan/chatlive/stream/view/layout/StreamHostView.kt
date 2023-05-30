@@ -36,7 +36,7 @@ class StreamHostView : BaseHostView {
                 name?.text = anchorInfo.nickname
             }
             val avatar = anchorInfo.avatar
-            GlideUtils.loadImage(context, avatar, iv_room_master_headimg, R.drawable.rt_default_avatar)
+            GlideUtils.loadImage(context, avatar, iv_room_master_headimg, R.drawable.rt_icon_default)
             setCurrentDiamond(anchorInfo.likeNum)
         }
 

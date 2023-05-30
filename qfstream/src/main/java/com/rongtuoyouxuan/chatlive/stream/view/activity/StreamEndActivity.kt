@@ -1,9 +1,16 @@
 package com.rongtuoyouxuan.chatlive.stream.view.activity
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.StreamEndBean
 import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
@@ -12,6 +19,8 @@ import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
 import com.rongtuoyouxuan.chatlive.crtimage.util.GlideUtils
 import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.crtutil.util.ChatTimeUtil
+import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.qf_stream_activity_end.*
 
 @Route(path = RouterConstant.PATH_ACTIVITY_STREAM_END)
@@ -50,7 +59,8 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
     }
 
     private fun updateData(streamEndBean: StreamEndBean){
-        GlideUtils.loadImage(this, coverUrl, coverBg, R.drawable.rt_default_avatar)
+        coverUrl?.let { updateCoverLayout(it, coverBg) };
+//        GlideUtils.loadImage(this, coverUrl, coverBg, R.drawable.rt_default_avatar)
         streamEndHotTxt.text = "" + streamEndBean.data?.max_fire
         streamEndFansIncreaseNumTxt.text = "" + streamEndBean.data?.scene_fans
         streamEndSeePerNumTxt.text = "" + streamEndBean.data?.max_user_count
@@ -87,7 +97,8 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
             finish()
         }
         streamEndAnchorCenterTxt?.setOnClickListener {
-            Router.toAnchorCenterActivity()
+            LaToastUtil.showShort("主播中心")
+//            Router.toAnchorCenterActivity()
         }
     }
 
@@ -97,5 +108,30 @@ class StreamEndActivity : SimpleActivity(), View.OnClickListener {
     override fun statusBarSetting() {
         BarUtils.transparentStatusBar(this)
         BarUtils.setStatusBarLightMode(this, true)
+    }
+
+    private fun updateCoverLayout(url: String, coverLayout: ImageView?) {
+        Glide.with(this).asBitmap().load(url).placeholder(R.drawable.rt_icon_default)
+            .error(R.drawable.rt_icon_default).apply(
+                RequestOptions().transform(
+                    BlurTransformation(25, 1)
+                )
+            ).into(object :
+                SimpleTarget<Bitmap>() {
+                override fun onLoadStarted(placeholder: Drawable?) {
+                    super.onLoadStarted(placeholder)
+                    coverLayout!!.setImageResource(R.drawable.rt_icon_default)
+                }
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    super.onLoadFailed(errorDrawable)
+                    coverLayout!!.setImageResource(R.drawable.rt_icon_default)
+                }
+
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    coverLayout!!.setImageBitmap(resource)
+                }
+
+            })
     }
 }

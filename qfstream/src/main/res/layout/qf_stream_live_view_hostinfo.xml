@@ -4,8 +4,9 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_room_master_headimg"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:scaleType="centerCrop"
         app:riv_oval="true"
@@ -63,7 +64,7 @@
             android:layout_height="28dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/btn_follow_live"
             android:gravity="center"
             android:text="@string/stream_follow"

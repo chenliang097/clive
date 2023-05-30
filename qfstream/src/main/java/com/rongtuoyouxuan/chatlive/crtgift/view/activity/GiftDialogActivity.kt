@@ -19,6 +19,7 @@ import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.crtgift.view.layout.GiftNumberSelectPop
 import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftHelper
 import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftVM
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
 import com.rongtuoyouxuan.chatlive.crtuikit.dp
@@ -220,7 +221,6 @@ class GiftDialogActivity : SimpleActivity() {
         }
 
         val count = GiftHelper.giftNum.value ?: 0
-
         GiftNewBiz.sendGift(giftEntity.giftId ?: 0,
             roomId, sceneId, userId,
             anchorId, count, userName,
@@ -243,7 +243,8 @@ class GiftDialogActivity : SimpleActivity() {
                         "40001" -> {
                             LaToastUtil.showShort(R.string.gift_panel_check_gift_amount_empty)
                             GiftHelper.isRechargeOpen = true
-                            GiftHelper.clickGiftRecharge.post(2)
+                            giftEntity.value?.let { Router.toGoldToBuyDialog(2, it) }
+
                             finish()
                         }
                         else -> {

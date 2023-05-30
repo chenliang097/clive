@@ -253,7 +253,7 @@ public class ZegoStreamView extends BaseStreamView {
 //        mZegoVideoConfig.setCaptureResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
 //        mZegoVideoConfig.setEncodeResolution(DEFAULT_VIDEO_WIDTH, DEFAULT_VIDEO_HEIGHT);
         mZegoEngine.setVideoConfig(mZegoVideoConfig);
-        mZegoEngine.setVideoMirrorMode(ZegoVideoMirrorMode.BOTH_MIRROR);
+        mZegoEngine.setVideoMirrorMode(ZegoVideoMirrorMode.NO_MIRROR);
         mZegoEngine.enableCamera(true);
 
         mZegoCustomVideoCaptureConfig = new ZegoCustomVideoProcessConfig();

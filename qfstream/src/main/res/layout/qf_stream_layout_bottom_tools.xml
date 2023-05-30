@@ -12,15 +12,25 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginStart="8dp">
-
-        <!--聊天-->
-        <ImageView
-            android:id="@+id/liveBottomMessageImg"
-            android:layout_width="35dp"
+        <RelativeLayout
+            android:id="@+id/bottomChatLayout"
+            android:layout_width="140dp"
             android:layout_height="35dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/qf_stream_bottom_message" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rt_stream_icon_bottom_input_bg">
+
+            <TextView
+                android:id="@+id/liveRoomBottomChatTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:text="@string/stream_bottom_input_hint"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout

@@ -73,8 +73,8 @@
                 android:id="@+id/userCardGenderTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-                android:textColor="@color/c_20_black"
+                android:layout_marginStart="2dp"
+                android:textColor="@color/color_999999"
                 android:textSize="10sp"/>
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:textColor="@color/c_20_black"
+                android:textColor="@color/color_999999"
                 android:textSize="10sp"/>
         </LinearLayout>
 
@@ -104,7 +104,7 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:textColor="@color/c_333333"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/userCardFansTxt"
@@ -177,7 +177,7 @@
         <View
             android:id="@+id/viewBottom1"
             android:layout_width="0dp"
-            android:layout_height="32.5dp"
+            android:layout_height="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userCardLayout3"

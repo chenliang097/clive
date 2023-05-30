@@ -8,7 +8,7 @@
         android:layout_width="46dp"
         android:layout_height="24dp"
         android:gravity="center"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bg_set_mask_words">
         <ImageView
             android:id="@+id/setMaskWordImg"

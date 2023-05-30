@@ -328,13 +328,13 @@ class StreamPreviewLayout @JvmOverloads constructor(
                 locationSwitch = true
                 handler.sendEmptyMessageDelayed(0, 500)
                 dialog.dismiss()
-            }, R.color.rt_c_3478F6)
+            }, context.resources.getColor(R.color.rt_c_3478F6))
         builder.setPositiveButtonTwo(StringUtils.getString(R.string.rt_stream_hide_loacation),
             { dialog, p1 ->
                 locationSwitch = false
                 streamPreviewLocationTxt?.text = StringUtils.getString(R.string.stream_unknown_location)
                 dialog.dismiss()
-            }, R.color.rt_c_3478F6)
+            }, context.resources.getColor(R.color.rt_c_3478F6))
         builder.setNegativeButton(R.string.cancel) { dialog, which -> dialog.dismiss() }
         builder.create().show()
     }

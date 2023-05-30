@@ -24,7 +24,7 @@
                 android:layout_marginStart="10dp"
                 android:text="@string/stream_bottom_input_hint"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </RelativeLayout>
         <LinearLayout

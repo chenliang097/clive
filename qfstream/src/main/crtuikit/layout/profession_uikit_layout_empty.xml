@@ -12,7 +12,7 @@
         android:id="@+id/empty_im"
         android:layout_width="320pt"
         android:layout_height="320pt"
-        android:src="@drawable/icon_empty_callback" />
+        android:src="@drawable/rt_icon_no_data" />
 
 
     <TextView

@@ -19,13 +19,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_white_back"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:textStyle="bold"
                 android:text="@string/stream_popularity_rank_title"
                 android:textColor="@color/c_333333"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <View

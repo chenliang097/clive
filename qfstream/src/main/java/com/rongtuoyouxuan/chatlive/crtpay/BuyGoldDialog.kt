@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
@@ -76,7 +77,18 @@ class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
         buyGoldViewModel = obtainStreamViewModel()
         buyGoldViewModel!!.initContext(this)
         buyGoldViewModel?.balanceLiveData?.observe(this){
-            banlanceTxt?.text = resources.getString(R.string.rt_recharge_dialog_balance, it)
+            when(fromSource){
+                1->banlanceTxt?.text = resources.getString(R.string.rt_recharge_dialog_balance, it)
+                2->{
+                    var price = intent.getIntExtra("price", 1)
+                    var difference = price - it
+                    banlanceTxt?.text = resources.getString(R.string.rt_recharge_dialog_balance1, it, difference)
+                }
+                else->{
+                    buyGoldTitle.text = resources.getString(R.string.pay_panel_recharge_title)
+                }
+            }
+
         }
         buyGoldViewModel?.getBalance()
     }
@@ -107,7 +119,8 @@ class BuyGoldDialog : LanguageActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         if (view.id == R.id.buyGoldBtn) { //购买
             var buyGoldBean = payDatas[curPosition];
-            com.rongtuoyouxuan.chatlive.crtrouter.Router.toPayTypeDialogg(buyGoldBean.coin, buyGoldBean.rmp)
+            Router.toPayTypeDialogg(buyGoldBean.coin, buyGoldBean.rmp)
+            finish()
         }
     }
 

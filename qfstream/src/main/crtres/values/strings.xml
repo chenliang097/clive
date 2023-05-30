@@ -503,8 +503,10 @@
     <string name="rt_gift_pannel_title">礼物间</string>
     <string name="rt_recharge_dialog_title">当前托币不足</string>
     <string name="rt_recharge_dialog_rmb">%1$d元</string>
+    <string name="rt_recharge_dialog_balance1">余额：%1$d托币（还差%2$d托币）</string>
     <string name="rt_recharge_dialog_balance">余额：%1$d托币</string>
     <string name="rt_recharge_dialog_btn">立即充值</string>
+    <string name="rt_recharge_dialog_confirm_btn">确认支付</string>
     <string name="rt_pay_type_coin">%1$d托币</string>
     <string name="rt_pay_type_wechat">微信支付</string>
     <string name="rt_pay_type_alipay">支付宝支付</string>
@@ -532,8 +534,8 @@
     <string name="anchor_center_m">近30日</string>
     <string name="rt_stream_visible_range_tip">请先选择</string>
     <string name="stream_unknown_location1">来自火星</string>
-    <string name="stream_user_card_fans">%1$d粉丝</string>
-    <string name="stream_user_card_follow">%1$d关注</string>
+    <string name="stream_user_card_fans">%1$d 粉丝</string>
+    <string name="stream_user_card_follow">%1$d 关注</string>
     <string name="stream_user_card_enter_window">进入橱窗</string>
     <string name="stream_user_card_male">男</string>
     <string name="stream_user_card_female">女</string>

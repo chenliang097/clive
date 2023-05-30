@@ -8,7 +8,7 @@
     <com.rongtuoyouxuan.chatlive.base.view.layout.FadingRecyclerView
         android:id="@+id/room_message_list"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_196"
+        android:layout_height="247dp"
         android:background="@color/transparent"
         android:overScrollMode="never"
         android:scrollbars="none" />

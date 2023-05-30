@@ -40,13 +40,16 @@ class GiftDialogItemFragment : SimpleFragment() {
         }
 
         giftRecyclerView.layoutManager = GridLayoutManager(context, 4)
-        giftRecyclerView.addItemDecoration(GiftPanelDecoration(3.dp.toInt(), 3.dp.toInt()))
+        giftRecyclerView.addItemDecoration(GiftPanelDecoration(3.dp.toInt(), 6.dp.toInt()))
 
         giftVm = ViewModelProvider(requireActivity()).get(GiftVM::class.java)
         val list = giftVm?.giftSucVM?.value?.list
         if (list?.isNotEmpty() == true) {
             giftRecyclerView.adapter = panelAdapter
             panelAdapter.setNewInstance(list)
+            val entity = list[0]
+            GiftHelper.giftSelected.value = entity
+            panelAdapter.change(0)
             panelAdapter.setOnItemClickListener { adapter, view, position ->
                 val entity = adapter.data[position] as GiftEntity
                 GiftHelper.giftSelected.value = entity
