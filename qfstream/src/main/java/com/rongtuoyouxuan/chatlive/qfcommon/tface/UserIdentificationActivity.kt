@@ -200,6 +200,7 @@ class UserIdentificationActivity : SimpleActivity() {
                                         "; similarity=" + result.similarity + "riskInfo=" + result.riskInfo.toString())
                             if (!isShowSuccess) {
                                 Toast.makeText(this@UserIdentificationActivity, "刷脸成功", Toast.LENGTH_SHORT).show()
+                                finish()
                             }
                             // todo  刷脸成功可以去后台查询刷脸结果
                         } else {

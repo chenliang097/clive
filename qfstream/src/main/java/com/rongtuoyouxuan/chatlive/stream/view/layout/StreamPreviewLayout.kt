@@ -148,6 +148,9 @@ class StreamPreviewLayout @JvmOverloads constructor(
 
         mStreamViewModel.startPushStreamInfoLiveData.observe(lifecycleOwner){
             startStreamInfoBean = it
+            if(!it.data.is_access){
+                Router.toUserIdentificationActivity()
+            }
             if(TextUtils.isEmpty(it.data.last_cover_image)){
                 setPhoto(it.data.anchor_avatar)
             }else{

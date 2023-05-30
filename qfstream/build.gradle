@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+//apply plugin: 'maven'
 
 configurations {
     all {
@@ -219,4 +220,16 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 }
+
+//uploadArchives{
+//    repositories.mavenDeployer{
+//        def deployPath = file(getProperty(aar.qfstream))
+//        repository(url:"file://${deployPath.absolutePath}")
+//        pom.project {
+//            groupId "com.rt"
+//            artifactId "qfstream"
+//            version "1.0"
+//        }
+//    }
+//}
 
