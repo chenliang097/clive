@@ -43,14 +43,14 @@ class FollowListFragment: BaseRefreshListFragment<FollowListViewModel, FollowLis
         viewModel.addFollowLiveData.observe(activity as FragmentActivity){
             if(adapter != null){
                 it?.data?.position?.let { it1 -> adapter.data.set(it1, it?.data?.followBean) }
-                adapter.setList(adapter.data)
+                it?.data?.position?.let { it1 -> adapter.notifyItemChanged(it1) }
             }
         }
 
         viewModel.cancelFollowLiveData.observe(activity as FragmentActivity){
             if(adapter != null){
                 it?.data?.position?.let { it1 -> adapter.data.set(it1, it?.data?.followBean) }
-                adapter.setList(adapter.data)
+                it?.data?.position?.let { it1 -> adapter.notifyItemChanged(it1) }
             }
         }
     }

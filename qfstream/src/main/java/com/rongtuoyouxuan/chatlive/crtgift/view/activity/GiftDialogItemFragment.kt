@@ -3,14 +3,15 @@ package com.rongtuoyouxuan.chatlive.crtgift.view.activity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.rongtuoyouxuan.chatlive.crtbiz2.model.gift.GiftEntity
 import com.rongtuoyouxuan.chatlive.crtgift.adapter.GiftPanelItemAdapter
 import com.rongtuoyouxuan.chatlive.crtgift.view.layout.GiftPanelDecoration
 import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftHelper
 import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftVM
-import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtuikit.SimpleFragment
 import com.rongtuoyouxuan.chatlive.crtuikit.dp
+import com.rongtuoyouxuan.chatlive.stream.R
 import kotlinx.android.synthetic.main.fragment_gift_vp_fragment.*
 
 class GiftDialogItemFragment : SimpleFragment() {
@@ -41,7 +42,7 @@ class GiftDialogItemFragment : SimpleFragment() {
 
         giftRecyclerView.layoutManager = GridLayoutManager(context, 4)
         giftRecyclerView.addItemDecoration(GiftPanelDecoration(3.dp.toInt(), 6.dp.toInt()))
-
+        closeDefaultAnimator()
         giftVm = ViewModelProvider(requireActivity()).get(GiftVM::class.java)
         val list = giftVm?.giftSucVM?.value?.list
         if (list?.isNotEmpty() == true) {
@@ -59,6 +60,15 @@ class GiftDialogItemFragment : SimpleFragment() {
         } else {
             completeEmptyDataBy23()
         }
+    }
+
+    /* * 关闭默认局部刷新动画 ，this代表recycleview*/
+    fun closeDefaultAnimator() {
+        giftRecyclerView.itemAnimator?.setAddDuration(0)
+        giftRecyclerView.itemAnimator?.setChangeDuration(0)
+        giftRecyclerView.itemAnimator?.setMoveDuration(0)
+        giftRecyclerView.itemAnimator?.setRemoveDuration(0)
+        (giftRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
     override fun initListener() {

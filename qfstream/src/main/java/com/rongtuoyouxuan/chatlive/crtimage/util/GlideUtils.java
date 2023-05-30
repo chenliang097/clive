@@ -62,6 +62,13 @@ public class GlideUtils {
         Glide.with(context).load(path).apply(options).into(imageView);
     }
 
+    public static <T> void loadImageNoAnimate(Context context, T path, ImageView imageView, @DrawableRes int placeholderId) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(placeholderId) //占位图
+                .error(placeholderId);    //错误图
+        Glide.with(context).load(path).dontAnimate().placeholder(imageView.getDrawable()).error(placeholderId).into(imageView);
+    }
+
     public static <T> void loadImage(Context context, T path, ImageView imageView) {
         loadImage(context, path, imageView, placeholderImage);
     }

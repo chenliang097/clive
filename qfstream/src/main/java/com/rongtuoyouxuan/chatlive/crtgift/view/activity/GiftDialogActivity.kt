@@ -24,6 +24,8 @@ import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtuikit.SimpleActivity
 import com.rongtuoyouxuan.chatlive.crtuikit.dp
 import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus
 import kotlinx.android.synthetic.main.activity_gift_dialog.*
 import kotlinx.android.synthetic.main.activity_gift_dialog.viewBg
 import kotlinx.android.synthetic.main.item_gift_panel_page_item.*
@@ -267,6 +269,7 @@ class GiftDialogActivity : SimpleActivity() {
 //    }
 
     override fun finish() {
+        MLiveEventBus.get<Int>(LiveEventData.LIVE_SHOW_GIFT_DIALOG).post(2)
         super.finish()
         overridePendingTransition(R.anim.common_bottom_dialog_in, R.anim.common_bottom_dialog_out)
     }

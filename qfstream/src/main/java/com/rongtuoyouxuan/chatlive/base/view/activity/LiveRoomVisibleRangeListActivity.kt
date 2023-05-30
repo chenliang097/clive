@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SPUtils
+import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils
 import com.rongtuoyouxuan.chatlive.base.view.adapter.LiveRoomVisibleRangeAdapter
 import com.rongtuoyouxuan.chatlive.base.view.adapter.LiveRoomVisibleRangeAdapter.OnSelectContactsListener
 import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveRoomVisibleRangeListViewModel
@@ -17,6 +19,7 @@ import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtutil.sp.SPConstants
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -117,7 +120,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
     }
 
     private fun initObserver() {
-        mViewModel = com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils.get(this, LiveRoomVisibleRangeListViewModel::class.java)
+        mViewModel = ViewModelUtils.get(this, LiveRoomVisibleRangeListViewModel::class.java)
         roomId?.let {
             sceneId?.let { it1 ->
                 mViewModel?.getStartLiveFansList(
@@ -148,6 +151,7 @@ class LiveRoomVisibleRangeListActivity : LanguageActivity(), View.OnClickListene
 
         mViewModel?.setUserAllowRangLiveData?.observe(this){
             if(it.errCode == 0){
+                SPUtils.getInstance().put(SPConstants.BooleanConstants.IS_SETTING_VISIBLE, true)
                 LaToastUtil.showShort(resources.getString(R.string.login_btn_ok))
                 finish()
             }else{

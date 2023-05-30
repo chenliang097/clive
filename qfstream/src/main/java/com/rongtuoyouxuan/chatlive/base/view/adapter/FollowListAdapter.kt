@@ -31,7 +31,7 @@ class FollowListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>
             if(item.id.toString() != DataBus.instance().USER_ID) {
                 btn1.visibility = View.VISIBLE
                 if (item.status) {
-                    if (item.isClick) {
+                    if (item.isFollow) {
                         btn1.setBackgroundResource(R.drawable.rt_common_btn)
                         btn1.text = context.resources.getString(R.string.stream_center_add_follow)
                         item.isFollow = false
@@ -41,7 +41,7 @@ class FollowListAdapter: BaseQuickAdapter<FansListBean.ItemBean, BaseViewHolder>
                         item.isFollow = true
                     }
                 } else {
-                    if (item.isClick) {
+                    if (item.isFollow) {
                         btn1.setBackgroundResource(R.drawable.rt_common_btn)
                         btn1.text =
                             context.resources.getString(R.string.stream_follow)

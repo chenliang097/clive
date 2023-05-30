@@ -11,6 +11,7 @@ class RoomManagerMuteListBean: com.rongtuoyouxuan.chatlive.crtcommonbiz.model.li
     }
 
     class DataBean{
+        var total = 0
         var forbid_speak_list:MutableList<ItemBean> = ArrayList()
     }
 

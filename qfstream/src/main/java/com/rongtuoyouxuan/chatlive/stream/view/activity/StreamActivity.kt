@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.StringUtils
 import com.lxj.xpopup.XPopup
 import com.makeramen.roundedimageview.RoundedImageView
@@ -52,6 +53,7 @@ import com.rongtuoyouxuan.chatlive.qfcommon.util.UserCardHelper
 import com.rongtuoyouxuan.chatlive.rtstream.qfzego.ZegoStreamView
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.rongtuoyouxuan.chatlive.crtmatisse.dialog.DiySystemDialog
+import com.rongtuoyouxuan.chatlive.crtutil.sp.SPConstants
 import kotlinx.android.synthetic.main.qf_stream_activity_stream.*
 import java.util.*
 
@@ -524,6 +526,7 @@ class StreamActivity : BaseLiveStreamActivity() {
      */
     private fun destroy() {
         if (isDestroy) return
+        SPUtils.getInstance().put(SPConstants.BooleanConstants.IS_SETTING_VISIBLE, false)
         retryJoinGroupCount
         hideSoftInputFromWindow()
         handler.removeCallbacksAndMessages(null)

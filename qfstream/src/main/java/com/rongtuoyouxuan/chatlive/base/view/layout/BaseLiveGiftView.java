@@ -5,19 +5,28 @@ import android.content.ContextWrapper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.rongtuoyouxuan.chatlive.base.utils.LiveStreamInfo;
 import com.rongtuoyouxuan.chatlive.base.utils.ViewModelUtils;
 import com.rongtuoyouxuan.chatlive.base.view.activity.BaseLiveStreamActivity;
 import com.rongtuoyouxuan.chatlive.base.viewmodel.IMLiveViewModel;
 import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.textmsg.RTGiftMsg;
 import com.rongtuoyouxuan.chatlive.crtgift.interfaces.IGiftShowManager;
+import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftVM;
 import com.rongtuoyouxuan.chatlive.crtlog.upload.ULog;
+import com.rongtuoyouxuan.chatlive.crtutil.util.UIUtils;
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData;
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus;
 import com.rongtuoyouxuan.chatlive.stream.R;
 import com.rongtuoyouxuan.chatlive.crtgift.GiftShowManagerV2;
 import com.rongtuoyouxuan.chatlive.crtgift.view.layout.GiftShowView;
@@ -132,25 +141,17 @@ public class BaseLiveGiftView extends LinearLayout {
         //显示礼物管理
 //        mGiftShowManager = new GiftShowManager(llShowGift);
         mGiftShowManagerV2 = new GiftShowManagerV2(llShowGift, giftShowViews);
-//        mGiftListViewModel.giftDlgPosChanged.observeOnce((LifecycleOwner) getContext(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                PLog.e("giftpos", integer + "");
-//                View view = ((Activity) getContext()).findViewById(R.id.livegiftview);
-//                if (originGiftMarginTop == 0) {
-//                    MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
-//                    originGiftMarginTop = layoutParams.topMargin;
-//                }
-//                if (integer > 0) {
-//                    int height = view.getHeight();
-//                    int marginTop = integer - height;
-//                    setLayoutParams(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, marginTop);
-//                } else {
-//                    int marginTop = originGiftMarginTop;
-//                    setLayoutParams(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, marginTop);
-//                }
-//            }
-//        });
+        MLiveEventBus.get(LiveEventData.LIVE_SHOW_GIFT_DIALOG).observe((LifecycleOwner) getContext(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                ULog.e("giftpos", integer + "");
+                if (integer == 1) {
+                    setLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, UIUtils.dip2px(context, 390));
+                } else {
+                    setLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, UIUtils.dip2px(context, 310));
+                }
+            }
+        });
     }
 
     private void initView(Context context) {
@@ -171,21 +172,13 @@ public class BaseLiveGiftView extends LinearLayout {
 
     }
 
-    private void setLayoutParams(View view, int width, int height, int topMargin) {
-        MarginLayoutParams layoutParams = (MarginLayoutParams) view.getLayoutParams();
-        layoutParams.topMargin = topMargin;
+    private void setLayoutParams(int width, int height, int bottomMargin) {
+        FrameLayout frameLayout = findViewById(R.id.baseShowGiftView);
+        MarginLayoutParams layoutParams = (MarginLayoutParams) frameLayout.getLayoutParams();
+        layoutParams.bottomMargin = bottomMargin;
         layoutParams.width = width;
         layoutParams.height = height;
-        view.setLayoutParams(layoutParams);
-    }
-
-    private int getStatusBarHeight() {
-        int statusBarHeight = 0;
-        int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            statusBarHeight = getContext().getResources().getDimensionPixelSize(resourceId);
-        }
-        return statusBarHeight;
+        frameLayout.setLayoutParams(layoutParams);
     }
 
     public void setHostId(String roomId) {

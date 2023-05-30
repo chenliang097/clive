@@ -21,5 +21,6 @@ object SPConstants {
     object BooleanConstants{
         const val IS_DEBUG = "is_debug"
         const val LAST_LOGIN= "last_login"
+        const val IS_SETTING_VISIBLE = "is_setting_visible"
     }
 }

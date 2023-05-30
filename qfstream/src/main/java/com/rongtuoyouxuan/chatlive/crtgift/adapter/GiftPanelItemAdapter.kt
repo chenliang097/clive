@@ -20,7 +20,7 @@ class GiftPanelItemAdapter :
 
     override fun convert(holder: BaseViewHolder, item: GiftEntity) {
         holder.getView<View>(R.id.viewBg).isSelected = item.isSelected == true
-        GlideUtils.loadImage(
+        GlideUtils.loadImageNoAnimate(
             context,
             item.giftUrl1X,
             holder.getView(R.id.ivImage),

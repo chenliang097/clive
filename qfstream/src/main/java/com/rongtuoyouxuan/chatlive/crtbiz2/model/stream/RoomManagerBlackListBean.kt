@@ -11,6 +11,7 @@ class RoomManagerBlackListBean: com.rongtuoyouxuan.chatlive.crtcommonbiz.model.l
     }
 
     class DataBean{
+        var total = 0
         var black_list:MutableList<ItemBean> = ArrayList()
     }
 

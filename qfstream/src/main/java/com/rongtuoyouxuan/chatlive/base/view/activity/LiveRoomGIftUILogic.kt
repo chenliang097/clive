@@ -6,23 +6,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.lxj.xpopup.XPopup
 import com.rongtuoyouxuan.chatlive.base.utils.StarManager
 import com.rongtuoyouxuan.chatlive.base.view.dialog.LiveAnimConfigDialog
+import com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
 import com.rongtuoyouxuan.chatlive.base.view.widget.LiveBottomStarView
 import com.rongtuoyouxuan.chatlive.crtbiz2.model.im.msg.cmdMsg.LiveJoinRoomMsg
 import com.rongtuoyouxuan.chatlive.crtbiz2.model.stream.LikeLiveReq
 import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.LiveDataBus
 import com.rongtuoyouxuan.chatlive.crtdatabus.liveeventbus.constansts.LiveDataBusConstants
-import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.crtgift.utils.GiftLargerAnimManager
 import com.rongtuoyouxuan.chatlive.crtgift.utils.GiftSideManager
 import com.rongtuoyouxuan.chatlive.crtgift.viewmodel.GiftHelper
 import com.rongtuoyouxuan.chatlive.crtgift.widget.GiftSidebarLinearLayout
-import com.lxj.xpopup.XPopup
-import com.rongtuoyouxuan.chatlive.base.view.layout.bradcastlayout.BroadcastGiftLayout
-import com.rongtuoyouxuan.chatlive.qfcommon.player.GiftLargerAnimPlayView
+import com.rongtuoyouxuan.chatlive.crtrouter.Router
 import com.rongtuoyouxuan.chatlive.libsocket.base.IMSocketBase
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.LiveEventData
+import com.rongtuoyouxuan.chatlive.qfcommon.eventbus.MLiveEventBus
+import com.rongtuoyouxuan.chatlive.qfcommon.player.GiftLargerAnimPlayView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -66,6 +68,7 @@ class LiveRoomGIftUILogic(
 
         giftImg?.let {
             it.setOnClickListener {
+                MLiveEventBus.get<Int>(LiveEventData.LIVE_SHOW_GIFT_DIALOG).post(1)
                 Router.toGiftPanelActivity(
                     activity, roomId, scendId, anchorId, DataBus.instance().USER_ID, DataBus.instance().USER_NAME, DataBus.instance().AVATAR)
             }

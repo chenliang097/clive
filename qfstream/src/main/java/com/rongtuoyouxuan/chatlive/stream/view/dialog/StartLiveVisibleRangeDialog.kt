@@ -7,6 +7,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SPUtils
 import com.rongtuoyouxuan.chatlive.base.viewmodel.LiveRoomVisibleRangeListViewModel
 import com.rongtuoyouxuan.chatlive.crtdatabus.DataBus
 import com.rongtuoyouxuan.chatlive.crtrouter.Router
@@ -14,6 +15,7 @@ import com.rongtuoyouxuan.chatlive.crtrouter.constants.RouterConstant
 import com.rongtuoyouxuan.chatlive.stream.R
 import com.rongtuoyouxuan.chatlive.crtutil.util.LaToastUtil
 import com.rongtuoyouxuan.chatlive.crtuikit.LanguageActivity
+import com.rongtuoyouxuan.chatlive.crtutil.sp.SPConstants
 import kotlinx.android.synthetic.main.rt_dialog_start_live_visible_range.*
 
 @Route(path = RouterConstant.PATH_START_LIVE_VISIBLE_RANGE)
@@ -55,6 +57,11 @@ class StartLiveVisibleRangeDialog : LanguageActivity(), View.OnClickListener {
     }
 
     fun initObserver(){
+        if(SPUtils.getInstance().getBoolean(SPConstants.BooleanConstants.IS_SETTING_VISIBLE)){
+            startLiveVisiblePublicImg.visibility = View.INVISIBLE
+        }else{
+            startLiveVisiblePublicImg.visibility = View.VISIBLE
+        }
         liveRoomVisibleRangeListViewModel = ViewModelProvider(this).get(LiveRoomVisibleRangeListViewModel::class.java)
         liveRoomVisibleRangeListViewModel?.setUserAllowRangLiveData?.observe(this){
             if(it.errCode == 0){
@@ -75,9 +82,11 @@ class StartLiveVisibleRangeDialog : LanguageActivity(), View.OnClickListener {
             }
             R.id.startLiveVisibleSeeLayout->{
                 Router.toLiveRoomVisibleRangeListActivity("1", sceneId, roomId)
+                finish()
             }
             R.id.startLiveVisibleSeeNoLayout->{
                 Router.toLiveRoomVisibleRangeListActivity("2", sceneId, roomId)
+                finish()
             }
         }
 
