@@ -150,8 +150,8 @@ class LiveBottomStarView : RelativeLayout {
 //        objectAnimator.start()
 
 
-        val scaleXAnim = ObjectAnimator.ofFloat(view, View.SCALE_X, 1f, 2f)
-        val scaleYAnim = ObjectAnimator.ofFloat(view, View.SCALE_Y, 1f, 2f)
+        val scaleXAnim = ObjectAnimator.ofFloat(view, View.SCALE_X, 1f, 1f)
+        val scaleYAnim = ObjectAnimator.ofFloat(view, View.SCALE_Y, 1f, 1f)
         val alphaAnim = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0.5f)
 
         val animatorSet = AnimatorSet()
