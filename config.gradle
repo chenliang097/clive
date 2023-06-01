@@ -16,7 +16,7 @@ ext {
     ]
 
     dependencies = [
-            'android-core-ktx'                    : 'androidx.core:core-ktx:1.7.0',
+            'android-core-ktx'                    : 'androidx.core:core-ktx:1.6.0',
             'android-fragment-ktx'                : 'androidx.fragment:fragment-ktx:1.3.5',
             'androidx-lifecycle-livedata'         : "androidx.lifecycle:lifecycle-livedata:${androidx_lifecycle}",
             'appcompat-v7'                        : 'androidx.appcompat:appcompat:1.2.0',
